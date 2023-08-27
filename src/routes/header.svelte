@@ -56,8 +56,13 @@
 				</li>
 				<li>
 					<button
-						class="text-text-dark hover:text-white2 hover:bg-text-dark ease-in duration-200 border-2 border-text-dark px-5 py-2 rounded-lg capitalize"
-						>Contact</button
+						class="text-text-dark hover:text-white hover:bg-text-dark ease-in duration-200 border-2 border-text-dark px-5 py-2 rounded-lg capitalize flex justify-between items-center space-x-2"
+						><img
+							src="./mail.svg"
+							alt="envelope"
+							class="bg-blue-100 border-x-4 border-y-2 rounded"
+						/>
+						<p>Contact</p></button
 					>
 				</li>
 			</ul>

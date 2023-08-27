@@ -6,7 +6,7 @@
 
 .bgoverlay {
 	@apply bg-[url:theme("backgroundImage.svgbg"),_theme("backgroundImage.gradient-to-br")];
-	@apply from-gradientbg-dark from-0% via-gradientbg via-50% to-gradientbg-dark to-100%;
+	@apply from-gradientbg-dark from-0% via-gradientbg-light via-50% to-gradientbg-dark to-100%;
 }
 
 .cardoutline {

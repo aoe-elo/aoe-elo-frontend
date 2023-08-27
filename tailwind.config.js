@@ -40,8 +40,8 @@ export default {
 				},
 				gradientcard: {
 					left1: '#ffffff',
-					right1: '#F0F5F9',
-					left2: '#BAD1E3',
+					right1: '#F2F6FA',
+					left2: '#CBDDEA',
 					right2: '#A8C5DC'
 				},
 				lose: '#F26262',
