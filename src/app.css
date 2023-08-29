@@ -4,9 +4,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+	body {
+		@apply font-body;
+	}
+}
+
 .bgoverlay {
 	@apply bg-[url:theme("backgroundImage.svgbg"),_theme("backgroundImage.gradient-to-br")];
 	@apply from-gradientbg-dark from-0% via-gradientbg-light via-50% to-gradientbg-dark to-100%;
+}
+
+.cardbg {
+	@apply bg-gradient-to-br from-gradientcard-left1 to-gradientcard-right1/80 to-75%;
+	@apply rounded-md;
+	@apply shadow-card;
+}
+
+.button {
+	@apply px-6;
+	@apply py-2;
+	@apply text-text-dark;
+	@apply font-semibold;
+	@apply bg-gradient-to-br from-gradientcard-left2/5 to-gradientcard-right2;
+	@apply rounded-md;
+	@apply shadow-card;
 }
 
 .cardoutline {

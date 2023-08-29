@@ -8,7 +8,7 @@
 	}
 </script>
 
-<header class="font-body text-text-dark font-bold tracking-wider">
+<header class=" text-text-dark font-bold tracking-wider">
 	<nav class="container flex justify-between items-center p-4">
 		<a href="/" class="flex justify-between items-center font-title text-3xl">
 			<img src="./logo1.svg" class="pt-2 mr-4" alt="logo" srcset="" />
@@ -19,9 +19,8 @@
 		<div>
 			<ul class="hidden lg:flex items-center space-x-6">
 				<li>
-					<a
-						href="/tournaments"
-						class="hover:text-text hover:text-text cardoutline active:text-blue-500">Tournaments</a
+					<a href="/tournaments" class="hover:text-text cardoutline active:text-blue-500"
+						>Tournaments</a
 					>
 				</li>
 				<li><a href="/players" class="hover:text-text cardoutline">Players</a></li>

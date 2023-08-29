@@ -20,7 +20,8 @@ export default {
 				layout: 'auto 1fr auto'
 			},
 			gridTemplateColumns: {
-				layout: 'repeat(auto-fill, minmax(250px, 1fr))'
+				layout: 'repeat(auto-fill, minmax(250px, 1fr))',
+				layout2: '1fr 2fr'
 			},
 			colors: {
 				white: '#ffffff',
@@ -40,12 +41,14 @@ export default {
 				},
 				gradientcard: {
 					left1: '#ffffff',
-					right1: '#F2F6FA',
-					left2: '#CBDDEA',
+					right1: '#F0F5F9',
+					left2: '#BAD1E3',
 					right2: '#A8C5DC'
 				},
-				lose: '#F26262',
-				win: '#86E56E'
+				lose: '#EE2B2B',
+				lose2: '#EF4343',
+				win: '#09AA23',
+				win2: '#5CDD3C'
 			},
 			backgroundImage: {
 				svgbg: "url('./svgbg.svg')"

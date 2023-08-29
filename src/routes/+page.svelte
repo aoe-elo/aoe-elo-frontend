@@ -12,7 +12,7 @@
 		<div
 			class="mx-auto max-w-lg md:absolute md:right-56 p-6 mt-4 md:-mt-6 mx-l rounded-md bg-gradient-to-br from-gradientcard-left1 from-40% to-gradientcard-right1 to-100% shadow-card overflow-hidden"
 		>
-			<h1 class="text-brand1 text-center font-body font-medium">
+			<h1 class="text-brand1 text-center font-medium">
 				AOE 2 competitive player ELO when it matters most
 			</h1>
 		</div>
