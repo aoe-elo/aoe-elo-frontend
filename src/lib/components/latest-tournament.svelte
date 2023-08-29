@@ -1,3 +1,6 @@
+<script lang="ts">
+</script>
+
 <div class="mt-20 mb-8">
 	<h2 class="text-brand1 font-title font-bold text-4xl sm:text-6xl tracking-tighter">
 		Latest Tournam<span class="text-brand2">ent</span>
@@ -6,13 +9,16 @@
 <div class="p-6 cardbg">
 	<div class="grid grid-cols-1 sm:grid-cols-layout2 mb-4 text-center place-items-center gap-4">
 		<img src="./tcilogo.png" alt="brand" class="mx-auto" />
-		<h3 class="text-text-dark font font-semibold tracking-tight text-2xl sm:text-5xl">
+		<h3 class="text-text3 font font-semibold tracking-tight text-2xl sm:text-5xl">
 			The Champions Invitational
 		</h3>
 	</div>
 
 	<div class="grid grid-cols-layout lg:grid-cols-3 gap-2 md:gap-7">
-		<div class="text-text grid grid-cols-1 place-items-center gap-4">
+		<div class="text-text2 grid grid-cols-1 content-start justify-self-center gap-4">
+			<div class="text-text2 my-2 md:my-0">
+				<p class="text-text3 font-semibold text-center mb-2">Details</p>
+			</div>
 			<div class="grid grid-cols-2 justify-normal my-6 md:my-0 gap-2 sm:gap-6">
 				<div class="flex justify-start col-span-2 space-x-4">
 					<img src="./calendar.svg" alt="" />
@@ -36,8 +42,8 @@
 			</div>
 		</div>
 
-		<div class="text-text my-6 md:my-0">
-			<p class="text-text-dark font-semibold text-center mb-2">Last 5 matches</p>
+		<div class="text-text2 my-6 md:my-0">
+			<p class="text-text3 font-semibold text-center mb-2">Last 5 matches</p>
 			<div class="grid grid-cols-3 place-items-center gap-1 sm:gap-2">
 				<p class="font-medium">Vinchester</p>
 				<div
@@ -85,7 +91,7 @@
 
 		<div class="my-6 md:my-0 px-8">
 			<div class="flex justify-start items-center space-x-4 mb-2">
-				<p class="text-text-dark font-semibold">Biggest Movers</p>
+				<p class="text-text3 font-semibold">Biggest Movers</p>
 				<img src="./arrows.svg" alt="arrows" />
 			</div>
 			<div class="cardbg p-4">

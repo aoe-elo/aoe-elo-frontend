@@ -5,6 +5,144 @@
 @tailwind utilities;
 
 @layer base {
+	:root {
+		color-scheme: dark;
+		--white: var(--white);
+		--black: var(--black);
+		--blue1: var(--blue1-dark);
+		--blue2: var(--blue2-dark);
+		--green1: var(--green1-dark);
+		--green2: var(--green2-dark);
+		--red1: var(--red1-dark);
+		--red2: var(--red2-dark);
+		--brand1: var(--brand1-dark);
+		--brand2: var(--brand2-dark);
+		--text-1: var(--text-1-dark);
+		--text-2: var(--text-2-dark);
+		--text-3: var(--text-3-dark);
+		--background: var(--background-dark);
+		--background2: var(--background2-dark);
+		--gradcard-left1: var(--gradcard-left1-dark);
+		--gradcard-right1: var(--gradcard-right1-dark);
+		--gradcard-left2: var(--gradcard-left2-dark);
+		--gradcard-right2: var(--gradcard-right2-dark);
+	}
+
+	@media (prefers-color-scheme: light) {
+		:root {
+			color-scheme: light;
+
+			--white: var(--white);
+			--black: var(--black);
+			--blue1: var(--blue1-light);
+			--blue2: var(--blue2-light);
+			--green1: var(--green1-light);
+			--green2: var(--green2-light);
+			--red1: var(--red1-light);
+			--red2: var(--red2-light);
+			--brand1: var(--brand1-light);
+			--brand2: var(--brand2-light);
+			--text-1: var(--text-1-light);
+			--text-2: var(--text-2-light);
+			--text-3: var(--text-3-light);
+			--background: var(--background-light);
+			--background2: var(--background2-light);
+			--gradcard-left1: var(--gradcard-left1-light);
+			--gradcard-right1: var(--gradcard-right1-light);
+			--gradcard-left2: var(--gradcard-left2-light);
+			--gradcard-right2: var(--gradcard-right2-light);
+		}
+	}
+
+	[color-scheme='dark'] {
+		color-scheme: dark;
+
+		--white: var(--white);
+		--black: var(--black);
+		--blue1: var(--blue1-dark);
+		--blue2: var(--blue2-dark);
+		--green1: var(--green1-dark);
+		--green2: var(--green2-dark);
+		--red1: var(--red1-dark);
+		--red2: var(--red2-dark);
+		--brand1: var(--brand1-dark);
+		--brand2: var(--brand2-dark);
+		--text-1: var(--text-1-dark);
+		--text-2: var(--text-2-dark);
+		--text-3: var(--text-3-dark);
+		--background: var(--background-dark);
+		--background2: var(--background2-dark);
+		--gradcard-left1: var(--gradcard-left1-dark);
+		--gradcard-right1: var(--gradcard-right1-dark);
+		--gradcard-left2: var(--gradcard-left2-dark);
+		--gradcard-right2: var(--gradcard-right2-dark);
+	}
+
+	[color-scheme='light'] {
+		color-scheme: light;
+
+		--white: var(--white);
+		--black: var(--black);
+		--blue1: var(--blue1-light);
+		--blue2: var(--blue2-light);
+		--green1: var(--green1-light);
+		--green2: var(--green2-light);
+		--red1: var(--red1-light);
+		--red2: var(--red2-light);
+		--brand1: var(--brand1-light);
+		--brand2: var(--brand2-light);
+		--text-1: var(--text-1-light);
+		--text-2: var(--text-2-light);
+		--text-3: var(--text-3-light);
+		--background: var(--background-light);
+		--background2: var(--background2-light);
+		--gradcard-left1: var(--gradcard-left1-light);
+		--gradcard-right1: var(--gradcard-right1-light);
+		--gradcard-left2: var(--gradcard-left2-light);
+		--gradcard-right2: var(--gradcard-right2-light);
+	}
+
+	html {
+		--white: #ffffff;
+		--black: #090c10;
+		--blue1-light: theme(colors.blue.500);
+		--blue1-dark: theme(colors.blue.500);
+		--blue2-light: theme(colors.blue.100);
+		--blue2-dark: theme(colors.blue.100);
+		--green1-light: #09aa23;
+		--green1-dark: #09aa23;
+		--green2-light: #5cdd3c;
+		--green2-dark: #5cdd3c;
+		--red1-light: #ee2b2b;
+		--red1-dark: #ee2b2b;
+		--red2-light: #ef4343;
+		--red2-dark: #ef4343;
+		--brand1-light: #1c2331;
+		--brand1-dark: #98a5b2;
+		--brand2-light: #3f729b;
+		--brand2-dark: #3f729b;
+		--text-1-light: #f2f4f8;
+		--text-1-dark: #f2f4f8;
+		--text-2-light: #3f729b;
+		--text-2-dark: #ffffff;
+		--text-3-light: #344d7f;
+		--text-3-dark: #d9d9d9;
+		--background-light: #dfe3ec;
+		--background-dark: #07090d;
+		--background2-light: #f2f4f8;
+		--background2-dark: #202632;
+		--gradcard-left1-light: #ffffff;
+		--gradcard-left1-dark: #1F2D38/9;
+		--gradcard-right1-light: #f0f5f9;
+		--gradcard-right1-dark: #404d57;
+		--gradcard-left2-light: #bad1e3;
+		--gradcard-left2-dark: #4F6473/5;
+		--gradcard-right2-light: #a8c5dc;
+		--gradcard-right2-dark: #545f68;
+		--banner-light: url('/logolight.svg');
+		--banner-dark: url('/logodark.svg');
+	}
+
 	body {
 		@apply font-body;
 	}
@@ -12,11 +150,11 @@
 
 .bgoverlay {
 	@apply bg-[url:theme("backgroundImage.svgbg"),_theme("backgroundImage.gradient-to-br")];
-	@apply from-gradientbg-dark from-0% via-gradientbg-light via-50% to-gradientbg-dark to-100%;
+	@apply from-bggrad-dark from-0% via-bggrad-light via-50% to-bggrad-dark to-100%;
 }
 
 .cardbg {
-	@apply bg-gradient-to-br from-gradientcard-left1 to-gradientcard-right1/80 to-75%;
+	@apply bg-gradient-to-br from-grad-left1 to-grad-right1 to-75%;
 	@apply rounded-md;
 	@apply shadow-card;
 }
@@ -24,9 +162,9 @@
 .button {
 	@apply px-6;
 	@apply py-2;
-	@apply text-text-dark;
+	@apply text-text3;
 	@apply font-semibold;
-	@apply bg-gradient-to-br from-gradientcard-left2/5 to-gradientcard-right2;
+	@apply bg-gradient-to-br from-grad-left2 to-grad-right2;
 	@apply rounded-md;
 	@apply shadow-card;
 }

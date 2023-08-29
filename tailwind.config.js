@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
+	darkMode: 'class',
 	theme: {
 		fontFamily: {
 			body: ['Poppins, sans-serif'],
@@ -24,31 +25,30 @@ export default {
 				layout2: '1fr 2fr'
 			},
 			colors: {
-				white: '#ffffff',
-				white2: '#DFE3EC',
-				black: '#090C10',
-				brand1: '#1C2331',
-				brand2: '#3F729B',
-				text: {
-					light: '#F2F4F8',
-					DEFAULT: '#3F729B',
-					dark: '#344D7F'
+				white: 'var(--white)',
+				black: 'var(--black)',
+				blue1: 'var(--blue1)',
+				blue2: 'var(--blue2)',
+				brand1: 'var(--brand1)',
+				brand2: 'var(--brand2)',
+				text1: 'var(--text-1)',
+				text2: 'var(--text-2)',
+				text3: 'var(--text-3)',
+				bggrad: {
+					light: 'var(--white)',
+					DEFAULT: 'var(--background)',
+					dark: 'var(--background2)'
 				},
-				gradientbg: {
-					light: '#ffffff',
-					DEFAULT: '#F2F4F8',
-					dark: '#DFE3EC'
+				grad: {
+					left1: 'var(--gradcard-left1)',
+					right1: 'var(--gradcard-right1)',
+					left2: 'var(--gradcard-left2)',
+					right2: 'var(--gradcard-right2)'
 				},
-				gradientcard: {
-					left1: '#ffffff',
-					right1: '#F0F5F9',
-					left2: '#BAD1E3',
-					right2: '#A8C5DC'
-				},
-				lose: '#EE2B2B',
-				lose2: '#EF4343',
-				win: '#09AA23',
-				win2: '#5CDD3C'
+				lose: 'var(--green-1)',
+				lose2: 'var(--green-2)',
+				win: 'var(--red1)',
+				win2: 'var(--red2)'
 			},
 			backgroundImage: {
 				svgbg: "url('./svgbg.svg')"
