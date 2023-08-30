@@ -1,5 +1,8 @@
 <script lang="ts">
+	import Toggle from './toggle.svelte';
+	import { theme } from '$lib/theme.ts';
 	let burger = 'list.svg';
+
 	let isMenuOpen = false;
 
 	function toggleMenu() {
@@ -11,7 +14,12 @@
 <header class=" text-text3 font-bold tracking-wider">
 	<nav class="container flex justify-between items-center p-4">
 		<a href="/" class="flex justify-between items-center font-title text-3xl">
-			<img src="./logo1.svg" class="pt-2 mr-4" alt="logo" srcset="" />
+			<img
+				src={$theme === 'dark' ? './logodark.svg' : './logolight.svg'}
+				class="pt-2 mr-4"
+				alt="logo"
+				srcset=""
+			/>
 			<div class="text-brand1 hover:text-brand2">
 				Tournament<span class="text-brand2">Elo</span>
 			</div>
@@ -40,9 +48,7 @@
 					>
 				</li>
 				<li>
-					<a href="/"
-						><img src="./home.svg" class="hover:scale-125 ease-in-out duration-150" alt="home" /></a
-					>
+					<Toggle />
 				</li>
 				<li>
 					<a href="/discord"

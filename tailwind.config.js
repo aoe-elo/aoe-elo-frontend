@@ -51,7 +51,8 @@ export default {
 				win2: 'var(--red2)'
 			},
 			backgroundImage: {
-				svgbg: "url('./svgbg.svg')"
+				bgaccentdark: "url('./bgdark.svg')",
+				bgaccentlight: "url('./bglight.svg')"
 			},
 			boxShadow: {
 				card: 'inset 0 0px 4px rgba(63, 114, 156, 0.6)'

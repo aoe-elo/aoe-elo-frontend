@@ -31,7 +31,6 @@
 	@media (prefers-color-scheme: light) {
 		:root {
 			color-scheme: light;
-
 			--white: var(--white);
 			--black: var(--black);
 			--blue1: var(--blue1-light);
@@ -56,7 +55,6 @@
 
 	[color-scheme='dark'] {
 		color-scheme: dark;
-
 		--white: var(--white);
 		--black: var(--black);
 		--blue1: var(--blue1-dark);
@@ -76,11 +74,11 @@
 		--gradcard-right1: var(--gradcard-right1-dark);
 		--gradcard-left2: var(--gradcard-left2-dark);
 		--gradcard-right2: var(--gradcard-right2-dark);
+		--banner: var(--banner-dark);
 	}
 
 	[color-scheme='light'] {
 		color-scheme: light;
-
 		--white: var(--white);
 		--black: var(--black);
 		--blue1: var(--blue1-light);
@@ -100,6 +98,7 @@
 		--gradcard-right1: var(--gradcard-right1-light);
 		--gradcard-left2: var(--gradcard-left2-light);
 		--gradcard-right2: var(--gradcard-right2-light);
+		--banner: var(--banner-light);
 	}
 
 	html {
@@ -131,16 +130,14 @@
 		--background-dark: #07090d;
 		--background2-light: #f2f4f8;
 		--background2-dark: #202632;
-		--gradcard-left1-light: #ffffff;
-		--gradcard-left1-dark: #1F2D38/9;
-		--gradcard-right1-light: #f0f5f9;
-		--gradcard-right1-dark: #404d57;
+		--gradcard-left1-light: rgba(240, 245, 249, 0.8);
+		--gradcard-left1-dark: rgba(31, 45, 56, 0.4);
+		--gradcard-right1-light: #ffffff;
+		--gradcard-right1-dark: rgba(43, 52, 59, 1);
 		--gradcard-left2-light: #bad1e3;
-		--gradcard-left2-dark: #4F6473/5;
+		--gradcard-left2-dark: rgba(45, 67, 83, 0.9);
 		--gradcard-right2-light: #a8c5dc;
 		--gradcard-right2-dark: #545f68;
-		--banner-light: url('/logolight.svg');
-		--banner-dark: url('/logodark.svg');
 	}
 
 	body {
@@ -148,13 +145,17 @@
 	}
 }
 
-.bgoverlay {
-	@apply bg-[url:theme("backgroundImage.svgbg"),_theme("backgroundImage.gradient-to-br")];
-	@apply from-bggrad-dark from-0% via-bggrad-light via-50% to-bggrad-dark to-100%;
+.bgoverlay-dark {
+	@apply bg-[url:theme("backgroundImage.bgaccentdark"),_theme("backgroundImage.gradient-to-br")];
+	@apply from-bggrad from-0% via-bggrad-dark via-50% to-bggrad to-100%;
+}
+.bgoverlay-light {
+	@apply bg-[url:theme("backgroundImage.bgaccentlight"),_theme("backgroundImage.gradient-to-br")];
+	@apply from-bggrad from-0% via-bggrad-dark via-50% to-bggrad to-100%;
 }
 
 .cardbg {
-	@apply bg-gradient-to-br from-grad-left1 to-grad-right1 to-75%;
+	@apply bg-gradient-to-br from-grad-left1 from-20% via-grad-right1 via-60% to-grad-left1 to-85%;
 	@apply rounded-md;
 	@apply shadow-card;
 }
@@ -164,7 +165,7 @@
 	@apply py-2;
 	@apply text-text3;
 	@apply font-semibold;
-	@apply bg-gradient-to-br from-grad-left2 to-grad-right2;
+	@apply bg-gradient-to-br from-grad-left2 from-5% via-grad-right2 via-65% to-grad-left2;
 	@apply rounded-md;
 	@apply shadow-card;
 }
