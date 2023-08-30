@@ -7,7 +7,7 @@
 @layer base {
 	:root {
 		color-scheme: dark;
-		--white: var(--white);
+		--white: var(--white-main);
 		--black: var(--black);
 		--blue1: var(--blue1-dark);
 		--blue2: var(--blue2-dark);
@@ -31,7 +31,7 @@
 	@media (prefers-color-scheme: light) {
 		:root {
 			color-scheme: light;
-			--white: var(--white);
+			--white: var(--white-main);
 			--black: var(--black);
 			--blue1: var(--blue1-light);
 			--blue2: var(--blue2-light);
@@ -55,7 +55,7 @@
 
 	[color-scheme='dark'] {
 		color-scheme: dark;
-		--white: var(--white);
+		--white: var(--white-main);
 		--black: var(--black);
 		--blue1: var(--blue1-dark);
 		--blue2: var(--blue2-dark);
@@ -79,7 +79,7 @@
 
 	[color-scheme='light'] {
 		color-scheme: light;
-		--white: var(--white);
+		--white: var(--white)-main;
 		--black: var(--black);
 		--blue1: var(--blue1-light);
 		--blue2: var(--blue2-light);
@@ -102,7 +102,7 @@
 	}
 
 	html {
-		--white: #ffffff;
+		--white-main: #ffffff;
 		--black: #090c10;
 		--blue1-light: theme(colors.blue.500);
 		--blue1-dark: theme(colors.blue.500);
