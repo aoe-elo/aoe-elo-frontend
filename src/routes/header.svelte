@@ -1,6 +1,9 @@
 <script lang="ts">
-	import Toggle from './toggle.svelte';
+	import Toggle from '$lib/components/toggle.svelte';
+	import Search from '$lib/components/search.svelte';
+	import Discord from '$lib/components/discord.svelte';
 	import { theme } from '$lib/theme.ts';
+
 	let burger = 'list.svg';
 
 	let isMenuOpen = false;
@@ -39,25 +42,13 @@
 		<div>
 			<ul class="hidden lg:flex items-center space-x-4">
 				<li>
-					<a href="/search"
-						><img
-							src="./search.svg"
-							class="hover:scale-125 ease-in-out duration-150"
-							alt="search"
-						/></a
-					>
+					<Search />
 				</li>
 				<li>
 					<Toggle />
 				</li>
 				<li>
-					<a href="/discord"
-						><img
-							src="./discord.svg"
-							class="hover:scale-125 ease-in-out duration-150"
-							alt="discord"
-						/></a
-					>
+					<Discord />
 				</li>
 				<li>
 					<button

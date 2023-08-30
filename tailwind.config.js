@@ -25,6 +25,7 @@ export default {
 				layout2: '1fr 2fr'
 			},
 			colors: {
+				current: 'currentColor',
 				white: 'var(--white)',
 				black: 'var(--black)',
 				blue1: 'var(--blue1)',
@@ -45,10 +46,10 @@ export default {
 					left2: 'var(--gradcard-left2)',
 					right2: 'var(--gradcard-right2)'
 				},
-				lose: 'var(--green-1)',
-				lose2: 'var(--green-2)',
-				win: 'var(--red1)',
-				win2: 'var(--red2)'
+				win1: 'var(--green1)',
+				win2: 'var(--green2)',
+				lose1: 'var(--red1)',
+				lose2: 'var(--red2)'
 			},
 			backgroundImage: {
 				bgaccentdark: "url('./bgdark.svg')",

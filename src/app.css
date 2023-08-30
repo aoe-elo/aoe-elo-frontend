@@ -111,11 +111,11 @@
 		--green1-light: #09aa23;
 		--green1-dark: #09aa23;
 		--green2-light: #5cdd3c;
-		--green2-dark: #5cdd3c;
+		--green2-dark: #09aa23;
 		--red1-light: #ee2b2b;
 		--red1-dark: #ee2b2b;
 		--red2-light: #ef4343;
-		--red2-dark: #ef4343;
+		--red2-dark: #ee2b2b;
 		--brand1-light: #1c2331;
 		--brand1-dark: #98a5b2;
 		--brand2-light: #3f729b;
@@ -165,6 +165,19 @@
 	@apply py-2;
 	@apply text-text3;
 	@apply font-semibold;
+	@apply tracking-wide;
+	@apply bg-gradient-to-br from-grad-left2 from-5% via-grad-right2 via-65% to-grad-left2;
+	@apply rounded-md;
+	@apply shadow-card;
+}
+
+.buttonbig {
+	@apply px-8;
+	@apply py-4;
+	@apply text-text3;
+	@apply font-semibold;
+	@apply text-2xl;
+	@apply tracking-wider;
 	@apply bg-gradient-to-br from-grad-left2 from-5% via-grad-right2 via-65% to-grad-left2;
 	@apply rounded-md;
 	@apply shadow-card;
