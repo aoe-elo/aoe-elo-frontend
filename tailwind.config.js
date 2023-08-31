@@ -44,7 +44,9 @@ export default {
 					left1: 'var(--gradcard-left1)',
 					right1: 'var(--gradcard-right1)',
 					left2: 'var(--gradcard-left2)',
-					right2: 'var(--gradcard-right2)'
+					right2: 'var(--gradcard-right2)',
+					left3: 'var(--gradcard-left3)',
+					right3: 'var(--gradcard-right3)'
 				},
 				win1: 'var(--green1)',
 				win2: 'var(--green2)',

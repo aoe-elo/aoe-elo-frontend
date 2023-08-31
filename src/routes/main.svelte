@@ -1,9 +1,17 @@
+<script lang="ts">
+	import LatestTournament from '$lib/components/latest-tournament.svelte';
+	import TopPlayers from '$lib/components/top-players.svelte';
+</script>
+
 <div
 	class="max-w-xl mx-auto p-6 mt-24 rounded-md bg-gradient-to-br from-grad-left1 from-40% to-grad-right1 to-100% shadow-card overflow-hidden md:max-w-4xl"
 >
 	<h2 class="text-text3 text-2xl font-semibold">Search Database</h2>
 	<div class="" />
 </div>
+
+<TopPlayers />
+<LatestTournament />
 
 <div class="p-9 mx-auto mt-10 bg-brand1 rounded-md">
 	<h2 class="font-title text-3xl text-brand2 font-bold">Hello world!</h2>

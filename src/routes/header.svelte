@@ -37,9 +37,7 @@
 				<li><a href="/info" class="hover:text-text2 cardoutline">Info</a></li>
 			</ul>
 		</div>
-		<div
-			class="hidden md:flex items-center space-x-4 border-text3 py-2 rounded-lg cardoutline cursor-pointer"
-		>
+		<div class="hidden md:flex items-center space-x-4 border-text3 py-2 cursor-pointer">
 			<SecondaryNav />
 		</div>
 
