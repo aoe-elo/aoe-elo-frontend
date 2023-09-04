@@ -1,14 +1,8 @@
 <script lang="ts">
 	import LatestTournament from '$lib/components/latest-tournament.svelte';
-	import tournaments from '$lib/data/tournaments.json';
+	import TournamentGrid from '$lib/TournamentGrid.svelte';
 
-	async function getDates(tdate) {
-		if (tdate !== null) {
-			let now = tdate.split('T')[0];
-			now = now.split('-').reverse().join('-');
-		}
-		// console.log(tdate);
-	}
+	export let data;
 </script>
 
 <div class="container">
@@ -18,8 +12,10 @@
 			All Tourname<span class="text-brand2">nts</span>
 		</h2>
 	</div>
+	<!-- <TournamentGrid alltourneys={data.detail} preloadBehavior={'hover'} /> -->
+	<TournamentGrid tourneys={data.releases} preloadBehavior={'hover'} />
 
-	<div class="my-10 grid grid-cols-layout gap-7">
+	<!-- <div class="my-10 grid grid-cols-layout gap-7">
 		{#each tournaments as { id, name, start, end, prizemoney }, index (id)}
 			{#if id >= 0 && id <= 15}
 				<div class="p-6 cardbg">
@@ -38,5 +34,5 @@
 				</div>
 			{/if}
 		{/each}
-	</div>
+	</div> -->
 </div>

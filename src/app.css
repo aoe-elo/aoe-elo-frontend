@@ -139,17 +139,17 @@
 		--background2-light: #f2f4f8;
 		--background2-dark: #202632;
 		--gradcard-left1-light: rgba(240, 245, 249, 0.8);
-		--gradcard-left1-dark: rgba(31, 45, 56, 0.4);
+		--gradcard-left1-dark: rgba(31, 45, 56, 0.8);
 		--gradcard-right1-light: #ffffff;
 		--gradcard-right1-dark: rgba(43, 52, 59, 1);
 		--gradcard-left2-light: #bad1e3;
-		--gradcard-left2-dark: rgba(45, 67, 83, 0.9);
+		--gradcard-left2-dark: rgba(31, 39, 46, 0.9);
 		--gradcard-right2-light: #a8c5dc;
-		--gradcard-right2-dark: #545f68;
+		--gradcard-right2-dark: rgba(62, 70, 76, 0.25);
 		--gradcard-left3-light: rgba(234, 245, 255, 0.9);
-		--gradcard-left3-dark: rgba(45, 67, 83, 0.9);
+		--gradcard-left3-dark: rgba(31, 45, 56, 0.8);
 		--gradcard-right3-light: #ffffff;
-		--gradcard-right3-dark: #545f68;
+		--gradcard-right3-dark: rgba(43, 52, 59, 1);
 	}
 
 	body {
@@ -172,7 +172,7 @@
 	@apply shadow-card;
 }
 .cardbg2 {
-	@apply bg-gradient-to-br from-grad-left2 from-5% via-grad-right2 via-65% to-grad-left2 to-85%;
+	@apply bg-gradient-to-br from-grad-right2 from-45% to-grad-left2 to-100%;
 	@apply rounded-md;
 	@apply shadow-card;
 }
