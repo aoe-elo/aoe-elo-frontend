@@ -1,33 +1,39 @@
 import { error } from '@sveltejs/kit';
 import { HIGHLIGHTED_TOURNEYS } from './data';
+import { masterlist } from '$lib/data/tournaments.json';
+import type { Tournament, TournamentDetail } from './types';
 
-async function getTourneyData() {
-	const res = await fetch('./tournaments.json');
-	const tourney = await res.json();
-	console.log(tourney);
-	return tourney;
-}
-
-// const getTournament = async (id: string) => {
-// 	const response: alltourneys = await getTourneyData();
-// 	return;
-// };
-
-export default {
-	// hardcode this list, since there's not a good api endpoint to use
-	getHighlightedTourneys: () => {
-		return HIGHLIGHTED_TOURNEYS;
-	}
-	// getTournament
+const getTournament = async () => {
+	const response: Tournament = await getAllTournaments();
+	const adapted = adaptTournament(response);
+	return adapted;
 };
 
-// async function formatCurrency(prizemoney) {
-// 	return new Intl.NumberFormat('en-US', {
-// 		style: 'currency',
-// 		currency: 'USD',
-// 		currencyDisplay: 'code'
-// 	})
-// 		.format(prizemoney)
-// 		.replace('USD', '')
-// 		.trim();
-// }
+function adaptTournament(release: Tournament): TournamentDetail {
+	return {
+		id: release.id,
+		name: release.name,
+		url: `/tournaments/${release.id}`,
+		short: release.short,
+		start: release.start,
+		end: release.end,
+		prizemoney: release.prizemoney
+	};
+}
+
+export default {
+	// hardcode list since no images in json file
+	getHighlightedTourneys: () => {
+		return HIGHLIGHTED_TOURNEYS;
+	},
+	getMasterList: () => {
+		return masterlist;
+	}
+};
+
+async function getAllTournaments() {
+	const res = await fetch('./tournaments.json');
+	const allTournaments = await res.json();
+	console.log(allTournaments);
+	return allTournaments;
+}

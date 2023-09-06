@@ -36,7 +36,7 @@
 				Prize pool: <span class="font-semibold">${tourney.prizemoney}</span>
 			</p>
 
-			<a href={tourney.url || undefined} class="w-full mt-4 button">Visit Page</a>
+			<a href={tourney.url} class="w-full mt-4 button">Visit Page</a>
 		</div>
 	{/each}
 </div>

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import LatestTournament from '$lib/components/latest-tournament.svelte';
-	let tourney = getTourneyData();
+	let tourney = getAllTournaments();
 
-	async function getTourneyData() {
+	async function getAllTournaments() {
 		const res = await fetch('./tournaments.json');
 		const tourney = await res.json();
 		console.log(tourney);

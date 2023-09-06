@@ -12,8 +12,7 @@
 			All Tourname<span class="text-brand2">nts</span>
 		</h2>
 	</div>
-	<!-- <TournamentGrid alltourneys={data.detail} preloadBehavior={'hover'} /> -->
-	<TournamentGrid tourneys={data.releases} preloadBehavior={'hover'} />
+	<TournamentGrid tourneys={data.releases} />
 
 	<!-- <div class="my-10 grid grid-cols-layout gap-7">
 		{#each tournaments as { id, name, start, end, prizemoney }, index (id)}
