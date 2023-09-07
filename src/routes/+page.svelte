@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Main from './main.svelte';
+	import Latest_Tournament from '$lib/components/Last_Tournament.svelte';
+	import Top_Players from '$lib/components/Top_5_Players.svelte';
 </script>
 
 <div class="container">
@@ -17,5 +18,16 @@
 			</h1>
 		</div>
 	</div>
-	<Main />
+
+	<div
+		class="max-w-xl mx-auto p-6 mt-24 rounded-md bg-gradient-to-br from-grad-left1 from-40% to-grad-right1 to-100% shadow-card overflow-hidden md:max-w-4xl"
+	>
+		<h2 class="text-text3 text-2xl font-semibold">Search Database</h2>
+		<div class="" />
+	</div>
+
+	<div class="my-10">
+		<Top_Players />
+		<Latest_Tournament />
+	</div>
 </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Tourney } from './types';
+	import type { Tourney } from '../types';
 	export let tourneys: Tourney[];
 
 	async function getTourneyStart(start) {

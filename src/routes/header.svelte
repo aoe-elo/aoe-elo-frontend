@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SecondaryNav from '$lib/components/secondarynav.svelte';
+	import SecondaryNav from '$lib/components/Secondary_Nav.svelte';
 	import { theme } from '$lib/theme.ts';
 
 	let isMenuOpen = false;
@@ -34,7 +34,7 @@
 				</li>
 				<li><a href="/players" class="hover:text-text2 cardoutline">Players</a></li>
 				<li><a href="/teams" class="hover:text-text2 cardoutline">Teams</a></li>
-				<li><a href="/info" class="hover:text-text2 cardoutline">Info</a></li>
+				<li><a href="/about" class="hover:text-text2 cardoutline">About</a></li>
 			</ul>
 		</div>
 		<div class="hidden md:flex items-center space-x-4 border-text3 py-2 cursor-pointer">
@@ -74,7 +74,7 @@
 					<a href="/players" class="hover:text-text2 ease-in duration-150">Players</a>
 				</li>
 				<li><a href="/teams" class="hover:text-text2 ease-in duration-150">Teams</a></li>
-				<li><a href="/info" class="hover:text-text2 ease-in duration-150">Info</a></li>
+				<li><a href="/about" class="hover:text-text2 ease-in duration-150">About</a></li>
 				<SecondaryNav />
 			</ul>
 		</div>
