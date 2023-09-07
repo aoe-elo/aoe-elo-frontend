@@ -1,4 +1,4 @@
-<p align="center"><a href="https://aoe-elo.com/" target="_blank"><img src="https://github.com/aoe-elo/aoe-elo_laravel/blob/main/public/assets/logo-light-300.png?raw=true" width="150" alt="Aoe-Elo Logo"></a></p>
+<p align="center"><a href="https://aoe-elo.com/" target="_blank"><img src="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/assets/logo-light-300.png" width="150" alt="Aoe-Elo Logo"></a></p>
 
 # AoE Tournament Elo (Frontend)
 
@@ -7,7 +7,8 @@
 
 ## Outlook (Drafting stage)
 
-<p align="center"><a href="https://media.githubusercontent.com/media/aoe-elo/aoe-elo_laravel/main/docs/design/high_fidelity/home-first_pass.png" target="_blank"><img src="https://media.githubusercontent.com/media/aoe-elo/aoe-elo_laravel/main/docs/design/high_fidelity/home-first_pass.png" width="150" alt="Aoe-Elo New Home"></a> <a href="https://media.githubusercontent.com/media/aoe-elo/aoe-elo_laravel/main/docs/design/high_fidelity/tournaments-all.png" target="_blank"><img src="https://media.githubusercontent.com/media/aoe-elo/aoe-elo_laravel/main/docs/design/high_fidelity/tournaments-all.png" width="150" alt="Aoe-Elo New Tournaments Overview"></a>
+<p align="center"><a href="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/Home.png" target="_blank"><img src="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/Home.png" width="150" alt="Aoe-Elo New Home"></a> <a href="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/Main1.png" target="_blank"><img src="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/Main1.png" width="150" alt="Aoe-Elo New Tournaments Overview"></a>
+<a href="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/tournaments-all1.png" target="_blank"><img src="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/tournaments-all1.png" width="150" alt="Aoe-Elo New Tournaments Overview"></a> <a href="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/Main1_Light.png" target="_blank"><img src="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/Main1_Light.png" width="150" alt="Aoe-Elo New Home"></a> <a href="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/home-first_pass.png" target="_blank"><img src="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/home-first_pass.png" width="150" alt="Aoe-Elo New Tournaments Overview"></a> <a href="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/tournaments-all.png" target="_blank"><img src="https://media.githubusercontent.com/media/aoe-elo/aoe-elo-frontend/main/docs/design/high_fidelity/tournaments-all.png" width="150" alt="Aoe-Elo New Home"></a>
 </p>
 
 ## Tech Stack
