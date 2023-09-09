@@ -8,6 +8,14 @@
         {
           "matchPackagePatterns": ["npm"],
           "labels": ["T-npm"]
+        },
+        {
+          "matchPackagePatterns": ["nodenv"],
+          "labels": ["T-node"]
+        },
+        {
+          "matchPackagePatterns": ["github-actions"],
+          "labels": ["A-ci"]
         }
     ]
 }
