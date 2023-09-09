@@ -8,6 +8,6 @@
         {
           "matchPackagePatterns": ["npm"],
           "labels": ["T-npm"]
-        },
+        }
     ]
 }
