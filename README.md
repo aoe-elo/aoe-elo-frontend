@@ -29,7 +29,8 @@
 ## Development
 
 You need both `node.js` (for frontend development) and `php` + `composer` (for
-backend development). The installation instructions for the backend you will find in the [backend repository](https://github.com/aoe-elo/aoe-elo-backend).
+backend development). The installation instructions for the backend you will
+find in the [backend repository](https://github.com/aoe-elo/aoe-elo-backend).
 
 ### Installing language tooling
 
@@ -56,7 +57,8 @@ Run `npm install`.
 
 ### Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've created a project and installed dependencies with `npm install` (or
+`pnpm install` or `yarn`), start a development server:
 
 ```bash
 npm run dev
@@ -75,7 +77,8 @@ We use `just` as our task runner. Run `just -l` to see all available commands.
 - **just blint**: Lint the backend part of the project
 - **just flint**: Lint the `frontend` part of the project
 - **just ftest**: Test the `frontend` part of the project
-- **just pr**: Run all commands needed for creating a PR for the `frontend` part of the project.
+- **just pr**: Run all commands needed for creating a PR for the `frontend` part
+  of the project.
 
 Before committing, make sure to run `just fmt` and depending on what you have
 changed:

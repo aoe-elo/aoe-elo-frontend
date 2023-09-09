@@ -11,16 +11,12 @@ serve:
 
 # Format the whole project
 fmt:
-    npm run format
     dprint fmt
+    npm run format
 
 # Lint the frontend part of the project
 flint:
     npm run lint
-
-# Test the backend part of the project
-btest:
-    ./vendor/bin/pest --coverage-text --profile --stop-on-failure --parallel
 
 # Test the frontend part of the project
 ftest:
@@ -28,4 +24,4 @@ ftest:
     npm run test:unit
 
 # Run all available recipes before opening a pull request
-pr: flint ftest
+pr: flint ftest fmt
