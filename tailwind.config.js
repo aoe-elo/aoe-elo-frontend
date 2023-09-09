@@ -35,6 +35,7 @@ export default {
 				text1: 'var(--text-1)',
 				text2: 'var(--text-2)',
 				text3: 'var(--text-3)',
+				text4: 'var(--text-4)',
 				bggrad: {
 					light: 'var(--white)',
 					DEFAULT: 'var(--background)',
@@ -46,7 +47,9 @@ export default {
 					left2: 'var(--gradcard-left2)',
 					right2: 'var(--gradcard-right2)',
 					left3: 'var(--gradcard-left3)',
-					right3: 'var(--gradcard-right3)'
+					right3: 'var(--gradcard-right3)',
+					left4: 'var(--gradcard-left4)',
+					right4: 'var(--gradcard-right4)'
 				},
 				win1: 'var(--green1)',
 				win2: 'var(--green2)',
