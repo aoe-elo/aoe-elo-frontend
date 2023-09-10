@@ -4,15 +4,15 @@
 	"labels": ["A-dependencies"],
 	"packageRules": [
 		{
-			"matchPackagePatterns": ["npm"],
+			"matchDatasources": ["npm"],
 			"labels": ["T-npm"]
 		},
 		{
-			"matchPackagePatterns": ["nodenv"],
+			"matchDatasources": ["nodenv"],
 			"labels": ["T-node"]
 		},
 		{
-			"matchPackagePatterns": ["github-actions"],
+			"matchDatasources": ["github-actions"],
 			"labels": ["A-ci"]
 		}
 	]
