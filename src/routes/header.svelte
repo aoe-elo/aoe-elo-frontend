@@ -32,9 +32,19 @@
 						>Tournaments</a
 					>
 				</li>
-				<li><a href="/players" class="hover:text-text2 cardoutline">Players</a></li>
-				<li><a href="/teams" class="hover:text-text2 cardoutline">Teams</a></li>
-				<li><a href="/about" class="hover:text-text2 cardoutline">About</a></li>
+				<li>
+					<a href="/players" class="hover:text-text2 cardoutline" data-sveltekit-preload-data
+						>Players</a
+					>
+				</li>
+				<li>
+					<a href="/teams" class="hover:text-text2 cardoutline" data-sveltekit-preload-data>Teams</a
+					>
+				</li>
+				<li>
+					<a href="/about" class="hover:text-text2 cardoutline" data-sveltekit-preload-data>About</a
+					>
+				</li>
 			</ul>
 		</div>
 		<div class="hidden md:flex items-center space-x-4 border-text3 py-2 cursor-pointer">
@@ -68,13 +78,29 @@
 		>
 			<ul class="grid h-[90%] place-items-center">
 				<li>
-					<a href="/tournaments" class="hover:text-text2 ease-in duration-150">Tournaments</a>
+					<a
+						href="/tournaments"
+						class="hover:text-text2 ease-in duration-150"
+						data-sveltekit-preload-data>Tournaments</a
+					>
 				</li>
 				<li>
-					<a href="/players" class="hover:text-text2 ease-in duration-150">Players</a>
+					<a
+						href="/players"
+						class="hover:text-text2 ease-in duration-150"
+						data-sveltekit-preload-data>Players</a
+					>
 				</li>
-				<li><a href="/teams" class="hover:text-text2 ease-in duration-150">Teams</a></li>
-				<li><a href="/about" class="hover:text-text2 ease-in duration-150">About</a></li>
+				<li>
+					<a href="/teams" class="hover:text-text2 ease-in duration-150" data-sveltekit-preload-data
+						>Teams</a
+					>
+				</li>
+				<li>
+					<a href="/about" class="hover:text-text2 ease-in duration-150" data-sveltekit-preload-data
+						>About</a
+					>
+				</li>
 				<SecondaryNav />
 			</ul>
 		</div>

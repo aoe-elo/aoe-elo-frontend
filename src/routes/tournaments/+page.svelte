@@ -3,6 +3,7 @@
 	import Tournament_Grid from '$lib/components/Tournament_Grid.svelte';
 
 	export let data;
+	console.log(data);
 </script>
 
 <div class="container">
@@ -12,5 +13,5 @@
 			All Tourname<span class="text-brand2">nts</span>
 		</h2>
 	</div>
-	<Tournament_Grid tourneys={data.releases} />
+	<Tournament_Grid tourneys={data.topTournaments} />
 </div>
