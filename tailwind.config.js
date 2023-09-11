@@ -58,7 +58,7 @@ export default {
 			},
 			backgroundImage: {
 				bgaccentdark: "url('./bgdark.svg')",
-				bgaccentlight: "url('./bglight.svg')"
+				bgaccentlight: "url('./bglight2.svg')"
 			},
 			boxShadow: {
 				card: 'inset 0 0px 4px rgba(63, 114, 156, 0.6)'
