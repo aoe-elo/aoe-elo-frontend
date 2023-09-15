@@ -93,7 +93,7 @@
 				<p class="text-text3 font-semibold">Biggest Movers</p>
 				<img src="./arrows.svg" alt="arrows" />
 			</div>
-			<div class="cardbg p-4">
+			<div class="cardbg4 p-4">
 				<div class="grid grid-cols-3 gap-2">
 					<p class="text-left">TheViper</p>
 					<p>2381</p>

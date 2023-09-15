@@ -21,7 +21,7 @@
 
 <div class="my-10 grid grid-cols-layout gap-7">
 	{#each tourneys as tourney}
-		<div class="p-8 cardbg">
+		<div class="p-8 cardbg4">
 			<img
 				class="mx-auto h-40 max-h-full"
 				src={tourney.imageUrl}

@@ -11,9 +11,7 @@
 		>
 			Tournament<span class="text-brand2">Elo</span>
 		</div>
-		<div
-			class="mx-auto max-w-lg md:absolute md:right-56 p-6 mt-4 md:-mt-6 mx-l rounded-md bg-gradient-to-br from-grad-left1 from-40% to-grad-right1 to-100% shadow-card overflow-hidden"
-		>
+		<div class="mx-auto max-w-lg md:absolute md:right-56 p-6 mt-4 md:-mt-6 mx-l cardbg4">
 			<h1 class="text-brand1 text-center font-medium">
 				AOE 2 competitive player ELO when it matters most
 			</h1>
@@ -24,10 +22,8 @@
 		Welcome {$page.data.user}
 	{/if}
 
-	<div
-		class="max-w-xl mx-auto p-6 mt-24 rounded-md bg-gradient-to-br from-grad-left1 from-40% to-grad-right1 to-100% shadow-card overflow-hidden md:max-w-4xl"
-	>
-		<h2 class="text-text3 text-2xl font-semibold">Search Database</h2>
+	<div class="max-w-xl mx-auto p-6 mt-24 cardbg4 md:max-w-4xl">
+		<h2 class="text-text2 text-2xl font-semibold">Search tournaments, players, or teams</h2>
 		<div class="" />
 	</div>
 
