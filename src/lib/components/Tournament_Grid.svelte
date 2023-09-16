@@ -21,7 +21,7 @@
 
 <div class="my-10 grid grid-cols-layout gap-7">
 	{#each tourneys as tourney}
-		<div class="p-8 cardbg4">
+		<div class="p-8 cardbg">
 			<img
 				class="mx-auto h-40 max-h-full"
 				src={tourney.imageUrl}
@@ -36,7 +36,9 @@
 				Prize pool: <span class="font-semibold">${tourney.prizemoney}</span>
 			</p>
 
-			<a href={tourney.url} class="w-full mt-4 button" data-sveltekit-preload-data>Visit Page</a>
+			<a href="/tournaments/{tourney.id}" class="mt-4 button" data-sveltekit-preload-data
+				>Visit Page</a
+			>
 		</div>
 	{/each}
 </div>

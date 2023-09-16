@@ -6,7 +6,7 @@
 		Latest Tournam<span class="text-brand2">ent</span>
 	</h2>
 </div>
-<div class="p-6 cardbg4">
+<div class="p-6 cardbg">
 	<div class="grid grid-cols-1 sm:grid-cols-layout2 mb-4 text-center place-items-center gap-4">
 		<img src="./tcilogo.png" alt="brand" class="mx-auto" />
 		<h3 class="text-text3 font font-semibold tracking-tight text-2xl sm:text-5xl">
@@ -93,7 +93,7 @@
 				<p class="text-text3 font-semibold">Biggest Movers</p>
 				<img src="./arrows.svg" alt="arrows" />
 			</div>
-			<div class="cardbg4 p-4">
+			<div class="cardbg p-4">
 				<div class="grid grid-cols-3 gap-2">
 					<p class="text-left">TheViper</p>
 					<p>2381</p>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Latest_Tournament from '$lib/components/Last_Tournament.svelte';
 	import Top_Players from '$lib/components/Top_5_Players.svelte';
+	import PlayerComparison from './comparisons/Player_Comparison.svelte';
 	import { page } from '$app/stores';
 </script>
 
@@ -11,7 +12,7 @@
 		>
 			Tournament<span class="text-brand2">Elo</span>
 		</div>
-		<div class="mx-auto max-w-lg md:absolute md:right-56 p-6 mt-4 md:-mt-6 mx-l cardbg4">
+		<div class="mx-auto max-w-lg md:absolute md:right-56 p-6 mt-4 md:-mt-6 mx-l cardbg">
 			<h1 class="text-brand1 text-center font-medium">
 				AOE 2 competitive player ELO when it matters most
 			</h1>
@@ -22,12 +23,13 @@
 		Welcome {$page.data.user}
 	{/if}
 
-	<div class="max-w-xl mx-auto p-6 mt-24 cardbg4 md:max-w-4xl">
-		<h2 class="text-text2 text-2xl font-semibold">Search tournaments, players, or teams</h2>
+	<div class="max-w-xl mx-auto p-6 mt-24 cardbg md:max-w-4xl">
+		<h2 class="text-text3">Search tournaments, players, or teams</h2>
 		<div class="" />
 	</div>
 
 	<div class="my-10">
+		<PlayerComparison />
 		<Top_Players />
 		<Latest_Tournament />
 	</div>

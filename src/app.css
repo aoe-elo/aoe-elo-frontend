@@ -183,9 +183,13 @@
 	@apply bg-[url:theme("backgroundImage.bgaccentlight"),_theme("backgroundImage.gradient-to-br")];
 	@apply from-bggrad from-0% via-bggrad-dark via-50% to-bggrad to-100%;
 }
-
+.searchboxbg {
+	@apply bg-gradient-to-r from-grad-left1 from-10% to-grad-right1 to-90%;
+	@apply rounded-md;
+	@apply shadow-card;
+}
 .cardbg {
-	@apply bg-gradient-to-br from-grad-left1 from-20% via-grad-right1 via-60% to-grad-left1 to-85%;
+	@apply bg-gradient-to-br from-grad-left4 from-20% via-grad-right4 via-60% to-grad-left4 to-85%;
 	@apply rounded-md;
 	@apply shadow-card;
 }
@@ -199,12 +203,6 @@
 	@apply rounded-md;
 	@apply shadow-card;
 }
-.cardbg4 {
-	@apply bg-gradient-to-br from-grad-left4 from-20% via-grad-right4 via-60% to-grad-left4 to-85%;
-	@apply rounded-md;
-	@apply shadow-card;
-}
-
 .button {
 	@apply px-6;
 	@apply py-2;
@@ -221,7 +219,8 @@
 	@apply py-4;
 	@apply text-text3;
 	@apply font-semibold;
-	@apply text-2xl;
+	@apply text-lg;
+	@apply md:text-2xl;
 	@apply tracking-wider;
 	@apply bg-gradient-to-br from-grad-left2 from-5% via-grad-right2 via-65% to-grad-left2;
 	@apply rounded-md;

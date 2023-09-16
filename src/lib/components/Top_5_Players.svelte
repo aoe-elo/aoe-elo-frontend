@@ -10,7 +10,7 @@
 </div>
 <div class="text-text2">
 	<div
-		class="p-6 cardbg4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mb-4 place-items-center gap-12"
+		class="p-6 cardbg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mb-4 place-items-center gap-12"
 	>
 		<div
 			class="place-self-stretch shadow-card rounded-md pr-6 py-2 text-text2 text-center md:text-right text-6xl font-medium tracking-tighter"
@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-4 place-items-center gap-8 pt-4">
-		<div class="place-self-stretch p-4 text-right cardbg4 text-text2 font-medium tracking-tighter">
+		<div class="place-self-stretch p-4 text-right cardbg text-text2 font-medium tracking-tighter">
 			<p class="text-6xl px-2">2</p>
 			<p class="text-4xl font-title font-bold p-2">TheViper</p>
 			<p class="text-2xl px-2">elo: 2398</p>
@@ -50,7 +50,7 @@
 			</div>
 			<button class="button my-4 w-full">Full Details</button>
 		</div>
-		<div class="place-self-stretch p-4 text-right cardbg4 text-text2 font-medium tracking-tighter">
+		<div class="place-self-stretch p-4 text-right cardbg text-text2 font-medium tracking-tighter">
 			<p class="text-6xl px-2">3</p>
 			<p class="text-4xl font-title font-bold p-2">Lierry</p>
 			<p class="text-2xl px-2">elo: 2365</p>
@@ -62,7 +62,7 @@
 			</div>
 			<button class="button my-4 w-full">Full Details</button>
 		</div>
-		<div class="place-self-stretch p-4 text-right cardbg4 text-text2 font-medium tracking-tighter">
+		<div class="place-self-stretch p-4 text-right cardbg text-text2 font-medium tracking-tighter">
 			<p class="text-6xl px-2">4</p>
 			<p class="text-4xl font-title font-bold p-2">Yo</p>
 			<p class="text-2xl px-2">elo: 2323</p>
@@ -74,7 +74,7 @@
 			</div>
 			<button class="button my-4 w-full">Full Details</button>
 		</div>
-		<div class="place-self-stretch p-4 text-right cardbg4 text-text2 font-medium tracking-tighter">
+		<div class="place-self-stretch p-4 text-right cardbg text-text2 font-medium tracking-tighter">
 			<p class="text-6xl px-2">5</p>
 			<p class="text-4xl font-title font-bold p-2">Tatoh</p>
 			<p class="text-2xl px-2">elo: 2287</p>

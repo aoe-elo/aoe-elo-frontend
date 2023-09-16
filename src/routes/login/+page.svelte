@@ -5,7 +5,7 @@
 <div class="container">
 	<Hero />
 	<div
-		class="grid mt-0 p-4 md:p-6 cardbg4 text-center text-4xl text-text3 font-medium tracking-tighter max-w-lg mx-auto"
+		class="grid mt-0 p-4 md:p-6 cardbg text-center text-4xl text-text3 font-medium tracking-tighter max-w-lg mx-auto"
 	>
 		<div class="my-8">
 			<h2 class="text-6xl my-4 text-left">Login</h2>
