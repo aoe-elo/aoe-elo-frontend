@@ -36,7 +36,7 @@
 				Prize pool: <span class="font-semibold">${tourney.prizemoney}</span>
 			</p>
 
-			<a href={tourney.url} class="w-full mt-4 button" data-sveltekit-preload-data>Visit Page</a>
+			<a href="/tournaments/{tourney.id}" class="mt-4 button">Visit Page</a>
 		</div>
 	{/each}
 </div>

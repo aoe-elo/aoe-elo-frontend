@@ -2,7 +2,7 @@
 	import '../app.css';
 	import Header from './header.svelte';
 	import Footer from './footer.svelte';
-	import { theme } from '$lib/theme.ts';
+	import { theme } from '$lib/theme';
 </script>
 
 <div

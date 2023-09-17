@@ -1,8 +1,8 @@
 <svg width="1565" height="2796" viewBox="0 0 1565 2796" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect width="1288" height="1173" transform="matrix(1 0 0 -1 0 2796)" fill="url(#pattern0)" fill-opacity="0.08"/>
-<rect width="1288" height="1288" transform="matrix(-1 0 0 1 1446 924)" fill="url(#pattern1)" fill-opacity="0.08"/>
-<rect width="858" height="1288" transform="matrix(1 0 0 -1 19 1288)" fill="url(#pattern2)" fill-opacity="0.08"/>
-<rect width="857" height="1288" transform="matrix(-1 0 0 1 1565 110)" fill="url(#pattern3)" fill-opacity="0.08"/>
+<rect width="1288" height="1173" transform="matrix(1 0 0 -1 0 2796)" fill="url(#pattern0)" fill-opacity="0.04"/>
+<rect width="1288" height="1288" transform="matrix(-1 0 0 1 1446 924)" fill="url(#pattern1)" fill-opacity="0.04"/>
+<rect width="858" height="1288" transform="matrix(1 0 0 -1 19 1288)" fill="url(#pattern2)" fill-opacity="0.04"/>
+<rect width="857" height="1288" transform="matrix(-1 0 0 1 1565 110)" fill="url(#pattern3)" fill-opacity="0.04"/>
 <defs>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_333_325" transform="matrix(0.00333333 0 0 0.00366013 0 -0.0980392)"/>
