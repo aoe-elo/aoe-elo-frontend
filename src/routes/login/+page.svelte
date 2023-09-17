@@ -13,14 +13,8 @@
 				choose your preferred authorization:
 			</p>
 		</div>
-		<a href="/" class="hover:text-text4 ease-in duration-150 my-8" data-sveltekit-preload-data
-			>Google</a
-		>
-		<a href="/" class="hover:text-text4 ease-in duration-150 my-8" data-sveltekit-preload-data
-			>Github</a
-		>
-		<a href="/" class="hover:text-text4 ease-in duration-150 my-8" data-sveltekit-preload-data
-			>Discord</a
-		>
+		<a href="/" class="hover:text-text4 ease-in duration-150 my-8">Google</a>
+		<a href="/" class="hover:text-text4 ease-in duration-150 my-8">Github</a>
+		<a href="/" class="hover:text-text4 ease-in duration-150 my-8">Discord</a>
 	</div>
 </div>

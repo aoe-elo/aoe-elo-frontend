@@ -6,13 +6,13 @@
 </script>
 
 <div class="container">
-	<div class="my-10 text-center md:relative">
+	<div class="my-10 text-center lg:relative">
 		<div
-			class="md:relative font-title font-bold text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-brand1 tracking-tight z-40"
+			class="lg:relative font-title font-bold text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-brand1 tracking-tight z-40"
 		>
 			Tournament<span class="text-brand2">Elo</span>
 		</div>
-		<div class="mx-auto max-w-lg md:absolute md:right-56 p-6 mt-4 md:-mt-6 mx-l cardbg">
+		<div class="mx-auto max-w-lg lg:absolute md:right-56 p-6 mt-4 md:-mt-6 mx-l cardbg">
 			<h1 class="text-brand1 text-center font-medium">
 				AOE 2 competitive player ELO when it matters most
 			</h1>

@@ -183,6 +183,11 @@
 	@apply bg-[url:theme("backgroundImage.bgaccentlight"),_theme("backgroundImage.gradient-to-br")];
 	@apply from-bggrad from-0% via-bggrad-dark via-50% to-bggrad to-100%;
 }
+.navmenubg {
+	@apply bg-gradient-to-br from-bggrad-dark via-bggrad via-40% to-bggrad-dark;
+	@apply rounded-md;
+	@apply shadow-card;
+}
 .searchboxbg {
 	@apply bg-gradient-to-r from-grad-left1 from-10% to-grad-right1 to-90%;
 	@apply rounded-md;
@@ -195,11 +200,6 @@
 }
 .cardbg2 {
 	@apply bg-gradient-to-br from-grad-right2 from-45% to-grad-left2 to-100%;
-	@apply rounded-md;
-	@apply shadow-card;
-}
-.cardbg3 {
-	@apply bg-gradient-to-br from-grad-left3 from-20% via-grad-right3 via-60% to-grad-left3 to-85%;
 	@apply rounded-md;
 	@apply shadow-card;
 }
