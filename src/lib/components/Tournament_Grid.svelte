@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { Tourney } from '../types';
-	export let tourneys: Tourney[];
+	export let tourneys: Tournament[];
 
 	async function getTourneyStart(start) {
 		let date = new Date('start');
@@ -23,20 +22,24 @@
 	{#each tourneys as tourney}
 		<div class="p-8 cardbg">
 			<img
-				class="mx-auto h-40 max-h-full"
+				class="mx-auto h-40 max-h-full border-2 rounded-md p-4"
 				src={tourney.imageUrl}
 				height="150"
 				width="150"
-				alt="tourney"
+				alt="Tournament Logo"
 			/>
 			<h3 class="text-text3 font-semibold my-4">{tourney.name}</h3>
 			<p class="my-1">Dates:</p>
-			<p class="text-text2">{getTourneyStart(tourney.start)} - {getTourneyEnd(tourney.end)}</p>
+			<p class="text-text2">
+				{getTourneyStart(tourney.start)}
+				- {getTourneyEnd(tourney.end)}
+			</p>
 			<p class="text-text2 mt-4 mb-8">
 				Prize pool: <span class="font-semibold">${tourney.prizemoney}</span>
 			</p>
-
-			<a href="/tournaments/{tourney.id}" class="mt-4 button">Visit Page</a>
+			<div class="grid text-center">
+				<a href="/tournaments/{tourney.id}" class="mt-4 button2">Tournament Page</a>
+			</div>
 		</div>
 	{/each}
 </div>
