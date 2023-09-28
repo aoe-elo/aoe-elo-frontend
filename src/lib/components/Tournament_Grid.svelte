@@ -1,15 +1,15 @@
 <script lang="ts">
-	export let tourneys: Tournament[];
+	export let tourneys: thisTournament[];
 
 	async function getTourneyStart(start) {
-		let date = new Date('start');
+		let date = new Date(start);
 		let getMonth = date.toLocaleString('default', { month: 'short' });
 		let getDay = date.toLocaleString('default', { day: '2-digit' });
 		let startDate = getMonth + ' ' + getDay;
 		return startDate;
 	}
 	async function getTourneyEnd(end) {
-		let date = new Date('end');
+		let date = new Date(end);
 		let getMonth = date.toLocaleString('default', { month: 'short' });
 		let getDay = date.toLocaleString('default', { day: '2-digit' });
 		let getYear = date.toLocaleString('default', { year: 'numeric' });
@@ -36,14 +36,11 @@
 			<h3 class="text-text3 font-semibold my-4">{tourney.name}</h3>
 			<p class="my-1">Dates:</p>
 			<p class="text-text2">
-				{getTourneyStart(tourney.start)}
-				- {getTourneyEnd(tourney.end)}
+				{tourney.start}
+				- {tourney.end}
 			</p>
 			<p class="text-text2 mt-4 mb-8">
 				Prize pool: <span class="font-semibold">${tourney.prizemoney}</span>
-			</p>
-			<p class="text-text2 mt-4 mb-8">
-				Prize pool: <span class="font-semibold">${addCommas?.prizemoney}</span>
 			</p>
 			<div class="grid text-center">
 				<a href="/tournaments/{tourney.id}" class="mt-4 button2">Tournament Page</a>
