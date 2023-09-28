@@ -16,10 +16,15 @@
 		let endDate = getMonth + ' ' + getDay + ', ' + getYear;
 		return endDate;
 	}
+
+	let addedCommas;
+	const addCommas = function (index) {
+		addedCommas = tourneys[index];
+	};
 </script>
 
 <div class="my-10 grid grid-cols-layout gap-7">
-	{#each tourneys as tourney}
+	{#each tourneys as tourney, id}
 		<div class="p-8 cardbg">
 			<img
 				class="mx-auto h-40 max-h-full border-2 rounded-md p-4"
@@ -36,6 +41,9 @@
 			</p>
 			<p class="text-text2 mt-4 mb-8">
 				Prize pool: <span class="font-semibold">${tourney.prizemoney}</span>
+			</p>
+			<p class="text-text2 mt-4 mb-8">
+				Prize pool: <span class="font-semibold">${addCommas?.prizemoney}</span>
 			</p>
 			<div class="grid text-center">
 				<a href="/tournaments/{tourney.id}" class="mt-4 button2">Tournament Page</a>
