@@ -17,10 +17,7 @@
 		return endDate;
 	}
 
-	let addedCommas;
-	const addCommas = function (index) {
-		addedCommas = tourneys[index];
-	};
+	const addedCommas = (prizemoney) => prizemoney.toLocaleString('en-US');
 </script>
 
 <div class="my-10 grid grid-cols-layout gap-7">
@@ -36,11 +33,17 @@
 			<h3 class="text-text3 font-semibold my-4">{tourney.name}</h3>
 			<p class="my-1">Dates:</p>
 			<p class="text-text2">
-				{tourney.start}
-				- {tourney.end}
+				{getTourneyStart(tourney.start)}
+				- {getTourneyEnd(tourney.end)}
 			</p>
 			<p class="text-text2 mt-4 mb-8">
-				Prize pool: <span class="font-semibold">${tourney.prizemoney}</span>
+				Prize pool: <span class="font-semibold tracking-wider">
+					{#if tourney.prizemoney !== null}
+						${addedCommas(tourney.prizemoney)}
+					{:else}
+						Not Available
+					{/if}
+				</span>
 			</p>
 			<div class="grid text-center">
 				<a href="/tournaments/{tourney.id}" class="mt-4 button2">Tournament Page</a>

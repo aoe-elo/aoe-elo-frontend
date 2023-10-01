@@ -4,7 +4,6 @@
 	import Tournament_Grid from '$lib/components/Tournament_Grid.svelte';
 
 	export let data;
-	console.log(data);
 </script>
 
 <div class="container">
