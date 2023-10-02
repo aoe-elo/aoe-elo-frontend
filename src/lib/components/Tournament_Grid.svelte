@@ -1,14 +1,14 @@
 <script lang="ts">
-	export let tourneys: thisTournament[];
+	export let tourneys = [];
 
-	async function getTourneyStart(start) {
+	function getTourneyStart(start) {
 		let date = new Date(start);
 		let getMonth = date.toLocaleString('default', { month: 'short' });
 		let getDay = date.toLocaleString('default', { day: '2-digit' });
 		let startDate = getMonth + ' ' + getDay;
 		return startDate;
 	}
-	async function getTourneyEnd(end) {
+	function getTourneyEnd(end) {
 		let date = new Date(end);
 		let getMonth = date.toLocaleString('default', { month: 'short' });
 		let getDay = date.toLocaleString('default', { day: '2-digit' });
@@ -22,29 +22,31 @@
 
 <div class="my-10 grid grid-cols-layout gap-7">
 	{#each tourneys as tourney, id}
-		<div class="p-8 cardbg">
+		<div class="p-8 cardbg grid grid-rows-layout">
 			<img
-				class="mx-auto h-40 max-h-full border-2 rounded-md p-4"
+				class="mx-auto h-40 max-h-full mb-4"
 				src={tourney.imageUrl}
 				height="150"
 				width="150"
 				alt="Tournament Logo"
 			/>
-			<h3 class="text-text3 font-semibold my-4">{tourney.name}</h3>
-			<p class="my-1">Dates:</p>
-			<p class="text-text2">
-				{getTourneyStart(tourney.start)}
-				- {getTourneyEnd(tourney.end)}
-			</p>
-			<p class="text-text2 mt-4 mb-8">
-				Prize pool: <span class="font-semibold tracking-wider">
-					{#if tourney.prizemoney !== null}
-						${addedCommas(tourney.prizemoney)}
-					{:else}
-						Not Available
-					{/if}
-				</span>
-			</p>
+			<div>
+				<h3 class="text-text3 font-semibold my-4">{tourney.name}</h3>
+				<p class="my-1">Dates:</p>
+				<p class="text-text2">
+					{getTourneyStart(tourney.start)}
+					- {getTourneyEnd(tourney.end)}
+				</p>
+				<p class="text-text2 mt-4 mb-8">
+					Prize pool: <span class="font-semibold tracking-widest">
+						{#if tourney.prizemoney !== null}
+							${addedCommas(tourney.prizemoney)}
+						{:else}
+							Not Available
+						{/if}
+					</span>
+				</p>
+			</div>
 			<div class="grid text-center">
 				<a href="/tournaments/{tourney.id}" class="mt-4 button2">Tournament Page</a>
 			</div>
