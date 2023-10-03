@@ -20,5 +20,5 @@ export interface TournamentDetail {
 
 	// Here we need to add all of the
 	// additional details which will show
-	// on each individual tournament page
+	// on the individual tournament page
 }

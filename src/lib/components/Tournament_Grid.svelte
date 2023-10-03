@@ -1,42 +1,55 @@
 <script lang="ts">
-	import type { Tourney } from '../types';
-	export let tourneys: Tourney[];
+	export let theseTournaments;
+	export let thisTournament;
 
-	async function getTourneyStart(start) {
-		let date = new Date('start');
-		let getMonth = date.toLocaleString('default', { month: 'short' });
-		let getDay = date.toLocaleString('default', { day: '2-digit' });
-		let startDate = getMonth + ' ' + getDay;
-		return startDate;
+	function getTourneyDates(dates, year) {
+		let date = new Date(dates);
+		let options;
+
+		if (year === false) {
+			options = { month: 'short', day: '2-digit' };
+		}
+		if (year === true) {
+			options = { month: 'short', day: '2-digit', year: 'numeric' };
+		}
+
+		return date.toLocaleDateString('en-US', options);
 	}
-	async function getTourneyEnd(end) {
-		let date = new Date('end');
-		let getMonth = date.toLocaleString('default', { month: 'short' });
-		let getDay = date.toLocaleString('default', { day: '2-digit' });
-		let getYear = date.toLocaleString('default', { year: 'numeric' });
-		let endDate = getMonth + ' ' + getDay + ', ' + getYear;
-		return endDate;
-	}
+
+	const addCommas = (prizemoney) => prizemoney.toLocaleString('en-US');
 </script>
 
 <div class="my-10 grid grid-cols-layout gap-7">
-	{#each tourneys as tourney}
-		<div class="p-8 cardbg">
+	{#each theseTournaments as tourney, id}
+		<div class="p-8 cardbg grid grid-rows-layout">
 			<img
-				class="mx-auto h-40 max-h-full"
+				class="mx-auto h-40 max-h-full mb-4"
 				src={tourney.imageUrl}
 				height="150"
 				width="150"
-				alt="tourney"
+				alt="Tournament Logo"
 			/>
-			<h3 class="text-text3 font-semibold my-4">{tourney.name}</h3>
-			<p class="my-1">Dates:</p>
-			<p class="text-text2">{getTourneyStart(tourney.start)} - {getTourneyEnd(tourney.end)}</p>
-			<p class="text-text2 mt-4 mb-8">
-				Prize pool: <span class="font-semibold">${tourney.prizemoney}</span>
-			</p>
+			<div>
+				<h3 class="text-text3 font-semibold my-4">{tourney.name}</h3>
+				<p class="my-1">Dates:</p>
+				<p class="text-text2">
+					{getTourneyDates(tourney.start, false)}
+					- {getTourneyDates(tourney.end, true)}
+				</p>
+				<p class="text-text2 mt-4 mb-8">
+					Prize pool: <span class="font-semibold tracking-widest">
+						{#if tourney.prizemoney !== null}
+							${addCommas(tourney.prizemoney)}
+						{:else}
+							Not Available
+						{/if}
+					</span>
+				</p>
+			</div>
+			<div class="grid text-center">
+				<a href="/tournaments/{id}" class="mt-4 button2">Tournament Page</a>
+			</div>
 
-			<a href="/tournaments/{tourney.id}" class="mt-4 button">Visit Page</a>
 		</div>
 	{/each}
 </div>
