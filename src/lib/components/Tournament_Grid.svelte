@@ -1,27 +1,26 @@
 <script lang="ts">
-	export let tourneys = [];
+	export let theseTournaments;
+	export let thisTournament;
 
-	function getTourneyStart(start) {
-		let date = new Date(start);
-		let getMonth = date.toLocaleString('default', { month: 'short' });
-		let getDay = date.toLocaleString('default', { day: '2-digit' });
-		let startDate = getMonth + ' ' + getDay;
-		return startDate;
-	}
-	function getTourneyEnd(end) {
-		let date = new Date(end);
-		let getMonth = date.toLocaleString('default', { month: 'short' });
-		let getDay = date.toLocaleString('default', { day: '2-digit' });
-		let getYear = date.toLocaleString('default', { year: 'numeric' });
-		let endDate = getMonth + ' ' + getDay + ', ' + getYear;
-		return endDate;
+	function getTourneyDates(dates, year) {
+		let date = new Date(dates);
+		let options;
+
+		if (year === false) {
+			options = { month: 'short', day: '2-digit' };
+		}
+		if (year === true) {
+			options = { month: 'short', day: '2-digit', year: 'numeric' };
+		}
+
+		return date.toLocaleDateString('en-US', options);
 	}
 
-	const addedCommas = (prizemoney) => prizemoney.toLocaleString('en-US');
+	const addCommas = (prizemoney) => prizemoney.toLocaleString('en-US');
 </script>
 
 <div class="my-10 grid grid-cols-layout gap-7">
-	{#each tourneys as tourney, id}
+	{#each theseTournaments as tourney, id}
 		<div class="p-8 cardbg grid grid-rows-layout">
 			<img
 				class="mx-auto h-40 max-h-full mb-4"
@@ -34,13 +33,13 @@
 				<h3 class="text-text3 font-semibold my-4">{tourney.name}</h3>
 				<p class="my-1">Dates:</p>
 				<p class="text-text2">
-					{getTourneyStart(tourney.start)}
-					- {getTourneyEnd(tourney.end)}
+					{getTourneyDates(tourney.start, false)}
+					- {getTourneyDates(tourney.end, true)}
 				</p>
 				<p class="text-text2 mt-4 mb-8">
 					Prize pool: <span class="font-semibold tracking-widest">
 						{#if tourney.prizemoney !== null}
-							${addedCommas(tourney.prizemoney)}
+							${addCommas(tourney.prizemoney)}
 						{:else}
 							Not Available
 						{/if}
@@ -48,7 +47,7 @@
 				</p>
 			</div>
 			<div class="grid text-center">
-				<a href="/tournaments/{tourney.id}" class="mt-4 button2">Tournament Page</a>
+				<a href="/tournaments/{id}" class="mt-4 button2">Tournament Page</a>
 			</div>
 		</div>
 	{/each}

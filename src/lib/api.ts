@@ -33,7 +33,7 @@ export default {
 
 async function getAllTournaments() {
 	const res = await fetch('./tournaments.json');
-	const allTournaments = await res.json();
+	const allTournaments: Tournament[] = await res.json();
 
-	return allTournaments;
+	return { allTournaments };
 }
