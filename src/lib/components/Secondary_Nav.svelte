@@ -4,6 +4,7 @@
 
 <!-- Currently not in use, but could be added quickly depending on final design of header and footer navigation -->
 
+
 <div class="flex flex-wrap items-center gap-6 md:gap-4 p-4 md:p-0">
 	<!-- <div
 		class="text-text2 hover:text-brand2 p-4 border-2 border-current rounded-md md:border-0 md:p-0"

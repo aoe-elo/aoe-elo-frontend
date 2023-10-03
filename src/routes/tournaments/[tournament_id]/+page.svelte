@@ -6,6 +6,7 @@
 
 <div class="container">
 	<Hero />
+
 	<h2>Tournament Title</h2>
 	<p>Tournament Details</p>
 </div>
