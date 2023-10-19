@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let theseTournaments;
-	export let thisTournament;
+	// export let thisTournament;
 
 	function getTourneyDates(dates, year) {
 		let date = new Date(dates);
@@ -49,7 +49,6 @@
 			<div class="grid text-center">
 				<a href="/tournaments/{id}" class="mt-4 button2">Tournament Page</a>
 			</div>
-
 		</div>
 	{/each}
 </div>
