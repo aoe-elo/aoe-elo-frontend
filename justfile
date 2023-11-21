@@ -1,4 +1,4 @@
-set dotenv-load
+# set dotenv-load
 now := `date +"%s"`
 
 # Showing this message
