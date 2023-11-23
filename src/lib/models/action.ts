@@ -58,7 +58,8 @@ export class action extends Model<actionAttributes, actionCreationAttributes> im
       sequelize,
       tableName: 'actions',
       timestamps: true,
-      paranoid: true
+      paranoid: true,
+      underscored: true,
     });
   }
 }

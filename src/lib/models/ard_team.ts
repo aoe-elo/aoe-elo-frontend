@@ -67,6 +67,7 @@ export class ard_team extends Model<ard_teamAttributes, ard_teamCreationAttribut
       tableName: 'ard_teams',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "ard_teams_id_unique",

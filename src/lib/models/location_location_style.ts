@@ -68,6 +68,7 @@ export class location_location_style extends Model<location_location_styleAttrib
       tableName: 'location_location_styles',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "location_location_styles_location_id_location_style_id_unique",

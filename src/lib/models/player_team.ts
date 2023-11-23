@@ -89,6 +89,7 @@ export class player_team extends Model<player_teamAttributes, player_teamCreatio
       tableName: 'player_team',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "player_team_player_id_team_id_joined_at_left_at_unique",

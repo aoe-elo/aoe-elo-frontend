@@ -48,7 +48,8 @@ export class meta_cache extends Model<meta_cacheAttributes, meta_cacheCreationAt
     }, {
       sequelize,
       tableName: 'meta_cache',
-      timestamps: false
+      timestamps: false,
+      underscored: true,
     });
   }
 }

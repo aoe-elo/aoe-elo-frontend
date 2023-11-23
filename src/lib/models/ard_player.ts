@@ -111,6 +111,7 @@ export class ard_player extends Model<ard_playerAttributes, ard_playerCreationAt
       tableName: 'ard_players',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "ard_players_id_unique",

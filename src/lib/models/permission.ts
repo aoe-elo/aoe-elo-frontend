@@ -71,6 +71,7 @@ export class permission extends Model<permissionAttributes, permissionCreationAt
       sequelize,
       tableName: 'permissions',
       timestamps: true,
+      underscored: true,
       indexes: [
         {
           name: "permissions_name_guard_name_unique",

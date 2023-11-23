@@ -69,6 +69,7 @@ export class rating_checkpoint extends Model<rating_checkpointAttributes, rating
       tableName: 'rating_checkpoints',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "rating_checkpoints_participant_id_participant_type_valid_period_start_valid_period_end_unique",

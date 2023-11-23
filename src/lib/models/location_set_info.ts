@@ -65,7 +65,8 @@ export class location_set_info extends Model<location_set_infoAttributes, locati
       sequelize,
       tableName: 'location_set_info',
       timestamps: true,
-      paranoid: true
+      paranoid: true,
+      underscored: true,
     });
   }
 }

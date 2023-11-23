@@ -75,6 +75,7 @@ export class ard_player_ard_team extends Model<ard_player_ard_teamAttributes, ar
       tableName: 'ard_player_ard_team',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "ard_player_ard_team_ard_team_id_ard_player_id_unique",

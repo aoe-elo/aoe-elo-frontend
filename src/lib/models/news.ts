@@ -70,7 +70,8 @@ export class news extends Model<newsAttributes, newsCreationAttributes> implemen
       sequelize,
       tableName: 'news',
       timestamps: true,
-      paranoid: true
+      paranoid: true,
+      underscored: true,
     });
   }
 }

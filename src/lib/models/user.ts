@@ -160,6 +160,7 @@ export class user extends Model<userAttributes, userCreationAttributes> implemen
       tableName: 'users',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "users_email_unique",

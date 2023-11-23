@@ -49,7 +49,8 @@ export class migrationlog extends Model<migrationlogAttributes, migrationlogCrea
     }, {
       sequelize,
       tableName: 'migrationlog',
-      timestamps: true
+      timestamps: true,
+      underscored: true,
     });
   }
 }

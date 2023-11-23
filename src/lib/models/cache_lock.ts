@@ -37,6 +37,7 @@ export class cache_lock extends Model<cache_lockAttributes, cache_lockCreationAt
       sequelize,
       tableName: 'cache_locks',
       timestamps: false,
+      underscored: true,
       indexes: [
         {
           name: "sqlite_autoindex_cache_locks_1",

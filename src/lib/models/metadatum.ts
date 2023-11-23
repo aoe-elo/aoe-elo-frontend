@@ -130,6 +130,7 @@ export class metadatum extends Model<metadatumAttributes, metadatumCreationAttri
       tableName: 'metadata',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "metadata_metadatable_id_metadatable_type_key_sub_key_type_of_value_unique",

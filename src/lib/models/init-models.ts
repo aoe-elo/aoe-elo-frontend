@@ -364,30 +364,33 @@ export function initModels(sequelize: Sequelize) {
   permission.hasMany(model_has_permission, { as: "model_has_permissions", foreignKey: "permission_id" });
   role_has_permission.belongsTo(permission, { as: "permission", foreignKey: "permission_id" });
   permission.hasMany(role_has_permission, { as: "role_has_permissions", foreignKey: "permission_id" });
-  elo_1v1_cache.belongsTo(player, { as: "player", foreignKey: "player_id" });
-  player.hasMany(elo_1v1_cache, { as: "elo_1v1_caches", foreignKey: "player_id" });
+  // TODO!
+  // elo_1v1_cache.belongsTo(player, { as: "player", foreignKey: "player_id" });
+  // player.hasMany(elo_1v1_cache, { as: "elo_1v1_caches", foreignKey: "player_id" });
   player_team.belongsTo(player, { as: "player", foreignKey: "player_id" });
   player.hasMany(player_team, { as: "player_teams", foreignKey: "player_id" });
   model_has_role.belongsTo(role, { as: "role", foreignKey: "role_id" });
   role.hasMany(model_has_role, { as: "model_has_roles", foreignKey: "role_id" });
   role_has_permission.belongsTo(role, { as: "role", foreignKey: "role_id" });
   role.hasMany(role_has_permission, { as: "role_has_permissions", foreignKey: "role_id" });
-  location_set_info.belongsTo(set_info, { as: "set_info", foreignKey: "set_info_id" });
-  set_info.hasMany(location_set_info, { as: "location_set_infos", foreignKey: "set_info_id" });
-  elo_1v1_cache.belongsTo(set, { as: "set", foreignKey: "set_id" });
-  set.hasMany(elo_1v1_cache, { as: "elo_1v1_caches", foreignKey: "set_id" });
-  rating_delta.belongsTo(set, { as: "set", foreignKey: "set_id" });
-  set.hasMany(rating_delta, { as: "rating_delta", foreignKey: "set_id" });
-  set_info.belongsTo(set, { as: "set", foreignKey: "set_id" });
-  set.hasMany(set_info, { as: "set_infos", foreignKey: "set_id" });
+  // TODO!
+  // location_set_info.belongsTo(set_info, { as: "set_info", foreignKey: "set_info_id" });
+  // set_info.hasMany(location_set_info, { as: "location_set_infos", foreignKey: "set_info_id" });
+  // elo_1v1_cache.belongsTo(set, { as: "set", foreignKey: "set_id" });
+  // set.hasMany(elo_1v1_cache, { as: "elo_1v1_caches", foreignKey: "set_id" });
+  // rating_delta.belongsTo(set, { as: "set", foreignKey: "set_id" });
+  // set.hasMany(rating_delta, { as: "rating_delta", foreignKey: "set_id" });
+  // set_info.belongsTo(set, { as: "set", foreignKey: "set_id" });
+  // set.hasMany(set_info, { as: "set_infos", foreignKey: "set_id" });
   set.belongsTo(stageable, { as: "stageable", foreignKey: "stageable_id" });
   stageable.hasMany(set, { as: "sets", foreignKey: "stageable_id" });
   stageable.belongsTo(stage, { as: "stage", foreignKey: "stage_id" });
   stage.hasMany(stageable, { as: "stageables", foreignKey: "stage_id" });
   player_team.belongsTo(team, { as: "team", foreignKey: "team_id" });
   team.hasMany(player_team, { as: "player_teams", foreignKey: "team_id" });
-  elo_1v1_cache.belongsTo(tournament, { as: "tournament", foreignKey: "tournament_id" });
-  tournament.hasMany(elo_1v1_cache, { as: "elo_1v1_caches", foreignKey: "tournament_id" });
+  // TODO!
+  // elo_1v1_cache.belongsTo(tournament, { as: "tournament", foreignKey: "tournament_id" });
+  // tournament.hasMany(elo_1v1_cache, { as: "elo_1v1_caches", foreignKey: "tournament_id" });
   tournament_result.belongsTo(tournament, { as: "tournament", foreignKey: "tournament_id" });
   tournament.hasMany(tournament_result, { as: "tournament_results", foreignKey: "tournament_id" });
   actionlog.belongsTo(user, { as: "user", foreignKey: "user_id" });

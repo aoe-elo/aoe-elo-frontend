@@ -35,6 +35,7 @@ export class password_reset_token extends Model<password_reset_tokenAttributes, 
       sequelize,
       tableName: 'password_reset_tokens',
       timestamps: true,
+      underscored: true,
       indexes: [
         {
           name: "sqlite_autoindex_password_reset_tokens_1",

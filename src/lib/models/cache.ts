@@ -37,6 +37,7 @@ export class cache extends Model<cacheAttributes, cacheCreationAttributes> imple
       sequelize,
       tableName: 'cache',
       timestamps: false,
+      underscored: true,
       indexes: [
         {
           name: "sqlite_autoindex_cache_1",

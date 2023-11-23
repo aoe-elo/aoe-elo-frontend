@@ -48,7 +48,8 @@ export class extern_de_cache extends Model<extern_de_cacheAttributes, extern_de_
     }, {
       sequelize,
       tableName: 'extern_de_cache',
-      timestamps: true
+      timestamps: true,
+      underscored: true,
     });
   }
 }

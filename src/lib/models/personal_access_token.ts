@@ -74,6 +74,7 @@ export class personal_access_token extends Model<personal_access_tokenAttributes
       sequelize,
       tableName: 'personal_access_tokens',
       timestamps: true,
+      underscored: true,
       indexes: [
         {
           name: "personal_access_tokens_tokenable_type_tokenable_id_index",

@@ -86,7 +86,8 @@ export class tournament_result extends Model<tournament_resultAttributes, tourna
       sequelize,
       tableName: 'tournament_results',
       timestamps: true,
-      paranoid: true
+      paranoid: true,
+      underscored: true,
     });
   }
 }

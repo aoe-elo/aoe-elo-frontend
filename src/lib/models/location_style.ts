@@ -59,7 +59,8 @@ export class location_style extends Model<location_styleAttributes, location_sty
       sequelize,
       tableName: 'location_styles',
       timestamps: true,
-      paranoid: true
+      paranoid: true,
+      underscored: true,
     });
   }
 }

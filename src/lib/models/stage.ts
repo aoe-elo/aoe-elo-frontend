@@ -86,6 +86,7 @@ export class stage extends Model<stageAttributes, stageCreationAttributes> imple
       tableName: 'stages',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "stages_name_bracket_default_order_weight_importance_unique",

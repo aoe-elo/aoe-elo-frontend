@@ -82,6 +82,7 @@ export class twitch_user extends Model<twitch_userAttributes, twitch_userCreatio
       tableName: 'twitch_users',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "twitch_users_user_id_twitch_id_unique",

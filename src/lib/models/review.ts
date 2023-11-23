@@ -58,7 +58,8 @@ export class review extends Model<reviewAttributes, reviewCreationAttributes> im
       sequelize,
       tableName: 'reviews',
       timestamps: true,
-      paranoid: true
+      paranoid: true,
+      underscored: true,
     });
   }
 }

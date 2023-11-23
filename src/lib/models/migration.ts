@@ -36,7 +36,8 @@ export class migration extends Model<migrationAttributes, migrationCreationAttri
     }, {
       sequelize,
       tableName: 'migrations',
-      timestamps: false
+      timestamps: false,
+      underscored: true,
     });
   }
 }

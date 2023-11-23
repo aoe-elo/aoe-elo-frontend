@@ -74,6 +74,7 @@ export class achievement extends Model<achievementAttributes, achievementCreatio
       tableName: 'achievements',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "achievements_name_name_short_image_path_unique",

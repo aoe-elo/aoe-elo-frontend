@@ -76,6 +76,7 @@ export class steam_user extends Model<steam_userAttributes, steam_userCreationAt
       tableName: 'steam_users',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "steam_users_user_id_steam_id_unique",

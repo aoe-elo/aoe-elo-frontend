@@ -136,6 +136,7 @@ export class set extends Model<setAttributes, setCreationAttributes> implements 
       tableName: 'sets',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "sets_aoe2cm2_civ_draft_link_unique",

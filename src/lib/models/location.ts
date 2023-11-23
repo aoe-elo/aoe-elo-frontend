@@ -112,6 +112,7 @@ export class location extends Model<locationAttributes, locationCreationAttribut
       tableName: 'locations',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "locations_name_name_short_image_path_preview_image_path_unique",

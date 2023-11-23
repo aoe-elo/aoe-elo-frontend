@@ -30,7 +30,8 @@ export class telemetry extends Model<telemetryAttributes, telemetryCreationAttri
     }, {
       sequelize,
       tableName: 'telemetry',
-      timestamps: true
+      timestamps: true,
+      underscored: true
     });
   }
 }

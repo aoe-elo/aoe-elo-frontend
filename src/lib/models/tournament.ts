@@ -170,6 +170,7 @@ export class tournament extends Model<tournamentAttributes, tournamentCreationAt
       tableName: 'tournaments',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "tournaments_name_atp_category_id_liquipedia_link_short_name_unique",

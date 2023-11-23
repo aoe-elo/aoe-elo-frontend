@@ -71,6 +71,7 @@ export class role extends Model<roleAttributes, roleCreationAttributes> implemen
       sequelize,
       tableName: 'roles',
       timestamps: true,
+      underscored: true,
       indexes: [
         {
           name: "roles_name_guard_name_unique",

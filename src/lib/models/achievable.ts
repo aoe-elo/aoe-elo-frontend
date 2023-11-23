@@ -72,6 +72,7 @@ export class achievable extends Model<achievableAttributes, achievableCreationAt
       tableName: 'achievables',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "achievables_achievement_id_achievable_id_achievable_type_unique",

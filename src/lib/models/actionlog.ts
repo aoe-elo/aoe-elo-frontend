@@ -87,6 +87,7 @@ export class actionlog extends Model<actionlogAttributes, actionlogCreationAttri
       tableName: 'actionlog',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "actionlog_user_id_loggable_id_loggable_type_created_at_updated_at_unique",

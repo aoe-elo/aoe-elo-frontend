@@ -48,7 +48,8 @@ export class extern_voobly_player_cache extends Model<extern_voobly_player_cache
     }, {
       sequelize,
       tableName: 'extern_voobly_player_cache',
-      timestamps: true
+      timestamps: true,
+      underscored: true,
     });
   }
 }

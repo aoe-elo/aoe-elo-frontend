@@ -185,6 +185,7 @@ export class player extends Model<playerAttributes, playerCreationAttributes> im
       tableName: 'players',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "players_name_user_id_country_id_relic_link_id_main_steam_id_main_unique",

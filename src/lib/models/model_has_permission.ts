@@ -26,7 +26,6 @@ export class model_has_permission extends Model<model_has_permissionAttributes, 
   static initModel(sequelize: Sequelize.Sequelize): typeof model_has_permission {
     return model_has_permission.init({
       permission_id: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -41,7 +40,6 @@ export class model_has_permission extends Model<model_has_permissionAttributes, 
         primaryKey: true
       },
       model_id: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
@@ -50,6 +48,7 @@ export class model_has_permission extends Model<model_has_permissionAttributes, 
       sequelize,
       tableName: 'model_has_permissions',
       timestamps: false,
+      underscored: true,
       indexes: [
         {
           name: "sqlite_autoindex_model_has_permissions_1",

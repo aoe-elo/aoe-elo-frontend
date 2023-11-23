@@ -26,7 +26,6 @@ export class model_has_role extends Model<model_has_roleAttributes, model_has_ro
   static initModel(sequelize: Sequelize.Sequelize): typeof model_has_role {
     return model_has_role.init({
       role_id: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -41,7 +40,6 @@ export class model_has_role extends Model<model_has_roleAttributes, model_has_ro
         primaryKey: true
       },
       model_id: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
@@ -50,6 +48,7 @@ export class model_has_role extends Model<model_has_roleAttributes, model_has_ro
       sequelize,
       tableName: 'model_has_roles',
       timestamps: false,
+      underscored: true,
       indexes: [
         {
           name: "sqlite_autoindex_model_has_roles_1",

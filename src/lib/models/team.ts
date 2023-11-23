@@ -131,6 +131,7 @@ export class team extends Model<teamAttributes, teamCreationAttributes> implemen
       tableName: 'teams',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "teams_name_tag_unique",

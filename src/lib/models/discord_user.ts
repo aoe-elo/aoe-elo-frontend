@@ -83,6 +83,7 @@ export class discord_user extends Model<discord_userAttributes, discord_userCrea
       tableName: 'discord_users',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "discord_users_user_id_discord_id_unique",

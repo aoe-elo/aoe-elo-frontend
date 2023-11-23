@@ -54,6 +54,7 @@ export class stage_tournament_template extends Model<stage_tournament_templateAt
       tableName: 'stage_tournament_templates',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "stage_tournament_templates_name_short_name_unique",

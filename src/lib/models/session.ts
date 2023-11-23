@@ -67,6 +67,7 @@ export class session extends Model<sessionAttributes, sessionCreationAttributes>
       sequelize,
       tableName: 'sessions',
       timestamps: false,
+      underscored: true,
       indexes: [
         {
           name: "sqlite_autoindex_sessions_1",

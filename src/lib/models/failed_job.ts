@@ -65,6 +65,7 @@ export class failed_job extends Model<failed_jobAttributes, failed_jobCreationAt
       sequelize,
       tableName: 'failed_jobs',
       timestamps: false,
+      underscored: true,
       indexes: [
         {
           name: "failed_jobs_uuid_unique",

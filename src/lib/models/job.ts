@@ -65,6 +65,7 @@ export class job extends Model<jobAttributes, jobCreationAttributes> implements 
         sequelize,
         tableName: 'jobs',
         timestamps: true,
+        underscored: true,
         indexes: [
           {
             name: "jobs_queue_index",

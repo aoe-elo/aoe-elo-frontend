@@ -82,6 +82,7 @@ export class github_user extends Model<github_userAttributes, github_userCreatio
       tableName: 'github_users',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "github_users_user_id_github_id_unique",

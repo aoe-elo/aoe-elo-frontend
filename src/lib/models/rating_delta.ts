@@ -78,6 +78,7 @@ export class rating_delta extends Model<rating_deltaAttributes, rating_deltaCrea
       tableName: 'rating_deltas',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "rating_deltas_participant_id_participant_type_set_id_unique",

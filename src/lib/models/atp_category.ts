@@ -71,6 +71,7 @@ export class atp_category extends Model<atp_categoryAttributes, atp_categoryCrea
       sequelize,
       tableName: 'atp_categories',
       timestamps: true,
+      underscored: true,
       indexes: [
         {
           name: "atp_categories_category_sub_category_unique",

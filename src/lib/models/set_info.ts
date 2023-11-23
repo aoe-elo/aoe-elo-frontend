@@ -97,6 +97,7 @@ export class set_info extends Model<set_infoAttributes, set_infoCreationAttribut
       tableName: 'set_info',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "set_info_set_id_participatory_id_participatory_type_unique",

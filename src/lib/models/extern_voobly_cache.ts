@@ -55,7 +55,8 @@ export class extern_voobly_cache extends Model<extern_voobly_cacheAttributes, ex
     }, {
       sequelize,
       tableName: 'extern_voobly_cache',
-      timestamps: true
+      timestamps: true,
+      underscored: true,
     });
   }
 }

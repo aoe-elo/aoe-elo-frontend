@@ -103,7 +103,8 @@ export class elo_1v1_cache extends Model<elo_1v1_cacheAttributes, elo_1v1_cacheC
     }, {
       sequelize,
       tableName: 'elo_1v1_cache',
-      timestamps: true
+      timestamps: true,
+      underscored: true,
     });
   }
 }

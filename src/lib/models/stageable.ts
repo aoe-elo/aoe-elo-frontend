@@ -84,6 +84,7 @@ export class stageable extends Model<stageableAttributes, stageableCreationAttri
       tableName: 'stageables',
       timestamps: true,
       paranoid: true,
+      underscored: true,
       indexes: [
         {
           name: "stageables_stage_id_stageable_id_stageable_type_unique",

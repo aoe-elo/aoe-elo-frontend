@@ -1,25 +1,16 @@
-import { sequelize } from "$lib/sequelize";
+import { database } from "$lib/sequelize";
 import { initModels } from "$lib/models/init-models";
 
-// import models into sequelize instance
-initModels(sequelize);
-
-// const myOrders = await Order.findAll({ where: { "customerId": cust.id }, include: ['customer'] });
-
-// const attr: OrderCreationAttributes = {
-//     customerId: cust.id,
-//     orderDate: new Date(),
-//     orderNumber: "ORD123",
-//     totalAmount: 223.45
-// };
-// const newOrder = await Order.create(attr);
-
-
 try {
-    await sequelize.authenticate();
-
-
+    await database.authenticate();
+    database.databaseVersion().then((v) => console.log(v));
     console.log('Connection has been established successfully.');
+
+    // database.query("SELECT * FROM users").then((v) => console.log(v));
+    // import models into sequelize instance
+    const models = initModels(database);
+    const user = await models.user.findOne({ where: { "id": 1 } });
+    console.log(user);
 } catch (error) {
     console.error('Unable to connect to the database:', error);
 }

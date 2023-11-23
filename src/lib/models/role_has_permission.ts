@@ -30,7 +30,6 @@ export class role_has_permission extends Model<role_has_permissionAttributes, ro
   static initModel(sequelize: Sequelize.Sequelize): typeof role_has_permission {
     return role_has_permission.init({
       permission_id: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -40,7 +39,6 @@ export class role_has_permission extends Model<role_has_permissionAttributes, ro
         unique: true
       },
       role_id: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -53,6 +51,7 @@ export class role_has_permission extends Model<role_has_permissionAttributes, ro
       sequelize,
       tableName: 'role_has_permissions',
       timestamps: false,
+      underscored: true,
       indexes: [
         {
           name: "sqlite_autoindex_role_has_permissions_1",

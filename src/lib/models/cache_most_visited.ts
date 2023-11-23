@@ -48,7 +48,8 @@ export class cache_most_visited extends Model<cache_most_visitedAttributes, cach
     }, {
       sequelize,
       tableName: 'cache_most_visited',
-      timestamps: true
+      timestamps: true,
+      underscored: true,
     });
   }
 }

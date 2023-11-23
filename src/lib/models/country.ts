@@ -188,6 +188,7 @@ export class country extends Model<countryAttributes, countryCreationAttributes>
       sequelize,
       tableName: 'countries',
       timestamps: false,
+      underscored: true,
       indexes: [
         {
           name: "countries_id_index",
