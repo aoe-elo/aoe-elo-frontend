@@ -1,22 +1,20 @@
 <script lang="ts">
-	export let theseTournaments;
-	export let thisTournament;
+	export let theseTournaments: any;
 
-	function getTourneyDates(dates, year) {
+	function getTourneyDates(dates: string, year: boolean) {
 		let date = new Date(dates);
-		let options;
 
-		if (year === false) {
-			options = { month: 'short', day: '2-digit' };
+		if (!year) {
+			let options = { month: 'short', day: '2-digit' } as const;
+			return date.toLocaleDateString('en-US', options);
 		}
-		if (year === true) {
-			options = { month: 'short', day: '2-digit', year: 'numeric' };
+		if (year) {
+			let options = { month: 'short', day: '2-digit', year: 'numeric' } as const;
+			return date.toLocaleDateString('en-US', options);
 		}
-
-		return date.toLocaleDateString('en-US', options);
 	}
 
-	const addCommas = (prizemoney) => prizemoney.toLocaleString('en-US');
+	const addCommas = (prizemoney: number) => prizemoney.toLocaleString('en-US');
 </script>
 
 <div class="my-10 grid grid-cols-layout gap-7">
@@ -49,7 +47,6 @@
 			<div class="grid text-center">
 				<a href="/tournaments/{id}" class="mt-4 button2">Tournament Page</a>
 			</div>
-
 		</div>
 	{/each}
 </div>
