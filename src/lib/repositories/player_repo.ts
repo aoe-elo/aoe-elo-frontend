@@ -1,4 +1,4 @@
-import type { models } from "$lib/sequelize";
+import { models } from "$lib/sequelize";
 import type { playerAttributes } from "$lib/models/player";
 
 type PlayerId = playerAttributes["id"];
@@ -15,9 +15,9 @@ interface IPlayerRepositoryInterface {
     deletePlayer(player_id: PlayerId, user_id: number, actionlog_summary: string): Promise<boolean>;
 }
 
-export default class PlayerRepository implements IPlayerRepositoryInterface {
+export class PlayerRepository implements IPlayerRepositoryInterface {
 
-    constructor(private readonly player_model: Player) { }
+    constructor(private readonly player_model: Player = models.player) { }
 
     async getAllPlayers(): Promise<PlayerData[]> {
         return this.player_model.findAll();
