@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { actionlog, actionlogId } from './actionlog';
 
 export interface actionAttributes {
@@ -39,25 +40,25 @@ export class action extends Model<actionAttributes, actionCreationAttributes> im
 
   static initModel(sequelize: Sequelize.Sequelize): typeof action {
     return action.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true
-    }
-  }, {
-    sequelize,
-    tableName: 'actions',
-    timestamps: true,
-    paranoid: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: true
+      }
+    }, {
+      sequelize,
+      tableName: 'actions',
+      timestamps: true,
+      paranoid: true
+    });
   }
 }

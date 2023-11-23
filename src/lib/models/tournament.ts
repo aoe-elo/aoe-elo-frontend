@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { atp_category, atp_categoryId } from './atp_category';
 import type { elo_1v1_cache, elo_1v1_cacheId } from './elo_1v1_cache';
 import type { tournament_result, tournament_resultId } from './tournament_result';
@@ -61,12 +62,12 @@ export class tournament extends Model<tournamentAttributes, tournamentCreationAt
   elo_1v1_caches!: elo_1v1_cache[];
   getElo_1v1_caches!: Sequelize.HasManyGetAssociationsMixin<elo_1v1_cache>;
   setElo_1v1_caches!: Sequelize.HasManySetAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  addElo_1v1_cach!: Sequelize.HasManyAddAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  addElo_1v1_cache!: Sequelize.HasManyAddAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
   addElo_1v1_caches!: Sequelize.HasManyAddAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  createElo_1v1_cach!: Sequelize.HasManyCreateAssociationMixin<elo_1v1_cache>;
-  removeElo_1v1_cach!: Sequelize.HasManyRemoveAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  createElo_1v1_cache!: Sequelize.HasManyCreateAssociationMixin<elo_1v1_cache>;
+  removeElo_1v1_cache!: Sequelize.HasManyRemoveAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
   removeElo_1v1_caches!: Sequelize.HasManyRemoveAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  hasElo_1v1_cach!: Sequelize.HasManyHasAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  hasElo_1v1_cache!: Sequelize.HasManyHasAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
   hasElo_1v1_caches!: Sequelize.HasManyHasAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
   countElo_1v1_caches!: Sequelize.HasManyCountAssociationsMixin;
   // tournament hasMany tournament_result via tournament_id
@@ -84,103 +85,103 @@ export class tournament extends Model<tournamentAttributes, tournamentCreationAt
 
   static initModel(sequelize: Sequelize.Sequelize): typeof tournament {
     return tournament.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      unique: true
-    },
-    short_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    started_at: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    ended_at: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    weight: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
-    game_mode: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
-    format_type: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
-    event_type: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
-    prize_pool: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    prize_currency: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
-    structure: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
-    evaluation: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    website_link: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    liquipedia_link: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    },
-    atp_category_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'atp_categories',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'tournaments',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "tournaments_name_atp_category_id_liquipedia_link_short_name_unique",
-        unique: true,
-        fields: [
-          { name: "name" },
-          { name: "atp_category_id" },
-          { name: "liquipedia_link" },
-          { name: "short_name" },
-        ]
+      name: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        unique: true
       },
-    ]
-  });
+      short_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      started_at: {
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      ended_at: {
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      weight: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
+      game_mode: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
+      format_type: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
+      event_type: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
+      prize_pool: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      prize_currency: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
+      structure: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
+      evaluation: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      website_link: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      liquipedia_link: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
+      },
+      atp_category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'atp_categories',
+          key: 'id'
+        },
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'tournaments',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "tournaments_name_atp_category_id_liquipedia_link_short_name_unique",
+          unique: true,
+          fields: [
+            { name: "name" },
+            { name: "atp_category_id" },
+            { name: "liquipedia_link" },
+            { name: "short_name" },
+          ]
+        },
+      ]
+    });
   }
 }

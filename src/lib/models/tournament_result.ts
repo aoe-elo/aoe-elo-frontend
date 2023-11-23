@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { tournament, tournamentId } from './tournament';
 
 export interface tournament_resultAttributes {
@@ -42,50 +43,50 @@ export class tournament_result extends Model<tournament_resultAttributes, tourna
 
   static initModel(sequelize: Sequelize.Sequelize): typeof tournament_result {
     return tournament_result.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    type: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    prize_amount: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    prize_currency: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
-    source: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    participatory_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    participatory_type: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    tournament_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'tournaments',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      type: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      prize_amount: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      prize_currency: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
+      source: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      participatory_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      participatory_type: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      tournament_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'tournaments',
+          key: 'id'
+        }
       }
-    }
-  }, {
-    sequelize,
-    tableName: 'tournament_results',
-    timestamps: true,
-    paranoid: true
-  });
+    }, {
+      sequelize,
+      tableName: 'tournament_results',
+      timestamps: true,
+      paranoid: true
+    });
   }
 }

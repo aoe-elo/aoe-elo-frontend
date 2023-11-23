@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface failed_jobAttributes {
   id: number;
@@ -28,51 +29,51 @@ export class failed_job extends Model<failed_jobAttributes, failed_jobCreationAt
 
   static initModel(sequelize: Sequelize.Sequelize): typeof failed_job {
     return failed_job.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    uuid: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    connection: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    queue: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    payload: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    exception: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    failed_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
-    }
-  }, {
-    sequelize,
-    tableName: 'failed_jobs',
-    timestamps: false,
-    indexes: [
-      {
-        name: "failed_jobs_uuid_unique",
-        unique: true,
-        fields: [
-          { name: "uuid" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-    ]
-  });
+      uuid: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      connection: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      queue: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      payload: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      exception: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      failed_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+      }
+    }, {
+      sequelize,
+      tableName: 'failed_jobs',
+      timestamps: false,
+      indexes: [
+        {
+          name: "failed_jobs_uuid_unique",
+          unique: true,
+          fields: [
+            { name: "uuid" },
+          ]
+        },
+      ]
+    });
   }
 }

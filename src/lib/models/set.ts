@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { elo_1v1_cache, elo_1v1_cacheId } from './elo_1v1_cache';
 import type { rating_delta, rating_deltaId } from './rating_delta';
 import type { set_info, set_infoId } from './set_info';
@@ -43,12 +44,12 @@ export class set extends Model<setAttributes, setCreationAttributes> implements 
   elo_1v1_caches!: elo_1v1_cache[];
   getElo_1v1_caches!: Sequelize.HasManyGetAssociationsMixin<elo_1v1_cache>;
   setElo_1v1_caches!: Sequelize.HasManySetAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  addElo_1v1_cach!: Sequelize.HasManyAddAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  addElo_1v1_cache!: Sequelize.HasManyAddAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
   addElo_1v1_caches!: Sequelize.HasManyAddAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  createElo_1v1_cach!: Sequelize.HasManyCreateAssociationMixin<elo_1v1_cache>;
-  removeElo_1v1_cach!: Sequelize.HasManyRemoveAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  createElo_1v1_cache!: Sequelize.HasManyCreateAssociationMixin<elo_1v1_cache>;
+  removeElo_1v1_cache!: Sequelize.HasManyRemoveAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
   removeElo_1v1_caches!: Sequelize.HasManyRemoveAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  hasElo_1v1_cach!: Sequelize.HasManyHasAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  hasElo_1v1_cache!: Sequelize.HasManyHasAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
   hasElo_1v1_caches!: Sequelize.HasManyHasAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
   countElo_1v1_caches!: Sequelize.HasManyCountAssociationsMixin;
   // set hasMany rating_delta via set_id
@@ -83,74 +84,74 @@ export class set extends Model<setAttributes, setCreationAttributes> implements 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof set {
     return set.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    is_tie: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: 0
-    },
-    has_admin_win: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: 0
-    },
-    played_at: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    use_played_at_dummy: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: 0
-    },
-    best_of: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    aoe2cm2_civ_draft_link: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    },
-    aoe2cm2_map_draft_link: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    },
-    stageable_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'stageables',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      is_tie: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0
+      },
+      has_admin_win: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0
+      },
+      played_at: {
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      use_played_at_dummy: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0
+      },
+      best_of: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      aoe2cm2_civ_draft_link: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
+      },
+      aoe2cm2_map_draft_link: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
+      },
+      stageable_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'stageables',
+          key: 'id'
+        }
       }
-    }
-  }, {
-    sequelize,
-    tableName: 'sets',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "sets_aoe2cm2_civ_draft_link_unique",
-        unique: true,
-        fields: [
-          { name: "aoe2cm2_civ_draft_link" },
-        ]
-      },
-      {
-        name: "sets_aoe2cm2_map_draft_link_unique",
-        unique: true,
-        fields: [
-          { name: "aoe2cm2_map_draft_link" },
-        ]
-      },
-    ]
-  });
+    }, {
+      sequelize,
+      tableName: 'sets',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "sets_aoe2cm2_civ_draft_link_unique",
+          unique: true,
+          fields: [
+            { name: "aoe2cm2_civ_draft_link" },
+          ]
+        },
+        {
+          name: "sets_aoe2cm2_map_draft_link_unique",
+          unique: true,
+          fields: [
+            { name: "aoe2cm2_map_draft_link" },
+          ]
+        },
+      ]
+    });
   }
 }

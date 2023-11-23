@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface extern_voobly_cacheAttributes {
   id: number;
@@ -28,33 +29,33 @@ export class extern_voobly_cache extends Model<extern_voobly_cacheAttributes, ex
 
   static initModel(sequelize: Sequelize.Sequelize): typeof extern_voobly_cache {
     return extern_voobly_cache.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    voobly_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    ladder: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
-    rating: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    rank: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    }
-  }, {
-    sequelize,
-    tableName: 'extern_voobly_cache',
-    timestamps: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      voobly_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      ladder: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
+      rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      rank: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      }
+    }, {
+      sequelize,
+      tableName: 'extern_voobly_cache',
+      timestamps: true
+    });
   }
 }

@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { ard_player_ard_team, ard_player_ard_teamId } from './ard_player_ard_team';
 import type { country, countryId } from './country';
 import type { player, playerId } from './player';
@@ -66,87 +67,87 @@ export class ard_player extends Model<ard_playerAttributes, ard_playerCreationAt
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ard_player {
     return ard_player.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      unique: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    country_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'countries',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        unique: true
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      country_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'countries',
+          key: 'id'
+        }
+      },
+      aoeelo_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        unique: true
+      },
+      esports_earnings: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        unique: true
+      },
+      liquipedia_handle: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+      },
+      discord_id: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
       }
-    },
-    aoeelo_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      unique: true
-    },
-    esports_earnings: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      unique: true
-    },
-    liquipedia_handle: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
-    },
-    discord_id: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'ard_players',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "ard_players_id_unique",
-        unique: true,
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "ard_players_aoeelo_id_unique",
-        unique: true,
-        fields: [
-          { name: "aoeelo_id" },
-        ]
-      },
-      {
-        name: "ard_players_esports_earnings_unique",
-        unique: true,
-        fields: [
-          { name: "esports_earnings" },
-        ]
-      },
-      {
-        name: "ard_players_liquipedia_handle_unique",
-        unique: true,
-        fields: [
-          { name: "liquipedia_handle" },
-        ]
-      },
-      {
-        name: "ard_players_discord_id_unique",
-        unique: true,
-        fields: [
-          { name: "discord_id" },
-        ]
-      },
-    ]
-  });
+    }, {
+      sequelize,
+      tableName: 'ard_players',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "ard_players_id_unique",
+          unique: true,
+          fields: [
+            { name: "id" },
+          ]
+        },
+        {
+          name: "ard_players_aoeelo_id_unique",
+          unique: true,
+          fields: [
+            { name: "aoeelo_id" },
+          ]
+        },
+        {
+          name: "ard_players_esports_earnings_unique",
+          unique: true,
+          fields: [
+            { name: "esports_earnings" },
+          ]
+        },
+        {
+          name: "ard_players_liquipedia_handle_unique",
+          unique: true,
+          fields: [
+            { name: "liquipedia_handle" },
+          ]
+        },
+        {
+          name: "ard_players_discord_id_unique",
+          unique: true,
+          fields: [
+            { name: "discord_id" },
+          ]
+        },
+      ]
+    });
   }
 }

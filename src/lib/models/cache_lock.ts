@@ -1,5 +1,5 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface cache_lockAttributes {
   key: string;
@@ -19,33 +19,33 @@ export class cache_lock extends Model<cache_lockAttributes, cache_lockCreationAt
 
   static initModel(sequelize: Sequelize.Sequelize): typeof cache_lock {
     return cache_lock.init({
-    key: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true,
-      unique: true
-    },
-    owner: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    expiration: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'cache_locks',
-    timestamps: false,
-    indexes: [
-      {
-        name: "sqlite_autoindex_cache_locks_1",
-        unique: true,
-        fields: [
-          { name: "key" },
-        ]
+      key: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+        unique: true
       },
-    ]
-  });
+      owner: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      expiration: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      tableName: 'cache_locks',
+      timestamps: false,
+      indexes: [
+        {
+          name: "sqlite_autoindex_cache_locks_1",
+          unique: true,
+          fields: [
+            { name: "key" },
+          ]
+        },
+      ]
+    });
   }
 }

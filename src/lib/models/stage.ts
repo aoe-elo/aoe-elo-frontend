@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { stageable, stageableId } from './stageable';
 
 export interface stageAttributes {
@@ -45,59 +46,59 @@ export class stage extends Model<stageAttributes, stageCreationAttributes> imple
 
   static initModel(sequelize: Sequelize.Sequelize): typeof stage {
     return stage.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    bracket: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1,
-      unique: true
-    },
-    default_order: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1,
-      unique: true
-    },
-    weight: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 10,
-      unique: true
-    },
-    importance: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1,
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'stages',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "stages_name_bracket_default_order_weight_importance_unique",
-        unique: true,
-        fields: [
-          { name: "name" },
-          { name: "bracket" },
-          { name: "default_order" },
-          { name: "weight" },
-          { name: "importance" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-    ]
-  });
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      bracket: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+        unique: true
+      },
+      default_order: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+        unique: true
+      },
+      weight: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 10,
+        unique: true
+      },
+      importance: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'stages',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "stages_name_bracket_default_order_weight_importance_unique",
+          unique: true,
+          fields: [
+            { name: "name" },
+            { name: "bracket" },
+            { name: "default_order" },
+            { name: "weight" },
+            { name: "importance" },
+          ]
+        },
+      ]
+    });
   }
 }

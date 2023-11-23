@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface reviewAttributes {
   id: number;
@@ -30,34 +31,34 @@ export class review extends Model<reviewAttributes, reviewCreationAttributes> im
 
   static initModel(sequelize: Sequelize.Sequelize): typeof review {
     return review.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    changes: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: "open"
-    },
-    reviewable_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    reviewable_type: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'reviews',
-    timestamps: true,
-    paranoid: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      changes: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: "open"
+      },
+      reviewable_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      reviewable_type: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      tableName: 'reviews',
+      timestamps: true,
+      paranoid: true
+    });
   }
 }

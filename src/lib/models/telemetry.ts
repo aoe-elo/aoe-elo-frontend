@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface telemetryAttributes {
   id: number;
@@ -20,16 +21,16 @@ export class telemetry extends Model<telemetryAttributes, telemetryCreationAttri
 
   static initModel(sequelize: Sequelize.Sequelize): typeof telemetry {
     return telemetry.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    }
-  }, {
-    sequelize,
-    tableName: 'telemetry',
-    timestamps: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      }
+    }, {
+      sequelize,
+      tableName: 'telemetry',
+      timestamps: true
+    });
   }
 }

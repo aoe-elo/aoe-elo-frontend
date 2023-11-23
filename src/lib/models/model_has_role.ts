@@ -1,5 +1,5 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { role, roleId } from './role';
 
 export interface model_has_roleAttributes {
@@ -25,49 +25,49 @@ export class model_has_role extends Model<model_has_roleAttributes, model_has_ro
 
   static initModel(sequelize: Sequelize.Sequelize): typeof model_has_role {
     return model_has_role.init({
-    role_id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'roles',
-        key: 'id'
+      role_id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'roles',
+          key: 'id'
+        },
+        unique: true
       },
-      unique: true
-    },
-    model_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true
-    },
-    model_id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    }
-  }, {
-    sequelize,
-    tableName: 'model_has_roles',
-    timestamps: false,
-    indexes: [
-      {
-        name: "sqlite_autoindex_model_has_roles_1",
-        unique: true,
-        fields: [
-          { name: "role_id" },
-          { name: "model_id" },
-          { name: "model_type" },
-        ]
+      model_type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true
       },
-      {
-        name: "model_has_roles_model_id_model_type_index",
-        fields: [
-          { name: "model_id" },
-          { name: "model_type" },
-        ]
-      },
-    ]
-  });
+      model_id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      }
+    }, {
+      sequelize,
+      tableName: 'model_has_roles',
+      timestamps: false,
+      indexes: [
+        {
+          name: "sqlite_autoindex_model_has_roles_1",
+          unique: true,
+          fields: [
+            { name: "role_id" },
+            { name: "model_id" },
+            { name: "model_type" },
+          ]
+        },
+        {
+          name: "model_has_roles_model_id_model_type_index",
+          fields: [
+            { name: "model_id" },
+            { name: "model_type" },
+          ]
+        },
+      ]
+    });
   }
 }

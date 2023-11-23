@@ -1,5 +1,5 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface migrationAttributes {
   id: number;
@@ -19,24 +19,24 @@ export class migration extends Model<migrationAttributes, migrationCreationAttri
 
   static initModel(sequelize: Sequelize.Sequelize): typeof migration {
     return migration.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    migration: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    batch: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'migrations',
-    timestamps: false
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      migration: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      batch: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      tableName: 'migrations',
+      timestamps: false
+    });
   }
 }

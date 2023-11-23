@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { set, setId } from './set';
 import type { stage, stageId } from './stage';
 
@@ -49,51 +50,51 @@ export class stageable extends Model<stageableAttributes, stageableCreationAttri
 
   static initModel(sequelize: Sequelize.Sequelize): typeof stageable {
     return stageable.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    stage_order: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    stageable_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true
-    },
-    stageable_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    stage_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'stages',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'stageables',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "stageables_stage_id_stageable_id_stageable_type_unique",
-        unique: true,
-        fields: [
-          { name: "stage_id" },
-          { name: "stageable_id" },
-          { name: "stageable_type" },
-        ]
+      stage_order: {
+        type: DataTypes.INTEGER,
+        allowNull: true
       },
-    ]
-  });
+      stageable_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true
+      },
+      stageable_type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      stage_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'stages',
+          key: 'id'
+        },
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'stageables',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "stageables_stage_id_stageable_id_stageable_type_unique",
+          unique: true,
+          fields: [
+            { name: "stage_id" },
+            { name: "stageable_id" },
+            { name: "stageable_type" },
+          ]
+        },
+      ]
+    });
   }
 }

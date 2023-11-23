@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { tournament, tournamentId } from './tournament';
 
 export interface atp_categoryAttributes {
@@ -41,45 +42,45 @@ export class atp_category extends Model<atp_categoryAttributes, atp_categoryCrea
 
   static initModel(sequelize: Sequelize.Sequelize): typeof atp_category {
     return atp_category.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    category: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true
-    },
-    sub_category: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      unique: true
-    },
-    base_value: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    modifier: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 10
-    }
-  }, {
-    sequelize,
-    tableName: 'atp_categories',
-    timestamps: true,
-    indexes: [
-      {
-        name: "atp_categories_category_sub_category_unique",
-        unique: true,
-        fields: [
-          { name: "category" },
-          { name: "sub_category" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-    ]
-  });
+      category: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true
+      },
+      sub_category: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        unique: true
+      },
+      base_value: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      modifier: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 10
+      }
+    }, {
+      sequelize,
+      tableName: 'atp_categories',
+      timestamps: true,
+      indexes: [
+        {
+          name: "atp_categories_category_sub_category_unique",
+          unique: true,
+          fields: [
+            { name: "category" },
+            { name: "sub_category" },
+          ]
+        },
+      ]
+    });
   }
 }

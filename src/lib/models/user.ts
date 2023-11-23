@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { actionlog, actionlogId } from './actionlog';
 import type { country, countryId } from './country';
 import type { discord_user, discord_userId } from './discord_user';
@@ -127,47 +128,47 @@ export class user extends Model<userAttributes, userCreationAttributes> implemen
 
   static initModel(sequelize: Sequelize.Sequelize): typeof user {
     return user.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
-    },
-    country_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'countries',
-        key: 'id'
-      }
-    },
-    remember_token: {
-      type: DataTypes.STRING,
-      allowNull: true
-    }
-  }, {
-    sequelize,
-    tableName: 'users',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "users_email_unique",
-        unique: true,
-        fields: [
-          { name: "email" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-    ]
-  });
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+      },
+      country_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'countries',
+          key: 'id'
+        }
+      },
+      remember_token: {
+        type: DataTypes.STRING,
+        allowNull: true
+      }
+    }, {
+      sequelize,
+      tableName: 'users',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "users_email_unique",
+          unique: true,
+          fields: [
+            { name: "email" },
+          ]
+        },
+      ]
+    });
   }
 }

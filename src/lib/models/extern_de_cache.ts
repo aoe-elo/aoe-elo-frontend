@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface extern_de_cacheAttributes {
   id: number;
@@ -26,28 +27,28 @@ export class extern_de_cache extends Model<extern_de_cacheAttributes, extern_de_
 
   static initModel(sequelize: Sequelize.Sequelize): typeof extern_de_cache {
     return extern_de_cache.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    relic_link_id: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    rating: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    rank: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'extern_de_cache',
-    timestamps: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      relic_link_id: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      rank: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      tableName: 'extern_de_cache',
+      timestamps: true
+    });
   }
 }

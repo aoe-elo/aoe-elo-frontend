@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { user, userId } from './user';
 
 export interface twitch_userAttributes {
@@ -40,64 +41,64 @@ export class twitch_user extends Model<twitch_userAttributes, twitch_userCreatio
 
   static initModel(sequelize: Sequelize.Sequelize): typeof twitch_user {
     return twitch_user.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    twitch_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    nickname: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    avatar: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'users',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'twitch_users',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "twitch_users_user_id_twitch_id_unique",
-        unique: true,
-        fields: [
-          { name: "user_id" },
-          { name: "twitch_id" },
-        ]
+      twitch_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
       },
-      {
-        name: "twitch_users_twitch_id_unique",
-        unique: true,
-        fields: [
-          { name: "twitch_id" },
-        ]
+      nickname: {
+        type: DataTypes.STRING,
+        allowNull: true
       },
-    ]
-  });
+      name: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      avatar: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'twitch_users',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "twitch_users_user_id_twitch_id_unique",
+          unique: true,
+          fields: [
+            { name: "user_id" },
+            { name: "twitch_id" },
+          ]
+        },
+        {
+          name: "twitch_users_twitch_id_unique",
+          unique: true,
+          fields: [
+            { name: "twitch_id" },
+          ]
+        },
+      ]
+    });
   }
 }

@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { user, userId } from './user';
 
 export interface discord_userAttributes {
@@ -40,72 +41,72 @@ export class discord_user extends Model<discord_userAttributes, discord_userCrea
 
   static initModel(sequelize: Sequelize.Sequelize): typeof discord_user {
     return discord_user.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    discord_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    nickname: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
-    },
-    avatar: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'users',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'discord_users',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "discord_users_user_id_discord_id_unique",
-        unique: true,
-        fields: [
-          { name: "user_id" },
-          { name: "discord_id" },
-        ]
+      discord_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
       },
-      {
-        name: "discord_users_discord_id_unique",
-        unique: true,
-        fields: [
-          { name: "discord_id" },
-        ]
+      nickname: {
+        type: DataTypes.STRING,
+        allowNull: true
       },
-      {
-        name: "discord_users_email_unique",
-        unique: true,
-        fields: [
-          { name: "email" },
-        ]
+      name: {
+        type: DataTypes.STRING,
+        allowNull: true
       },
-    ]
-  });
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+      },
+      avatar: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'discord_users',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "discord_users_user_id_discord_id_unique",
+          unique: true,
+          fields: [
+            { name: "user_id" },
+            { name: "discord_id" },
+          ]
+        },
+        {
+          name: "discord_users_discord_id_unique",
+          unique: true,
+          fields: [
+            { name: "discord_id" },
+          ]
+        },
+        {
+          name: "discord_users_email_unique",
+          unique: true,
+          fields: [
+            { name: "email" },
+          ]
+        },
+      ]
+    });
   }
 }

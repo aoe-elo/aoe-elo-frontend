@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface cache_most_visitedAttributes {
   id: number;
@@ -26,28 +27,28 @@ export class cache_most_visited extends Model<cache_most_visitedAttributes, cach
 
   static initModel(sequelize: Sequelize.Sequelize): typeof cache_most_visited {
     return cache_most_visited.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    page: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    entity_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    visits: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'cache_most_visited',
-    timestamps: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      page: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      entity_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      visits: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      tableName: 'cache_most_visited',
+      timestamps: true
+    });
   }
 }

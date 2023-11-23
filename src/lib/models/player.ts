@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { ard_player, ard_playerId } from './ard_player';
 import type { country, countryId } from './country';
 import type { elo_1v1_cache, elo_1v1_cacheId } from './elo_1v1_cache';
@@ -66,12 +67,12 @@ export class player extends Model<playerAttributes, playerCreationAttributes> im
   elo_1v1_caches!: elo_1v1_cache[];
   getElo_1v1_caches!: Sequelize.HasManyGetAssociationsMixin<elo_1v1_cache>;
   setElo_1v1_caches!: Sequelize.HasManySetAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  addElo_1v1_cach!: Sequelize.HasManyAddAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  addElo_1v1_cache!: Sequelize.HasManyAddAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
   addElo_1v1_caches!: Sequelize.HasManyAddAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  createElo_1v1_cach!: Sequelize.HasManyCreateAssociationMixin<elo_1v1_cache>;
-  removeElo_1v1_cach!: Sequelize.HasManyRemoveAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  createElo_1v1_cache!: Sequelize.HasManyCreateAssociationMixin<elo_1v1_cache>;
+  removeElo_1v1_cache!: Sequelize.HasManyRemoveAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
   removeElo_1v1_caches!: Sequelize.HasManyRemoveAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  hasElo_1v1_cach!: Sequelize.HasManyHasAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  hasElo_1v1_cache!: Sequelize.HasManyHasAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
   hasElo_1v1_caches!: Sequelize.HasManyHasAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
   countElo_1v1_caches!: Sequelize.HasManyCountAssociationsMixin;
   // player hasMany player_team via player_id
@@ -94,151 +95,151 @@ export class player extends Model<playerAttributes, playerCreationAttributes> im
 
   static initModel(sequelize: Sequelize.Sequelize): typeof player {
     return player.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      unique: true
-    },
-    current_elo: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    base_elo: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1800
-    },
-    current_atp: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    base_atp: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1800
-    },
-    voobly_id_main: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
-    },
-    relic_link_id_main: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
-    },
-    steam_id_main: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
-    },
-    liquipedia_handle: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    },
-    discord_handle: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    },
-    twitch_handle: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    },
-    aoe_reference_data_player_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'ard_players',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      name: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        unique: true
+      },
+      current_elo: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      base_elo: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1800
+      },
+      current_atp: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      base_atp: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1800
+      },
+      voobly_id_main: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+      },
+      relic_link_id_main: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+      },
+      steam_id_main: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+      },
+      liquipedia_handle: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
+      },
+      discord_handle: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
+      },
+      twitch_handle: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
+      },
+      aoe_reference_data_player_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'ard_players',
+          key: 'id'
+        }
+      },
+      country_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'countries',
+          key: 'id'
+        },
+        unique: true
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        unique: true
       }
-    },
-    country_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'countries',
-        key: 'id'
-      },
-      unique: true
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'users',
-        key: 'id'
-      },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'players',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "players_name_user_id_country_id_relic_link_id_main_steam_id_main_unique",
-        unique: true,
-        fields: [
-          { name: "name" },
-          { name: "user_id" },
-          { name: "country_id" },
-          { name: "relic_link_id_main" },
-          { name: "steam_id_main" },
-        ]
-      },
-      {
-        name: "players_voobly_id_main_unique",
-        unique: true,
-        fields: [
-          { name: "voobly_id_main" },
-        ]
-      },
-      {
-        name: "players_relic_link_id_main_unique",
-        unique: true,
-        fields: [
-          { name: "relic_link_id_main" },
-        ]
-      },
-      {
-        name: "players_steam_id_main_unique",
-        unique: true,
-        fields: [
-          { name: "steam_id_main" },
-        ]
-      },
-      {
-        name: "players_liquipedia_handle_unique",
-        unique: true,
-        fields: [
-          { name: "liquipedia_handle" },
-        ]
-      },
-      {
-        name: "players_discord_handle_unique",
-        unique: true,
-        fields: [
-          { name: "discord_handle" },
-        ]
-      },
-      {
-        name: "players_twitch_handle_unique",
-        unique: true,
-        fields: [
-          { name: "twitch_handle" },
-        ]
-      },
-    ]
-  });
+    }, {
+      sequelize,
+      tableName: 'players',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "players_name_user_id_country_id_relic_link_id_main_steam_id_main_unique",
+          unique: true,
+          fields: [
+            { name: "name" },
+            { name: "user_id" },
+            { name: "country_id" },
+            { name: "relic_link_id_main" },
+            { name: "steam_id_main" },
+          ]
+        },
+        {
+          name: "players_voobly_id_main_unique",
+          unique: true,
+          fields: [
+            { name: "voobly_id_main" },
+          ]
+        },
+        {
+          name: "players_relic_link_id_main_unique",
+          unique: true,
+          fields: [
+            { name: "relic_link_id_main" },
+          ]
+        },
+        {
+          name: "players_steam_id_main_unique",
+          unique: true,
+          fields: [
+            { name: "steam_id_main" },
+          ]
+        },
+        {
+          name: "players_liquipedia_handle_unique",
+          unique: true,
+          fields: [
+            { name: "liquipedia_handle" },
+          ]
+        },
+        {
+          name: "players_discord_handle_unique",
+          unique: true,
+          fields: [
+            { name: "discord_handle" },
+          ]
+        },
+        {
+          name: "players_twitch_handle_unique",
+          unique: true,
+          fields: [
+            { name: "twitch_handle" },
+          ]
+        },
+      ]
+    });
   }
 }

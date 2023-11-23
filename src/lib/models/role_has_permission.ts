@@ -1,5 +1,5 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { permission, permissionId } from './permission';
 import type { role, roleId } from './role';
 
@@ -29,40 +29,40 @@ export class role_has_permission extends Model<role_has_permissionAttributes, ro
 
   static initModel(sequelize: Sequelize.Sequelize): typeof role_has_permission {
     return role_has_permission.init({
-    permission_id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'permissions',
-        key: 'id'
+      permission_id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'permissions',
+          key: 'id'
+        },
+        unique: true
       },
-      unique: true
-    },
-    role_id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'roles',
-        key: 'id'
-      },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'role_has_permissions',
-    timestamps: false,
-    indexes: [
-      {
-        name: "sqlite_autoindex_role_has_permissions_1",
-        unique: true,
-        fields: [
-          { name: "permission_id" },
-          { name: "role_id" },
-        ]
-      },
-    ]
-  });
+      role_id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'roles',
+          key: 'id'
+        },
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'role_has_permissions',
+      timestamps: false,
+      indexes: [
+        {
+          name: "sqlite_autoindex_role_has_permissions_1",
+          unique: true,
+          fields: [
+            { name: "permission_id" },
+            { name: "role_id" },
+          ]
+        },
+      ]
+    });
   }
 }

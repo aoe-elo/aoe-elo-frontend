@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { location_location_style, location_location_styleId } from './location_location_style';
 import type { location_set_info, location_set_infoId } from './location_set_info';
 
@@ -64,65 +65,65 @@ export class location extends Model<locationAttributes, locationCreationAttribut
 
   static initModel(sequelize: Sequelize.Sequelize): typeof location {
     return location.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    name_short: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
-    },
-    liquipedia_link: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    aoe2map_link: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    aoe2map_uuid: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    image_path: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    },
-    preview_image_path: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    },
-    keywords: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    }
-  }, {
-    sequelize,
-    tableName: 'locations',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "locations_name_name_short_image_path_preview_image_path_unique",
-        unique: true,
-        fields: [
-          { name: "name" },
-          { name: "name_short" },
-          { name: "image_path" },
-          { name: "preview_image_path" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-    ]
-  });
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      name_short: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+      },
+      liquipedia_link: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      aoe2map_link: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      aoe2map_uuid: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      image_path: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
+      },
+      preview_image_path: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
+      },
+      keywords: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      }
+    }, {
+      sequelize,
+      tableName: 'locations',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "locations_name_name_short_image_path_preview_image_path_unique",
+          unique: true,
+          fields: [
+            { name: "name" },
+            { name: "name_short" },
+            { name: "image_path" },
+            { name: "preview_image_path" },
+          ]
+        },
+      ]
+    });
   }
 }

@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { ard_player_ard_team, ard_player_ard_teamId } from './ard_player_ard_team';
 import type { team, teamId } from './team';
 
@@ -50,31 +51,31 @@ export class ard_team extends Model<ard_teamAttributes, ard_teamCreationAttribut
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ard_team {
     return ard_team.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      unique: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'ard_teams',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "ard_teams_id_unique",
-        unique: true,
-        fields: [
-          { name: "id" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        unique: true
       },
-    ]
-  });
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      tableName: 'ard_teams',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "ard_teams_id_unique",
+          unique: true,
+          fields: [
+            { name: "id" },
+          ]
+        },
+      ]
+    });
   }
 }

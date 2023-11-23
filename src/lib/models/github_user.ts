@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { user, userId } from './user';
 
 export interface github_userAttributes {
@@ -40,64 +41,64 @@ export class github_user extends Model<github_userAttributes, github_userCreatio
 
   static initModel(sequelize: Sequelize.Sequelize): typeof github_user {
     return github_user.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    github_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    github_token: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    github_refresh_token: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'users',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'github_users',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "github_users_user_id_github_id_unique",
-        unique: true,
-        fields: [
-          { name: "user_id" },
-          { name: "github_id" },
-        ]
+      github_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
       },
-      {
-        name: "github_users_github_id_unique",
-        unique: true,
-        fields: [
-          { name: "github_id" },
-        ]
+      name: {
+        type: DataTypes.STRING,
+        allowNull: true
       },
-    ]
-  });
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      github_token: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      github_refresh_token: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'github_users',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "github_users_user_id_github_id_unique",
+          unique: true,
+          fields: [
+            { name: "user_id" },
+            { name: "github_id" },
+          ]
+        },
+        {
+          name: "github_users_github_id_unique",
+          unique: true,
+          fields: [
+            { name: "github_id" },
+          ]
+        },
+      ]
+    });
   }
 }

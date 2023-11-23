@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { achievement, achievementId } from './achievement';
 
 export interface achievableAttributes {
@@ -36,52 +37,52 @@ export class achievable extends Model<achievableAttributes, achievableCreationAt
 
   static initModel(sequelize: Sequelize.Sequelize): typeof achievable {
     return achievable.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    achievable_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true
-    },
-    achievable_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    achievement_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'achievements',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    },
-    hidden: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: 0
-    }
-  }, {
-    sequelize,
-    tableName: 'achievables',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "achievables_achievement_id_achievable_id_achievable_type_unique",
-        unique: true,
-        fields: [
-          { name: "achievement_id" },
-          { name: "achievable_id" },
-          { name: "achievable_type" },
-        ]
+      achievable_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true
       },
-    ]
-  });
+      achievable_type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      achievement_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'achievements',
+          key: 'id'
+        },
+        unique: true
+      },
+      hidden: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0
+      }
+    }, {
+      sequelize,
+      tableName: 'achievables',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "achievables_achievement_id_achievable_id_achievable_type_unique",
+          unique: true,
+          fields: [
+            { name: "achievement_id" },
+            { name: "achievable_id" },
+            { name: "achievable_type" },
+          ]
+        },
+      ]
+    });
   }
 }

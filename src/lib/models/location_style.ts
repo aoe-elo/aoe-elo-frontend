@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { location_location_style, location_location_styleId } from './location_location_style';
 
 export interface location_styleAttributes {
@@ -39,26 +40,26 @@ export class location_style extends Model<location_styleAttributes, location_sty
 
   static initModel(sequelize: Sequelize.Sequelize): typeof location_style {
     return location_style.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    style: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    weight: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 10
-    }
-  }, {
-    sequelize,
-    tableName: 'location_styles',
-    timestamps: true,
-    paranoid: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      style: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      weight: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 10
+      }
+    }, {
+      sequelize,
+      tableName: 'location_styles',
+      timestamps: true,
+      paranoid: true
+    });
   }
 }

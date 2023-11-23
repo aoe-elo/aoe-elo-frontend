@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface migrationlogAttributes {
   id: number;
@@ -26,29 +27,29 @@ export class migrationlog extends Model<migrationlogAttributes, migrationlogCrea
 
   static initModel(sequelize: Sequelize.Sequelize): typeof migrationlog {
     return migrationlog.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    migratory_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    migratory_type: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    save_confirmed: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: 0
-    }
-  }, {
-    sequelize,
-    tableName: 'migrationlog',
-    timestamps: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      migratory_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      migratory_type: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      save_confirmed: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: 0
+      }
+    }, {
+      sequelize,
+      tableName: 'migrationlog',
+      timestamps: true
+    });
   }
 }

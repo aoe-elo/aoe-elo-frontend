@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { ard_player, ard_playerId } from './ard_player';
 import type { player, playerId } from './player';
 import type { team, teamId } from './team';
@@ -102,99 +103,99 @@ export class country extends Model<countryAttributes, countryCreationAttributes>
 
   static initModel(sequelize: Sequelize.Sequelize): typeof country {
     return country.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    capital: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    citizenship: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    country_code: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: ""
-    },
-    currency: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    currency_code: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    currency_sub_unit: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    currency_symbol: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    currency_decimals: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    full_name: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    iso_3166_2: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: ""
-    },
-    iso_3166_3: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: ""
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: ""
-    },
-    region_code: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: ""
-    },
-    sub_region_code: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: ""
-    },
-    eea: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: 0
-    },
-    calling_code: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    flag: {
-      type: DataTypes.STRING,
-      allowNull: true
-    }
-  }, {
-    sequelize,
-    tableName: 'countries',
-    timestamps: false,
-    indexes: [
-      {
-        name: "countries_id_index",
-        fields: [
-          { name: "id" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-    ]
-  });
+      capital: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      citizenship: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      country_code: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: ""
+      },
+      currency: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      currency_code: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      currency_sub_unit: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      currency_symbol: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      currency_decimals: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      full_name: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      iso_3166_2: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: ""
+      },
+      iso_3166_3: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: ""
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: ""
+      },
+      region_code: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: ""
+      },
+      sub_region_code: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: ""
+      },
+      eea: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0
+      },
+      calling_code: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      flag: {
+        type: DataTypes.STRING,
+        allowNull: true
+      }
+    }, {
+      sequelize,
+      tableName: 'countries',
+      timestamps: false,
+      indexes: [
+        {
+          name: "countries_id_index",
+          fields: [
+            { name: "id" },
+          ]
+        },
+      ]
+    });
   }
 }

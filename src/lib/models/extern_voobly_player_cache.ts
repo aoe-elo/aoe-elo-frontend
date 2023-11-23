@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface extern_voobly_player_cacheAttributes {
   id: number;
@@ -26,28 +27,28 @@ export class extern_voobly_player_cache extends Model<extern_voobly_player_cache
 
   static initModel(sequelize: Sequelize.Sequelize): typeof extern_voobly_player_cache {
     return extern_voobly_player_cache.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    voobly_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    rm_1v1: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    rm_tg: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'extern_voobly_player_cache',
-    timestamps: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      voobly_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      rm_1v1: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      rm_tg: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      tableName: 'extern_voobly_player_cache',
+      timestamps: true
+    });
   }
 }

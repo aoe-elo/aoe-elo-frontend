@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { player, playerId } from './player';
 import type { set, setId } from './set';
 import type { tournament, tournamentId } from './tournament';
@@ -52,57 +53,57 @@ export class elo_1v1_cache extends Model<elo_1v1_cacheAttributes, elo_1v1_cacheC
 
   static initModel(sequelize: Sequelize.Sequelize): typeof elo_1v1_cache {
     return elo_1v1_cache.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: "match"
-    },
-    elo_before: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    elo_after: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    match_time: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    player_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'players',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "match"
+      },
+      elo_before: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      elo_after: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      match_time: {
+        type: DataTypes.DATE,
+        allowNull: false
+      },
+      player_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'players',
+          key: 'id'
+        }
+      },
+      tournament_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'tournaments',
+          key: 'id'
+        }
+      },
+      set_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'sets',
+          key: 'id'
+        }
       }
-    },
-    tournament_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'tournaments',
-        key: 'id'
-      }
-    },
-    set_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'sets',
-        key: 'id'
-      }
-    }
-  }, {
-    sequelize,
-    tableName: 'elo_1v1_cache',
-    timestamps: true
-  });
+    }, {
+      sequelize,
+      tableName: 'elo_1v1_cache',
+      timestamps: true
+    });
   }
 }

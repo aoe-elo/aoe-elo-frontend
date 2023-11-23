@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { player, playerId } from './player';
 import type { team, teamId } from './team';
 
@@ -44,62 +45,62 @@ export class player_team extends Model<player_teamAttributes, player_teamCreatio
 
   static initModel(sequelize: Sequelize.Sequelize): typeof player_team {
     return player_team.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    joined_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      unique: true
-    },
-    left_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      unique: true
-    },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: 1
-    },
-    player_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'players',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    },
-    team_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'teams',
-        key: 'id'
+      joined_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        unique: true
       },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'player_team',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "player_team_player_id_team_id_joined_at_left_at_unique",
-        unique: true,
-        fields: [
-          { name: "player_id" },
-          { name: "team_id" },
-          { name: "joined_at" },
-          { name: "left_at" },
-        ]
+      left_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        unique: true
       },
-    ]
-  });
+      is_active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: 1
+      },
+      player_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'players',
+          key: 'id'
+        },
+        unique: true
+      },
+      team_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'teams',
+          key: 'id'
+        },
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'player_team',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "player_team_player_id_team_id_joined_at_left_at_unique",
+          unique: true,
+          fields: [
+            { name: "player_id" },
+            { name: "team_id" },
+            { name: "joined_at" },
+            { name: "left_at" },
+          ]
+        },
+      ]
+    });
   }
 }

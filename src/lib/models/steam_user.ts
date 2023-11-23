@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { user, userId } from './user';
 
 export interface steam_userAttributes {
@@ -38,60 +39,60 @@ export class steam_user extends Model<steam_userAttributes, steam_userCreationAt
 
   static initModel(sequelize: Sequelize.Sequelize): typeof steam_user {
     return steam_user.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    steam_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    nickname: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    avatar: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'users',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'steam_users',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "steam_users_user_id_steam_id_unique",
-        unique: true,
-        fields: [
-          { name: "user_id" },
-          { name: "steam_id" },
-        ]
+      steam_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
       },
-      {
-        name: "steam_users_steam_id_unique",
-        unique: true,
-        fields: [
-          { name: "steam_id" },
-        ]
+      nickname: {
+        type: DataTypes.STRING,
+        allowNull: true
       },
-    ]
-  });
+      name: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      avatar: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'steam_users',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "steam_users_user_id_steam_id_unique",
+          unique: true,
+          fields: [
+            { name: "user_id" },
+            { name: "steam_id" },
+          ]
+        },
+        {
+          name: "steam_users_steam_id_unique",
+          unique: true,
+          fields: [
+            { name: "steam_id" },
+          ]
+        },
+      ]
+    });
   }
 }

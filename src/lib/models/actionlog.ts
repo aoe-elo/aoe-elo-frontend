@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { action, actionId } from './action';
 import type { user, userId } from './user';
 
@@ -44,61 +45,61 @@ export class actionlog extends Model<actionlogAttributes, actionlogCreationAttri
 
   static initModel(sequelize: Sequelize.Sequelize): typeof actionlog {
     return actionlog.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'users',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    },
-    action_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'actions',
-        key: 'id'
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        unique: true
+      },
+      action_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'actions',
+          key: 'id'
+        }
+      },
+      summary: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      loggable_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        unique: true
+      },
+      loggable_type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
       }
-    },
-    summary: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    loggable_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      unique: true
-    },
-    loggable_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'actionlog',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "actionlog_user_id_loggable_id_loggable_type_created_at_updated_at_unique",
-        unique: true,
-        fields: [
-          { name: "user_id" },
-          { name: "loggable_id" },
-          { name: "loggable_type" },
-          { name: "created_at" },
-          { name: "updated_at" },
-        ]
-      },
-    ]
-  });
+    }, {
+      sequelize,
+      tableName: 'actionlog',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "actionlog_user_id_loggable_id_loggable_type_created_at_updated_at_unique",
+          unique: true,
+          fields: [
+            { name: "user_id" },
+            { name: "loggable_id" },
+            { name: "loggable_type" },
+            { name: "created_at" },
+            { name: "updated_at" },
+          ]
+        },
+      ]
+    });
   }
 }

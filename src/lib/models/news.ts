@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface newsAttributes {
   id: number;
@@ -34,42 +35,42 @@ export class news extends Model<newsAttributes, newsCreationAttributes> implemen
 
   static initModel(sequelize: Sequelize.Sequelize): typeof news {
     return news.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    title: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    pinned: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: 0
-    },
-    abstract: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    content: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    tags: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    }
-  }, {
-    sequelize,
-    tableName: 'news',
-    timestamps: true,
-    paranoid: true
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      title: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      pinned: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0
+      },
+      abstract: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      content: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      tags: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      }
+    }, {
+      sequelize,
+      tableName: 'news',
+      timestamps: true,
+      paranoid: true
+    });
   }
 }

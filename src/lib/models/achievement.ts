@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { achievable, achievableId } from './achievable';
 
 export interface achievementAttributes {
@@ -43,47 +44,47 @@ export class achievement extends Model<achievementAttributes, achievementCreatio
 
   static initModel(sequelize: Sequelize.Sequelize): typeof achievement {
     return achievement.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    name_short: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    image_path: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'achievements',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "achievements_name_name_short_image_path_unique",
-        unique: true,
-        fields: [
-          { name: "name" },
-          { name: "name_short" },
-          { name: "image_path" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-    ]
-  });
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      name_short: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      image_path: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'achievements',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "achievements_name_name_short_image_path_unique",
+          unique: true,
+          fields: [
+            { name: "name" },
+            { name: "name_short" },
+            { name: "image_path" },
+          ]
+        },
+      ]
+    });
   }
 }

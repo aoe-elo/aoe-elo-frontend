@@ -1,5 +1,5 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface meta_cacheAttributes {
   id: number;
@@ -23,32 +23,32 @@ export class meta_cache extends Model<meta_cacheAttributes, meta_cacheCreationAt
 
   static initModel(sequelize: Sequelize.Sequelize): typeof meta_cache {
     return meta_cache.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    value_int: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    value_float: {
-      type: DataTypes.FLOAT,
-      allowNull: false
-    },
-    value_str: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'meta_cache',
-    timestamps: false
-  });
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      name: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      value_int: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      value_float: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      },
+      value_str: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      tableName: 'meta_cache',
+      timestamps: false
+    });
   }
 }

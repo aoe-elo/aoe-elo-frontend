@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { location_set_info, location_set_infoId } from './location_set_info';
 import type { set, setId } from './set';
 
@@ -53,60 +54,60 @@ export class set_info extends Model<set_infoAttributes, set_infoCreationAttribut
 
   static initModel(sequelize: Sequelize.Sequelize): typeof set_info {
     return set_info.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    score: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    is_winner: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: 0
-    },
-    adjusted_score: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    participatory_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true
-    },
-    participatory_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    set_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'sets',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'set_info',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "set_info_set_id_participatory_id_participatory_type_unique",
-        unique: true,
-        fields: [
-          { name: "set_id" },
-          { name: "participatory_id" },
-          { name: "participatory_type" },
-        ]
+      score: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
-    ]
-  });
+      is_winner: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0
+      },
+      adjusted_score: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      participatory_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true
+      },
+      participatory_type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      set_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'sets',
+          key: 'id'
+        },
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'set_info',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "set_info_set_id_participatory_id_participatory_type_unique",
+          unique: true,
+          fields: [
+            { name: "set_id" },
+            { name: "participatory_id" },
+            { name: "participatory_type" },
+          ]
+        },
+      ]
+    });
   }
 }

@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { location, locationId } from './location';
 import type { set_info, set_infoId } from './set_info';
 
@@ -38,33 +39,33 @@ export class location_set_info extends Model<location_set_infoAttributes, locati
 
   static initModel(sequelize: Sequelize.Sequelize): typeof location_set_info {
     return location_set_info.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    set_info_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'set_info',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      set_info_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'set_info',
+          key: 'id'
+        }
+      },
+      location_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'locations',
+          key: 'id'
+        }
       }
-    },
-    location_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'locations',
-        key: 'id'
-      }
-    }
-  }, {
-    sequelize,
-    tableName: 'location_set_info',
-    timestamps: true,
-    paranoid: true
-  });
+    }, {
+      sequelize,
+      tableName: 'location_set_info',
+      timestamps: true,
+      paranoid: true
+    });
   }
 }

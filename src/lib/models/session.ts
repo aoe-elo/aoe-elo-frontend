@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { user, userId } from './user';
 
 export interface sessionAttributes {
@@ -32,55 +33,55 @@ export class session extends Model<sessionAttributes, sessionCreationAttributes>
 
   static initModel(sequelize: Sequelize.Sequelize): typeof session {
     return session.init({
-    id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true,
-      unique: true
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'users',
-        key: 'id'
+      id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+        unique: true
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      },
+      ip_address: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      user_agent: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      payload: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      last_activity: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       }
-    },
-    ip_address: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    user_agent: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    payload: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    last_activity: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'sessions',
-    timestamps: false,
-    indexes: [
-      {
-        name: "sqlite_autoindex_sessions_1",
-        unique: true,
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "sessions_last_activity_index",
-        fields: [
-          { name: "last_activity" },
-        ]
-      },
-    ]
-  });
+    }, {
+      sequelize,
+      tableName: 'sessions',
+      timestamps: false,
+      indexes: [
+        {
+          name: "sqlite_autoindex_sessions_1",
+          unique: true,
+          fields: [
+            { name: "id" },
+          ]
+        },
+        {
+          name: "sessions_last_activity_index",
+          fields: [
+            { name: "last_activity" },
+          ]
+        },
+      ]
+    });
   }
 }

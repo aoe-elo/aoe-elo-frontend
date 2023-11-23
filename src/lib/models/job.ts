@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface jobAttributes {
   id: number;
@@ -27,45 +28,51 @@ export class job extends Model<jobAttributes, jobCreationAttributes> implements 
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof job {
-    return job.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    queue: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    payload: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    attempts: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    reserved_at: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    available_at: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'jobs',
-    timestamps: true,
-    indexes: [
+    return job.init(
       {
-        name: "jobs_queue_index",
-        fields: [
-          { name: "queue" },
-        ]
+        id: {
+          autoIncrement: true,
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          primaryKey: true
+        },
+        queue: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
+        payload: {
+          type: DataTypes.TEXT,
+          allowNull: false
+        },
+        attempts: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        },
+        reserved_at: {
+          type: DataTypes.INTEGER,
+          allowNull: true
+        },
+        available_at: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        },
+        created_at: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        }
       },
-    ]
-  });
+      {
+        sequelize,
+        tableName: 'jobs',
+        timestamps: true,
+        indexes: [
+          {
+            name: "jobs_queue_index",
+            fields: [
+              { name: "queue" },
+            ]
+          },
+        ]
+      });
   }
 }

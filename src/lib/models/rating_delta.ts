@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { set, setId } from './set';
 
 export interface rating_deltaAttributes {
@@ -38,56 +39,56 @@ export class rating_delta extends Model<rating_deltaAttributes, rating_deltaCrea
 
   static initModel(sequelize: Sequelize.Sequelize): typeof rating_delta {
     return rating_delta.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    participant_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true
-    },
-    participant_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    set_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'sets',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    },
-    rating_delta: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0
-    },
-    date_delta: {
-      type: DataTypes.DATE,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'rating_deltas',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "rating_deltas_participant_id_participant_type_set_id_unique",
-        unique: true,
-        fields: [
-          { name: "participant_id" },
-          { name: "participant_type" },
-          { name: "set_id" },
-        ]
+      participant_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true
       },
-    ]
-  });
+      participant_type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      set_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'sets',
+          key: 'id'
+        },
+        unique: true
+      },
+      rating_delta: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
+      date_delta: {
+        type: DataTypes.DATE,
+        allowNull: false
+      }
+    }, {
+      sequelize,
+      tableName: 'rating_deltas',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "rating_deltas_participant_id_participant_type_set_id_unique",
+          unique: true,
+          fields: [
+            { name: "participant_id" },
+            { name: "participant_type" },
+            { name: "set_id" },
+          ]
+        },
+      ]
+    });
   }
 }

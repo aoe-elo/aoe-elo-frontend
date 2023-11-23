@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
 export interface personal_access_tokenAttributes {
   id: number;
@@ -34,61 +35,61 @@ export class personal_access_token extends Model<personal_access_tokenAttributes
 
   static initModel(sequelize: Sequelize.Sequelize): typeof personal_access_token {
     return personal_access_token.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    tokenable_type: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    tokenable_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    token: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    abilities: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    last_used_at: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    expires_at: {
-      type: DataTypes.DATE,
-      allowNull: true
-    }
-  }, {
-    sequelize,
-    tableName: 'personal_access_tokens',
-    timestamps: true,
-    indexes: [
-      {
-        name: "personal_access_tokens_tokenable_type_tokenable_id_index",
-        fields: [
-          { name: "tokenable_type" },
-          { name: "tokenable_id" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      {
-        name: "personal_access_tokens_token_unique",
-        unique: true,
-        fields: [
-          { name: "token" },
-        ]
+      tokenable_type: {
+        type: DataTypes.STRING,
+        allowNull: false
       },
-    ]
-  });
+      tokenable_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      token: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      abilities: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      last_used_at: {
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      expires_at: {
+        type: DataTypes.DATE,
+        allowNull: true
+      }
+    }, {
+      sequelize,
+      tableName: 'personal_access_tokens',
+      timestamps: true,
+      indexes: [
+        {
+          name: "personal_access_tokens_tokenable_type_tokenable_id_index",
+          fields: [
+            { name: "tokenable_type" },
+            { name: "tokenable_id" },
+          ]
+        },
+        {
+          name: "personal_access_tokens_token_unique",
+          unique: true,
+          fields: [
+            { name: "token" },
+          ]
+        },
+      ]
+    });
   }
 }

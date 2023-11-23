@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { model_has_role, model_has_roleId } from './model_has_role';
 import type { role_has_permission, role_has_permissionId } from './role_has_permission';
 
@@ -50,36 +51,36 @@ export class role extends Model<roleAttributes, roleCreationAttributes> implemen
 
   static initModel(sequelize: Sequelize.Sequelize): typeof role {
     return role.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    guard_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    }
-  }, {
-    sequelize,
-    tableName: 'roles',
-    timestamps: true,
-    indexes: [
-      {
-        name: "roles_name_guard_name_unique",
-        unique: true,
-        fields: [
-          { name: "name" },
-          { name: "guard_name" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-    ]
-  });
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      guard_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      }
+    }, {
+      sequelize,
+      tableName: 'roles',
+      timestamps: true,
+      indexes: [
+        {
+          name: "roles_name_guard_name_unique",
+          unique: true,
+          fields: [
+            { name: "name" },
+            { name: "guard_name" },
+          ]
+        },
+      ]
+    });
   }
 }

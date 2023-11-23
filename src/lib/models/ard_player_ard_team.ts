@@ -1,5 +1,6 @@
-import * as Sequelize from 'sequelize';
-import { DataTypes, Model, Optional } from 'sequelize';
+import type * as Sequelize from 'sequelize';
+import type { Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import type { ard_player, ard_playerId } from './ard_player';
 import type { ard_team, ard_teamId } from './ard_team';
 
@@ -40,50 +41,50 @@ export class ard_player_ard_team extends Model<ard_player_ard_teamAttributes, ar
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ard_player_ard_team {
     return ard_player_ard_team.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    ard_player_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'ard_players',
-        key: 'id'
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-      unique: true
-    },
-    ard_team_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'ard_teams',
-        key: 'id'
+      ard_player_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'ard_players',
+          key: 'id'
+        },
+        unique: true
       },
-      unique: true
-    },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: 1
-    }
-  }, {
-    sequelize,
-    tableName: 'ard_player_ard_team',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "ard_player_ard_team_ard_team_id_ard_player_id_unique",
-        unique: true,
-        fields: [
-          { name: "ard_team_id" },
-          { name: "ard_player_id" },
-        ]
+      ard_team_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'ard_teams',
+          key: 'id'
+        },
+        unique: true
       },
-    ]
-  });
+      is_active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 1
+      }
+    }, {
+      sequelize,
+      tableName: 'ard_player_ard_team',
+      timestamps: true,
+      paranoid: true,
+      indexes: [
+        {
+          name: "ard_player_ard_team_ard_team_id_ard_player_id_unique",
+          unique: true,
+          fields: [
+            { name: "ard_team_id" },
+            { name: "ard_player_id" },
+          ]
+        },
+      ]
+    });
   }
 }
