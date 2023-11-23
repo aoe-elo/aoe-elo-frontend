@@ -1,4 +1,4 @@
-import { models } from "./hooks.server";
+import { models } from "$lib/sequelize";
 
 // const users = await models.user.findOne();
 // console.log(users);
