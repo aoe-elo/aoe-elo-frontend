@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import type { location_set_info, location_set_infoId } from './location_set_info';
-import type { set, setId } from './set';
+import type { set as match, setId as matchId } from './set';
 
 export interface set_infoAttributes {
   id: number;
@@ -47,10 +47,10 @@ export class set_info extends Model<set_infoAttributes, set_infoCreationAttribut
   hasLocation_set_infos!: Sequelize.HasManyHasAssociationsMixin<location_set_info, location_set_infoId>;
   countLocation_set_infos!: Sequelize.HasManyCountAssociationsMixin;
   // set_info belongsTo set via set_id
-  set!: set;
-  getSet!: Sequelize.BelongsToGetAssociationMixin<set>;
-  setSet!: Sequelize.BelongsToSetAssociationMixin<set, setId>;
-  createSet!: Sequelize.BelongsToCreateAssociationMixin<set>;
+  match!: match;
+  getMatch!: Sequelize.BelongsToGetAssociationMixin<match>;
+  setMatch!: Sequelize.BelongsToSetAssociationMixin<match, matchId>;
+  createMatch!: Sequelize.BelongsToCreateAssociationMixin<match>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof set_info {
     return set_info.init({

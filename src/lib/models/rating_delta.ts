@@ -1,7 +1,7 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { set, setId } from './set';
+import type { set as match, setId as matchId } from './set';
 
 export interface rating_deltaAttributes {
   id: number;
@@ -32,10 +32,10 @@ export class rating_delta extends Model<rating_deltaAttributes, rating_deltaCrea
   deleted_at?: Date;
 
   // rating_delta belongsTo set via set_id
-  set!: set;
-  getSet!: Sequelize.BelongsToGetAssociationMixin<set>;
-  setSet!: Sequelize.BelongsToSetAssociationMixin<set, setId>;
-  createSet!: Sequelize.BelongsToCreateAssociationMixin<set>;
+  match!: match;
+  getMatch!: Sequelize.BelongsToGetAssociationMixin<match>;
+  setMatch!: Sequelize.BelongsToSetAssociationMixin<match, matchId>;
+  createMatch!: Sequelize.BelongsToCreateAssociationMixin<match>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof rating_delta {
     return rating_delta.init({

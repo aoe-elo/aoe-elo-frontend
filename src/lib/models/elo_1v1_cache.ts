@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import type { player, playerId } from './player';
-import type { set, setId } from './set';
+import type { set as match, setId as matchId } from './set';
 import type { tournament, tournamentId } from './tournament';
 
 export interface elo_1v1_cacheAttributes {
@@ -41,10 +41,10 @@ export class elo_1v1_cache extends Model<elo_1v1_cacheAttributes, elo_1v1_cacheC
   setPlayer!: Sequelize.BelongsToSetAssociationMixin<player, playerId>;
   createPlayer!: Sequelize.BelongsToCreateAssociationMixin<player>;
   // elo_1v1_cache belongsTo set via set_id
-  set!: set;
-  getSet!: Sequelize.BelongsToGetAssociationMixin<set>;
-  setSet!: Sequelize.BelongsToSetAssociationMixin<set, setId>;
-  createSet!: Sequelize.BelongsToCreateAssociationMixin<set>;
+  match!: match;
+  getMatch!: Sequelize.BelongsToGetAssociationMixin<match>;
+  setMatch!: Sequelize.BelongsToSetAssociationMixin<match, matchId>;
+  createMatch!: Sequelize.BelongsToCreateAssociationMixin<match>;
   // elo_1v1_cache belongsTo tournament via tournament_id
   tournament!: tournament;
   getTournament!: Sequelize.BelongsToGetAssociationMixin<tournament>;
