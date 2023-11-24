@@ -2,11 +2,6 @@
 
 ## Repository
 
-Special:
-
-- Actionlog
-- Metadata
-
 ## Database
 
 ### Create models
