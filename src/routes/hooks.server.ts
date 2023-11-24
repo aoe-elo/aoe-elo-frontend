@@ -5,7 +5,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// const session = event.cookies.get ('session')
 	// const user = await getUser(session)
 
-	event.locals.user = 'Test';
+	event.locals.user = { id: 123, name: 'Test' };
 	return resolve(event);
 };
 
