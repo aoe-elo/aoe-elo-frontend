@@ -35,14 +35,14 @@ export class PlayerRepository implements IPlayerRepositoryInterface {
         return this.player_model.findByPk(player_id);
     }
 
-    createPlayer(player_details: Partial<PlayerData>, user_id: number, actionlog_summary: string): Promise<PlayerId> {
+    async createPlayer(player_details: Partial<PlayerData>, user_id: number, actionlog_summary: string): Promise<PlayerId> {
         throw new Error("Method not implemented.");
     }
 
-    updatePlayer(player_id: PlayerId, new_player_details: Partial<PlayerData>, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async updatePlayer(player_id: PlayerId, new_player_details: Partial<PlayerData>, user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
-    deletePlayer(player_id: PlayerId, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async deletePlayer(player_id: PlayerId, user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
 }
@@ -67,15 +67,15 @@ export class MockPlayerRepository implements IPlayerRepositoryInterface {
         return { id: player_id, name: "Test", country_id: 123 } as PlayerData;
     }
 
-    createPlayer(player_details: Partial<PlayerData>, user_id: number, actionlog_summary: string): Promise<PlayerId> {
+    async createPlayer(player_details: Partial<PlayerData>, user_id: number, actionlog_summary: string): Promise<PlayerId> {
         return Promise.resolve(1);
     }
 
-    updatePlayer(player_id: PlayerId, new_player_details: Partial<PlayerData>, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async updatePlayer(player_id: PlayerId, new_player_details: Partial<PlayerData>, user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(false);
     }
 
-    deletePlayer(player_id: PlayerId, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async deletePlayer(player_id: PlayerId, user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(true);
     }
 }
