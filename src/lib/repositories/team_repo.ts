@@ -17,10 +17,10 @@ interface ITeamRepositoryInterface {
 
 export class TeamRepository implements ITeamRepositoryInterface {
 
-    constructor(private readonly Team_model: Team = models.team) { }
+    constructor(private readonly team_model: Team = models.team) { }
 
     async getAllTeams(): Promise<TeamData[]> {
-        return this.Team_model.findAll();
+        return this.team_model.findAll();
     }
 
     async getAllTeamsPaginated(): Promise<TeamData[]> {
@@ -28,11 +28,11 @@ export class TeamRepository implements ITeamRepositoryInterface {
     }
 
     async getAllTeamsPartiallyCached(): Promise<Partial<TeamData[]>> {
-        return this.Team_model.findAll({ attributes: ["id", "name"] })
+        return this.team_model.findAll({ attributes: ["id", "name"] })
     }
 
     async getTeamById(team_id: TeamId): Promise<TeamData | null> {
-        return this.Team_model.findByPk(team_id);
+        return this.team_model.findByPk(team_id);
     }
 
     async createTeam(team_details: Partial<TeamData>, user_id: number, actionlog_summary: string): Promise<TeamId> {

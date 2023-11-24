@@ -17,10 +17,10 @@ interface ITournamentRepositoryInterface {
 
 export class TournamentRepository implements ITournamentRepositoryInterface {
 
-    constructor(private readonly Tournament_model: Tournament = models.tournament) { }
+    constructor(private readonly tournament_model: Tournament = models.tournament) { }
 
     async getAllTournaments(): Promise<TournamentData[]> {
-        return this.Tournament_model.findAll();
+        return this.tournament_model.findAll();
     }
 
     async getAllTournamentsPaginated(): Promise<TournamentData[]> {
@@ -28,11 +28,11 @@ export class TournamentRepository implements ITournamentRepositoryInterface {
     }
 
     async getAllTournamentsPartiallyCached(): Promise<Partial<TournamentData[]>> {
-        return this.Tournament_model.findAll({ attributes: ["id", "name"] })
+        return this.tournament_model.findAll({ attributes: ["id", "name"] })
     }
 
     async getTournamentById(tournament_id: TournamentId): Promise<TournamentData | null> {
-        return this.Tournament_model.findByPk(tournament_id);
+        return this.tournament_model.findByPk(tournament_id);
     }
 
     async createTournament(tournament_details: Partial<TournamentData>, user_id: number, actionlog_summary: string): Promise<TournamentId> {
