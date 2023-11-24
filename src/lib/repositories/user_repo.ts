@@ -13,36 +13,36 @@ interface IUserRepositoryInterface<UserId, UserData> extends IBaseRepositoryInte
 
 export class UserRepository implements IUserRepositoryInterface<UserId, UserData> {
 
-    constructor(private readonly user_model: User = models.user) { }
+    constructor(private readonly model: User = models.user) { }
 
     async getAll(): Promise<UserData[]> {
-        return this.user_model.findAll();
+        return this.model.findAll();
     }
 
     async getAllPaginated(offset: number, limit: number = 25): Promise<UserData[]> {
-        return this.user_model.findAll({ offset, limit });
+        return this.model.findAll({ offset, limit });
     }
 
     async getAllPartiallyCached(): Promise<Partial<UserData[]>> {
-        return this.user_model.findAll({ attributes: ["id", "name"] })
+        return this.model.findAll({ attributes: ["id", "name"] })
     }
 
-    async getById(user_id: UserId): Promise<UserData | null> {
-        return this.user_model.findByPk(user_id);
+    async getById(id: UserId): Promise<UserData | null> {
+        return this.model.findByPk(id);
     }
 
-    async getByName(user_name: string): Promise<UserData | null> {
-        return this.user_model.findOne({ where: { name: user_name } });
+    async getByName(name: string): Promise<UserData | null> {
+        return this.model.findOne({ where: { name: name } });
     }
 
-    async create(user_details: Partial<UserData>, change_user_id: number, actionlog_summary: string): Promise<UserId> {
+    async create(details: Partial<UserData>, actionlog_user_id: number, actionlog_summary: string): Promise<UserId> {
         throw new Error("Method not implemented.");
     }
 
-    async update(user_id: UserId, new_user_details: Partial<UserData>, change_user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: UserId, new_user_details: Partial<UserData>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
-    async delete(user_id: UserId, change_user_id: number, actionlog_summary: string): Promise<boolean> {
+    async delete(id: UserId, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
 }
@@ -63,23 +63,23 @@ export class MockUserRepository implements IUserRepositoryInterface<UserId, User
         return [{ id: 1, name: "Test", country_id: 123 } as UserData, { id: 2, name: "Test2", country_id: 123 } as UserData];
     }
 
-    async getById(user_id: UserId): Promise<UserData | null> {
-        return { id: user_id, name: "Test", country_id: 123 } as UserData;
+    async getById(id: UserId): Promise<UserData | null> {
+        return { id: id, name: "Test", country_id: 123 } as UserData;
     }
 
-    async getByName(user_name: string): Promise<UserData | null> {
-        return { id: 1, name: user_name, country_id: 123 } as UserData;
+    async getByName(name: string): Promise<UserData | null> {
+        return { id: 1, name: name, country_id: 123 } as UserData;
     }
 
-    async create(user_details: Partial<UserData>, change_user_id: number, actionlog_summary: string): Promise<UserId> {
+    async create(details: Partial<UserData>, actionlog_user_id: number, actionlog_summary: string): Promise<UserId> {
         return Promise.resolve(1);
     }
 
-    async update(user_id: UserId, new_user_details: Partial<UserData>, change_user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: UserId, new_details: Partial<UserData>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(false);
     }
 
-    async delete(user_id: UserId, change_user_id: number, actionlog_summary: string): Promise<boolean> {
+    async delete(id: UserId, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(true);
     }
 }

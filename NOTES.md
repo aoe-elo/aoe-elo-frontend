@@ -1,10 +1,9 @@
 # Notes
 
-### Repository
+## Repository
 
 Special:
 
-- Reviews
 - Actionlog
 - Metadata
 

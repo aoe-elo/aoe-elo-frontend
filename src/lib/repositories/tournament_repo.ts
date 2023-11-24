@@ -13,36 +13,36 @@ interface ITournamentRepositoryInterface<TournamentId, TournamentData> extends I
 
 export class TournamentRepository implements ITournamentRepositoryInterface<TournamentId, TournamentData> {
 
-    constructor(private readonly tournament_model: Tournament = models.tournament) { }
+    constructor(private readonly model: Tournament = models.tournament) { }
 
     async getAll(): Promise<TournamentData[]> {
-        return this.tournament_model.findAll();
+        return this.model.findAll();
     }
 
     async getAllPaginated(offset: number, limit: number = 25): Promise<TournamentData[]> {
-        return this.tournament_model.findAll({ offset, limit });
+        return this.model.findAll({ offset, limit });
     }
 
     async getAllPartiallyCached(): Promise<Partial<TournamentData[]>> {
-        return this.tournament_model.findAll({ attributes: ["id", "name"] })
+        return this.model.findAll({ attributes: ["id", "name"] })
     }
 
-    async getById(tournament_id: TournamentId): Promise<TournamentData | null> {
-        return this.tournament_model.findByPk(tournament_id);
+    async getById(id: TournamentId): Promise<TournamentData | null> {
+        return this.model.findByPk(id);
     }
 
     async getByName(name: string): Promise<TournamentData | null> {
-        return this.tournament_model.findOne({ where: { name } });
+        return this.model.findOne({ where: { name } });
     }
 
-    async create(tournament_details: Partial<TournamentData>, user_id: number, actionlog_summary: string): Promise<TournamentId> {
+    async create(details: Partial<TournamentData>, actionlog_user_id: number, actionlog_summary: string): Promise<TournamentId> {
         throw new Error("Method not implemented.");
     }
 
-    async update(tournament_id: TournamentId, new_tournament_details: Partial<TournamentData>, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: TournamentId, new_details: Partial<TournamentData>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
-    async delete(tournament_id: TournamentId, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async delete(id: TournamentId, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
 }
@@ -63,7 +63,7 @@ export class MockTournamentRepository implements ITournamentRepositoryInterface<
         throw new Error("Method not implemented.");
     }
 
-    async getById(tournament_id: TournamentId): Promise<TournamentData | null> {
+    async getById(id: TournamentId): Promise<TournamentData | null> {
         throw new Error("Method not implemented.");
     }
 
@@ -71,15 +71,15 @@ export class MockTournamentRepository implements ITournamentRepositoryInterface<
         throw new Error("Method not implemented.");
     }
 
-    async create(tournament_details: Partial<TournamentData>, user_id: number, actionlog_summary: string): Promise<TournamentId> {
+    async create(details: Partial<TournamentData>, actionlog_user_id: number, actionlog_summary: string): Promise<TournamentId> {
         return Promise.resolve(1);
     }
 
-    async update(tournament_id: TournamentId, new_tournament_details: Partial<TournamentData>, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: TournamentId, new_details: Partial<TournamentData>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(false);
     }
 
-    async delete(tournament_id: TournamentId, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async delete(id: TournamentId, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(true);
     }
 }

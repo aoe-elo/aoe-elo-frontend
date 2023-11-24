@@ -10,28 +10,28 @@ interface IMatchRepositoryInterface<MatchId, MatchData> extends IBaseRepositoryI
 
 export class MatchRepository implements IMatchRepositoryInterface<MatchId, MatchData> {
 
-    constructor(private readonly match_model: Match = models.set) { }
+    constructor(private readonly model: Match = models.set) { }
 
     async getAll(): Promise<MatchData[]> {
-        return this.match_model.findAll();
+        return this.model.findAll();
     }
 
     async getAllPaginated(offset: number, limit: number = 25): Promise<MatchData[]> {
-        return this.match_model.findAll({ offset, limit });
+        return this.model.findAll({ offset, limit });
     }
 
-    async getById(match_id: MatchId): Promise<MatchData | null> {
-        return this.match_model.findByPk(match_id);
+    async getById(id: MatchId): Promise<MatchData | null> {
+        return this.model.findByPk(id);
     }
 
-    async create(match_details: Partial<MatchData>, user_id: number, actionlog_summary: string): Promise<MatchId> {
+    async create(details: Partial<MatchData>, actionlog_user_id: number, actionlog_summary: string): Promise<MatchId> {
         throw new Error("Method not implemented.");
     }
 
-    async update(match_id: MatchId, new_match_details: Partial<MatchData>, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: MatchId, new_details: Partial<MatchData>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
-    async delete(match_id: MatchId, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async delete(id: MatchId, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
 }
@@ -48,19 +48,19 @@ export class MockMatchRepository implements IMatchRepositoryInterface<MatchId, M
         throw new Error("Method not implemented.");
     }
 
-    async getById(match_id: MatchId): Promise<MatchData | null> {
+    async getById(id: MatchId): Promise<MatchData | null> {
         throw new Error("Method not implemented.");
     }
 
-    async create(match_details: Partial<MatchData>, user_id: number, actionlog_summary: string): Promise<MatchId> {
+    async create(details: Partial<MatchData>, actionlog_user_id: number, actionlog_summary: string): Promise<MatchId> {
         return Promise.resolve(1);
     }
 
-    async update(match_id: MatchId, new_match_details: Partial<MatchData>, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: MatchId, new_details: Partial<MatchData>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(false);
     }
 
-    async delete(match_id: MatchId, user_id: number, actionlog_summary: string): Promise<boolean> {
+    async delete(id: MatchId, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(true);
     }
 }
