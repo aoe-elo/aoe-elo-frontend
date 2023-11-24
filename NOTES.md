@@ -1,5 +1,13 @@
 # Notes
 
+### Repository
+
+Special:
+
+- Reviews
+- Actionlog
+- Metadata
+
 ## Database
 
 ### Create models

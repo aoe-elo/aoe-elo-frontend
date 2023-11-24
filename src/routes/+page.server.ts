@@ -1,6 +1,7 @@
 import { models } from "$lib/sequelize";
 
 import { PlayerRepository } from "$lib/repositories/player_repo";
+import { ArdPlayerRepository } from "$lib/repositories/ard_player_repo";
 
 // const users = await models.user.findOne();
 // console.log(users);
@@ -17,5 +18,6 @@ import { PlayerRepository } from "$lib/repositories/player_repo";
 // const all_tounaments_cache = await models.tournament.findAll({ attributes: ["id", "name"] });
 // console.log(JSON.stringify(all_tounaments_cache, null, 2));
 
-const repo = new PlayerRepository();
-repo.getPlayerById(1).then((player) => console.log(JSON.stringify(player, null, 2)));
+const ard_player = new ArdPlayerRepository();
+// repo.getPlayerById(1).then((player) => console.log(JSON.stringify(player, null, 2)));
+ard_player.getAllPaginated(0, 25).then((players) => console.log(JSON.stringify(players, null, 2)));
