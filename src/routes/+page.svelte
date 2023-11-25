@@ -3,6 +3,10 @@
 	import Top_Players from '$lib/components/Top_5_Players.svelte';
 	import PlayerComparison from './comparisons/Player_Comparison.svelte';
 	import { page } from '$app/stores';
+
+	export let data;
+
+	console.log(data);
 </script>
 
 <div class="container">
