@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { tournamentAttributes } from "$lib/models/tournament";
+import type { ITournamentAttributes, TournamentId } from "$lib/models/tournament";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
-type TournamentId = tournamentAttributes["id"];
-type TournamentData = tournamentAttributes;
+type TournamentData = ITournamentAttributes;
 type Tournament = typeof models.tournament;
 
 interface ITournamentRepositoryInterface<TournamentId, TournamentData> extends IBaseRepositoryInterface<TournamentId, TournamentData> {

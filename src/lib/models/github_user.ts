@@ -1,9 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { user, userId } from './user';
+import type { User, UserId } from './user';
 
-export interface github_userAttributes {
+export interface IGithubUserAttributes {
   id: number;
   github_id: string;
   name?: string;
@@ -16,12 +16,12 @@ export interface github_userAttributes {
   deleted_at?: Date;
 }
 
-export type github_userPk = "id";
-export type github_userId = github_user[github_userPk];
-export type github_userOptionalAttributes = "name" | "email" | "github_token" | "github_refresh_token" | "user_id" | "created_at" | "updated_at" | "deleted_at";
-export type github_userCreationAttributes = Optional<github_userAttributes, github_userOptionalAttributes>;
+export type GithubUserPk = "id";
+export type GithubUserId = GithubUser[GithubUserPk];
+export type GithubUserOptionalAttributes = "name" | "email" | "github_token" | "github_refresh_token" | "user_id" | "created_at" | "updated_at" | "deleted_at";
+export type GithubUserCreationAttributes = Optional<IGithubUserAttributes, GithubUserOptionalAttributes>;
 
-export class github_user extends Model<github_userAttributes, github_userCreationAttributes> implements github_userAttributes {
+export class GithubUser extends Model<IGithubUserAttributes, GithubUserCreationAttributes> implements IGithubUserAttributes {
   id!: number;
   github_id!: string;
   name?: string;
@@ -34,13 +34,13 @@ export class github_user extends Model<github_userAttributes, github_userCreatio
   deleted_at?: Date;
 
   // github_user belongsTo user via user_id
-  user!: user;
-  getUser!: Sequelize.BelongsToGetAssociationMixin<user>;
-  setUser!: Sequelize.BelongsToSetAssociationMixin<user, userId>;
-  createUser!: Sequelize.BelongsToCreateAssociationMixin<user>;
+  user!: User;
+  getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
+  setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
+  createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof github_user {
-    return github_user.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof GithubUser {
+    return GithubUser.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

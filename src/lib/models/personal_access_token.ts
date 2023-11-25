@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface personal_access_tokenAttributes {
+export interface IPersonalAccessTokenAttributes {
   id: number;
   tokenable_type: string;
   tokenable_id: number;
@@ -15,12 +15,12 @@ export interface personal_access_tokenAttributes {
   updated_at?: Date;
 }
 
-export type personal_access_tokenPk = "id";
-export type personal_access_tokenId = personal_access_token[personal_access_tokenPk];
-export type personal_access_tokenOptionalAttributes = "abilities" | "last_used_at" | "expires_at" | "created_at" | "updated_at";
-export type personal_access_tokenCreationAttributes = Optional<personal_access_tokenAttributes, personal_access_tokenOptionalAttributes>;
+export type PersonalAccessTokenPk = "id";
+export type PersonalAccessTokenId = PersonalAccessToken[PersonalAccessTokenPk];
+export type PersonalAccessTokenOptionalAttributes = "abilities" | "last_used_at" | "expires_at" | "created_at" | "updated_at";
+export type PersonalAccessTokenCreationAttributes = Optional<IPersonalAccessTokenAttributes, PersonalAccessTokenOptionalAttributes>;
 
-export class personal_access_token extends Model<personal_access_tokenAttributes, personal_access_tokenCreationAttributes> implements personal_access_tokenAttributes {
+export class PersonalAccessToken extends Model<IPersonalAccessTokenAttributes, PersonalAccessTokenCreationAttributes> implements IPersonalAccessTokenAttributes {
   id!: number;
   tokenable_type!: string;
   tokenable_id!: number;
@@ -33,8 +33,8 @@ export class personal_access_token extends Model<personal_access_tokenAttributes
   updated_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof personal_access_token {
-    return personal_access_token.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof PersonalAccessToken {
+    return PersonalAccessToken.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

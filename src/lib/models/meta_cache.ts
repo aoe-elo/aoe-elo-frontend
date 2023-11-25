@@ -1,7 +1,7 @@
 import type * as Sequelize from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface meta_cacheAttributes {
+export interface IMetaCacheAttributes {
   id: number;
   name: number;
   value_int: number;
@@ -9,11 +9,11 @@ export interface meta_cacheAttributes {
   value_str: string;
 }
 
-export type meta_cachePk = "id";
-export type meta_cacheId = meta_cache[meta_cachePk];
-export type meta_cacheCreationAttributes = meta_cacheAttributes;
+export type MetaCachePk = "id";
+export type MetaCacheId = MetaCache[MetaCachePk];
+export type MetaCacheCreationAttributes = IMetaCacheAttributes;
 
-export class meta_cache extends Model<meta_cacheAttributes, meta_cacheCreationAttributes> implements meta_cacheAttributes {
+export class MetaCache extends Model<IMetaCacheAttributes, MetaCacheCreationAttributes> implements IMetaCacheAttributes {
   id!: number;
   name!: number;
   value_int!: number;
@@ -21,8 +21,8 @@ export class meta_cache extends Model<meta_cacheAttributes, meta_cacheCreationAt
   value_str!: string;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof meta_cache {
-    return meta_cache.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof MetaCache {
+    return MetaCache.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

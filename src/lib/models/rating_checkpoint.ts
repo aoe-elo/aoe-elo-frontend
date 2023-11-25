@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface rating_checkpointAttributes {
+export interface IRatingCheckpointAttributes {
   id: number;
   participant_id: number;
   participant_type: string;
@@ -14,12 +14,12 @@ export interface rating_checkpointAttributes {
   deleted_at?: Date;
 }
 
-export type rating_checkpointPk = "id";
-export type rating_checkpointId = rating_checkpoint[rating_checkpointPk];
-export type rating_checkpointOptionalAttributes = "rating" | "created_at" | "updated_at" | "deleted_at";
-export type rating_checkpointCreationAttributes = Optional<rating_checkpointAttributes, rating_checkpointOptionalAttributes>;
+export type RatingCheckpointPk = "id";
+export type RatingCheckpointId = RatingCheckpoint[RatingCheckpointPk];
+export type RatingCheckpointOptionalAttributes = "rating" | "created_at" | "updated_at" | "deleted_at";
+export type RatingCheckpointCreationAttributes = Optional<IRatingCheckpointAttributes, RatingCheckpointOptionalAttributes>;
 
-export class rating_checkpoint extends Model<rating_checkpointAttributes, rating_checkpointCreationAttributes> implements rating_checkpointAttributes {
+export class RatingCheckpoint extends Model<IRatingCheckpointAttributes, RatingCheckpointCreationAttributes> implements IRatingCheckpointAttributes {
   id!: number;
   participant_id!: number;
   participant_type!: string;
@@ -31,8 +31,8 @@ export class rating_checkpoint extends Model<rating_checkpointAttributes, rating
   deleted_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof rating_checkpoint {
-    return rating_checkpoint.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof RatingCheckpoint {
+    return RatingCheckpoint.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

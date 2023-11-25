@@ -1,27 +1,11 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { action, actionId } from './action';
-import { user, type userId } from './user';
-import { achievement } from './achievement';
-import { tournament } from './tournament';
-import { player } from './player';
-import { ard_player } from './ard_player';
-import { review } from './review';
-import { location } from './location';
-import { metadatum } from './metadatum';
-import { news } from './news';
-import { set } from './set';
-import { stage } from './stage';
-import { team } from './team';
-import { ard_team } from './ard_team';
-import { atp_category } from './atp_category';
-import { country } from './country';
-import { location_style } from './location_style';
+import type { Action, ActionId } from './action';
+import type { User, UserId } from './user';
+import { uppercaseFirst } from '$lib/util';
 
-
-
-export interface actionlogAttributes {
+export interface IActionlogAttributes {
   id: number;
   user_id: number;
   action_id: number;
@@ -33,12 +17,12 @@ export interface actionlogAttributes {
   deleted_at?: Date;
 }
 
-export type actionlogPk = "id";
-export type actionlogId = actionlog[actionlogPk];
-export type actionlogOptionalAttributes = "summary" | "loggable_id" | "created_at" | "updated_at" | "deleted_at";
-export type actionlogCreationAttributes = Optional<actionlogAttributes, actionlogOptionalAttributes>;
+export type ActionlogPk = "id";
+export type ActionlogId = Actionlog[ActionlogPk];
+export type ActionlogOptionalAttributes = "summary" | "loggable_id" | "created_at" | "updated_at" | "deleted_at";
+export type ActionlogCreationAttributes = Optional<IActionlogAttributes, ActionlogOptionalAttributes>;
 
-export class actionlog extends Model<actionlogAttributes, actionlogCreationAttributes> implements actionlogAttributes {
+export class Actionlog extends Model<IActionlogAttributes, ActionlogCreationAttributes> implements IActionlogAttributes {
   id!: number;
   user_id!: number;
   action_id!: number;
@@ -49,28 +33,29 @@ export class actionlog extends Model<actionlogAttributes, actionlogCreationAttri
   updated_at?: Date;
   deleted_at?: Date;
 
-  // actionlog belongsTo action via action_id
-  action!: action;
-  getAction!: Sequelize.BelongsToGetAssociationMixin<action>;
-  setAction!: Sequelize.BelongsToSetAssociationMixin<action, actionId>;
-  createAction!: Sequelize.BelongsToCreateAssociationMixin<action>;
-  // actionlog belongsTo user via user_id
-  user!: user;
-  getUser!: Sequelize.BelongsToGetAssociationMixin<user>;
-  setUser!: Sequelize.BelongsToSetAssociationMixin<user, userId>;
-  createUser!: Sequelize.BelongsToCreateAssociationMixin<user>;
+  // Actionlog belongsTo action via action_id
+  action!: Action;
+  getAction!: Sequelize.BelongsToGetAssociationMixin<Action>;
+  setAction!: Sequelize.BelongsToSetAssociationMixin<Action, ActionId>;
+  createAction!: Sequelize.BelongsToCreateAssociationMixin<Action>;
+  // Actionlog belongsTo user via user_id
+  user!: User;
+  getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
+  setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
+  createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
   // TODO!: Support polymorphic lazy loading
   // https://sequelize.org/docs/v6/advanced-association-concepts/polymorphic-associations/#polymorphic-lazy-loading
-  //
-  // getLoggable(options) {
-  //   if (!this.loggable_type) return Promise.resolve(null);
-  //   const mixinMethodName = `get${uppercaseFirst(this.loggable_type)}`;
-  //   return this[mixinMethodName](options);
-  // }
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof actionlog {
-    return actionlog.init({
+  getLoggable(options: object | undefined) {
+    console.log(`getLoggable: ${this.loggable_type}`);
+    if (!this.loggable_type) return Promise.resolve(null);
+    const mixinMethodName = `get${uppercaseFirst(this.loggable_type)}`;
+    return this[mixinMethodName](options);
+  }
+
+  static initModel(sequelize: Sequelize.Sequelize): typeof Actionlog {
+    return Actionlog.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -130,37 +115,3 @@ export class actionlog extends Model<actionlogAttributes, actionlogCreationAttri
     });
   }
 }
-
-// Polymorphic associations
-actionlog.belongsTo(achievement, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(ard_player, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(ard_team, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(atp_category, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(country, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(location, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(location_style, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(metadatum, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(news, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(player, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(review, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(set, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(stage, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(team, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(tournament, { foreignKey: "loggable_id", constraints: false });
-actionlog.belongsTo(user, { foreignKey: "loggable_id", constraints: false });
-
-actionlog.addHook("afterFind", findResult => {
-  if (!Array.isArray(findResult)) findResult = [findResult];
-  for (const instance of findResult) {
-    if (instance.commentableType === "image" && instance.image !== undefined) {
-      instance.commentable = instance.image;
-    } else if (instance.commentableType === "video" && instance.video !== undefined) {
-      instance.commentable = instance.video;
-    }
-    // To prevent mistakes:
-    delete instance.image;
-    delete instance.dataValues.image;
-    delete instance.video;
-    delete instance.dataValues.video;
-  }
-});

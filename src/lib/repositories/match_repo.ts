@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { setAttributes } from "$lib/models/set";
+import type { ISetAttributes, SetId as MatchId } from "$lib/models/set";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
-type MatchId = setAttributes["id"];
-type MatchData = setAttributes;
+type MatchData = ISetAttributes;
 type Match = typeof models.set;
 
 interface IMatchRepositoryInterface<MatchId, MatchData> extends IBaseRepositoryInterface<MatchId, MatchData> { }

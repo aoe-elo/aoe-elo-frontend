@@ -1,13 +1,8 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import { tournament } from './tournament';
-import { player } from './player';
-import { ard_player } from './ard_player';
-import { review } from './review';
-import { actionlog } from './actionlog';
 
-export interface metadatumAttributes {
+export interface IMetadatumAttributes {
   id: number;
   key: string;
   sub_key?: string;
@@ -29,12 +24,12 @@ export interface metadatumAttributes {
   deleted_at?: Date;
 }
 
-export type metadatumPk = "id";
-export type metadatumId = metadatum[metadatumPk];
-export type metadatumOptionalAttributes = "sub_key" | "boolean_value" | "integer_value" | "smallint_value" | "datetime_value" | "str50_value" | "str100_value" | "str255_value" | "text_value" | "json_value" | "is_verified" | "created_at" | "updated_at" | "deleted_at";
-export type metadatumCreationAttributes = Optional<metadatumAttributes, metadatumOptionalAttributes>;
+export type MetadatumPk = "id";
+export type MetadatumId = Metadatum[MetadatumPk];
+export type MetadatumOptionalAttributes = "sub_key" | "boolean_value" | "integer_value" | "smallint_value" | "datetime_value" | "str50_value" | "str100_value" | "str255_value" | "text_value" | "json_value" | "is_verified" | "created_at" | "updated_at" | "deleted_at";
+export type MetadatumCreationAttributes = Optional<IMetadatumAttributes, MetadatumOptionalAttributes>;
 
-export class metadatum extends Model<metadatumAttributes, metadatumCreationAttributes> implements metadatumAttributes {
+export class Metadatum extends Model<IMetadatumAttributes, MetadatumCreationAttributes> implements IMetadatumAttributes {
   id!: number;
   key!: string;
   sub_key?: string;
@@ -56,8 +51,8 @@ export class metadatum extends Model<metadatumAttributes, metadatumCreationAttri
   deleted_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof metadatum {
-    return metadatum.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Metadatum {
+    return Metadatum.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -152,11 +147,3 @@ export class metadatum extends Model<metadatumAttributes, metadatumCreationAttri
     });
   }
 }
-
-// Polymorphic Associations
-metadatum.belongsTo(tournament, { foreignKey: "metadatable_id", constraints: false });
-metadatum.belongsTo(player, { foreignKey: "metadatable_id", constraints: false });
-metadatum.belongsTo(ard_player, { foreignKey: "metadatable_id", constraints: false });
-metadatum.belongsTo(review, { foreignKey: "metadatable_id", constraints: false });
-
-metadatum.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Metadatum' } });

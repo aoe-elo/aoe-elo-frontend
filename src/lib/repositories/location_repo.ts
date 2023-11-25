@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { locationAttributes } from "$lib/models/location";
+import type { ILocationAttributes, LocationId } from "$lib/models/location";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
-type LocationId = locationAttributes["id"];
-type LocationData = locationAttributes;
+type LocationData = ILocationAttributes;
 type Location = typeof models.location;
 
 interface ILocationRepositoryInterface<LocationId, LocationData> extends IBaseRepositoryInterface<LocationId, LocationData> {

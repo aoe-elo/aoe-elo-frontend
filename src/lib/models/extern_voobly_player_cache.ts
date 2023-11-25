@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface extern_voobly_player_cacheAttributes {
+export interface IExternVooblyPlayerCacheAttributes {
   id: number;
   voobly_id: number;
   rm_1v1: number;
@@ -11,12 +11,12 @@ export interface extern_voobly_player_cacheAttributes {
   updated_at?: Date;
 }
 
-export type extern_voobly_player_cachePk = "id";
-export type extern_voobly_player_cacheId = extern_voobly_player_cache[extern_voobly_player_cachePk];
-export type extern_voobly_player_cacheOptionalAttributes = "created_at" | "updated_at";
-export type extern_voobly_player_cacheCreationAttributes = Optional<extern_voobly_player_cacheAttributes, extern_voobly_player_cacheOptionalAttributes>;
+export type ExternVooblyPlayerCachePk = "id";
+export type ExternVooblyPlayerCacheId = ExternVooblyPlayerCache[ExternVooblyPlayerCachePk];
+export type ExternVooblyPlayerCacheOptionalAttributes = "created_at" | "updated_at";
+export type ExternVooblyPlayerCacheCreationAttributes = Optional<IExternVooblyPlayerCacheAttributes, ExternVooblyPlayerCacheOptionalAttributes>;
 
-export class extern_voobly_player_cache extends Model<extern_voobly_player_cacheAttributes, extern_voobly_player_cacheCreationAttributes> implements extern_voobly_player_cacheAttributes {
+export class ExternVooblyPlayerCache extends Model<IExternVooblyPlayerCacheAttributes, ExternVooblyPlayerCacheCreationAttributes> implements IExternVooblyPlayerCacheAttributes {
   id!: number;
   voobly_id!: number;
   rm_1v1!: number;
@@ -25,8 +25,8 @@ export class extern_voobly_player_cache extends Model<extern_voobly_player_cache
   updated_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof extern_voobly_player_cache {
-    return extern_voobly_player_cache.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof ExternVooblyPlayerCache {
+    return ExternVooblyPlayerCache.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

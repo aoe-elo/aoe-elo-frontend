@@ -1,9 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { user, userId } from './user';
+import type { User, UserId } from './user';
 
-export interface sessionAttributes {
+export interface ISessionAttributes {
   id: string;
   user_id?: number;
   ip_address?: string;
@@ -12,12 +12,12 @@ export interface sessionAttributes {
   last_activity: number;
 }
 
-export type sessionPk = "id";
-export type sessionId = session[sessionPk];
-export type sessionOptionalAttributes = "user_id" | "ip_address" | "user_agent";
-export type sessionCreationAttributes = Optional<sessionAttributes, sessionOptionalAttributes>;
+export type SessionPk = "id";
+export type SessionId = Session[SessionPk];
+export type SessionOptionalAttributes = "user_id" | "ip_address" | "user_agent";
+export type SessionCreationAttributes = Optional<ISessionAttributes, SessionOptionalAttributes>;
 
-export class session extends Model<sessionAttributes, sessionCreationAttributes> implements sessionAttributes {
+export class Session extends Model<ISessionAttributes, SessionCreationAttributes> implements ISessionAttributes {
   id!: string;
   user_id?: number;
   ip_address?: string;
@@ -26,13 +26,13 @@ export class session extends Model<sessionAttributes, sessionCreationAttributes>
   last_activity!: number;
 
   // session belongsTo user via user_id
-  user!: user;
-  getUser!: Sequelize.BelongsToGetAssociationMixin<user>;
-  setUser!: Sequelize.BelongsToSetAssociationMixin<user, userId>;
-  createUser!: Sequelize.BelongsToCreateAssociationMixin<user>;
+  user!: User;
+  getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
+  setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
+  createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof session {
-    return session.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Session {
+    return Session.init({
       id: {
         type: DataTypes.STRING,
         allowNull: false,

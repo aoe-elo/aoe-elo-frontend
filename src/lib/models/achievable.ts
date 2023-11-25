@@ -1,9 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { achievement, achievementId } from './achievement';
+import type { Achievement, AchievementId } from './achievement';
 
-export interface achievableAttributes {
+export interface IAchievableAttributes {
   id: number;
   achievable_id: number;
   achievable_type: string;
@@ -14,12 +14,12 @@ export interface achievableAttributes {
   deleted_at?: Date;
 }
 
-export type achievablePk = "id";
-export type achievableId = achievable[achievablePk];
-export type achievableOptionalAttributes = "achievement_id" | "hidden" | "created_at" | "updated_at" | "deleted_at";
-export type achievableCreationAttributes = Optional<achievableAttributes, achievableOptionalAttributes>;
+export type AchievablePk = "id";
+export type AchievableId = Achievable[AchievablePk];
+export type AchievableOptionalAttributes = "achievement_id" | "hidden" | "created_at" | "updated_at" | "deleted_at";
+export type AchievableCreationAttributes = Optional<IAchievableAttributes, AchievableOptionalAttributes>;
 
-export class achievable extends Model<achievableAttributes, achievableCreationAttributes> implements achievableAttributes {
+export class Achievable extends Model<IAchievableAttributes, AchievableCreationAttributes> implements IAchievableAttributes {
   id!: number;
   achievable_id!: number;
   achievable_type!: string;
@@ -30,13 +30,13 @@ export class achievable extends Model<achievableAttributes, achievableCreationAt
   deleted_at?: Date;
 
   // achievable belongsTo achievement via achievement_id
-  achievement!: achievement;
-  getAchievement!: Sequelize.BelongsToGetAssociationMixin<achievement>;
-  setAchievement!: Sequelize.BelongsToSetAssociationMixin<achievement, achievementId>;
-  createAchievement!: Sequelize.BelongsToCreateAssociationMixin<achievement>;
+  achievement!: Achievement;
+  getAchievement!: Sequelize.BelongsToGetAssociationMixin<Achievement>;
+  setAchievement!: Sequelize.BelongsToSetAssociationMixin<Achievement, AchievementId>;
+  createAchievement!: Sequelize.BelongsToCreateAssociationMixin<Achievement>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof achievable {
-    return achievable.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Achievable {
+    return Achievable.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

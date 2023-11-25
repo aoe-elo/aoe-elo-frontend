@@ -1,12 +1,11 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { ard_team, ard_teamId } from './ard_team';
-import type { country, countryId } from './country';
-import type { player_team, player_teamId } from './player_team';
-import { actionlog } from './actionlog';
+import type { ArdTeam, ArdTeamId } from './ard_team';
+import type { Country, CountryId } from './country';
+import type { PlayerTeam, PlayerTeamId } from './player_team';
 
-export interface teamAttributes {
+export interface ITeamAttributes {
   id: number;
   name: string;
   tag: string;
@@ -23,12 +22,12 @@ export interface teamAttributes {
   deleted_at?: Date;
 }
 
-export type teamPk = "id";
-export type teamId = team[teamPk];
-export type teamOptionalAttributes = "current_elo" | "base_elo" | "current_atp" | "base_atp" | "primary_color" | "secondary_color" | "aoe_reference_data_team_id" | "country_id" | "created_at" | "updated_at" | "deleted_at";
-export type teamCreationAttributes = Optional<teamAttributes, teamOptionalAttributes>;
+export type TeamPk = "id";
+export type TeamId = Team[TeamPk];
+export type TeamOptionalAttributes = "current_elo" | "base_elo" | "current_atp" | "base_atp" | "primary_color" | "secondary_color" | "aoe_reference_data_team_id" | "country_id" | "created_at" | "updated_at" | "deleted_at";
+export type TeamCreationAttributes = Optional<ITeamAttributes, TeamOptionalAttributes>;
 
-export class team extends Model<teamAttributes, teamCreationAttributes> implements teamAttributes {
+export class Team extends Model<ITeamAttributes, TeamCreationAttributes> implements ITeamAttributes {
   id!: number;
   name!: string;
   tag!: string;
@@ -45,30 +44,30 @@ export class team extends Model<teamAttributes, teamCreationAttributes> implemen
   deleted_at?: Date;
 
   // team belongsTo ard_team via aoe_reference_data_team_id
-  aoe_reference_data_team!: ard_team;
-  getAoe_reference_data_team!: Sequelize.BelongsToGetAssociationMixin<ard_team>;
-  setAoe_reference_data_team!: Sequelize.BelongsToSetAssociationMixin<ard_team, ard_teamId>;
-  createAoe_reference_data_team!: Sequelize.BelongsToCreateAssociationMixin<ard_team>;
+  aoe_reference_data_team!: ArdTeam;
+  getAoe_reference_data_team!: Sequelize.BelongsToGetAssociationMixin<ArdTeam>;
+  setAoe_reference_data_team!: Sequelize.BelongsToSetAssociationMixin<ArdTeam, ArdTeamId>;
+  createAoe_reference_data_team!: Sequelize.BelongsToCreateAssociationMixin<ArdTeam>;
   // team belongsTo country via country_id
-  country!: country;
-  getCountry!: Sequelize.BelongsToGetAssociationMixin<country>;
-  setCountry!: Sequelize.BelongsToSetAssociationMixin<country, countryId>;
-  createCountry!: Sequelize.BelongsToCreateAssociationMixin<country>;
+  country!: Country;
+  getCountry!: Sequelize.BelongsToGetAssociationMixin<Country>;
+  setCountry!: Sequelize.BelongsToSetAssociationMixin<Country, CountryId>;
+  createCountry!: Sequelize.BelongsToCreateAssociationMixin<Country>;
   // team hasMany player_team via team_id
-  player_teams!: player_team[];
-  getPlayer_teams!: Sequelize.HasManyGetAssociationsMixin<player_team>;
-  setPlayer_teams!: Sequelize.HasManySetAssociationsMixin<player_team, player_teamId>;
-  addPlayer_team!: Sequelize.HasManyAddAssociationMixin<player_team, player_teamId>;
-  addPlayer_teams!: Sequelize.HasManyAddAssociationsMixin<player_team, player_teamId>;
-  createPlayer_team!: Sequelize.HasManyCreateAssociationMixin<player_team>;
-  removePlayer_team!: Sequelize.HasManyRemoveAssociationMixin<player_team, player_teamId>;
-  removePlayer_teams!: Sequelize.HasManyRemoveAssociationsMixin<player_team, player_teamId>;
-  hasPlayer_team!: Sequelize.HasManyHasAssociationMixin<player_team, player_teamId>;
-  hasPlayer_teams!: Sequelize.HasManyHasAssociationsMixin<player_team, player_teamId>;
+  player_teams!: PlayerTeam[];
+  getPlayer_teams!: Sequelize.HasManyGetAssociationsMixin<PlayerTeam>;
+  setPlayer_teams!: Sequelize.HasManySetAssociationsMixin<PlayerTeam, PlayerTeamId>;
+  addPlayer_team!: Sequelize.HasManyAddAssociationMixin<PlayerTeam, PlayerTeamId>;
+  addPlayer_teams!: Sequelize.HasManyAddAssociationsMixin<PlayerTeam, PlayerTeamId>;
+  createPlayer_team!: Sequelize.HasManyCreateAssociationMixin<PlayerTeam>;
+  removePlayer_team!: Sequelize.HasManyRemoveAssociationMixin<PlayerTeam, PlayerTeamId>;
+  removePlayer_teams!: Sequelize.HasManyRemoveAssociationsMixin<PlayerTeam, PlayerTeamId>;
+  hasPlayer_team!: Sequelize.HasManyHasAssociationMixin<PlayerTeam, PlayerTeamId>;
+  hasPlayer_teams!: Sequelize.HasManyHasAssociationsMixin<PlayerTeam, PlayerTeamId>;
   countPlayer_teams!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof team {
-    return team.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Team {
+    return Team.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -146,6 +145,3 @@ export class team extends Model<teamAttributes, teamCreationAttributes> implemen
     });
   }
 }
-
-// Polymorphic Association
-team.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Team' } });

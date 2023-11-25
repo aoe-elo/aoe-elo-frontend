@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { reviewAttributes } from "$lib/models/review";
+import type { IReviewAttributes, ReviewId } from "$lib/models/review";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
-type ReviewId = reviewAttributes["id"];
-type ReviewData = reviewAttributes;
+type ReviewData = IReviewAttributes;
 type Review = typeof models.review;
 
 interface IReviewRepositoryInterface<ReviewId, ReviewData> extends IBaseRepositoryInterface<ReviewId, ReviewData> { }

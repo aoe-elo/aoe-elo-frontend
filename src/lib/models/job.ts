@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface jobAttributes {
+export interface IJobAttributes {
   id: number;
   queue: string;
   payload: string;
@@ -12,12 +12,12 @@ export interface jobAttributes {
   created_at: number;
 }
 
-export type jobPk = "id";
-export type jobId = job[jobPk];
-export type jobOptionalAttributes = "reserved_at" | "created_at";
-export type jobCreationAttributes = Optional<jobAttributes, jobOptionalAttributes>;
+export type JobPk = "id";
+export type JobId = Job[JobPk];
+export type JobOptionalAttributes = "reserved_at" | "created_at";
+export type JobCreationAttributes = Optional<IJobAttributes, JobOptionalAttributes>;
 
-export class job extends Model<jobAttributes, jobCreationAttributes> implements jobAttributes {
+export class Job extends Model<IJobAttributes, JobCreationAttributes> implements IJobAttributes {
   id!: number;
   queue!: string;
   payload!: string;
@@ -27,8 +27,8 @@ export class job extends Model<jobAttributes, jobCreationAttributes> implements 
   created_at!: number;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof job {
-    return job.init(
+  static initModel(sequelize: Sequelize.Sequelize): typeof Job {
+    return Job.init(
       {
         id: {
           autoIncrement: true,

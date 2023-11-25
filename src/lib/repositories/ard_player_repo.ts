@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { ard_playerAttributes } from "$lib/models/ard_player";
+import type { IArdPlayerAttributes, ArdPlayerId } from "$lib/models/ard_player";
 import type { IPlayerRepositoryInterface } from "$lib/repositories/player_repo";
 
-type ArdPlayerId = ard_playerAttributes["id"];
-type ArdPlayerData = ard_playerAttributes;
+type ArdPlayerData = IArdPlayerAttributes;
 type ArdPlayer = typeof models.ard_player;
 
 export class ArdPlayerRepository implements IPlayerRepositoryInterface<ArdPlayerId, ArdPlayerData> {

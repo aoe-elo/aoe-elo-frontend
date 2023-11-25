@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface cache_most_visitedAttributes {
+export interface ICacheMostVisitedAttributes {
   id: number;
   page: string;
   entity_id?: number;
@@ -11,12 +11,12 @@ export interface cache_most_visitedAttributes {
   updated_at?: Date;
 }
 
-export type cache_most_visitedPk = "id";
-export type cache_most_visitedId = cache_most_visited[cache_most_visitedPk];
-export type cache_most_visitedOptionalAttributes = "entity_id" | "created_at" | "updated_at";
-export type cache_most_visitedCreationAttributes = Optional<cache_most_visitedAttributes, cache_most_visitedOptionalAttributes>;
+export type CacheMostVisitedPk = "id";
+export type CacheMostVisitedId = CacheMostVisited[CacheMostVisitedPk];
+export type CacheMostVisitedOptionalAttributes = "entity_id" | "created_at" | "updated_at";
+export type CacheMostVisitedCreationAttributes = Optional<ICacheMostVisitedAttributes, CacheMostVisitedOptionalAttributes>;
 
-export class cache_most_visited extends Model<cache_most_visitedAttributes, cache_most_visitedCreationAttributes> implements cache_most_visitedAttributes {
+export class CacheMostVisited extends Model<ICacheMostVisitedAttributes, CacheMostVisitedCreationAttributes> implements ICacheMostVisitedAttributes {
   id!: number;
   page!: string;
   entity_id?: number;
@@ -25,8 +25,8 @@ export class cache_most_visited extends Model<cache_most_visitedAttributes, cach
   updated_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof cache_most_visited {
-    return cache_most_visited.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof CacheMostVisited {
+    return CacheMostVisited.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

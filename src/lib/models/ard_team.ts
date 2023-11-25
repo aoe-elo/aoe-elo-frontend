@@ -1,11 +1,10 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { ard_player_ard_team, ard_player_ard_teamId } from './ard_player_ard_team';
-import type { team, teamId } from './team';
-import { actionlog } from './actionlog';
+import type { ArdPlayerArdTeam, ArdPlayerArdTeamId } from './ard_player_ard_team';
+import type { Team, TeamId } from './team';
 
-export interface ard_teamAttributes {
+export interface IArdTeamAttributes {
   id: number;
   name: string;
   created_at?: Date;
@@ -13,12 +12,12 @@ export interface ard_teamAttributes {
   deleted_at?: Date;
 }
 
-export type ard_teamPk = "id";
-export type ard_teamId = ard_team[ard_teamPk];
-export type ard_teamOptionalAttributes = "created_at" | "updated_at" | "deleted_at";
-export type ard_teamCreationAttributes = Optional<ard_teamAttributes, ard_teamOptionalAttributes>;
+export type ArdTeamPk = "id";
+export type ArdTeamId = ArdTeam[ArdTeamPk];
+export type ArdTeamOptionalAttributes = "created_at" | "updated_at" | "deleted_at";
+export type ArdTeamCreationAttributes = Optional<IArdTeamAttributes, ArdTeamOptionalAttributes>;
 
-export class ard_team extends Model<ard_teamAttributes, ard_teamCreationAttributes> implements ard_teamAttributes {
+export class ArdTeam extends Model<IArdTeamAttributes, ArdTeamCreationAttributes> implements IArdTeamAttributes {
   id!: number;
   name!: string;
   created_at?: Date;
@@ -26,32 +25,32 @@ export class ard_team extends Model<ard_teamAttributes, ard_teamCreationAttribut
   deleted_at?: Date;
 
   // ard_team hasMany ard_player_ard_team via ard_team_id
-  ard_player_ard_teams!: ard_player_ard_team[];
-  getArd_player_ard_teams!: Sequelize.HasManyGetAssociationsMixin<ard_player_ard_team>;
-  setArd_player_ard_teams!: Sequelize.HasManySetAssociationsMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  addArd_player_ard_team!: Sequelize.HasManyAddAssociationMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  addArd_player_ard_teams!: Sequelize.HasManyAddAssociationsMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  createArd_player_ard_team!: Sequelize.HasManyCreateAssociationMixin<ard_player_ard_team>;
-  removeArd_player_ard_team!: Sequelize.HasManyRemoveAssociationMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  removeArd_player_ard_teams!: Sequelize.HasManyRemoveAssociationsMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  hasArd_player_ard_team!: Sequelize.HasManyHasAssociationMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  hasArd_player_ard_teams!: Sequelize.HasManyHasAssociationsMixin<ard_player_ard_team, ard_player_ard_teamId>;
+  ard_player_ard_teams!: ArdPlayerArdTeam[];
+  getArd_player_ard_teams!: Sequelize.HasManyGetAssociationsMixin<ArdPlayerArdTeam>;
+  setArd_player_ard_teams!: Sequelize.HasManySetAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  addArd_player_ard_team!: Sequelize.HasManyAddAssociationMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  addArd_player_ard_teams!: Sequelize.HasManyAddAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  createArd_player_ard_team!: Sequelize.HasManyCreateAssociationMixin<ArdPlayerArdTeam>;
+  removeArd_player_ard_team!: Sequelize.HasManyRemoveAssociationMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  removeArd_player_ard_teams!: Sequelize.HasManyRemoveAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  hasArd_player_ard_team!: Sequelize.HasManyHasAssociationMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  hasArd_player_ard_teams!: Sequelize.HasManyHasAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
   countArd_player_ard_teams!: Sequelize.HasManyCountAssociationsMixin;
   // ard_team hasMany team via aoe_reference_data_team_id
-  teams!: team[];
-  getTeams!: Sequelize.HasManyGetAssociationsMixin<team>;
-  setTeams!: Sequelize.HasManySetAssociationsMixin<team, teamId>;
-  addTeam!: Sequelize.HasManyAddAssociationMixin<team, teamId>;
-  addTeams!: Sequelize.HasManyAddAssociationsMixin<team, teamId>;
-  createTeam!: Sequelize.HasManyCreateAssociationMixin<team>;
-  removeTeam!: Sequelize.HasManyRemoveAssociationMixin<team, teamId>;
-  removeTeams!: Sequelize.HasManyRemoveAssociationsMixin<team, teamId>;
-  hasTeam!: Sequelize.HasManyHasAssociationMixin<team, teamId>;
-  hasTeams!: Sequelize.HasManyHasAssociationsMixin<team, teamId>;
+  teams!: Team[];
+  getTeams!: Sequelize.HasManyGetAssociationsMixin<Team>;
+  setTeams!: Sequelize.HasManySetAssociationsMixin<Team, TeamId>;
+  addTeam!: Sequelize.HasManyAddAssociationMixin<Team, TeamId>;
+  addTeams!: Sequelize.HasManyAddAssociationsMixin<Team, TeamId>;
+  createTeam!: Sequelize.HasManyCreateAssociationMixin<Team>;
+  removeTeam!: Sequelize.HasManyRemoveAssociationMixin<Team, TeamId>;
+  removeTeams!: Sequelize.HasManyRemoveAssociationsMixin<Team, TeamId>;
+  hasTeam!: Sequelize.HasManyHasAssociationMixin<Team, TeamId>;
+  hasTeams!: Sequelize.HasManyHasAssociationsMixin<Team, TeamId>;
   countTeams!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof ard_team {
-    return ard_team.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof ArdTeam {
+    return ArdTeam.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -81,6 +80,3 @@ export class ard_team extends Model<ard_teamAttributes, ard_teamCreationAttribut
     });
   }
 }
-
-// Polymorphic Association
-ard_team.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\ArdTeam' } });

@@ -1,13 +1,12 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { elo_1v1_cache, elo_1v1_cacheId } from './elo_1v1_cache';
-import type { rating_delta, rating_deltaId } from './rating_delta';
-import type { set_info, set_infoId } from './set_info';
-import type { stageable, stageableId } from './stageable';
-import { actionlog } from './actionlog';
+import type { Elo1v1Cache, Elo1v1CacheId } from './elo_1v1_cache';
+import type { RatingDelta, RatingDeltaId } from './rating_delta';
+import type { SetInfo, SetInfoId } from './set_info';
+import type { Stageable, StageableId } from './stageable';
 
-export interface setAttributes {
+export interface ISetAttributes {
   id: number;
   is_tie: number;
   has_admin_win: number;
@@ -22,12 +21,12 @@ export interface setAttributes {
   deleted_at?: Date;
 }
 
-export type setPk = "id";
-export type setId = set[setPk];
-export type setOptionalAttributes = "is_tie" | "has_admin_win" | "played_at" | "use_played_at_dummy" | "best_of" | "aoe2cm2_civ_draft_link" | "aoe2cm2_map_draft_link" | "stageable_id" | "created_at" | "updated_at" | "deleted_at";
-export type setCreationAttributes = Optional<setAttributes, setOptionalAttributes>;
+export type SetPk = "id";
+export type SetId = Set[SetPk];
+export type SetOptionalAttributes = "is_tie" | "has_admin_win" | "played_at" | "use_played_at_dummy" | "best_of" | "aoe2cm2_civ_draft_link" | "aoe2cm2_map_draft_link" | "stageable_id" | "created_at" | "updated_at" | "deleted_at";
+export type SetCreationAttributes = Optional<ISetAttributes, SetOptionalAttributes>;
 
-export class set extends Model<setAttributes, setCreationAttributes> implements setAttributes {
+export class Set extends Model<ISetAttributes, SetCreationAttributes> implements ISetAttributes {
   id!: number;
   is_tie!: number;
   has_admin_win!: number;
@@ -42,49 +41,49 @@ export class set extends Model<setAttributes, setCreationAttributes> implements 
   deleted_at?: Date;
 
   // set hasMany elo_1v1_cache via set_id
-  elo_1v1_caches!: elo_1v1_cache[];
-  getElo_1v1_caches!: Sequelize.HasManyGetAssociationsMixin<elo_1v1_cache>;
-  setElo_1v1_caches!: Sequelize.HasManySetAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  addElo_1v1_cache!: Sequelize.HasManyAddAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  addElo_1v1_caches!: Sequelize.HasManyAddAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  createElo_1v1_cache!: Sequelize.HasManyCreateAssociationMixin<elo_1v1_cache>;
-  removeElo_1v1_cache!: Sequelize.HasManyRemoveAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  removeElo_1v1_caches!: Sequelize.HasManyRemoveAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  hasElo_1v1_cache!: Sequelize.HasManyHasAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  hasElo_1v1_caches!: Sequelize.HasManyHasAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  elo_1v1_caches!: Elo1v1Cache[];
+  getElo_1v1_caches!: Sequelize.HasManyGetAssociationsMixin<Elo1v1Cache>;
+  setElo_1v1_caches!: Sequelize.HasManySetAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
+  addElo_1v1_cache!: Sequelize.HasManyAddAssociationMixin<Elo1v1Cache, Elo1v1CacheId>;
+  addElo_1v1_caches!: Sequelize.HasManyAddAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
+  createElo_1v1_cache!: Sequelize.HasManyCreateAssociationMixin<Elo1v1Cache>;
+  removeElo_1v1_cache!: Sequelize.HasManyRemoveAssociationMixin<Elo1v1Cache, Elo1v1CacheId>;
+  removeElo_1v1_caches!: Sequelize.HasManyRemoveAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
+  hasElo_1v1_cache!: Sequelize.HasManyHasAssociationMixin<Elo1v1Cache, Elo1v1CacheId>;
+  hasElo_1v1_caches!: Sequelize.HasManyHasAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
   countElo_1v1_caches!: Sequelize.HasManyCountAssociationsMixin;
   // set hasMany rating_delta via set_id
-  rating_delta!: rating_delta[];
-  getRating_delta!: Sequelize.HasManyGetAssociationsMixin<rating_delta>;
-  setRating_delta!: Sequelize.HasManySetAssociationsMixin<rating_delta, rating_deltaId>;
-  addRating_deltum!: Sequelize.HasManyAddAssociationMixin<rating_delta, rating_deltaId>;
-  addRating_delta!: Sequelize.HasManyAddAssociationsMixin<rating_delta, rating_deltaId>;
-  createRating_deltum!: Sequelize.HasManyCreateAssociationMixin<rating_delta>;
-  removeRating_deltum!: Sequelize.HasManyRemoveAssociationMixin<rating_delta, rating_deltaId>;
-  removeRating_delta!: Sequelize.HasManyRemoveAssociationsMixin<rating_delta, rating_deltaId>;
-  hasRating_deltum!: Sequelize.HasManyHasAssociationMixin<rating_delta, rating_deltaId>;
-  hasRating_delta!: Sequelize.HasManyHasAssociationsMixin<rating_delta, rating_deltaId>;
+  rating_delta!: RatingDelta[];
+  getRating_delta!: Sequelize.HasManyGetAssociationsMixin<RatingDelta>;
+  setRating_delta!: Sequelize.HasManySetAssociationsMixin<RatingDelta, RatingDeltaId>;
+  addRating_deltum!: Sequelize.HasManyAddAssociationMixin<RatingDelta, RatingDeltaId>;
+  addRating_delta!: Sequelize.HasManyAddAssociationsMixin<RatingDelta, RatingDeltaId>;
+  createRating_deltum!: Sequelize.HasManyCreateAssociationMixin<RatingDelta>;
+  removeRating_deltum!: Sequelize.HasManyRemoveAssociationMixin<RatingDelta, RatingDeltaId>;
+  removeRating_delta!: Sequelize.HasManyRemoveAssociationsMixin<RatingDelta, RatingDeltaId>;
+  hasRating_deltum!: Sequelize.HasManyHasAssociationMixin<RatingDelta, RatingDeltaId>;
+  hasRating_delta!: Sequelize.HasManyHasAssociationsMixin<RatingDelta, RatingDeltaId>;
   countRating_delta!: Sequelize.HasManyCountAssociationsMixin;
   // set hasMany set_info via set_id
-  set_infos!: set_info[];
-  getSet_infos!: Sequelize.HasManyGetAssociationsMixin<set_info>;
-  setSet_infos!: Sequelize.HasManySetAssociationsMixin<set_info, set_infoId>;
-  addSet_info!: Sequelize.HasManyAddAssociationMixin<set_info, set_infoId>;
-  addSet_infos!: Sequelize.HasManyAddAssociationsMixin<set_info, set_infoId>;
-  createSet_info!: Sequelize.HasManyCreateAssociationMixin<set_info>;
-  removeSet_info!: Sequelize.HasManyRemoveAssociationMixin<set_info, set_infoId>;
-  removeSet_infos!: Sequelize.HasManyRemoveAssociationsMixin<set_info, set_infoId>;
-  hasSet_info!: Sequelize.HasManyHasAssociationMixin<set_info, set_infoId>;
-  hasSet_infos!: Sequelize.HasManyHasAssociationsMixin<set_info, set_infoId>;
+  set_infos!: SetInfo[];
+  getSet_infos!: Sequelize.HasManyGetAssociationsMixin<SetInfo>;
+  setSet_infos!: Sequelize.HasManySetAssociationsMixin<SetInfo, SetInfoId>;
+  addSet_info!: Sequelize.HasManyAddAssociationMixin<SetInfo, SetInfoId>;
+  addSet_infos!: Sequelize.HasManyAddAssociationsMixin<SetInfo, SetInfoId>;
+  createSet_info!: Sequelize.HasManyCreateAssociationMixin<SetInfo>;
+  removeSet_info!: Sequelize.HasManyRemoveAssociationMixin<SetInfo, SetInfoId>;
+  removeSet_infos!: Sequelize.HasManyRemoveAssociationsMixin<SetInfo, SetInfoId>;
+  hasSet_info!: Sequelize.HasManyHasAssociationMixin<SetInfo, SetInfoId>;
+  hasSet_infos!: Sequelize.HasManyHasAssociationsMixin<SetInfo, SetInfoId>;
   countSet_infos!: Sequelize.HasManyCountAssociationsMixin;
   // set belongsTo stageable via stageable_id
-  stageable!: stageable;
-  getStageable!: Sequelize.BelongsToGetAssociationMixin<stageable>;
-  setStageable!: Sequelize.BelongsToSetAssociationMixin<stageable, stageableId>;
-  createStageable!: Sequelize.BelongsToCreateAssociationMixin<stageable>;
+  stageable!: Stageable;
+  getStageable!: Sequelize.BelongsToGetAssociationMixin<Stageable>;
+  setStageable!: Sequelize.BelongsToSetAssociationMixin<Stageable, StageableId>;
+  createStageable!: Sequelize.BelongsToCreateAssociationMixin<Stageable>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof set {
-    return set.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Set {
+    return Set.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -157,6 +156,3 @@ export class set extends Model<setAttributes, setCreationAttributes> implements 
     });
   }
 }
-
-// Polymorphic Association
-set.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Set' } });

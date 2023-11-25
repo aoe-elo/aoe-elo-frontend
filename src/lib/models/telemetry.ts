@@ -2,25 +2,25 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface telemetryAttributes {
+export interface ITelemetryAttributes {
   id: number;
   created_at?: Date;
   updated_at?: Date;
 }
 
-export type telemetryPk = "id";
-export type telemetryId = telemetry[telemetryPk];
-export type telemetryOptionalAttributes = "created_at" | "updated_at";
-export type telemetryCreationAttributes = Optional<telemetryAttributes, telemetryOptionalAttributes>;
+export type TelemetryPk = "id";
+export type TelemetryId = Telemetry[TelemetryPk];
+export type TelemetryOptionalAttributes = "created_at" | "updated_at";
+export type TelemetryCreationAttributes = Optional<ITelemetryAttributes, TelemetryOptionalAttributes>;
 
-export class telemetry extends Model<telemetryAttributes, telemetryCreationAttributes> implements telemetryAttributes {
+export class Telemetry extends Model<ITelemetryAttributes, TelemetryCreationAttributes> implements ITelemetryAttributes {
   id!: number;
   created_at?: Date;
   updated_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof telemetry {
-    return telemetry.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Telemetry {
+    return Telemetry.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

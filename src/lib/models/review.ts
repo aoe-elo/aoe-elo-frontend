@@ -1,9 +1,8 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import { actionlog } from './actionlog';
 
-export interface reviewAttributes {
+export interface IReviewAttributes {
   id: number;
   changes: string;
   status?: string;
@@ -14,12 +13,12 @@ export interface reviewAttributes {
   deleted_at?: Date;
 }
 
-export type reviewPk = "id";
-export type reviewId = review[reviewPk];
-export type reviewOptionalAttributes = "status" | "created_at" | "updated_at" | "deleted_at";
-export type reviewCreationAttributes = Optional<reviewAttributes, reviewOptionalAttributes>;
+export type ReviewPk = "id";
+export type ReviewId = Review[ReviewPk];
+export type ReviewOptionalAttributes = "status" | "created_at" | "updated_at" | "deleted_at";
+export type ReviewCreationAttributes = Optional<IReviewAttributes, ReviewOptionalAttributes>;
 
-export class review extends Model<reviewAttributes, reviewCreationAttributes> implements reviewAttributes {
+export class Review extends Model<IReviewAttributes, ReviewCreationAttributes> implements IReviewAttributes {
   id!: number;
   changes!: string;
   status?: string;
@@ -30,8 +29,8 @@ export class review extends Model<reviewAttributes, reviewCreationAttributes> im
   deleted_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof review {
-    return review.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Review {
+    return Review.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -64,6 +63,3 @@ export class review extends Model<reviewAttributes, reviewCreationAttributes> im
     });
   }
 }
-
-// Polymorphic Association
-review.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Review' } });

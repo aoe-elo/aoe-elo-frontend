@@ -1,9 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { set as match, setId as matchId } from './set';
+import type { Set as match, SetId as matchId } from './set';
 
-export interface rating_deltaAttributes {
+export interface IRatingDeltaAttributes {
   id: number;
   participant_id: number;
   participant_type: string;
@@ -15,12 +15,12 @@ export interface rating_deltaAttributes {
   deleted_at?: Date;
 }
 
-export type rating_deltaPk = "id";
-export type rating_deltaId = rating_delta[rating_deltaPk];
-export type rating_deltaOptionalAttributes = "rating_delta" | "created_at" | "updated_at" | "deleted_at";
-export type rating_deltaCreationAttributes = Optional<rating_deltaAttributes, rating_deltaOptionalAttributes>;
+export type RatingDeltaPk = "id";
+export type RatingDeltaId = RatingDelta[RatingDeltaPk];
+export type RatingDeltaOptionalAttributes = "rating_delta" | "created_at" | "updated_at" | "deleted_at";
+export type RatingDeltaCreationAttributes = Optional<IRatingDeltaAttributes, RatingDeltaOptionalAttributes>;
 
-export class rating_delta extends Model<rating_deltaAttributes, rating_deltaCreationAttributes> implements rating_deltaAttributes {
+export class RatingDelta extends Model<IRatingDeltaAttributes, RatingDeltaCreationAttributes> implements IRatingDeltaAttributes {
   id!: number;
   participant_id!: number;
   participant_type!: string;
@@ -37,8 +37,8 @@ export class rating_delta extends Model<rating_deltaAttributes, rating_deltaCrea
   setMatch!: Sequelize.BelongsToSetAssociationMixin<match, matchId>;
   createMatch!: Sequelize.BelongsToCreateAssociationMixin<match>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof rating_delta {
-    return rating_delta.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof RatingDelta {
+    return RatingDelta.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

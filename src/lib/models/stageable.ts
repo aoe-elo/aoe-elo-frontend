@@ -1,10 +1,10 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { set, setId } from './set';
-import type { stage, stageId } from './stage';
+import type { Set, SetId } from './set';
+import type { Stage, StageId } from './stage';
 
-export interface stageableAttributes {
+export interface IStageableAttributes {
   id: number;
   stage_order?: number;
   stageable_id: number;
@@ -15,12 +15,12 @@ export interface stageableAttributes {
   deleted_at?: Date;
 }
 
-export type stageablePk = "id";
-export type stageableId = stageable[stageablePk];
-export type stageableOptionalAttributes = "stage_order" | "created_at" | "updated_at" | "deleted_at";
-export type stageableCreationAttributes = Optional<stageableAttributes, stageableOptionalAttributes>;
+export type StageablePk = "id";
+export type StageableId = Stageable[StageablePk];
+export type StageableOptionalAttributes = "stage_order" | "created_at" | "updated_at" | "deleted_at";
+export type StageableCreationAttributes = Optional<IStageableAttributes, StageableOptionalAttributes>;
 
-export class stageable extends Model<stageableAttributes, stageableCreationAttributes> implements stageableAttributes {
+export class Stageable extends Model<IStageableAttributes, StageableCreationAttributes> implements IStageableAttributes {
   id!: number;
   stage_order?: number;
   stageable_id!: number;
@@ -31,25 +31,25 @@ export class stageable extends Model<stageableAttributes, stageableCreationAttri
   deleted_at?: Date;
 
   // stageable hasMany set via stageable_id
-  sets!: set[];
-  getSets!: Sequelize.HasManyGetAssociationsMixin<set>;
-  setSets!: Sequelize.HasManySetAssociationsMixin<set, setId>;
-  addSet!: Sequelize.HasManyAddAssociationMixin<set, setId>;
-  addSets!: Sequelize.HasManyAddAssociationsMixin<set, setId>;
-  createSet!: Sequelize.HasManyCreateAssociationMixin<set>;
-  removeSet!: Sequelize.HasManyRemoveAssociationMixin<set, setId>;
-  removeSets!: Sequelize.HasManyRemoveAssociationsMixin<set, setId>;
-  hasSet!: Sequelize.HasManyHasAssociationMixin<set, setId>;
-  hasSets!: Sequelize.HasManyHasAssociationsMixin<set, setId>;
+  sets!: Set[];
+  getSets!: Sequelize.HasManyGetAssociationsMixin<Set>;
+  setSets!: Sequelize.HasManySetAssociationsMixin<Set, SetId>;
+  addSet!: Sequelize.HasManyAddAssociationMixin<Set, SetId>;
+  addSets!: Sequelize.HasManyAddAssociationsMixin<Set, SetId>;
+  createSet!: Sequelize.HasManyCreateAssociationMixin<Set>;
+  removeSet!: Sequelize.HasManyRemoveAssociationMixin<Set, SetId>;
+  removeSets!: Sequelize.HasManyRemoveAssociationsMixin<Set, SetId>;
+  hasSet!: Sequelize.HasManyHasAssociationMixin<Set, SetId>;
+  hasSets!: Sequelize.HasManyHasAssociationsMixin<Set, SetId>;
   countSets!: Sequelize.HasManyCountAssociationsMixin;
   // stageable belongsTo stage via stage_id
-  stage!: stage;
-  getStage!: Sequelize.BelongsToGetAssociationMixin<stage>;
-  setStage!: Sequelize.BelongsToSetAssociationMixin<stage, stageId>;
-  createStage!: Sequelize.BelongsToCreateAssociationMixin<stage>;
+  stage!: Stage;
+  getStage!: Sequelize.BelongsToGetAssociationMixin<Stage>;
+  setStage!: Sequelize.BelongsToSetAssociationMixin<Stage, StageId>;
+  createStage!: Sequelize.BelongsToCreateAssociationMixin<Stage>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof stageable {
-    return stageable.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Stageable {
+    return Stageable.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

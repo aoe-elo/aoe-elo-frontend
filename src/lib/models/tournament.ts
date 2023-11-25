@@ -1,13 +1,11 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { atp_category, atp_categoryId } from './atp_category';
-import type { elo_1v1_cache, elo_1v1_cacheId } from './elo_1v1_cache';
-import type { tournament_result, tournament_resultId } from './tournament_result';
-import { actionlog } from './actionlog';
-// import type { metadatum, metadatumId } from './metadatum';
+import type { AtpCategory, AtpCategoryId } from './atp_category';
+import type { Elo1v1Cache, Elo1v1CacheId } from './elo_1v1_cache';
+import type { TournamentResult, TournamentResultId } from './tournament_result';
 
-export interface tournamentAttributes {
+export interface ITournamentAttributes {
   id: number;
   name: string;
   short_name: string;
@@ -29,12 +27,12 @@ export interface tournamentAttributes {
   deleted_at?: Date;
 }
 
-export type tournamentPk = "id";
-export type tournamentId = tournament[tournamentPk];
-export type tournamentOptionalAttributes = "started_at" | "ended_at" | "weight" | "game_mode" | "format_type" | "event_type" | "prize_pool" | "prize_currency" | "structure" | "evaluation" | "website_link" | "liquipedia_link" | "atp_category_id" | "created_at" | "updated_at" | "deleted_at";
-export type tournamentCreationAttributes = Optional<tournamentAttributes, tournamentOptionalAttributes>;
+export type TournamentPk = "id";
+export type TournamentId = Tournament[TournamentPk];
+export type TournamentOptionalAttributes = "started_at" | "ended_at" | "weight" | "game_mode" | "format_type" | "event_type" | "prize_pool" | "prize_currency" | "structure" | "evaluation" | "website_link" | "liquipedia_link" | "atp_category_id" | "created_at" | "updated_at" | "deleted_at";
+export type TournamentCreationAttributes = Optional<ITournamentAttributes, TournamentOptionalAttributes>;
 
-export class tournament extends Model<tournamentAttributes, tournamentCreationAttributes> implements tournamentAttributes {
+export class Tournament extends Model<ITournamentAttributes, TournamentCreationAttributes> implements ITournamentAttributes {
   id!: number;
   name!: string;
   short_name!: string;
@@ -56,33 +54,33 @@ export class tournament extends Model<tournamentAttributes, tournamentCreationAt
   deleted_at?: Date;
 
   // tournament belongsTo atp_category via atp_category_id
-  atp_category!: atp_category;
-  getAtp_category!: Sequelize.BelongsToGetAssociationMixin<atp_category>;
-  setAtp_category!: Sequelize.BelongsToSetAssociationMixin<atp_category, atp_categoryId>;
-  createAtp_category!: Sequelize.BelongsToCreateAssociationMixin<atp_category>;
+  atp_category!: AtpCategory;
+  getAtp_category!: Sequelize.BelongsToGetAssociationMixin<AtpCategory>;
+  setAtp_category!: Sequelize.BelongsToSetAssociationMixin<AtpCategory, AtpCategoryId>;
+  createAtp_category!: Sequelize.BelongsToCreateAssociationMixin<AtpCategory>;
   // tournament hasMany elo_1v1_cache via tournament_id
-  elo_1v1_caches!: elo_1v1_cache[];
-  getElo_1v1_caches!: Sequelize.HasManyGetAssociationsMixin<elo_1v1_cache>;
-  setElo_1v1_caches!: Sequelize.HasManySetAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  addElo_1v1_cache!: Sequelize.HasManyAddAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  addElo_1v1_caches!: Sequelize.HasManyAddAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  createElo_1v1_cache!: Sequelize.HasManyCreateAssociationMixin<elo_1v1_cache>;
-  removeElo_1v1_cache!: Sequelize.HasManyRemoveAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  removeElo_1v1_caches!: Sequelize.HasManyRemoveAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  hasElo_1v1_cache!: Sequelize.HasManyHasAssociationMixin<elo_1v1_cache, elo_1v1_cacheId>;
-  hasElo_1v1_caches!: Sequelize.HasManyHasAssociationsMixin<elo_1v1_cache, elo_1v1_cacheId>;
+  elo_1v1_caches!: Elo1v1Cache[];
+  getElo_1v1_caches!: Sequelize.HasManyGetAssociationsMixin<Elo1v1Cache>;
+  setElo_1v1_caches!: Sequelize.HasManySetAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
+  addElo_1v1_cache!: Sequelize.HasManyAddAssociationMixin<Elo1v1Cache, Elo1v1CacheId>;
+  addElo_1v1_caches!: Sequelize.HasManyAddAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
+  createElo_1v1_cache!: Sequelize.HasManyCreateAssociationMixin<Elo1v1Cache>;
+  removeElo_1v1_cache!: Sequelize.HasManyRemoveAssociationMixin<Elo1v1Cache, Elo1v1CacheId>;
+  removeElo_1v1_caches!: Sequelize.HasManyRemoveAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
+  hasElo_1v1_cache!: Sequelize.HasManyHasAssociationMixin<Elo1v1Cache, Elo1v1CacheId>;
+  hasElo_1v1_caches!: Sequelize.HasManyHasAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
   countElo_1v1_caches!: Sequelize.HasManyCountAssociationsMixin;
   // tournament hasMany tournament_result via tournament_id
-  tournament_results!: tournament_result[];
-  getTournament_results!: Sequelize.HasManyGetAssociationsMixin<tournament_result>;
-  setTournament_results!: Sequelize.HasManySetAssociationsMixin<tournament_result, tournament_resultId>;
-  addTournament_result!: Sequelize.HasManyAddAssociationMixin<tournament_result, tournament_resultId>;
-  addTournament_results!: Sequelize.HasManyAddAssociationsMixin<tournament_result, tournament_resultId>;
-  createTournament_result!: Sequelize.HasManyCreateAssociationMixin<tournament_result>;
-  removeTournament_result!: Sequelize.HasManyRemoveAssociationMixin<tournament_result, tournament_resultId>;
-  removeTournament_results!: Sequelize.HasManyRemoveAssociationsMixin<tournament_result, tournament_resultId>;
-  hasTournament_result!: Sequelize.HasManyHasAssociationMixin<tournament_result, tournament_resultId>;
-  hasTournament_results!: Sequelize.HasManyHasAssociationsMixin<tournament_result, tournament_resultId>;
+  tournament_results!: TournamentResult[];
+  getTournament_results!: Sequelize.HasManyGetAssociationsMixin<TournamentResult>;
+  setTournament_results!: Sequelize.HasManySetAssociationsMixin<TournamentResult, TournamentResultId>;
+  addTournament_result!: Sequelize.HasManyAddAssociationMixin<TournamentResult, TournamentResultId>;
+  addTournament_results!: Sequelize.HasManyAddAssociationsMixin<TournamentResult, TournamentResultId>;
+  createTournament_result!: Sequelize.HasManyCreateAssociationMixin<TournamentResult>;
+  removeTournament_result!: Sequelize.HasManyRemoveAssociationMixin<TournamentResult, TournamentResultId>;
+  removeTournament_results!: Sequelize.HasManyRemoveAssociationsMixin<TournamentResult, TournamentResultId>;
+  hasTournament_result!: Sequelize.HasManyHasAssociationMixin<TournamentResult, TournamentResultId>;
+  hasTournament_results!: Sequelize.HasManyHasAssociationsMixin<TournamentResult, TournamentResultId>;
   countTournament_results!: Sequelize.HasManyCountAssociationsMixin;
   // tournament belongsToMany metadata via metadatable_id and metadatable_type
   // metadata!: metadatum[];
@@ -92,8 +90,8 @@ export class tournament extends Model<tournamentAttributes, tournamentCreationAt
   // addMetadata!: Sequelize.BelongsToManyAddAssociationsMixin<metadatum, metadatumId>;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof tournament {
-    return tournament.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Tournament {
+    return Tournament.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -196,6 +194,3 @@ export class tournament extends Model<tournamentAttributes, tournamentCreationAt
     });
   }
 }
-
-// Polymorphic Association
-tournament.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Tournament' } });

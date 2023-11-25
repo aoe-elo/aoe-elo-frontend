@@ -1,9 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { user, userId } from './user';
+import type { User, UserId } from './user';
 
-export interface discord_userAttributes {
+export interface IDiscordUserAttributes {
   id: number;
   discord_id: string;
   nickname?: string;
@@ -16,12 +16,12 @@ export interface discord_userAttributes {
   deleted_at?: Date;
 }
 
-export type discord_userPk = "id";
-export type discord_userId = discord_user[discord_userPk];
-export type discord_userOptionalAttributes = "nickname" | "name" | "email" | "avatar" | "user_id" | "created_at" | "updated_at" | "deleted_at";
-export type discord_userCreationAttributes = Optional<discord_userAttributes, discord_userOptionalAttributes>;
+export type DiscordUserPk = "id";
+export type DiscordUserId = DiscordUser[DiscordUserPk];
+export type DiscordUserOptionalAttributes = "nickname" | "name" | "email" | "avatar" | "user_id" | "created_at" | "updated_at" | "deleted_at";
+export type DiscordUserCreationAttributes = Optional<IDiscordUserAttributes, DiscordUserOptionalAttributes>;
 
-export class discord_user extends Model<discord_userAttributes, discord_userCreationAttributes> implements discord_userAttributes {
+export class DiscordUser extends Model<IDiscordUserAttributes, DiscordUserCreationAttributes> implements IDiscordUserAttributes {
   id!: number;
   discord_id!: string;
   nickname?: string;
@@ -34,13 +34,13 @@ export class discord_user extends Model<discord_userAttributes, discord_userCrea
   deleted_at?: Date;
 
   // discord_user belongsTo user via user_id
-  user!: user;
-  getUser!: Sequelize.BelongsToGetAssociationMixin<user>;
-  setUser!: Sequelize.BelongsToSetAssociationMixin<user, userId>;
-  createUser!: Sequelize.BelongsToCreateAssociationMixin<user>;
+  user!: User;
+  getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
+  setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
+  createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof discord_user {
-    return discord_user.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof DiscordUser {
+    return DiscordUser.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

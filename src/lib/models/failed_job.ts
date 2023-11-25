@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface failed_jobAttributes {
+export interface IFailedJobAttributes {
   id: number;
   uuid: string;
   connection: string;
@@ -12,12 +12,12 @@ export interface failed_jobAttributes {
   failed_at: Date;
 }
 
-export type failed_jobPk = "id";
-export type failed_jobId = failed_job[failed_jobPk];
-export type failed_jobOptionalAttributes = "failed_at";
-export type failed_jobCreationAttributes = Optional<failed_jobAttributes, failed_jobOptionalAttributes>;
+export type FailedJobPk = "id";
+export type FailedJobId = FailedJob[FailedJobPk];
+export type FailedJobOptionalAttributes = "failed_at";
+export type FailedJobCreationAttributes = Optional<IFailedJobAttributes, FailedJobOptionalAttributes>;
 
-export class failed_job extends Model<failed_jobAttributes, failed_jobCreationAttributes> implements failed_jobAttributes {
+export class FailedJob extends Model<IFailedJobAttributes, FailedJobCreationAttributes> implements IFailedJobAttributes {
   id!: number;
   uuid!: string;
   connection!: string;
@@ -27,8 +27,8 @@ export class failed_job extends Model<failed_jobAttributes, failed_jobCreationAt
   failed_at!: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof failed_job {
-    return failed_job.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof FailedJob {
+    return FailedJob.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

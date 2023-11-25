@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface extern_voobly_cacheAttributes {
+export interface IExternVooblyCacheAttributes {
   id: number;
   voobly_id: number;
   ladder: number;
@@ -12,12 +12,12 @@ export interface extern_voobly_cacheAttributes {
   updated_at?: Date;
 }
 
-export type extern_voobly_cachePk = "id";
-export type extern_voobly_cacheId = extern_voobly_cache[extern_voobly_cachePk];
-export type extern_voobly_cacheOptionalAttributes = "ladder" | "rank" | "created_at" | "updated_at";
-export type extern_voobly_cacheCreationAttributes = Optional<extern_voobly_cacheAttributes, extern_voobly_cacheOptionalAttributes>;
+export type ExternVooblyCachePk = "id";
+export type ExternVooblyCacheId = ExternVooblyCache[ExternVooblyCachePk];
+export type ExternVooblyCacheOptionalAttributes = "ladder" | "rank" | "created_at" | "updated_at";
+export type ExternVooblyCacheCreationAttributes = Optional<IExternVooblyCacheAttributes, ExternVooblyCacheOptionalAttributes>;
 
-export class extern_voobly_cache extends Model<extern_voobly_cacheAttributes, extern_voobly_cacheCreationAttributes> implements extern_voobly_cacheAttributes {
+export class ExternVooblyCache extends Model<IExternVooblyCacheAttributes, ExternVooblyCacheCreationAttributes> implements IExternVooblyCacheAttributes {
   id!: number;
   voobly_id!: number;
   ladder!: number;
@@ -27,8 +27,8 @@ export class extern_voobly_cache extends Model<extern_voobly_cacheAttributes, ex
   updated_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof extern_voobly_cache {
-    return extern_voobly_cache.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof ExternVooblyCache {
+    return ExternVooblyCache.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

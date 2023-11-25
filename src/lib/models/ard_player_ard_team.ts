@@ -1,10 +1,10 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { ard_player, ard_playerId } from './ard_player';
-import type { ard_team, ard_teamId } from './ard_team';
+import type { ArdPlayer, ArdPlayerId } from './ard_player';
+import type { ArdTeam, ArdTeamId } from './ard_team';
 
-export interface ard_player_ard_teamAttributes {
+export interface IArdPlayerArdTeamAttributes {
   id: number;
   ard_player_id?: number;
   ard_team_id?: number;
@@ -14,12 +14,12 @@ export interface ard_player_ard_teamAttributes {
   deleted_at?: Date;
 }
 
-export type ard_player_ard_teamPk = "id";
-export type ard_player_ard_teamId = ard_player_ard_team[ard_player_ard_teamPk];
-export type ard_player_ard_teamOptionalAttributes = "ard_player_id" | "ard_team_id" | "is_active" | "created_at" | "updated_at" | "deleted_at";
-export type ard_player_ard_teamCreationAttributes = Optional<ard_player_ard_teamAttributes, ard_player_ard_teamOptionalAttributes>;
+export type ArdPlayerArdTeamPk = "id";
+export type ArdPlayerArdTeamId = ArdPlayerArdTeam[ArdPlayerArdTeamPk];
+export type ArdPlayerArdTeamOptionalAttributes = "ard_player_id" | "ard_team_id" | "is_active" | "created_at" | "updated_at" | "deleted_at";
+export type ArdPlayerArdTeamCreationAttributes = Optional<IArdPlayerArdTeamAttributes, ArdPlayerArdTeamOptionalAttributes>;
 
-export class ard_player_ard_team extends Model<ard_player_ard_teamAttributes, ard_player_ard_teamCreationAttributes> implements ard_player_ard_teamAttributes {
+export class ArdPlayerArdTeam extends Model<IArdPlayerArdTeamAttributes, ArdPlayerArdTeamCreationAttributes> implements IArdPlayerArdTeamAttributes {
   id!: number;
   ard_player_id?: number;
   ard_team_id?: number;
@@ -29,18 +29,18 @@ export class ard_player_ard_team extends Model<ard_player_ard_teamAttributes, ar
   deleted_at?: Date;
 
   // ard_player_ard_team belongsTo ard_player via ard_player_id
-  ard_player!: ard_player;
-  getArd_player!: Sequelize.BelongsToGetAssociationMixin<ard_player>;
-  setArd_player!: Sequelize.BelongsToSetAssociationMixin<ard_player, ard_playerId>;
-  createArd_player!: Sequelize.BelongsToCreateAssociationMixin<ard_player>;
+  ard_player!: ArdPlayer;
+  getArd_player!: Sequelize.BelongsToGetAssociationMixin<ArdPlayer>;
+  setArd_player!: Sequelize.BelongsToSetAssociationMixin<ArdPlayer, ArdPlayerId>;
+  createArd_player!: Sequelize.BelongsToCreateAssociationMixin<ArdPlayer>;
   // ard_player_ard_team belongsTo ard_team via ard_team_id
-  ard_team!: ard_team;
-  getArd_team!: Sequelize.BelongsToGetAssociationMixin<ard_team>;
-  setArd_team!: Sequelize.BelongsToSetAssociationMixin<ard_team, ard_teamId>;
-  createArd_team!: Sequelize.BelongsToCreateAssociationMixin<ard_team>;
+  ard_team!: ArdTeam;
+  getArd_team!: Sequelize.BelongsToGetAssociationMixin<ArdTeam>;
+  setArd_team!: Sequelize.BelongsToSetAssociationMixin<ArdTeam, ArdTeamId>;
+  createArd_team!: Sequelize.BelongsToCreateAssociationMixin<ArdTeam>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof ard_player_ard_team {
-    return ard_player_ard_team.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof ArdPlayerArdTeam {
+    return ArdPlayerArdTeam.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

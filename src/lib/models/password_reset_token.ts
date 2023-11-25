@@ -2,25 +2,25 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface password_reset_tokenAttributes {
+export interface IPasswordResetTokenAttributes {
   email: string;
   token: string;
   created_at?: Date;
 }
 
-export type password_reset_tokenPk = "email";
-export type password_reset_tokenId = password_reset_token[password_reset_tokenPk];
-export type password_reset_tokenOptionalAttributes = "created_at";
-export type password_reset_tokenCreationAttributes = Optional<password_reset_tokenAttributes, password_reset_tokenOptionalAttributes>;
+export type PasswordResetTokenPk = "email";
+export type PasswordResetTokenId = PasswordResetToken[PasswordResetTokenPk];
+export type PasswordResetTokenOptionalAttributes = "created_at";
+export type PasswordResetTokenCreationAttributes = Optional<IPasswordResetTokenAttributes, PasswordResetTokenOptionalAttributes>;
 
-export class password_reset_token extends Model<password_reset_tokenAttributes, password_reset_tokenCreationAttributes> implements password_reset_tokenAttributes {
+export class PasswordResetToken extends Model<IPasswordResetTokenAttributes, PasswordResetTokenCreationAttributes> implements IPasswordResetTokenAttributes {
   email!: string;
   token!: string;
   created_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof password_reset_token {
-    return password_reset_token.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof PasswordResetToken {
+    return PasswordResetToken.init({
       email: {
         type: DataTypes.STRING,
         allowNull: false,

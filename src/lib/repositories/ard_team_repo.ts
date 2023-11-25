@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { ard_teamAttributes } from "$lib/models/ard_team";
+import type { IArdTeamAttributes, ArdTeamId } from "$lib/models/ard_team";
 import type { ITeamRepositoryInterface } from "$lib/repositories/team_repo";
 
-type ArdTeamId = ard_teamAttributes["id"];
-type ArdTeamData = ard_teamAttributes;
+type ArdTeamData = IArdTeamAttributes;
 type ArdTeam = typeof models.ard_team;
 
 export class ArdTeamRepository implements ITeamRepositoryInterface<ArdTeamId, ArdTeamData> {

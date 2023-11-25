@@ -1,9 +1,8 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import { actionlog } from './actionlog';
 
-export interface newsAttributes {
+export interface INewsAttributes {
   id: number;
   title: string;
   pinned: number;
@@ -16,12 +15,12 @@ export interface newsAttributes {
   deleted_at?: Date;
 }
 
-export type newsPk = "id";
-export type newsId = news[newsPk];
-export type newsOptionalAttributes = "pinned" | "abstract" | "description" | "tags" | "created_at" | "updated_at" | "deleted_at";
-export type newsCreationAttributes = Optional<newsAttributes, newsOptionalAttributes>;
+export type NewsPk = "id";
+export type NewsId = News[NewsPk];
+export type NewsOptionalAttributes = "pinned" | "abstract" | "description" | "tags" | "created_at" | "updated_at" | "deleted_at";
+export type NewsCreationAttributes = Optional<INewsAttributes, NewsOptionalAttributes>;
 
-export class news extends Model<newsAttributes, newsCreationAttributes> implements newsAttributes {
+export class News extends Model<INewsAttributes, NewsCreationAttributes> implements INewsAttributes {
   id!: number;
   title!: string;
   pinned!: number;
@@ -34,8 +33,8 @@ export class news extends Model<newsAttributes, newsCreationAttributes> implemen
   deleted_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof news {
-    return news.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof News {
+    return News.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -76,6 +75,3 @@ export class news extends Model<newsAttributes, newsCreationAttributes> implemen
     });
   }
 }
-
-// Polymorphic Association
-news.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\News' } });

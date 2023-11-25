@@ -1,10 +1,10 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { location_style, location_styleId } from './location_style';
-import type { location, locationId } from './location';
+import type { LocationStyle, LocationStyleId } from './location_style';
+import type { Location, LocationId } from './location';
 
-export interface location_location_styleAttributes {
+export interface ILocationLocationStyleAttributes {
   id: number;
   location_id?: number;
   location_style_id?: number;
@@ -13,12 +13,12 @@ export interface location_location_styleAttributes {
   deleted_at?: Date;
 }
 
-export type location_location_stylePk = "id";
-export type location_location_styleId = location_location_style[location_location_stylePk];
-export type location_location_styleOptionalAttributes = "location_id" | "location_style_id" | "created_at" | "updated_at" | "deleted_at";
-export type location_location_styleCreationAttributes = Optional<location_location_styleAttributes, location_location_styleOptionalAttributes>;
+export type LocationLocationStylePk = "id";
+export type LocationLocationStyleId = LocationLocationStyle[LocationLocationStylePk];
+export type LocationLocationStyleOptionalAttributes = "location_id" | "location_style_id" | "created_at" | "updated_at" | "deleted_at";
+export type LocationLocationStyleCreationAttributes = Optional<ILocationLocationStyleAttributes, LocationLocationStyleOptionalAttributes>;
 
-export class location_location_style extends Model<location_location_styleAttributes, location_location_styleCreationAttributes> implements location_location_styleAttributes {
+export class LocationLocationStyle extends Model<ILocationLocationStyleAttributes, LocationLocationStyleCreationAttributes> implements ILocationLocationStyleAttributes {
   id!: number;
   location_id?: number;
   location_style_id?: number;
@@ -27,18 +27,18 @@ export class location_location_style extends Model<location_location_styleAttrib
   deleted_at?: Date;
 
   // location_location_style belongsTo location_style via location_style_id
-  location_style!: location_style;
-  getLocation_style!: Sequelize.BelongsToGetAssociationMixin<location_style>;
-  setLocation_style!: Sequelize.BelongsToSetAssociationMixin<location_style, location_styleId>;
-  createLocation_style!: Sequelize.BelongsToCreateAssociationMixin<location_style>;
+  location_style!: LocationStyle;
+  getLocation_style!: Sequelize.BelongsToGetAssociationMixin<LocationStyle>;
+  setLocation_style!: Sequelize.BelongsToSetAssociationMixin<LocationStyle, LocationStyleId>;
+  createLocation_style!: Sequelize.BelongsToCreateAssociationMixin<LocationStyle>;
   // location_location_style belongsTo location via location_id
-  location!: location;
-  getLocation!: Sequelize.BelongsToGetAssociationMixin<location>;
-  setLocation!: Sequelize.BelongsToSetAssociationMixin<location, locationId>;
-  createLocation!: Sequelize.BelongsToCreateAssociationMixin<location>;
+  location!: Location;
+  getLocation!: Sequelize.BelongsToGetAssociationMixin<Location>;
+  setLocation!: Sequelize.BelongsToSetAssociationMixin<Location, LocationId>;
+  createLocation!: Sequelize.BelongsToCreateAssociationMixin<Location>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof location_location_style {
-    return location_location_style.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof LocationLocationStyle {
+    return LocationLocationStyle.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

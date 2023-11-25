@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { teamAttributes } from "$lib/models/team";
+import type { ITeamAttributes, TeamId } from "$lib/models/team";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
-type TeamId = teamAttributes["id"];
-type TeamData = teamAttributes;
+type TeamData = ITeamAttributes;
 type Team = typeof models.team;
 
 export interface ITeamRepositoryInterface<TeamId, TeamData> extends IBaseRepositoryInterface<TeamId, TeamData> {

@@ -1,10 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { tournament, tournamentId } from './tournament';
-import { actionlog } from './actionlog';
+import type { Tournament, TournamentId } from './tournament';
 
-export interface atp_categoryAttributes {
+export interface IAtpCategoryAttributes {
   id: number;
   category: number;
   sub_category: string;
@@ -14,12 +13,12 @@ export interface atp_categoryAttributes {
   updated_at?: Date;
 }
 
-export type atp_categoryPk = "id";
-export type atp_categoryId = atp_category[atp_categoryPk];
-export type atp_categoryOptionalAttributes = "base_value" | "modifier" | "created_at" | "updated_at";
-export type atp_categoryCreationAttributes = Optional<atp_categoryAttributes, atp_categoryOptionalAttributes>;
+export type AtpCategoryPk = "id";
+export type AtpCategoryId = AtpCategory[AtpCategoryPk];
+export type AtpCategoryOptionalAttributes = "base_value" | "modifier" | "created_at" | "updated_at";
+export type AtpCategoryCreationAttributes = Optional<IAtpCategoryAttributes, AtpCategoryOptionalAttributes>;
 
-export class atp_category extends Model<atp_categoryAttributes, atp_categoryCreationAttributes> implements atp_categoryAttributes {
+export class AtpCategory extends Model<IAtpCategoryAttributes, AtpCategoryCreationAttributes> implements IAtpCategoryAttributes {
   id!: number;
   category!: number;
   sub_category!: string;
@@ -29,20 +28,20 @@ export class atp_category extends Model<atp_categoryAttributes, atp_categoryCrea
   updated_at?: Date;
 
   // atp_category hasMany tournament via atp_category_id
-  tournaments!: tournament[];
-  getTournaments!: Sequelize.HasManyGetAssociationsMixin<tournament>;
-  setTournaments!: Sequelize.HasManySetAssociationsMixin<tournament, tournamentId>;
-  addTournament!: Sequelize.HasManyAddAssociationMixin<tournament, tournamentId>;
-  addTournaments!: Sequelize.HasManyAddAssociationsMixin<tournament, tournamentId>;
-  createTournament!: Sequelize.HasManyCreateAssociationMixin<tournament>;
-  removeTournament!: Sequelize.HasManyRemoveAssociationMixin<tournament, tournamentId>;
-  removeTournaments!: Sequelize.HasManyRemoveAssociationsMixin<tournament, tournamentId>;
-  hasTournament!: Sequelize.HasManyHasAssociationMixin<tournament, tournamentId>;
-  hasTournaments!: Sequelize.HasManyHasAssociationsMixin<tournament, tournamentId>;
+  tournaments!: Tournament[];
+  getTournaments!: Sequelize.HasManyGetAssociationsMixin<Tournament>;
+  setTournaments!: Sequelize.HasManySetAssociationsMixin<Tournament, TournamentId>;
+  addTournament!: Sequelize.HasManyAddAssociationMixin<Tournament, TournamentId>;
+  addTournaments!: Sequelize.HasManyAddAssociationsMixin<Tournament, TournamentId>;
+  createTournament!: Sequelize.HasManyCreateAssociationMixin<Tournament>;
+  removeTournament!: Sequelize.HasManyRemoveAssociationMixin<Tournament, TournamentId>;
+  removeTournaments!: Sequelize.HasManyRemoveAssociationsMixin<Tournament, TournamentId>;
+  hasTournament!: Sequelize.HasManyHasAssociationMixin<Tournament, TournamentId>;
+  hasTournaments!: Sequelize.HasManyHasAssociationsMixin<Tournament, TournamentId>;
   countTournaments!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof atp_category {
-    return atp_category.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof AtpCategory {
+    return AtpCategory.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -86,6 +85,3 @@ export class atp_category extends Model<atp_categoryAttributes, atp_categoryCrea
     });
   }
 }
-
-// Polymorphic Association
-atp_category.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\AtpCategory' } });

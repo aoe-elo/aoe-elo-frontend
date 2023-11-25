@@ -1,34 +1,34 @@
 import type * as Sequelize from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { permission, permissionId } from './permission';
-import type { role, roleId } from './role';
+import type { Permission, PermissionId } from './permission';
+import type { Role, RoleId } from './role';
 
-export interface role_has_permissionAttributes {
+export interface IRoleHasPermissionAttributes {
   permission_id: number;
   role_id: number;
 }
 
-export type role_has_permissionPk = "permission_id" | "role_id";
-export type role_has_permissionId = role_has_permission[role_has_permissionPk];
-export type role_has_permissionCreationAttributes = role_has_permissionAttributes;
+export type RoleHasPermissionPk = "permission_id" | "role_id";
+export type RoleHasPermissionId = RoleHasPermission[RoleHasPermissionPk];
+export type RoleHasPermissionCreationAttributes = IRoleHasPermissionAttributes;
 
-export class role_has_permission extends Model<role_has_permissionAttributes, role_has_permissionCreationAttributes> implements role_has_permissionAttributes {
+export class RoleHasPermission extends Model<IRoleHasPermissionAttributes, RoleHasPermissionCreationAttributes> implements IRoleHasPermissionAttributes {
   permission_id!: number;
   role_id!: number;
 
   // role_has_permission belongsTo permission via permission_id
-  permission!: permission;
-  getPermission!: Sequelize.BelongsToGetAssociationMixin<permission>;
-  setPermission!: Sequelize.BelongsToSetAssociationMixin<permission, permissionId>;
-  createPermission!: Sequelize.BelongsToCreateAssociationMixin<permission>;
+  permission!: Permission;
+  getPermission!: Sequelize.BelongsToGetAssociationMixin<Permission>;
+  setPermission!: Sequelize.BelongsToSetAssociationMixin<Permission, PermissionId>;
+  createPermission!: Sequelize.BelongsToCreateAssociationMixin<Permission>;
   // role_has_permission belongsTo role via role_id
-  role!: role;
-  getRole!: Sequelize.BelongsToGetAssociationMixin<role>;
-  setRole!: Sequelize.BelongsToSetAssociationMixin<role, roleId>;
-  createRole!: Sequelize.BelongsToCreateAssociationMixin<role>;
+  role!: Role;
+  getRole!: Sequelize.BelongsToGetAssociationMixin<Role>;
+  setRole!: Sequelize.BelongsToSetAssociationMixin<Role, RoleId>;
+  createRole!: Sequelize.BelongsToCreateAssociationMixin<Role>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof role_has_permission {
-    return role_has_permission.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof RoleHasPermission {
+    return RoleHasPermission.init({
       permission_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

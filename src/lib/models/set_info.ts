@@ -1,10 +1,10 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { location_set_info, location_set_infoId } from './location_set_info';
-import type { set as match, setId as matchId } from './set';
+import type { LocationSetInfo, LocationSetInfoId } from './location_set_info';
+import type { Set as match, SetId as matchId } from './set';
 
-export interface set_infoAttributes {
+export interface ISetInfoAttributes {
   id: number;
   score: number;
   is_winner: number;
@@ -17,12 +17,12 @@ export interface set_infoAttributes {
   deleted_at?: Date;
 }
 
-export type set_infoPk = "id";
-export type set_infoId = set_info[set_infoPk];
-export type set_infoOptionalAttributes = "is_winner" | "created_at" | "updated_at" | "deleted_at";
-export type set_infoCreationAttributes = Optional<set_infoAttributes, set_infoOptionalAttributes>;
+export type SetInfoPk = "id";
+export type SetInfoId = SetInfo[SetInfoPk];
+export type SetInfoOptionalAttributes = "is_winner" | "created_at" | "updated_at" | "deleted_at";
+export type SetInfoCreationAttributes = Optional<ISetInfoAttributes, SetInfoOptionalAttributes>;
 
-export class set_info extends Model<set_infoAttributes, set_infoCreationAttributes> implements set_infoAttributes {
+export class SetInfo extends Model<ISetInfoAttributes, SetInfoCreationAttributes> implements ISetInfoAttributes {
   id!: number;
   score!: number;
   is_winner!: number;
@@ -35,16 +35,16 @@ export class set_info extends Model<set_infoAttributes, set_infoCreationAttribut
   deleted_at?: Date;
 
   // set_info hasMany location_set_info via set_info_id
-  location_set_infos!: location_set_info[];
-  getLocation_set_infos!: Sequelize.HasManyGetAssociationsMixin<location_set_info>;
-  setLocation_set_infos!: Sequelize.HasManySetAssociationsMixin<location_set_info, location_set_infoId>;
-  addLocation_set_info!: Sequelize.HasManyAddAssociationMixin<location_set_info, location_set_infoId>;
-  addLocation_set_infos!: Sequelize.HasManyAddAssociationsMixin<location_set_info, location_set_infoId>;
-  createLocation_set_info!: Sequelize.HasManyCreateAssociationMixin<location_set_info>;
-  removeLocation_set_info!: Sequelize.HasManyRemoveAssociationMixin<location_set_info, location_set_infoId>;
-  removeLocation_set_infos!: Sequelize.HasManyRemoveAssociationsMixin<location_set_info, location_set_infoId>;
-  hasLocation_set_info!: Sequelize.HasManyHasAssociationMixin<location_set_info, location_set_infoId>;
-  hasLocation_set_infos!: Sequelize.HasManyHasAssociationsMixin<location_set_info, location_set_infoId>;
+  location_set_infos!: LocationSetInfo[];
+  getLocation_set_infos!: Sequelize.HasManyGetAssociationsMixin<LocationSetInfo>;
+  setLocation_set_infos!: Sequelize.HasManySetAssociationsMixin<LocationSetInfo, LocationSetInfoId>;
+  addLocation_set_info!: Sequelize.HasManyAddAssociationMixin<LocationSetInfo, LocationSetInfoId>;
+  addLocation_set_infos!: Sequelize.HasManyAddAssociationsMixin<LocationSetInfo, LocationSetInfoId>;
+  createLocation_set_info!: Sequelize.HasManyCreateAssociationMixin<LocationSetInfo>;
+  removeLocation_set_info!: Sequelize.HasManyRemoveAssociationMixin<LocationSetInfo, LocationSetInfoId>;
+  removeLocation_set_infos!: Sequelize.HasManyRemoveAssociationsMixin<LocationSetInfo, LocationSetInfoId>;
+  hasLocation_set_info!: Sequelize.HasManyHasAssociationMixin<LocationSetInfo, LocationSetInfoId>;
+  hasLocation_set_infos!: Sequelize.HasManyHasAssociationsMixin<LocationSetInfo, LocationSetInfoId>;
   countLocation_set_infos!: Sequelize.HasManyCountAssociationsMixin;
   // set_info belongsTo set via set_id
   match!: match;
@@ -52,8 +52,8 @@ export class set_info extends Model<set_infoAttributes, set_infoCreationAttribut
   setMatch!: Sequelize.BelongsToSetAssociationMixin<match, matchId>;
   createMatch!: Sequelize.BelongsToCreateAssociationMixin<match>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof set_info {
-    return set_info.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof SetInfo {
+    return SetInfo.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

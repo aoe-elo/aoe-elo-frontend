@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { actionlogAttributes } from "$lib/models/actionlog";
+import type { IActionlogAttributes, ActionlogId } from "$lib/models/actionlog";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
-type ActionlogId = actionlogAttributes["id"];
-type ActionlogData = actionlogAttributes;
+type ActionlogData = IActionlogAttributes;
 type Actionlog = typeof models.actionlog;
 
 interface IActionlogRepositoryInterface<ActionlogId, ActionlogData> extends IBaseRepositoryInterface<ActionlogId, ActionlogData> { }

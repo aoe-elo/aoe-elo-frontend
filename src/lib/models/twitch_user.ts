@@ -1,9 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { user, userId } from './user';
+import type { User, UserId } from './user';
 
-export interface twitch_userAttributes {
+export interface ITwitchUserAttributes {
   id: number;
   twitch_id: string;
   nickname?: string;
@@ -16,12 +16,12 @@ export interface twitch_userAttributes {
   deleted_at?: Date;
 }
 
-export type twitch_userPk = "id";
-export type twitch_userId = twitch_user[twitch_userPk];
-export type twitch_userOptionalAttributes = "nickname" | "name" | "email" | "avatar" | "user_id" | "created_at" | "updated_at" | "deleted_at";
-export type twitch_userCreationAttributes = Optional<twitch_userAttributes, twitch_userOptionalAttributes>;
+export type TwitchUserPk = "id";
+export type TwitchUserId = TwitchUser[TwitchUserPk];
+export type TwitchUserOptionalAttributes = "nickname" | "name" | "email" | "avatar" | "user_id" | "created_at" | "updated_at" | "deleted_at";
+export type TwitchUserCreationAttributes = Optional<ITwitchUserAttributes, TwitchUserOptionalAttributes>;
 
-export class twitch_user extends Model<twitch_userAttributes, twitch_userCreationAttributes> implements twitch_userAttributes {
+export class TwitchUser extends Model<ITwitchUserAttributes, TwitchUserCreationAttributes> implements ITwitchUserAttributes {
   id!: number;
   twitch_id!: string;
   nickname?: string;
@@ -34,13 +34,13 @@ export class twitch_user extends Model<twitch_userAttributes, twitch_userCreatio
   deleted_at?: Date;
 
   // twitch_user belongsTo user via user_id
-  user!: user;
-  getUser!: Sequelize.BelongsToGetAssociationMixin<user>;
-  setUser!: Sequelize.BelongsToSetAssociationMixin<user, userId>;
-  createUser!: Sequelize.BelongsToCreateAssociationMixin<user>;
+  user!: User;
+  getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
+  setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
+  createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof twitch_user {
-    return twitch_user.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof TwitchUser {
+    return TwitchUser.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

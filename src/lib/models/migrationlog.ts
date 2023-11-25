@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface migrationlogAttributes {
+export interface IMigrationlogAttributes {
   id: number;
   migratory_id: number;
   migratory_type: string;
@@ -11,12 +11,12 @@ export interface migrationlogAttributes {
   updated_at?: Date;
 }
 
-export type migrationlogPk = "id";
-export type migrationlogId = migrationlog[migrationlogPk];
-export type migrationlogOptionalAttributes = "save_confirmed" | "created_at" | "updated_at";
-export type migrationlogCreationAttributes = Optional<migrationlogAttributes, migrationlogOptionalAttributes>;
+export type MigrationlogPk = "id";
+export type MigrationlogId = Migrationlog[MigrationlogPk];
+export type MigrationlogOptionalAttributes = "save_confirmed" | "created_at" | "updated_at";
+export type MigrationlogCreationAttributes = Optional<IMigrationlogAttributes, MigrationlogOptionalAttributes>;
 
-export class migrationlog extends Model<migrationlogAttributes, migrationlogCreationAttributes> implements migrationlogAttributes {
+export class Migrationlog extends Model<IMigrationlogAttributes, MigrationlogCreationAttributes> implements IMigrationlogAttributes {
   id!: number;
   migratory_id!: number;
   migratory_type!: string;
@@ -25,8 +25,8 @@ export class migrationlog extends Model<migrationlogAttributes, migrationlogCrea
   updated_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof migrationlog {
-    return migrationlog.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Migrationlog {
+    return Migrationlog.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

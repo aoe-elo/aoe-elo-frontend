@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { metadatumAttributes } from "$lib/models/metadatum";
+import type { IMetadatumAttributes, MetadatumId as MetadataId } from "$lib/models/metadatum";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
-type MetadataId = metadatumAttributes["id"];
-type MetadataData = metadatumAttributes;
+type MetadataData = IMetadatumAttributes;
 type Metadata = typeof models.metadatum;
 
 interface IMetadataRepositoryInterface<MetadataId, ReviewData> extends IBaseRepositoryInterface<MetadataId, ReviewData> { }

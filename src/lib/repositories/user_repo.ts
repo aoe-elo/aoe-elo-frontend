@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { userAttributes } from "$lib/models/user";
+import type { IUserAttributes, UserId } from "$lib/models/user";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
-type UserId = userAttributes["id"];
-type UserData = userAttributes;
+type UserData = IUserAttributes;
 type User = typeof models.user;
 
 interface IUserRepositoryInterface<UserId, UserData> extends IBaseRepositoryInterface<UserId, UserData> {

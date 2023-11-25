@@ -1,10 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { stageable, stageableId } from './stageable';
-import { actionlog } from './actionlog';
+import type { Stageable, StageableId } from './stageable';
 
-export interface stageAttributes {
+export interface IStageAttributes {
   id: number;
   name: string;
   bracket: number;
@@ -16,12 +15,12 @@ export interface stageAttributes {
   deleted_at?: Date;
 }
 
-export type stagePk = "id";
-export type stageId = stage[stagePk];
-export type stageOptionalAttributes = "bracket" | "default_order" | "weight" | "importance" | "created_at" | "updated_at" | "deleted_at";
-export type stageCreationAttributes = Optional<stageAttributes, stageOptionalAttributes>;
+export type StagePk = "id";
+export type StageId = Stage[StagePk];
+export type StageOptionalAttributes = "bracket" | "default_order" | "weight" | "importance" | "created_at" | "updated_at" | "deleted_at";
+export type StageCreationAttributes = Optional<IStageAttributes, StageOptionalAttributes>;
 
-export class stage extends Model<stageAttributes, stageCreationAttributes> implements stageAttributes {
+export class Stage extends Model<IStageAttributes, StageCreationAttributes> implements IStageAttributes {
   id!: number;
   name!: string;
   bracket!: number;
@@ -33,20 +32,20 @@ export class stage extends Model<stageAttributes, stageCreationAttributes> imple
   deleted_at?: Date;
 
   // stage hasMany stageable via stage_id
-  stageables!: stageable[];
-  getStageables!: Sequelize.HasManyGetAssociationsMixin<stageable>;
-  setStageables!: Sequelize.HasManySetAssociationsMixin<stageable, stageableId>;
-  addStageable!: Sequelize.HasManyAddAssociationMixin<stageable, stageableId>;
-  addStageables!: Sequelize.HasManyAddAssociationsMixin<stageable, stageableId>;
-  createStageable!: Sequelize.HasManyCreateAssociationMixin<stageable>;
-  removeStageable!: Sequelize.HasManyRemoveAssociationMixin<stageable, stageableId>;
-  removeStageables!: Sequelize.HasManyRemoveAssociationsMixin<stageable, stageableId>;
-  hasStageable!: Sequelize.HasManyHasAssociationMixin<stageable, stageableId>;
-  hasStageables!: Sequelize.HasManyHasAssociationsMixin<stageable, stageableId>;
+  stageables!: Stageable[];
+  getStageables!: Sequelize.HasManyGetAssociationsMixin<Stageable>;
+  setStageables!: Sequelize.HasManySetAssociationsMixin<Stageable, StageableId>;
+  addStageable!: Sequelize.HasManyAddAssociationMixin<Stageable, StageableId>;
+  addStageables!: Sequelize.HasManyAddAssociationsMixin<Stageable, StageableId>;
+  createStageable!: Sequelize.HasManyCreateAssociationMixin<Stageable>;
+  removeStageable!: Sequelize.HasManyRemoveAssociationMixin<Stageable, StageableId>;
+  removeStageables!: Sequelize.HasManyRemoveAssociationsMixin<Stageable, StageableId>;
+  hasStageable!: Sequelize.HasManyHasAssociationMixin<Stageable, StageableId>;
+  hasStageables!: Sequelize.HasManyHasAssociationsMixin<Stageable, StageableId>;
   countStageables!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof stage {
-    return stage.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Stage {
+    return Stage.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -104,7 +103,3 @@ export class stage extends Model<stageAttributes, stageCreationAttributes> imple
     });
   }
 }
-
-// Polymorphic Association
-stage.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Stage' } });
-

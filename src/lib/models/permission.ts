@@ -1,10 +1,10 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { model_has_permission, model_has_permissionId } from './model_has_permission';
-import type { role_has_permission, role_has_permissionId } from './role_has_permission';
+import type { ModelHasPermission, ModelHasPermissionId } from './model_has_permission';
+import type { RoleHasPermission, RoleHasPermissionId } from './role_has_permission';
 
-export interface permissionAttributes {
+export interface IPermissionAttributes {
   id: number;
   name: string;
   guard_name: string;
@@ -12,12 +12,12 @@ export interface permissionAttributes {
   updated_at?: Date;
 }
 
-export type permissionPk = "id";
-export type permissionId = permission[permissionPk];
-export type permissionOptionalAttributes = "created_at" | "updated_at";
-export type permissionCreationAttributes = Optional<permissionAttributes, permissionOptionalAttributes>;
+export type PermissionPk = "id";
+export type PermissionId = Permission[PermissionPk];
+export type PermissionOptionalAttributes = "created_at" | "updated_at";
+export type PermissionCreationAttributes = Optional<IPermissionAttributes, PermissionOptionalAttributes>;
 
-export class permission extends Model<permissionAttributes, permissionCreationAttributes> implements permissionAttributes {
+export class Permission extends Model<IPermissionAttributes, PermissionCreationAttributes> implements IPermissionAttributes {
   id!: number;
   name!: string;
   guard_name!: string;
@@ -25,32 +25,32 @@ export class permission extends Model<permissionAttributes, permissionCreationAt
   updated_at?: Date;
 
   // permission hasMany model_has_permission via permission_id
-  model_has_permissions!: model_has_permission[];
-  getModel_has_permissions!: Sequelize.HasManyGetAssociationsMixin<model_has_permission>;
-  setModel_has_permissions!: Sequelize.HasManySetAssociationsMixin<model_has_permission, model_has_permissionId>;
-  addModel_has_permission!: Sequelize.HasManyAddAssociationMixin<model_has_permission, model_has_permissionId>;
-  addModel_has_permissions!: Sequelize.HasManyAddAssociationsMixin<model_has_permission, model_has_permissionId>;
-  createModel_has_permission!: Sequelize.HasManyCreateAssociationMixin<model_has_permission>;
-  removeModel_has_permission!: Sequelize.HasManyRemoveAssociationMixin<model_has_permission, model_has_permissionId>;
-  removeModel_has_permissions!: Sequelize.HasManyRemoveAssociationsMixin<model_has_permission, model_has_permissionId>;
-  hasModel_has_permission!: Sequelize.HasManyHasAssociationMixin<model_has_permission, model_has_permissionId>;
-  hasModel_has_permissions!: Sequelize.HasManyHasAssociationsMixin<model_has_permission, model_has_permissionId>;
+  model_has_permissions!: ModelHasPermission[];
+  getModel_has_permissions!: Sequelize.HasManyGetAssociationsMixin<ModelHasPermission>;
+  setModel_has_permissions!: Sequelize.HasManySetAssociationsMixin<ModelHasPermission, ModelHasPermissionId>;
+  addModel_has_permission!: Sequelize.HasManyAddAssociationMixin<ModelHasPermission, ModelHasPermissionId>;
+  addModel_has_permissions!: Sequelize.HasManyAddAssociationsMixin<ModelHasPermission, ModelHasPermissionId>;
+  createModel_has_permission!: Sequelize.HasManyCreateAssociationMixin<ModelHasPermission>;
+  removeModel_has_permission!: Sequelize.HasManyRemoveAssociationMixin<ModelHasPermission, ModelHasPermissionId>;
+  removeModel_has_permissions!: Sequelize.HasManyRemoveAssociationsMixin<ModelHasPermission, ModelHasPermissionId>;
+  hasModel_has_permission!: Sequelize.HasManyHasAssociationMixin<ModelHasPermission, ModelHasPermissionId>;
+  hasModel_has_permissions!: Sequelize.HasManyHasAssociationsMixin<ModelHasPermission, ModelHasPermissionId>;
   countModel_has_permissions!: Sequelize.HasManyCountAssociationsMixin;
   // permission hasMany role_has_permission via permission_id
-  role_has_permissions!: role_has_permission[];
-  getRole_has_permissions!: Sequelize.HasManyGetAssociationsMixin<role_has_permission>;
-  setRole_has_permissions!: Sequelize.HasManySetAssociationsMixin<role_has_permission, role_has_permissionId>;
-  addRole_has_permission!: Sequelize.HasManyAddAssociationMixin<role_has_permission, role_has_permissionId>;
-  addRole_has_permissions!: Sequelize.HasManyAddAssociationsMixin<role_has_permission, role_has_permissionId>;
-  createRole_has_permission!: Sequelize.HasManyCreateAssociationMixin<role_has_permission>;
-  removeRole_has_permission!: Sequelize.HasManyRemoveAssociationMixin<role_has_permission, role_has_permissionId>;
-  removeRole_has_permissions!: Sequelize.HasManyRemoveAssociationsMixin<role_has_permission, role_has_permissionId>;
-  hasRole_has_permission!: Sequelize.HasManyHasAssociationMixin<role_has_permission, role_has_permissionId>;
-  hasRole_has_permissions!: Sequelize.HasManyHasAssociationsMixin<role_has_permission, role_has_permissionId>;
+  role_has_permissions!: RoleHasPermission[];
+  getRole_has_permissions!: Sequelize.HasManyGetAssociationsMixin<RoleHasPermission>;
+  setRole_has_permissions!: Sequelize.HasManySetAssociationsMixin<RoleHasPermission, RoleHasPermissionId>;
+  addRole_has_permission!: Sequelize.HasManyAddAssociationMixin<RoleHasPermission, RoleHasPermissionId>;
+  addRole_has_permissions!: Sequelize.HasManyAddAssociationsMixin<RoleHasPermission, RoleHasPermissionId>;
+  createRole_has_permission!: Sequelize.HasManyCreateAssociationMixin<RoleHasPermission>;
+  removeRole_has_permission!: Sequelize.HasManyRemoveAssociationMixin<RoleHasPermission, RoleHasPermissionId>;
+  removeRole_has_permissions!: Sequelize.HasManyRemoveAssociationsMixin<RoleHasPermission, RoleHasPermissionId>;
+  hasRole_has_permission!: Sequelize.HasManyHasAssociationMixin<RoleHasPermission, RoleHasPermissionId>;
+  hasRole_has_permissions!: Sequelize.HasManyHasAssociationsMixin<RoleHasPermission, RoleHasPermissionId>;
   countRole_has_permissions!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof permission {
-    return permission.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Permission {
+    return Permission.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

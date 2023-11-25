@@ -1,12 +1,11 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { ard_player_ard_team, ard_player_ard_teamId } from './ard_player_ard_team';
-import type { country, countryId } from './country';
-import type { player, playerId } from './player';
-import { actionlog } from './actionlog';
+import type { ArdPlayerArdTeam, ArdPlayerArdTeamId } from './ard_player_ard_team';
+import type { Country, CountryId } from './country';
+import type { Player, PlayerId } from './player';
 
-export interface ard_playerAttributes {
+export interface IArdPlayerAttributes {
   id: number;
   name: string;
   country_id?: number;
@@ -19,12 +18,12 @@ export interface ard_playerAttributes {
   deleted_at?: Date;
 }
 
-export type ard_playerPk = "id";
-export type ard_playerId = ard_player[ard_playerPk];
-export type ard_playerOptionalAttributes = "country_id" | "aoeelo_id" | "esports_earnings" | "liquipedia_handle" | "discord_id" | "created_at" | "updated_at" | "deleted_at";
-export type ard_playerCreationAttributes = Optional<ard_playerAttributes, ard_playerOptionalAttributes>;
+export type ArdPlayerPk = "id";
+export type ArdPlayerId = ArdPlayer[ArdPlayerPk];
+export type ArdPlayerOptionalAttributes = "country_id" | "aoeelo_id" | "esports_earnings" | "liquipedia_handle" | "discord_id" | "created_at" | "updated_at" | "deleted_at";
+export type ArdPlayerCreationAttributes = Optional<IArdPlayerAttributes, ArdPlayerOptionalAttributes>;
 
-export class ard_player extends Model<ard_playerAttributes, ard_playerCreationAttributes> implements ard_playerAttributes {
+export class ArdPlayer extends Model<IArdPlayerAttributes, ArdPlayerCreationAttributes> implements IArdPlayerAttributes {
   id!: number;
   name!: string;
   country_id?: number;
@@ -37,37 +36,37 @@ export class ard_player extends Model<ard_playerAttributes, ard_playerCreationAt
   deleted_at?: Date;
 
   // ard_player hasMany ard_player_ard_team via ard_player_id
-  ard_player_ard_teams!: ard_player_ard_team[];
-  getArd_player_ard_teams!: Sequelize.HasManyGetAssociationsMixin<ard_player_ard_team>;
-  setArd_player_ard_teams!: Sequelize.HasManySetAssociationsMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  addArd_player_ard_team!: Sequelize.HasManyAddAssociationMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  addArd_player_ard_teams!: Sequelize.HasManyAddAssociationsMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  createArd_player_ard_team!: Sequelize.HasManyCreateAssociationMixin<ard_player_ard_team>;
-  removeArd_player_ard_team!: Sequelize.HasManyRemoveAssociationMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  removeArd_player_ard_teams!: Sequelize.HasManyRemoveAssociationsMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  hasArd_player_ard_team!: Sequelize.HasManyHasAssociationMixin<ard_player_ard_team, ard_player_ard_teamId>;
-  hasArd_player_ard_teams!: Sequelize.HasManyHasAssociationsMixin<ard_player_ard_team, ard_player_ard_teamId>;
+  ard_player_ard_teams!: ArdPlayerArdTeam[];
+  getArd_player_ard_teams!: Sequelize.HasManyGetAssociationsMixin<ArdPlayerArdTeam>;
+  setArd_player_ard_teams!: Sequelize.HasManySetAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  addArd_player_ard_team!: Sequelize.HasManyAddAssociationMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  addArd_player_ard_teams!: Sequelize.HasManyAddAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  createArd_player_ard_team!: Sequelize.HasManyCreateAssociationMixin<ArdPlayerArdTeam>;
+  removeArd_player_ard_team!: Sequelize.HasManyRemoveAssociationMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  removeArd_player_ard_teams!: Sequelize.HasManyRemoveAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  hasArd_player_ard_team!: Sequelize.HasManyHasAssociationMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
+  hasArd_player_ard_teams!: Sequelize.HasManyHasAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
   countArd_player_ard_teams!: Sequelize.HasManyCountAssociationsMixin;
   // ard_player hasMany player via aoe_reference_data_player_id
-  players!: player[];
-  getPlayers!: Sequelize.HasManyGetAssociationsMixin<player>;
-  setPlayers!: Sequelize.HasManySetAssociationsMixin<player, playerId>;
-  addPlayer!: Sequelize.HasManyAddAssociationMixin<player, playerId>;
-  addPlayers!: Sequelize.HasManyAddAssociationsMixin<player, playerId>;
-  createPlayer!: Sequelize.HasManyCreateAssociationMixin<player>;
-  removePlayer!: Sequelize.HasManyRemoveAssociationMixin<player, playerId>;
-  removePlayers!: Sequelize.HasManyRemoveAssociationsMixin<player, playerId>;
-  hasPlayer!: Sequelize.HasManyHasAssociationMixin<player, playerId>;
-  hasPlayers!: Sequelize.HasManyHasAssociationsMixin<player, playerId>;
+  players!: Player[];
+  getPlayers!: Sequelize.HasManyGetAssociationsMixin<Player>;
+  setPlayers!: Sequelize.HasManySetAssociationsMixin<Player, PlayerId>;
+  addPlayer!: Sequelize.HasManyAddAssociationMixin<Player, PlayerId>;
+  addPlayers!: Sequelize.HasManyAddAssociationsMixin<Player, PlayerId>;
+  createPlayer!: Sequelize.HasManyCreateAssociationMixin<Player>;
+  removePlayer!: Sequelize.HasManyRemoveAssociationMixin<Player, PlayerId>;
+  removePlayers!: Sequelize.HasManyRemoveAssociationsMixin<Player, PlayerId>;
+  hasPlayer!: Sequelize.HasManyHasAssociationMixin<Player, PlayerId>;
+  hasPlayers!: Sequelize.HasManyHasAssociationsMixin<Player, PlayerId>;
   countPlayers!: Sequelize.HasManyCountAssociationsMixin;
   // ard_player belongsTo country via country_id
-  country!: country;
-  getCountry!: Sequelize.BelongsToGetAssociationMixin<country>;
-  setCountry!: Sequelize.BelongsToSetAssociationMixin<country, countryId>;
-  createCountry!: Sequelize.BelongsToCreateAssociationMixin<country>;
+  country!: Country;
+  getCountry!: Sequelize.BelongsToGetAssociationMixin<Country>;
+  setCountry!: Sequelize.BelongsToSetAssociationMixin<Country, CountryId>;
+  createCountry!: Sequelize.BelongsToCreateAssociationMixin<Country>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof ard_player {
-    return ard_player.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof ArdPlayer {
+    return ArdPlayer.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -153,6 +152,3 @@ export class ard_player extends Model<ard_playerAttributes, ard_playerCreationAt
     });
   }
 }
-
-// Polymorphic Association
-ard_player.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\ArdPlayer' } });

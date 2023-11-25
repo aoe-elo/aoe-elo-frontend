@@ -1,24 +1,24 @@
 import type * as Sequelize from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface migrationAttributes {
+export interface IMigrationAttributes {
   id: number;
   migration: string;
   batch: number;
 }
 
-export type migrationPk = "id";
-export type migrationId = migration[migrationPk];
-export type migrationCreationAttributes = migrationAttributes;
+export type MigrationPk = "id";
+export type MigrationId = Migration[MigrationPk];
+export type MigrationCreationAttributes = IMigrationAttributes;
 
-export class migration extends Model<migrationAttributes, migrationCreationAttributes> implements migrationAttributes {
+export class Migration extends Model<IMigrationAttributes, MigrationCreationAttributes> implements IMigrationAttributes {
   id!: number;
   migration!: string;
   batch!: number;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof migration {
-    return migration.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Migration {
+    return Migration.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

@@ -1,24 +1,24 @@
 import type * as Sequelize from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface cacheAttributes {
+export interface ICacheAttributes {
   key: string;
   value: string;
   expiration: number;
 }
 
-export type cachePk = "key";
-export type cacheId = cache[cachePk];
-export type cacheCreationAttributes = cacheAttributes;
+export type CachePk = "key";
+export type CacheId = Cache[CachePk];
+export type CacheCreationAttributes = ICacheAttributes;
 
-export class cache extends Model<cacheAttributes, cacheCreationAttributes> implements cacheAttributes {
+export class Cache extends Model<ICacheAttributes, CacheCreationAttributes> implements ICacheAttributes {
   key!: string;
   value!: string;
   expiration!: number;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof cache {
-    return cache.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Cache {
+    return Cache.init({
       key: {
         type: DataTypes.STRING,
         allowNull: false,

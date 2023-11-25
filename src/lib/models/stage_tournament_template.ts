@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface stage_tournament_templateAttributes {
+export interface IStageTournamentTemplateAttributes {
   id: number;
   name: string;
   short_name: string;
@@ -12,12 +12,12 @@ export interface stage_tournament_templateAttributes {
   deleted_at?: Date;
 }
 
-export type stage_tournament_templatePk = "id";
-export type stage_tournament_templateId = stage_tournament_template[stage_tournament_templatePk];
-export type stage_tournament_templateOptionalAttributes = "description" | "created_at" | "updated_at" | "deleted_at";
-export type stage_tournament_templateCreationAttributes = Optional<stage_tournament_templateAttributes, stage_tournament_templateOptionalAttributes>;
+export type StageTournamentTemplatePk = "id";
+export type StageTournamentTemplateId = StageTournamentTemplate[StageTournamentTemplatePk];
+export type StageTournamentTemplateOptionalAttributes = "description" | "created_at" | "updated_at" | "deleted_at";
+export type StageTournamentTemplateCreationAttributes = Optional<IStageTournamentTemplateAttributes, StageTournamentTemplateOptionalAttributes>;
 
-export class stage_tournament_template extends Model<stage_tournament_templateAttributes, stage_tournament_templateCreationAttributes> implements stage_tournament_templateAttributes {
+export class StageTournamentTemplate extends Model<IStageTournamentTemplateAttributes, StageTournamentTemplateCreationAttributes> implements IStageTournamentTemplateAttributes {
   id!: number;
   name!: string;
   short_name!: string;
@@ -27,8 +27,8 @@ export class stage_tournament_template extends Model<stage_tournament_templateAt
   deleted_at?: Date;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof stage_tournament_template {
-    return stage_tournament_template.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof StageTournamentTemplate {
+    return StageTournamentTemplate.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

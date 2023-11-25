@@ -1,10 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { achievable, achievableId } from './achievable';
-import { actionlog } from './actionlog';
+import type { Achievable, AchievableId } from './achievable';
 
-export interface achievementAttributes {
+export interface IAchievementAttributes {
   id: number;
   name: string;
   name_short?: string;
@@ -15,12 +14,12 @@ export interface achievementAttributes {
   deleted_at?: Date;
 }
 
-export type achievementPk = "id";
-export type achievementId = achievement[achievementPk];
-export type achievementOptionalAttributes = "name_short" | "description" | "image_path" | "created_at" | "updated_at" | "deleted_at";
-export type achievementCreationAttributes = Optional<achievementAttributes, achievementOptionalAttributes>;
+export type AchievementPk = "id";
+export type AchievementId = Achievement[AchievementPk];
+export type AchievementOptionalAttributes = "name_short" | "description" | "image_path" | "created_at" | "updated_at" | "deleted_at";
+export type AchievementCreationAttributes = Optional<IAchievementAttributes, AchievementOptionalAttributes>;
 
-export class achievement extends Model<achievementAttributes, achievementCreationAttributes> implements achievementAttributes {
+export class Achievement extends Model<IAchievementAttributes, AchievementCreationAttributes> implements IAchievementAttributes {
   id!: number;
   name!: string;
   name_short?: string;
@@ -31,20 +30,20 @@ export class achievement extends Model<achievementAttributes, achievementCreatio
   deleted_at?: Date;
 
   // achievement hasMany achievable via achievement_id
-  achievables!: achievable[];
-  getAchievables!: Sequelize.HasManyGetAssociationsMixin<achievable>;
-  setAchievables!: Sequelize.HasManySetAssociationsMixin<achievable, achievableId>;
-  addAchievable!: Sequelize.HasManyAddAssociationMixin<achievable, achievableId>;
-  addAchievables!: Sequelize.HasManyAddAssociationsMixin<achievable, achievableId>;
-  createAchievable!: Sequelize.HasManyCreateAssociationMixin<achievable>;
-  removeAchievable!: Sequelize.HasManyRemoveAssociationMixin<achievable, achievableId>;
-  removeAchievables!: Sequelize.HasManyRemoveAssociationsMixin<achievable, achievableId>;
-  hasAchievable!: Sequelize.HasManyHasAssociationMixin<achievable, achievableId>;
-  hasAchievables!: Sequelize.HasManyHasAssociationsMixin<achievable, achievableId>;
+  achievables!: Achievable[];
+  getAchievables!: Sequelize.HasManyGetAssociationsMixin<Achievable>;
+  setAchievables!: Sequelize.HasManySetAssociationsMixin<Achievable, AchievableId>;
+  addAchievable!: Sequelize.HasManyAddAssociationMixin<Achievable, AchievableId>;
+  addAchievables!: Sequelize.HasManyAddAssociationsMixin<Achievable, AchievableId>;
+  createAchievable!: Sequelize.HasManyCreateAssociationMixin<Achievable>;
+  removeAchievable!: Sequelize.HasManyRemoveAssociationMixin<Achievable, AchievableId>;
+  removeAchievables!: Sequelize.HasManyRemoveAssociationsMixin<Achievable, AchievableId>;
+  hasAchievable!: Sequelize.HasManyHasAssociationMixin<Achievable, AchievableId>;
+  hasAchievables!: Sequelize.HasManyHasAssociationsMixin<Achievable, AchievableId>;
   countAchievables!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof achievement {
-    return achievement.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Achievement {
+    return Achievement.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -90,6 +89,3 @@ export class achievement extends Model<achievementAttributes, achievementCreatio
     });
   }
 }
-
-// Polymorphic Association
-achievement.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Achievement' } });

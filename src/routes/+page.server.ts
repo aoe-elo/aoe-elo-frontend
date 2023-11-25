@@ -2,7 +2,7 @@ import { models } from "$lib/sequelize";
 
 import { PlayerRepository } from "$lib/repositories/player_repo";
 import { ArdPlayerRepository } from "$lib/repositories/ard_player_repo";
-import { actionlog } from "$lib/models/actionlog";
+import { Actionlog } from "$lib/models/actionlog";
 
 // const users = await models.user.findOne();
 // console.log(users);
@@ -25,19 +25,22 @@ import { actionlog } from "$lib/models/actionlog";
 
 // const reviews = await models.review.findAll({ group: ["reviewable_type"], attributes: ["reviewable_type"] });
 // const actions = await models.actionlog.findAll({ group: ["loggable_type"], attributes: ["loggable_type"] });
+// const actions = await models.actionlog.findAll({ include: ["action"], limit: 10, offset: 1523 });
+const actions = await models.actionlog.findByPk(1523);
+actions?.getLoggable().then((loggable) => console.log(JSON.stringify(loggable, null, 2)));
 // const metadata = await models.metadatum.findAll({ group: ["metadatable_type"], attributes: ["metadatable_type"] });
 
-// console.log(JSON.stringify([reviews, actions, metadata], null, 2));
+// console.log(JSON.stringify(actions, null, 2));
 
-let mapping = new Map<string, string>();
+// let mapping = new Map<string, string>();
 
-mapping.set("App\\Models\\Achievement", "Achievement");
-mapping.set("App\\Models\\ArdPlayer", "ArdPlayer");
-mapping.set("App\\Models\\ArdTeam", "ArdTeam");
-mapping.set("App\\Models\\Player", "Player");
+// mapping.set("App\\Models\\Achievement", "Achievement");
+// mapping.set("App\\Models\\ArdPlayer", "ArdPlayer");
+// mapping.set("App\\Models\\ArdTeam", "ArdTeam");
+// mapping.set("App\\Models\\Player", "Player");
 
-await actionlog.update({ loggable_type: "Doe" }, {
-    where: {
-        loggable_type: null
-    }
-});
+// await actionlog.update({ loggable_type: "Doe" }, {
+//     where: {
+//         loggable_type: null
+//     }
+// });

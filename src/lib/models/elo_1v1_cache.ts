@@ -1,11 +1,11 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { player, playerId } from './player';
-import type { set as match, setId as matchId } from './set';
-import type { tournament, tournamentId } from './tournament';
+import type { Player, PlayerId } from './player';
+import type { Set as match, SetId as matchId } from './set';
+import type { Tournament, TournamentId } from './tournament';
 
-export interface elo_1v1_cacheAttributes {
+export interface IElo1v1CacheAttributes {
   id: number;
   type: string;
   elo_before: number;
@@ -18,12 +18,12 @@ export interface elo_1v1_cacheAttributes {
   updated_at?: Date;
 }
 
-export type elo_1v1_cachePk = "id";
-export type elo_1v1_cacheId = elo_1v1_cache[elo_1v1_cachePk];
-export type elo_1v1_cacheOptionalAttributes = "type" | "tournament_id" | "set_id" | "created_at" | "updated_at";
-export type elo_1v1_cacheCreationAttributes = Optional<elo_1v1_cacheAttributes, elo_1v1_cacheOptionalAttributes>;
+export type Elo1v1CachePk = "id";
+export type Elo1v1CacheId = Elo1v1Cache[Elo1v1CachePk];
+export type Elo1v1CacheOptionalAttributes = "type" | "tournament_id" | "set_id" | "created_at" | "updated_at";
+export type Elo1v1CacheCreationAttributes = Optional<IElo1v1CacheAttributes, Elo1v1CacheOptionalAttributes>;
 
-export class elo_1v1_cache extends Model<elo_1v1_cacheAttributes, elo_1v1_cacheCreationAttributes> implements elo_1v1_cacheAttributes {
+export class Elo1v1Cache extends Model<IElo1v1CacheAttributes, Elo1v1CacheCreationAttributes> implements IElo1v1CacheAttributes {
   id!: number;
   type!: string;
   elo_before!: number;
@@ -36,23 +36,23 @@ export class elo_1v1_cache extends Model<elo_1v1_cacheAttributes, elo_1v1_cacheC
   updated_at?: Date;
 
   // elo_1v1_cache belongsTo player via player_id
-  player!: player;
-  getPlayer!: Sequelize.BelongsToGetAssociationMixin<player>;
-  setPlayer!: Sequelize.BelongsToSetAssociationMixin<player, playerId>;
-  createPlayer!: Sequelize.BelongsToCreateAssociationMixin<player>;
+  player!: Player;
+  getPlayer!: Sequelize.BelongsToGetAssociationMixin<Player>;
+  setPlayer!: Sequelize.BelongsToSetAssociationMixin<Player, PlayerId>;
+  createPlayer!: Sequelize.BelongsToCreateAssociationMixin<Player>;
   // elo_1v1_cache belongsTo set via set_id
   match!: match;
   getMatch!: Sequelize.BelongsToGetAssociationMixin<match>;
   setMatch!: Sequelize.BelongsToSetAssociationMixin<match, matchId>;
   createMatch!: Sequelize.BelongsToCreateAssociationMixin<match>;
   // elo_1v1_cache belongsTo tournament via tournament_id
-  tournament!: tournament;
-  getTournament!: Sequelize.BelongsToGetAssociationMixin<tournament>;
-  setTournament!: Sequelize.BelongsToSetAssociationMixin<tournament, tournamentId>;
-  createTournament!: Sequelize.BelongsToCreateAssociationMixin<tournament>;
+  tournament!: Tournament;
+  getTournament!: Sequelize.BelongsToGetAssociationMixin<Tournament>;
+  setTournament!: Sequelize.BelongsToSetAssociationMixin<Tournament, TournamentId>;
+  createTournament!: Sequelize.BelongsToCreateAssociationMixin<Tournament>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof elo_1v1_cache {
-    return elo_1v1_cache.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Elo1v1Cache {
+    return Elo1v1Cache.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

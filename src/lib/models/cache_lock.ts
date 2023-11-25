@@ -1,24 +1,24 @@
 import type * as Sequelize from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 
-export interface cache_lockAttributes {
+export interface ICacheLockAttributes {
   key: string;
   owner: string;
   expiration: number;
 }
 
-export type cache_lockPk = "key";
-export type cache_lockId = cache_lock[cache_lockPk];
-export type cache_lockCreationAttributes = cache_lockAttributes;
+export type CacheLockPk = "key";
+export type CacheLockId = CacheLock[CacheLockPk];
+export type CacheLockCreationAttributes = ICacheLockAttributes;
 
-export class cache_lock extends Model<cache_lockAttributes, cache_lockCreationAttributes> implements cache_lockAttributes {
+export class CacheLock extends Model<ICacheLockAttributes, CacheLockCreationAttributes> implements ICacheLockAttributes {
   key!: string;
   owner!: string;
   expiration!: number;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof cache_lock {
-    return cache_lock.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof CacheLock {
+    return CacheLock.init({
       key: {
         type: DataTypes.STRING,
         allowNull: false,

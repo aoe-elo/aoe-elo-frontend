@@ -1,13 +1,12 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { ard_player, ard_playerId } from './ard_player';
-import type { player, playerId } from './player';
-import type { team, teamId } from './team';
-import type { user, userId } from './user';
-import { actionlog } from './actionlog';
+import type { ArdPlayer, ArdPlayerId } from './ard_player';
+import type { Player, PlayerId } from './player';
+import type { Team, TeamId } from './team';
+import type { User, UserId } from './user';
 
-export interface countryAttributes {
+export interface ICountryAttributes {
   id: number;
   capital?: string;
   citizenship?: string;
@@ -28,12 +27,12 @@ export interface countryAttributes {
   flag?: string;
 }
 
-export type countryPk = "id";
-export type countryId = country[countryPk];
-export type countryOptionalAttributes = "capital" | "citizenship" | "country_code" | "currency" | "currency_code" | "currency_sub_unit" | "currency_symbol" | "currency_decimals" | "full_name" | "iso_3166_2" | "iso_3166_3" | "name" | "region_code" | "sub_region_code" | "eea" | "calling_code" | "flag";
-export type countryCreationAttributes = Optional<countryAttributes, countryOptionalAttributes>;
+export type CountryPk = "id";
+export type CountryId = Country[CountryPk];
+export type CountryOptionalAttributes = "capital" | "citizenship" | "country_code" | "currency" | "currency_code" | "currency_sub_unit" | "currency_symbol" | "currency_decimals" | "full_name" | "iso_3166_2" | "iso_3166_3" | "name" | "region_code" | "sub_region_code" | "eea" | "calling_code" | "flag";
+export type CountryCreationAttributes = Optional<ICountryAttributes, CountryOptionalAttributes>;
 
-export class country extends Model<countryAttributes, countryCreationAttributes> implements countryAttributes {
+export class Country extends Model<ICountryAttributes, CountryCreationAttributes> implements ICountryAttributes {
   id!: number;
   capital?: string;
   citizenship?: string;
@@ -54,56 +53,56 @@ export class country extends Model<countryAttributes, countryCreationAttributes>
   flag?: string;
 
   // country hasMany ard_player via country_id
-  ard_players!: ard_player[];
-  getArd_players!: Sequelize.HasManyGetAssociationsMixin<ard_player>;
-  setArd_players!: Sequelize.HasManySetAssociationsMixin<ard_player, ard_playerId>;
-  addArd_player!: Sequelize.HasManyAddAssociationMixin<ard_player, ard_playerId>;
-  addArd_players!: Sequelize.HasManyAddAssociationsMixin<ard_player, ard_playerId>;
-  createArd_player!: Sequelize.HasManyCreateAssociationMixin<ard_player>;
-  removeArd_player!: Sequelize.HasManyRemoveAssociationMixin<ard_player, ard_playerId>;
-  removeArd_players!: Sequelize.HasManyRemoveAssociationsMixin<ard_player, ard_playerId>;
-  hasArd_player!: Sequelize.HasManyHasAssociationMixin<ard_player, ard_playerId>;
-  hasArd_players!: Sequelize.HasManyHasAssociationsMixin<ard_player, ard_playerId>;
+  ard_players!: ArdPlayer[];
+  getArd_players!: Sequelize.HasManyGetAssociationsMixin<ArdPlayer>;
+  setArd_players!: Sequelize.HasManySetAssociationsMixin<ArdPlayer, ArdPlayerId>;
+  addArd_player!: Sequelize.HasManyAddAssociationMixin<ArdPlayer, ArdPlayerId>;
+  addArd_players!: Sequelize.HasManyAddAssociationsMixin<ArdPlayer, ArdPlayerId>;
+  createArd_player!: Sequelize.HasManyCreateAssociationMixin<ArdPlayer>;
+  removeArd_player!: Sequelize.HasManyRemoveAssociationMixin<ArdPlayer, ArdPlayerId>;
+  removeArd_players!: Sequelize.HasManyRemoveAssociationsMixin<ArdPlayer, ArdPlayerId>;
+  hasArd_player!: Sequelize.HasManyHasAssociationMixin<ArdPlayer, ArdPlayerId>;
+  hasArd_players!: Sequelize.HasManyHasAssociationsMixin<ArdPlayer, ArdPlayerId>;
   countArd_players!: Sequelize.HasManyCountAssociationsMixin;
   // country hasMany player via country_id
-  players!: player[];
-  getPlayers!: Sequelize.HasManyGetAssociationsMixin<player>;
-  setPlayers!: Sequelize.HasManySetAssociationsMixin<player, playerId>;
-  addPlayer!: Sequelize.HasManyAddAssociationMixin<player, playerId>;
-  addPlayers!: Sequelize.HasManyAddAssociationsMixin<player, playerId>;
-  createPlayer!: Sequelize.HasManyCreateAssociationMixin<player>;
-  removePlayer!: Sequelize.HasManyRemoveAssociationMixin<player, playerId>;
-  removePlayers!: Sequelize.HasManyRemoveAssociationsMixin<player, playerId>;
-  hasPlayer!: Sequelize.HasManyHasAssociationMixin<player, playerId>;
-  hasPlayers!: Sequelize.HasManyHasAssociationsMixin<player, playerId>;
+  players!: Player[];
+  getPlayers!: Sequelize.HasManyGetAssociationsMixin<Player>;
+  setPlayers!: Sequelize.HasManySetAssociationsMixin<Player, PlayerId>;
+  addPlayer!: Sequelize.HasManyAddAssociationMixin<Player, PlayerId>;
+  addPlayers!: Sequelize.HasManyAddAssociationsMixin<Player, PlayerId>;
+  createPlayer!: Sequelize.HasManyCreateAssociationMixin<Player>;
+  removePlayer!: Sequelize.HasManyRemoveAssociationMixin<Player, PlayerId>;
+  removePlayers!: Sequelize.HasManyRemoveAssociationsMixin<Player, PlayerId>;
+  hasPlayer!: Sequelize.HasManyHasAssociationMixin<Player, PlayerId>;
+  hasPlayers!: Sequelize.HasManyHasAssociationsMixin<Player, PlayerId>;
   countPlayers!: Sequelize.HasManyCountAssociationsMixin;
   // country hasMany team via country_id
-  teams!: team[];
-  getTeams!: Sequelize.HasManyGetAssociationsMixin<team>;
-  setTeams!: Sequelize.HasManySetAssociationsMixin<team, teamId>;
-  addTeam!: Sequelize.HasManyAddAssociationMixin<team, teamId>;
-  addTeams!: Sequelize.HasManyAddAssociationsMixin<team, teamId>;
-  createTeam!: Sequelize.HasManyCreateAssociationMixin<team>;
-  removeTeam!: Sequelize.HasManyRemoveAssociationMixin<team, teamId>;
-  removeTeams!: Sequelize.HasManyRemoveAssociationsMixin<team, teamId>;
-  hasTeam!: Sequelize.HasManyHasAssociationMixin<team, teamId>;
-  hasTeams!: Sequelize.HasManyHasAssociationsMixin<team, teamId>;
+  teams!: Team[];
+  getTeams!: Sequelize.HasManyGetAssociationsMixin<Team>;
+  setTeams!: Sequelize.HasManySetAssociationsMixin<Team, TeamId>;
+  addTeam!: Sequelize.HasManyAddAssociationMixin<Team, TeamId>;
+  addTeams!: Sequelize.HasManyAddAssociationsMixin<Team, TeamId>;
+  createTeam!: Sequelize.HasManyCreateAssociationMixin<Team>;
+  removeTeam!: Sequelize.HasManyRemoveAssociationMixin<Team, TeamId>;
+  removeTeams!: Sequelize.HasManyRemoveAssociationsMixin<Team, TeamId>;
+  hasTeam!: Sequelize.HasManyHasAssociationMixin<Team, TeamId>;
+  hasTeams!: Sequelize.HasManyHasAssociationsMixin<Team, TeamId>;
   countTeams!: Sequelize.HasManyCountAssociationsMixin;
   // country hasMany user via country_id
-  users!: user[];
-  getUsers!: Sequelize.HasManyGetAssociationsMixin<user>;
-  setUsers!: Sequelize.HasManySetAssociationsMixin<user, userId>;
-  addUser!: Sequelize.HasManyAddAssociationMixin<user, userId>;
-  addUsers!: Sequelize.HasManyAddAssociationsMixin<user, userId>;
-  createUser!: Sequelize.HasManyCreateAssociationMixin<user>;
-  removeUser!: Sequelize.HasManyRemoveAssociationMixin<user, userId>;
-  removeUsers!: Sequelize.HasManyRemoveAssociationsMixin<user, userId>;
-  hasUser!: Sequelize.HasManyHasAssociationMixin<user, userId>;
-  hasUsers!: Sequelize.HasManyHasAssociationsMixin<user, userId>;
+  users!: User[];
+  getUsers!: Sequelize.HasManyGetAssociationsMixin<User>;
+  setUsers!: Sequelize.HasManySetAssociationsMixin<User, UserId>;
+  addUser!: Sequelize.HasManyAddAssociationMixin<User, UserId>;
+  addUsers!: Sequelize.HasManyAddAssociationsMixin<User, UserId>;
+  createUser!: Sequelize.HasManyCreateAssociationMixin<User>;
+  removeUser!: Sequelize.HasManyRemoveAssociationMixin<User, UserId>;
+  removeUsers!: Sequelize.HasManyRemoveAssociationsMixin<User, UserId>;
+  hasUser!: Sequelize.HasManyHasAssociationMixin<User, UserId>;
+  hasUsers!: Sequelize.HasManyHasAssociationsMixin<User, UserId>;
   countUsers!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof country {
-    return country.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Country {
+    return Country.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -201,6 +200,3 @@ export class country extends Model<countryAttributes, countryCreationAttributes>
     });
   }
 }
-
-// Polymorphic Association
-country.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Country' } });

@@ -1,10 +1,10 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { player, playerId } from './player';
-import type { team, teamId } from './team';
+import type { Player, PlayerId } from './player';
+import type { Team, TeamId } from './team';
 
-export interface player_teamAttributes {
+export interface IPlayerTeamAttributes {
   id: number;
   joined_at?: Date;
   left_at?: Date;
@@ -16,12 +16,12 @@ export interface player_teamAttributes {
   deleted_at?: Date;
 }
 
-export type player_teamPk = "id";
-export type player_teamId = player_team[player_teamPk];
-export type player_teamOptionalAttributes = "joined_at" | "left_at" | "is_active" | "created_at" | "updated_at" | "deleted_at";
-export type player_teamCreationAttributes = Optional<player_teamAttributes, player_teamOptionalAttributes>;
+export type PlayerTeamPk = "id";
+export type PlayerTeamId = PlayerTeam[PlayerTeamPk];
+export type PlayerTeamOptionalAttributes = "joined_at" | "left_at" | "is_active" | "created_at" | "updated_at" | "deleted_at";
+export type PlayerTeamCreationAttributes = Optional<IPlayerTeamAttributes, PlayerTeamOptionalAttributes>;
 
-export class player_team extends Model<player_teamAttributes, player_teamCreationAttributes> implements player_teamAttributes {
+export class PlayerTeam extends Model<IPlayerTeamAttributes, PlayerTeamCreationAttributes> implements IPlayerTeamAttributes {
   id!: number;
   joined_at?: Date;
   left_at?: Date;
@@ -33,18 +33,18 @@ export class player_team extends Model<player_teamAttributes, player_teamCreatio
   deleted_at?: Date;
 
   // player_team belongsTo player via player_id
-  player!: player;
-  getPlayer!: Sequelize.BelongsToGetAssociationMixin<player>;
-  setPlayer!: Sequelize.BelongsToSetAssociationMixin<player, playerId>;
-  createPlayer!: Sequelize.BelongsToCreateAssociationMixin<player>;
+  player!: Player;
+  getPlayer!: Sequelize.BelongsToGetAssociationMixin<Player>;
+  setPlayer!: Sequelize.BelongsToSetAssociationMixin<Player, PlayerId>;
+  createPlayer!: Sequelize.BelongsToCreateAssociationMixin<Player>;
   // player_team belongsTo team via team_id
-  team!: team;
-  getTeam!: Sequelize.BelongsToGetAssociationMixin<team>;
-  setTeam!: Sequelize.BelongsToSetAssociationMixin<team, teamId>;
-  createTeam!: Sequelize.BelongsToCreateAssociationMixin<team>;
+  team!: Team;
+  getTeam!: Sequelize.BelongsToGetAssociationMixin<Team>;
+  setTeam!: Sequelize.BelongsToSetAssociationMixin<Team, TeamId>;
+  createTeam!: Sequelize.BelongsToCreateAssociationMixin<Team>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof player_team {
-    return player_team.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof PlayerTeam {
+    return PlayerTeam.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

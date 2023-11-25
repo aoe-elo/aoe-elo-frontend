@@ -1,9 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { actionlog, actionlogId } from './actionlog';
+import type { Actionlog, ActionlogId } from './actionlog';
 
-export interface actionAttributes {
+export interface IActionAttributes {
   id: number;
   name: string;
   description?: string;
@@ -12,12 +12,12 @@ export interface actionAttributes {
   deleted_at?: Date;
 }
 
-export type actionPk = "id";
-export type actionId = action[actionPk];
-export type actionOptionalAttributes = "description" | "created_at" | "updated_at" | "deleted_at";
-export type actionCreationAttributes = Optional<actionAttributes, actionOptionalAttributes>;
+export type ActionPk = "id";
+export type ActionId = Action[ActionPk];
+export type ActionOptionalAttributes = "description" | "created_at" | "updated_at" | "deleted_at";
+export type ActionCreationAttributes = Optional<IActionAttributes, ActionOptionalAttributes>;
 
-export class action extends Model<actionAttributes, actionCreationAttributes> implements actionAttributes {
+export class Action extends Model<IActionAttributes, ActionCreationAttributes> implements IActionAttributes {
   id!: number;
   name!: string;
   description?: string;
@@ -26,20 +26,20 @@ export class action extends Model<actionAttributes, actionCreationAttributes> im
   deleted_at?: Date;
 
   // action hasMany actionlog via action_id
-  actionlogs!: actionlog[];
-  getActionlogs!: Sequelize.HasManyGetAssociationsMixin<actionlog>;
-  setActionlogs!: Sequelize.HasManySetAssociationsMixin<actionlog, actionlogId>;
-  addActionlog!: Sequelize.HasManyAddAssociationMixin<actionlog, actionlogId>;
-  addActionlogs!: Sequelize.HasManyAddAssociationsMixin<actionlog, actionlogId>;
-  createActionlog!: Sequelize.HasManyCreateAssociationMixin<actionlog>;
-  removeActionlog!: Sequelize.HasManyRemoveAssociationMixin<actionlog, actionlogId>;
-  removeActionlogs!: Sequelize.HasManyRemoveAssociationsMixin<actionlog, actionlogId>;
-  hasActionlog!: Sequelize.HasManyHasAssociationMixin<actionlog, actionlogId>;
-  hasActionlogs!: Sequelize.HasManyHasAssociationsMixin<actionlog, actionlogId>;
+  actionlogs!: Actionlog[];
+  getActionlogs!: Sequelize.HasManyGetAssociationsMixin<Actionlog>;
+  setActionlogs!: Sequelize.HasManySetAssociationsMixin<Actionlog, ActionlogId>;
+  addActionlog!: Sequelize.HasManyAddAssociationMixin<Actionlog, ActionlogId>;
+  addActionlogs!: Sequelize.HasManyAddAssociationsMixin<Actionlog, ActionlogId>;
+  createActionlog!: Sequelize.HasManyCreateAssociationMixin<Actionlog>;
+  removeActionlog!: Sequelize.HasManyRemoveAssociationMixin<Actionlog, ActionlogId>;
+  removeActionlogs!: Sequelize.HasManyRemoveAssociationsMixin<Actionlog, ActionlogId>;
+  hasActionlog!: Sequelize.HasManyHasAssociationMixin<Actionlog, ActionlogId>;
+  hasActionlogs!: Sequelize.HasManyHasAssociationsMixin<Actionlog, ActionlogId>;
   countActionlogs!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof action {
-    return action.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof Action {
+    return Action.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

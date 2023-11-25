@@ -1,9 +1,9 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { user, userId } from './user';
+import type { User, UserId } from './user';
 
-export interface steam_userAttributes {
+export interface ISteamUserAttributes {
   id: number;
   steam_id: string;
   nickname?: string;
@@ -15,12 +15,12 @@ export interface steam_userAttributes {
   deleted_at?: Date;
 }
 
-export type steam_userPk = "id";
-export type steam_userId = steam_user[steam_userPk];
-export type steam_userOptionalAttributes = "nickname" | "name" | "avatar" | "user_id" | "created_at" | "updated_at" | "deleted_at";
-export type steam_userCreationAttributes = Optional<steam_userAttributes, steam_userOptionalAttributes>;
+export type SteamUserPk = "id";
+export type SteamUserId = SteamUser[SteamUserPk];
+export type SteamUserOptionalAttributes = "nickname" | "name" | "avatar" | "user_id" | "created_at" | "updated_at" | "deleted_at";
+export type SteamUserCreationAttributes = Optional<ISteamUserAttributes, SteamUserOptionalAttributes>;
 
-export class steam_user extends Model<steam_userAttributes, steam_userCreationAttributes> implements steam_userAttributes {
+export class SteamUser extends Model<ISteamUserAttributes, SteamUserCreationAttributes> implements ISteamUserAttributes {
   id!: number;
   steam_id!: string;
   nickname?: string;
@@ -32,13 +32,13 @@ export class steam_user extends Model<steam_userAttributes, steam_userCreationAt
   deleted_at?: Date;
 
   // steam_user belongsTo user via user_id
-  user!: user;
-  getUser!: Sequelize.BelongsToGetAssociationMixin<user>;
-  setUser!: Sequelize.BelongsToSetAssociationMixin<user, userId>;
-  createUser!: Sequelize.BelongsToCreateAssociationMixin<user>;
+  user!: User;
+  getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
+  setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
+  createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof steam_user {
-    return steam_user.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof SteamUser {
+    return SteamUser.init({
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,

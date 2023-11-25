@@ -1,30 +1,30 @@
 import type * as Sequelize from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { role, roleId } from './role';
+import type { Role, RoleId } from './role';
 
-export interface model_has_roleAttributes {
+export interface IModelHasRoleAttributes {
   role_id: number;
   model_type: string;
   model_id: number;
 }
 
-export type model_has_rolePk = "role_id" | "model_type" | "model_id";
-export type model_has_roleId = model_has_role[model_has_rolePk];
-export type model_has_roleCreationAttributes = model_has_roleAttributes;
+export type ModelHasRolePk = "role_id" | "model_type" | "model_id";
+export type ModelHasRoleId = ModelHasRole[ModelHasRolePk];
+export type ModelHasRoleCreationAttributes = IModelHasRoleAttributes;
 
-export class model_has_role extends Model<model_has_roleAttributes, model_has_roleCreationAttributes> implements model_has_roleAttributes {
+export class ModelHasRole extends Model<IModelHasRoleAttributes, ModelHasRoleCreationAttributes> implements IModelHasRoleAttributes {
   role_id!: number;
   model_type!: string;
   model_id!: number;
 
-  // model_has_role belongsTo role via role_id
-  role!: role;
-  getRole!: Sequelize.BelongsToGetAssociationMixin<role>;
-  setRole!: Sequelize.BelongsToSetAssociationMixin<role, roleId>;
-  createRole!: Sequelize.BelongsToCreateAssociationMixin<role>;
+  // ModelHasRole belongsTo role via role_id
+  role!: Role;
+  getRole!: Sequelize.BelongsToGetAssociationMixin<Role>;
+  setRole!: Sequelize.BelongsToSetAssociationMixin<Role, RoleId>;
+  createRole!: Sequelize.BelongsToCreateAssociationMixin<Role>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof model_has_role {
-    return model_has_role.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof ModelHasRole {
+    return ModelHasRole.init({
       role_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -46,12 +46,12 @@ export class model_has_role extends Model<model_has_roleAttributes, model_has_ro
       }
     }, {
       sequelize,
-      tableName: 'model_has_roles',
+      tableName: 'ModelHasRoles',
       timestamps: false,
       underscored: true,
       indexes: [
         {
-          name: "sqlite_autoindex_model_has_roles_1",
+          name: "sqlite_autoindex_ModelHasRoles_1",
           unique: true,
           fields: [
             { name: "role_id" },
@@ -60,7 +60,7 @@ export class model_has_role extends Model<model_has_roleAttributes, model_has_ro
           ]
         },
         {
-          name: "model_has_roles_model_id_model_type_index",
+          name: "ModelHasRoles_model_id_model_type_index",
           fields: [
             { name: "model_id" },
             { name: "model_type" },

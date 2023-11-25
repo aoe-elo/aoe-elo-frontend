@@ -1,30 +1,30 @@
 import type * as Sequelize from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { permission, permissionId } from './permission';
+import type { Permission, PermissionId } from './permission';
 
-export interface model_has_permissionAttributes {
+export interface IModelHasPermissionAttributes {
   permission_id: number;
   model_type: string;
   model_id: number;
 }
 
-export type model_has_permissionPk = "permission_id" | "model_type" | "model_id";
-export type model_has_permissionId = model_has_permission[model_has_permissionPk];
-export type model_has_permissionCreationAttributes = model_has_permissionAttributes;
+export type ModelHasPermissionPk = "permission_id" | "model_type" | "model_id";
+export type ModelHasPermissionId = ModelHasPermission[ModelHasPermissionPk];
+export type ModelHasPermissionCreationAttributes = IModelHasPermissionAttributes;
 
-export class model_has_permission extends Model<model_has_permissionAttributes, model_has_permissionCreationAttributes> implements model_has_permissionAttributes {
+export class ModelHasPermission extends Model<IModelHasPermissionAttributes, ModelHasPermissionCreationAttributes> implements IModelHasPermissionAttributes {
   permission_id!: number;
   model_type!: string;
   model_id!: number;
 
-  // model_has_permission belongsTo permission via permission_id
-  permission!: permission;
-  getPermission!: Sequelize.BelongsToGetAssociationMixin<permission>;
-  setPermission!: Sequelize.BelongsToSetAssociationMixin<permission, permissionId>;
-  createPermission!: Sequelize.BelongsToCreateAssociationMixin<permission>;
+  // ModelHasPermission belongsTo permission via permission_id
+  permission!: Permission;
+  getPermission!: Sequelize.BelongsToGetAssociationMixin<Permission>;
+  setPermission!: Sequelize.BelongsToSetAssociationMixin<Permission, PermissionId>;
+  createPermission!: Sequelize.BelongsToCreateAssociationMixin<Permission>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof model_has_permission {
-    return model_has_permission.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof ModelHasPermission {
+    return ModelHasPermission.init({
       permission_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -46,12 +46,12 @@ export class model_has_permission extends Model<model_has_permissionAttributes, 
       }
     }, {
       sequelize,
-      tableName: 'model_has_permissions',
+      tableName: 'ModelHasPermissions',
       timestamps: false,
       underscored: true,
       indexes: [
         {
-          name: "sqlite_autoindex_model_has_permissions_1",
+          name: "sqlite_autoindex_ModelHasPermissions_1",
           unique: true,
           fields: [
             { name: "permission_id" },
@@ -60,7 +60,7 @@ export class model_has_permission extends Model<model_has_permissionAttributes, 
           ]
         },
         {
-          name: "model_has_permissions_model_id_model_type_index",
+          name: "ModelHasPermissions_model_id_model_type_index",
           fields: [
             { name: "model_id" },
             { name: "model_type" },

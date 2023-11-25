@@ -1,9 +1,8 @@
 import { models } from "$lib/sequelize";
-import type { playerAttributes } from "$lib/models/player";
+import type { IPlayerAttributes, PlayerId } from "$lib/models/player";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
-type PlayerId = playerAttributes["id"];
-type PlayerData = playerAttributes;
+type PlayerData = IPlayerAttributes;
 type Player = typeof models.player;
 
 export interface IPlayerRepositoryInterface<PlayerId, PlayerData> extends IBaseRepositoryInterface<PlayerId, PlayerData> {
