@@ -1,7 +1,6 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { Achievable, AchievableId } from './achievable';
 
 export interface IAchievementAttributes {
   id: number;
@@ -20,27 +19,14 @@ export type AchievementOptionalAttributes = "name_short" | "description" | "imag
 export type AchievementCreationAttributes = Optional<IAchievementAttributes, AchievementOptionalAttributes>;
 
 export class Achievement extends Model<IAchievementAttributes, AchievementCreationAttributes> implements IAchievementAttributes {
-  id!: number;
-  name!: string;
-  name_short?: string;
-  description?: string;
-  image_path?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
-
-  // achievement hasMany achievable via achievement_id
-  achievables!: Achievable[];
-  getAchievables!: Sequelize.HasManyGetAssociationsMixin<Achievable>;
-  setAchievables!: Sequelize.HasManySetAssociationsMixin<Achievable, AchievableId>;
-  addAchievable!: Sequelize.HasManyAddAssociationMixin<Achievable, AchievableId>;
-  addAchievables!: Sequelize.HasManyAddAssociationsMixin<Achievable, AchievableId>;
-  createAchievable!: Sequelize.HasManyCreateAssociationMixin<Achievable>;
-  removeAchievable!: Sequelize.HasManyRemoveAssociationMixin<Achievable, AchievableId>;
-  removeAchievables!: Sequelize.HasManyRemoveAssociationsMixin<Achievable, AchievableId>;
-  hasAchievable!: Sequelize.HasManyHasAssociationMixin<Achievable, AchievableId>;
-  hasAchievables!: Sequelize.HasManyHasAssociationsMixin<Achievable, AchievableId>;
-  countAchievables!: Sequelize.HasManyCountAssociationsMixin;
+  declare id: number;
+  declare name: string;
+  declare name_short?: string;
+  declare description?: string;
+  declare image_path?: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Achievement {
     return Achievement.init({
@@ -75,6 +61,7 @@ export class Achievement extends Model<IAchievementAttributes, AchievementCreati
       timestamps: true,
       paranoid: true,
       underscored: true,
+      modelName: 'App\\Models\\Achievement',
       indexes: [
         {
           name: "achievements_name_name_short_image_path_unique",

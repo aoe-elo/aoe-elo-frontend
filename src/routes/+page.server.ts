@@ -20,14 +20,17 @@ import { Actionlog } from "$lib/models/actionlog";
 // console.log(JSON.stringify(all_tounaments_cache, null, 2));
 
 // const ard_player = new ArdPlayerRepository();
-// repo.getPlayerById(1).then((player) => console.log(JSON.stringify(player, null, 2)));
+// ard_player.getById(1523).then((player) => console.log(JSON.stringify(player, null, 2)));
 // ard_player.getAllPaginated(0, 25).then((players) => console.log(JSON.stringify(players, null, 2)));
 
 // const reviews = await models.review.findAll({ group: ["reviewable_type"], attributes: ["reviewable_type"] });
 // const actions = await models.actionlog.findAll({ group: ["loggable_type"], attributes: ["loggable_type"] });
-// const actions = await models.actionlog.findAll({ include: ["action"], limit: 10, offset: 1523 });
-const actions = await models.actionlog.findByPk(1523);
-actions?.getLoggable().then((loggable) => console.log(JSON.stringify(loggable, null, 2)));
+// const actions = await models.actionlog.findAll({ include: ["action"], limit: 2, offset: 1523 });
+// const actions = await models.actionlog.findByPk(1523);
+
+// for (const action of actions) {
+//     action?.getLoggable().then((loggable) => console.log(JSON.stringify(loggable, null, 2)));
+// }
 // const metadata = await models.metadatum.findAll({ group: ["metadatable_type"], attributes: ["metadatable_type"] });
 
 // console.log(JSON.stringify(actions, null, 2));

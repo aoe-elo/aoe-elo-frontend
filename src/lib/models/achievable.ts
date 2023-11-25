@@ -1,7 +1,6 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { Achievement, AchievementId } from './achievement';
 
 export interface IAchievableAttributes {
   id: number;
@@ -20,20 +19,14 @@ export type AchievableOptionalAttributes = "achievement_id" | "hidden" | "create
 export type AchievableCreationAttributes = Optional<IAchievableAttributes, AchievableOptionalAttributes>;
 
 export class Achievable extends Model<IAchievableAttributes, AchievableCreationAttributes> implements IAchievableAttributes {
-  id!: number;
-  achievable_id!: number;
-  achievable_type!: string;
-  achievement_id?: number;
-  hidden!: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
-
-  // achievable belongsTo achievement via achievement_id
-  achievement!: Achievement;
-  getAchievement!: Sequelize.BelongsToGetAssociationMixin<Achievement>;
-  setAchievement!: Sequelize.BelongsToSetAssociationMixin<Achievement, AchievementId>;
-  createAchievement!: Sequelize.BelongsToCreateAssociationMixin<Achievement>;
+  declare id: number;
+  declare achievable_id: number;
+  declare achievable_type: string;
+  declare achievement_id?: number;
+  declare hidden: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Achievable {
     return Achievable.init({
@@ -73,6 +66,7 @@ export class Achievable extends Model<IAchievableAttributes, AchievableCreationA
       timestamps: true,
       paranoid: true,
       underscored: true,
+      modelName: 'App\\Models\\Achievable',
       indexes: [
         {
           name: "achievables_achievement_id_achievable_id_achievable_type_unique",

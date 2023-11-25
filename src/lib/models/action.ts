@@ -1,7 +1,6 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { Actionlog, ActionlogId } from './actionlog';
 
 export interface IActionAttributes {
   id: number;
@@ -18,25 +17,12 @@ export type ActionOptionalAttributes = "description" | "created_at" | "updated_a
 export type ActionCreationAttributes = Optional<IActionAttributes, ActionOptionalAttributes>;
 
 export class Action extends Model<IActionAttributes, ActionCreationAttributes> implements IActionAttributes {
-  id!: number;
-  name!: string;
-  description?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
-
-  // action hasMany actionlog via action_id
-  actionlogs!: Actionlog[];
-  getActionlogs!: Sequelize.HasManyGetAssociationsMixin<Actionlog>;
-  setActionlogs!: Sequelize.HasManySetAssociationsMixin<Actionlog, ActionlogId>;
-  addActionlog!: Sequelize.HasManyAddAssociationMixin<Actionlog, ActionlogId>;
-  addActionlogs!: Sequelize.HasManyAddAssociationsMixin<Actionlog, ActionlogId>;
-  createActionlog!: Sequelize.HasManyCreateAssociationMixin<Actionlog>;
-  removeActionlog!: Sequelize.HasManyRemoveAssociationMixin<Actionlog, ActionlogId>;
-  removeActionlogs!: Sequelize.HasManyRemoveAssociationsMixin<Actionlog, ActionlogId>;
-  hasActionlog!: Sequelize.HasManyHasAssociationMixin<Actionlog, ActionlogId>;
-  hasActionlogs!: Sequelize.HasManyHasAssociationsMixin<Actionlog, ActionlogId>;
-  countActionlogs!: Sequelize.HasManyCountAssociationsMixin;
+  declare id: number;
+  declare name: string;
+  declare description?: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Action {
     return Action.init({
@@ -60,6 +46,7 @@ export class Action extends Model<IActionAttributes, ActionCreationAttributes> i
       timestamps: true,
       paranoid: true,
       underscored: true,
+      modelName: 'App\\Models\\Action',
     });
   }
 }

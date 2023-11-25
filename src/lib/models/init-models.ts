@@ -457,8 +457,13 @@ export function initModels(sequelize: Sequelize) {
 
     if (!Array.isArray(findResult)) findResult = [findResult] as Model<IActionlogAttributes, ActionlogCreationAttributes>[];
     for (const instance of findResult) {
-      console.log(instance.uniqno);
+      // TODO: Remove DEBUG_ONLY
+      // console.log(instance.loggable_type);
       match(instance.loggable_type)
+        .with("App\\Models\\ArdPlayer", () => {
+          console.log("Found! ArdPlayer");
+          instance.loggable_type = instance.ard_player
+        })
         .with("achievement", () => instance.loggable_type = instance.achievement)
         .with("ard_player", () => instance.loggable_type = instance.ard_player)
         .with("ard_team", () => instance.loggable_type = instance.ard_team)

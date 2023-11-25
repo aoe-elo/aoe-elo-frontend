@@ -1,8 +1,6 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { Action, ActionId } from './action';
-import type { User, UserId } from './user';
 import { uppercaseFirst } from '$lib/util';
 
 export interface IActionlogAttributes {
@@ -23,28 +21,21 @@ export type ActionlogOptionalAttributes = "summary" | "loggable_id" | "created_a
 export type ActionlogCreationAttributes = Optional<IActionlogAttributes, ActionlogOptionalAttributes>;
 
 export class Actionlog extends Model<IActionlogAttributes, ActionlogCreationAttributes> implements IActionlogAttributes {
-  id!: number;
-  user_id!: number;
-  action_id!: number;
-  summary?: string;
-  loggable_id?: number;
-  loggable_type!: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
-
-  // Actionlog belongsTo action via action_id
-  action!: Action;
-  getAction!: Sequelize.BelongsToGetAssociationMixin<Action>;
-  setAction!: Sequelize.BelongsToSetAssociationMixin<Action, ActionId>;
-  createAction!: Sequelize.BelongsToCreateAssociationMixin<Action>;
-  // Actionlog belongsTo user via user_id
-  user!: User;
-  getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
-  setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
-  createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
+  declare id: number;
+  declare user_id: number;
+  declare action_id: number;
+  declare summary?: string;
+  declare loggable_id?: number;
+  declare loggable_type: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
   // TODO!: Support polymorphic lazy loading
+  // TODO!: Needs to have another logic, because the loggable_type is not a model
+  // TODO!: Create lookup table for loggable_type
+  // needs to map 'App\\Models\\ArdPlayer' => 'ArdPlayer'
+
   // https://sequelize.org/docs/v6/advanced-association-concepts/polymorphic-associations/#polymorphic-lazy-loading
 
   getLoggable(options: object | undefined) {

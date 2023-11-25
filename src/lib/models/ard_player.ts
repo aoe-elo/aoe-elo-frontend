@@ -109,6 +109,7 @@ export class ArdPlayer extends Model<IArdPlayerAttributes, ArdPlayerCreationAttr
     }, {
       sequelize,
       tableName: 'ard_players',
+      modelName: 'App\\Models\\ArdPlayer',
       timestamps: true,
       paranoid: true,
       underscored: true,
