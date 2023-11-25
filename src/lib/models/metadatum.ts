@@ -1,6 +1,11 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
+import { tournament } from './tournament';
+import { player } from './player';
+import { ard_player } from './ard_player';
+import { review } from './review';
+import { actionlog } from './actionlog';
 
 export interface metadatumAttributes {
   id: number;
@@ -147,3 +152,11 @@ export class metadatum extends Model<metadatumAttributes, metadatumCreationAttri
     });
   }
 }
+
+// Polymorphic Associations
+metadatum.belongsTo(tournament, { foreignKey: "metadatable_id", constraints: false });
+metadatum.belongsTo(player, { foreignKey: "metadatable_id", constraints: false });
+metadatum.belongsTo(ard_player, { foreignKey: "metadatable_id", constraints: false });
+metadatum.belongsTo(review, { foreignKey: "metadatable_id", constraints: false });
+
+metadatum.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Metadatum' } });

@@ -2,6 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import type { achievable, achievableId } from './achievable';
+import { actionlog } from './actionlog';
 
 export interface achievementAttributes {
   id: number;
@@ -89,3 +90,6 @@ export class achievement extends Model<achievementAttributes, achievementCreatio
     });
   }
 }
+
+// Polymorphic Association
+achievement.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Achievement' } });

@@ -4,6 +4,8 @@ import { DataTypes, Model } from 'sequelize';
 import type { atp_category, atp_categoryId } from './atp_category';
 import type { elo_1v1_cache, elo_1v1_cacheId } from './elo_1v1_cache';
 import type { tournament_result, tournament_resultId } from './tournament_result';
+import { actionlog } from './actionlog';
+// import type { metadatum, metadatumId } from './metadatum';
 
 export interface tournamentAttributes {
   id: number;
@@ -82,6 +84,13 @@ export class tournament extends Model<tournamentAttributes, tournamentCreationAt
   hasTournament_result!: Sequelize.HasManyHasAssociationMixin<tournament_result, tournament_resultId>;
   hasTournament_results!: Sequelize.HasManyHasAssociationsMixin<tournament_result, tournament_resultId>;
   countTournament_results!: Sequelize.HasManyCountAssociationsMixin;
+  // tournament belongsToMany metadata via metadatable_id and metadatable_type
+  // metadata!: metadatum[];
+  // getMetadata!: Sequelize.BelongsToManyGetAssociationsMixin<metadatum>;
+  // setMetadata!: Sequelize.BelongsToManySetAssociationsMixin<metadatum, metadatumId>;
+  // addMetadatum!: Sequelize.BelongsToManyAddAssociationMixin<metadatum, metadatumId>;
+  // addMetadata!: Sequelize.BelongsToManyAddAssociationsMixin<metadatum, metadatumId>;
+
 
   static initModel(sequelize: Sequelize.Sequelize): typeof tournament {
     return tournament.init({
@@ -167,6 +176,7 @@ export class tournament extends Model<tournamentAttributes, tournamentCreationAt
       }
     }, {
       sequelize,
+      modelName: 'tournament',
       tableName: 'tournaments',
       timestamps: true,
       paranoid: true,
@@ -186,3 +196,6 @@ export class tournament extends Model<tournamentAttributes, tournamentCreationAt
     });
   }
 }
+
+// Polymorphic Association
+tournament.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Tournament' } });

@@ -1,6 +1,7 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
+import { actionlog } from './actionlog';
 
 export interface newsAttributes {
   id: number;
@@ -75,3 +76,6 @@ export class news extends Model<newsAttributes, newsCreationAttributes> implemen
     });
   }
 }
+
+// Polymorphic Association
+news.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\News' } });

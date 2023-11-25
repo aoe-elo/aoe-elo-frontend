@@ -2,6 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import type { tournament, tournamentId } from './tournament';
+import { actionlog } from './actionlog';
 
 export interface atp_categoryAttributes {
   id: number;
@@ -85,3 +86,6 @@ export class atp_category extends Model<atp_categoryAttributes, atp_categoryCrea
     });
   }
 }
+
+// Polymorphic Association
+atp_category.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\AtpCategory' } });

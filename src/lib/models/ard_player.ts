@@ -4,6 +4,7 @@ import { DataTypes, Model } from 'sequelize';
 import type { ard_player_ard_team, ard_player_ard_teamId } from './ard_player_ard_team';
 import type { country, countryId } from './country';
 import type { player, playerId } from './player';
+import { actionlog } from './actionlog';
 
 export interface ard_playerAttributes {
   id: number;
@@ -152,3 +153,6 @@ export class ard_player extends Model<ard_playerAttributes, ard_playerCreationAt
     });
   }
 }
+
+// Polymorphic Association
+ard_player.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\ArdPlayer' } });

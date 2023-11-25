@@ -1,6 +1,7 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
+import { actionlog } from './actionlog';
 
 export interface reviewAttributes {
   id: number;
@@ -63,3 +64,6 @@ export class review extends Model<reviewAttributes, reviewCreationAttributes> im
     });
   }
 }
+
+// Polymorphic Association
+review.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Review' } });

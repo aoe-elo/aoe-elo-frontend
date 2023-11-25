@@ -2,6 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import type { stageable, stageableId } from './stageable';
+import { actionlog } from './actionlog';
 
 export interface stageAttributes {
   id: number;
@@ -103,3 +104,7 @@ export class stage extends Model<stageAttributes, stageCreationAttributes> imple
     });
   }
 }
+
+// Polymorphic Association
+stage.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Stage' } });
+

@@ -1,5 +1,11 @@
 # Notes
 
+## Models
+
+- Metadata: Tournament, Player, ArdPlayer, Review
+- Actionlog: ArdPlayer, ArdTeam, AtpCategory, Country, Location, Match, Stage, Team, "Tournament", "Review", "Player"
+- Review: Actionlog, Metadata, Player, Match, Team, Tournament
+
 ## Repository
 
 ## Database

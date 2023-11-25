@@ -6,6 +6,7 @@ import type { country, countryId } from './country';
 import type { elo_1v1_cache, elo_1v1_cacheId } from './elo_1v1_cache';
 import type { player_team, player_teamId } from './player_team';
 import type { user, userId } from './user';
+import { actionlog } from './actionlog';
 
 export interface playerAttributes {
   id: number;
@@ -244,3 +245,6 @@ export class player extends Model<playerAttributes, playerCreationAttributes> im
     });
   }
 }
+
+// Polymorphic Association
+player.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Player' } });

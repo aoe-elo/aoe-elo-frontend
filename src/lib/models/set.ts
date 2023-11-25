@@ -5,6 +5,7 @@ import type { elo_1v1_cache, elo_1v1_cacheId } from './elo_1v1_cache';
 import type { rating_delta, rating_deltaId } from './rating_delta';
 import type { set_info, set_infoId } from './set_info';
 import type { stageable, stageableId } from './stageable';
+import { actionlog } from './actionlog';
 
 export interface setAttributes {
   id: number;
@@ -156,3 +157,6 @@ export class set extends Model<setAttributes, setCreationAttributes> implements 
     });
   }
 }
+
+// Polymorphic Association
+set.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Set' } });

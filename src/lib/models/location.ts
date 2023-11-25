@@ -3,6 +3,7 @@ import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import type { location_location_style, location_location_styleId } from './location_location_style';
 import type { location_set_info, location_set_infoId } from './location_set_info';
+import { actionlog } from './actionlog';
 
 export interface locationAttributes {
   id: number;
@@ -128,3 +129,6 @@ export class location extends Model<locationAttributes, locationCreationAttribut
     });
   }
 }
+
+// Polymorphic Association
+location.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Location' } });

@@ -1,7 +1,7 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { actionlog, actionlogId } from './actionlog';
+import { actionlog, type actionlogId } from './actionlog';
 import type { country, countryId } from './country';
 import type { discord_user, discord_userId } from './discord_user';
 import type { github_user, github_userId } from './github_user';
@@ -173,3 +173,6 @@ export class user extends Model<userAttributes, userCreationAttributes> implemen
     });
   }
 }
+
+// Polymorphic Association
+user.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\User' } });

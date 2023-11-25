@@ -5,6 +5,7 @@ import type { ard_player, ard_playerId } from './ard_player';
 import type { player, playerId } from './player';
 import type { team, teamId } from './team';
 import type { user, userId } from './user';
+import { actionlog } from './actionlog';
 
 export interface countryAttributes {
   id: number;
@@ -200,3 +201,6 @@ export class country extends Model<countryAttributes, countryCreationAttributes>
     });
   }
 }
+
+// Polymorphic Association
+country.hasMany(actionlog, { foreignKey: 'loggable_id', constraints: false, scope: { loggable_type: 'App\\Models\\Country' } });

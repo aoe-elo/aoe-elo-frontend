@@ -2,7 +2,24 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import type { action, actionId } from './action';
-import type { user, userId } from './user';
+import { user, type userId } from './user';
+import { achievement } from './achievement';
+import { tournament } from './tournament';
+import { player } from './player';
+import { ard_player } from './ard_player';
+import { review } from './review';
+import { location } from './location';
+import { metadatum } from './metadatum';
+import { news } from './news';
+import { set } from './set';
+import { stage } from './stage';
+import { team } from './team';
+import { ard_team } from './ard_team';
+import { atp_category } from './atp_category';
+import { country } from './country';
+import { location_style } from './location_style';
+
+
 
 export interface actionlogAttributes {
   id: number;
@@ -42,6 +59,15 @@ export class actionlog extends Model<actionlogAttributes, actionlogCreationAttri
   getUser!: Sequelize.BelongsToGetAssociationMixin<user>;
   setUser!: Sequelize.BelongsToSetAssociationMixin<user, userId>;
   createUser!: Sequelize.BelongsToCreateAssociationMixin<user>;
+
+  // TODO!: Support polymorphic lazy loading
+  // https://sequelize.org/docs/v6/advanced-association-concepts/polymorphic-associations/#polymorphic-lazy-loading
+  //
+  // getLoggable(options) {
+  //   if (!this.loggable_type) return Promise.resolve(null);
+  //   const mixinMethodName = `get${uppercaseFirst(this.loggable_type)}`;
+  //   return this[mixinMethodName](options);
+  // }
 
   static initModel(sequelize: Sequelize.Sequelize): typeof actionlog {
     return actionlog.init({
@@ -104,3 +130,37 @@ export class actionlog extends Model<actionlogAttributes, actionlogCreationAttri
     });
   }
 }
+
+// Polymorphic associations
+actionlog.belongsTo(achievement, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(ard_player, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(ard_team, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(atp_category, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(country, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(location, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(location_style, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(metadatum, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(news, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(player, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(review, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(set, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(stage, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(team, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(tournament, { foreignKey: "loggable_id", constraints: false });
+actionlog.belongsTo(user, { foreignKey: "loggable_id", constraints: false });
+
+actionlog.addHook("afterFind", findResult => {
+  if (!Array.isArray(findResult)) findResult = [findResult];
+  for (const instance of findResult) {
+    if (instance.commentableType === "image" && instance.image !== undefined) {
+      instance.commentable = instance.image;
+    } else if (instance.commentableType === "video" && instance.video !== undefined) {
+      instance.commentable = instance.video;
+    }
+    // To prevent mistakes:
+    delete instance.image;
+    delete instance.dataValues.image;
+    delete instance.video;
+    delete instance.dataValues.video;
+  }
+});
