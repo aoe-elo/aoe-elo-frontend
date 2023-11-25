@@ -12,13 +12,13 @@ export type CacheId = Cache[CachePk];
 export type CacheCreationAttributes = ICacheAttributes;
 
 export class Cache extends Model<ICacheAttributes, CacheCreationAttributes> implements ICacheAttributes {
-  key!: string;
-  value!: string;
-  expiration!: number;
+  declare key: string;
+  declare value: string;
+  declare expiration: number;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Cache {
-    return Cache.init({
+    return sequelize.define('Cache', {
       key: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -34,7 +34,6 @@ export class Cache extends Model<ICacheAttributes, CacheCreationAttributes> impl
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'cache',
       timestamps: false,
       underscored: true,
@@ -47,6 +46,6 @@ export class Cache extends Model<ICacheAttributes, CacheCreationAttributes> impl
           ]
         },
       ]
-    });
+    }) as typeof Cache;
   }
 }

@@ -9,8 +9,8 @@ export interface ILocationAttributes {
   name: string;
   name_short?: string;
   liquipedia_link?: string;
-  aoe2map_link?: string;
-  aoe2map_uuid?: string;
+  aoe_2_map_link?: string;
+  aoe_2_map_uuid?: string;
   image_path?: string;
   preview_image_path?: string;
   keywords?: string;
@@ -21,24 +21,24 @@ export interface ILocationAttributes {
 
 export type LocationPk = "id";
 export type LocationId = Location[LocationPk];
-export type LocationOptionalAttributes = "name_short" | "liquipedia_link" | "aoe2map_link" | "aoe2map_uuid" | "image_path" | "preview_image_path" | "keywords" | "created_at" | "updated_at" | "deleted_at";
+export type LocationOptionalAttributes = "name_short" | "liquipedia_link" | "aoe_2_map_link" | "aoe_2_map_uuid" | "image_path" | "preview_image_path" | "keywords" | "created_at" | "updated_at" | "deleted_at";
 export type LocationCreationAttributes = Optional<ILocationAttributes, LocationOptionalAttributes>;
 
 export class Location extends Model<ILocationAttributes, LocationCreationAttributes> implements ILocationAttributes {
-  id!: number;
-  name!: string;
-  name_short?: string;
-  liquipedia_link?: string;
-  aoe2map_link?: string;
-  aoe2map_uuid?: string;
-  image_path?: string;
-  preview_image_path?: string;
-  keywords?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare name_short?: string;
+  declare liquipedia_link?: string;
+  declare aoe_2_map_link?: string;
+  declare aoe_2_map_uuid?: string;
+  declare image_path?: string;
+  declare preview_image_path?: string;
+  declare keywords?: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // location hasMany location_location_style via location_id
+  // Location hasMany LocationLocationStyle via location_id
   location_location_styles!: LocationLocationStyle[];
   getLocation_location_styles!: Sequelize.HasManyGetAssociationsMixin<LocationLocationStyle>;
   setLocation_location_styles!: Sequelize.HasManySetAssociationsMixin<LocationLocationStyle, LocationLocationStyleId>;
@@ -50,7 +50,7 @@ export class Location extends Model<ILocationAttributes, LocationCreationAttribu
   hasLocation_location_style!: Sequelize.HasManyHasAssociationMixin<LocationLocationStyle, LocationLocationStyleId>;
   hasLocation_location_styles!: Sequelize.HasManyHasAssociationsMixin<LocationLocationStyle, LocationLocationStyleId>;
   countLocation_location_styles!: Sequelize.HasManyCountAssociationsMixin;
-  // location hasMany location_set_info via location_id
+  // Location hasMany LocationSetInfo via location_id
   location_set_infos!: LocationSetInfo[];
   getLocation_set_infos!: Sequelize.HasManyGetAssociationsMixin<LocationSetInfo>;
   setLocation_set_infos!: Sequelize.HasManySetAssociationsMixin<LocationSetInfo, LocationSetInfoId>;
@@ -64,7 +64,7 @@ export class Location extends Model<ILocationAttributes, LocationCreationAttribu
   countLocation_set_infos!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Location {
-    return Location.init({
+    return sequelize.define('Location', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -85,13 +85,15 @@ export class Location extends Model<ILocationAttributes, LocationCreationAttribu
         type: DataTypes.TEXT,
         allowNull: true
       },
-      aoe2map_link: {
+      aoe_2_map_link: {
         type: DataTypes.TEXT,
-        allowNull: true
+        allowNull: true,
+        field: 'aoe2map_link'
       },
-      aoe2map_uuid: {
+      aoe_2_map_uuid: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        field: 'aoe2map_uuid'
       },
       image_path: {
         type: DataTypes.TEXT,
@@ -108,7 +110,6 @@ export class Location extends Model<ILocationAttributes, LocationCreationAttribu
         allowNull: true
       }
     }, {
-      sequelize,
       tableName: 'locations',
       timestamps: true,
       paranoid: true,
@@ -125,6 +126,6 @@ export class Location extends Model<ILocationAttributes, LocationCreationAttribu
           ]
         },
       ]
-    });
+    }) as typeof Location;
   }
 }

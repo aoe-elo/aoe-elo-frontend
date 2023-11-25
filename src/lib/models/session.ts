@@ -18,21 +18,21 @@ export type SessionOptionalAttributes = "user_id" | "ip_address" | "user_agent";
 export type SessionCreationAttributes = Optional<ISessionAttributes, SessionOptionalAttributes>;
 
 export class Session extends Model<ISessionAttributes, SessionCreationAttributes> implements ISessionAttributes {
-  id!: string;
-  user_id?: number;
-  ip_address?: string;
-  user_agent?: string;
-  payload!: string;
-  last_activity!: number;
+  declare id: string;
+  declare user_id?: number;
+  declare ip_address?: string;
+  declare user_agent?: string;
+  declare payload: string;
+  declare last_activity: number;
 
-  // session belongsTo user via user_id
+  // Session belongsTo User via user_id
   user!: User;
   getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
   setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
   createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Session {
-    return Session.init({
+    return sequelize.define('Session', {
       id: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -64,7 +64,6 @@ export class Session extends Model<ISessionAttributes, SessionCreationAttributes
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'sessions',
       timestamps: false,
       underscored: true,
@@ -83,6 +82,6 @@ export class Session extends Model<ISessionAttributes, SessionCreationAttributes
           ]
         },
       ]
-    });
+    }) as typeof Session;
   }
 }

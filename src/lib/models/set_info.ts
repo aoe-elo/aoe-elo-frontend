@@ -2,7 +2,7 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import type { LocationSetInfo, LocationSetInfoId } from './location_set_info';
-import type { Set as match, SetId as matchId } from './set';
+import type { Set as Match, SetId as MatchId } from './set';
 
 export interface ISetInfoAttributes {
   id: number;
@@ -23,18 +23,18 @@ export type SetInfoOptionalAttributes = "is_winner" | "created_at" | "updated_at
 export type SetInfoCreationAttributes = Optional<ISetInfoAttributes, SetInfoOptionalAttributes>;
 
 export class SetInfo extends Model<ISetInfoAttributes, SetInfoCreationAttributes> implements ISetInfoAttributes {
-  id!: number;
-  score!: number;
-  is_winner!: number;
-  adjusted_score!: number;
-  participatory_id!: number;
-  participatory_type!: string;
-  set_id!: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare score: number;
+  declare is_winner: number;
+  declare adjusted_score: number;
+  declare participatory_id: number;
+  declare participatory_type: string;
+  declare set_id: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // set_info hasMany location_set_info via set_info_id
+  // SetInfo hasMany LocationSetInfo via set_info_id
   location_set_infos!: LocationSetInfo[];
   getLocation_set_infos!: Sequelize.HasManyGetAssociationsMixin<LocationSetInfo>;
   setLocation_set_infos!: Sequelize.HasManySetAssociationsMixin<LocationSetInfo, LocationSetInfoId>;
@@ -46,14 +46,14 @@ export class SetInfo extends Model<ISetInfoAttributes, SetInfoCreationAttributes
   hasLocation_set_info!: Sequelize.HasManyHasAssociationMixin<LocationSetInfo, LocationSetInfoId>;
   hasLocation_set_infos!: Sequelize.HasManyHasAssociationsMixin<LocationSetInfo, LocationSetInfoId>;
   countLocation_set_infos!: Sequelize.HasManyCountAssociationsMixin;
-  // set_info belongsTo set via set_id
-  match!: match;
-  getMatch!: Sequelize.BelongsToGetAssociationMixin<match>;
-  setMatch!: Sequelize.BelongsToSetAssociationMixin<match, matchId>;
-  createMatch!: Sequelize.BelongsToCreateAssociationMixin<match>;
+  // SetInfo belongsTo Set via set_id
+  match!: Match;
+  getMatch!: Sequelize.BelongsToGetAssociationMixin<Match>;
+  setMatch!: Sequelize.BelongsToSetAssociationMixin<Match, MatchId>;
+  createMatch!: Sequelize.BelongsToCreateAssociationMixin<Match>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof SetInfo {
-    return SetInfo.init({
+    return sequelize.define('SetInfo', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -93,7 +93,6 @@ export class SetInfo extends Model<ISetInfoAttributes, SetInfoCreationAttributes
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'set_info',
       timestamps: true,
       paranoid: true,
@@ -109,6 +108,6 @@ export class SetInfo extends Model<ISetInfoAttributes, SetInfoCreationAttributes
           ]
         },
       ]
-    });
+    }) as typeof SetInfo;
   }
 }

@@ -13,22 +13,22 @@ export type RoleHasPermissionId = RoleHasPermission[RoleHasPermissionPk];
 export type RoleHasPermissionCreationAttributes = IRoleHasPermissionAttributes;
 
 export class RoleHasPermission extends Model<IRoleHasPermissionAttributes, RoleHasPermissionCreationAttributes> implements IRoleHasPermissionAttributes {
-  permission_id!: number;
-  role_id!: number;
+  declare permission_id: number;
+  declare role_id: number;
 
-  // role_has_permission belongsTo permission via permission_id
+  // RoleHasPermission belongsTo Permission via permission_id
   permission!: Permission;
   getPermission!: Sequelize.BelongsToGetAssociationMixin<Permission>;
   setPermission!: Sequelize.BelongsToSetAssociationMixin<Permission, PermissionId>;
   createPermission!: Sequelize.BelongsToCreateAssociationMixin<Permission>;
-  // role_has_permission belongsTo role via role_id
+  // RoleHasPermission belongsTo Role via role_id
   role!: Role;
   getRole!: Sequelize.BelongsToGetAssociationMixin<Role>;
   setRole!: Sequelize.BelongsToSetAssociationMixin<Role, RoleId>;
   createRole!: Sequelize.BelongsToCreateAssociationMixin<Role>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof RoleHasPermission {
-    return RoleHasPermission.init({
+    return sequelize.define('RoleHasPermission', {
       permission_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -48,7 +48,6 @@ export class RoleHasPermission extends Model<IRoleHasPermissionAttributes, RoleH
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'role_has_permissions',
       timestamps: false,
       underscored: true,
@@ -62,6 +61,6 @@ export class RoleHasPermission extends Model<IRoleHasPermissionAttributes, RoleH
           ]
         },
       ]
-    });
+    }) as typeof RoleHasPermission;
   }
 }

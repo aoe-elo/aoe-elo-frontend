@@ -19,18 +19,18 @@ export type ReviewOptionalAttributes = "status" | "created_at" | "updated_at" | 
 export type ReviewCreationAttributes = Optional<IReviewAttributes, ReviewOptionalAttributes>;
 
 export class Review extends Model<IReviewAttributes, ReviewCreationAttributes> implements IReviewAttributes {
-  id!: number;
-  changes!: string;
-  status?: string;
-  reviewable_id!: number;
-  reviewable_type!: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare changes: string;
+  declare status?: string;
+  declare reviewable_id: number;
+  declare reviewable_type: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Review {
-    return Review.init({
+    return sequelize.define('Review', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -55,11 +55,10 @@ export class Review extends Model<IReviewAttributes, ReviewCreationAttributes> i
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'reviews',
       timestamps: true,
       paranoid: true,
       underscored: true,
-    });
+    }) as typeof Review;
   }
 }

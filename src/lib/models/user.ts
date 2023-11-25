@@ -1,7 +1,6 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import { Actionlog, type ActionlogId } from './actionlog';
 import type { Country, CountryId } from './country';
 import type { DiscordUser, DiscordUserId } from './discord_user';
 import type { GithubUser, GithubUserId } from './github_user';
@@ -9,6 +8,7 @@ import type { Player, PlayerId } from './player';
 import type { Session, SessionId } from './session';
 import type { SteamUser, SteamUserId } from './steam_user';
 import type { TwitchUser, TwitchUserId } from './twitch_user';
+import type { Actionlog, ActionlogId } from './actionlog';
 
 export interface IUserAttributes {
   id: number;
@@ -27,21 +27,21 @@ export type UserOptionalAttributes = "email" | "country_id" | "remember_token" |
 export type UserCreationAttributes = Optional<IUserAttributes, UserOptionalAttributes>;
 
 export class User extends Model<IUserAttributes, UserCreationAttributes> implements IUserAttributes {
-  id!: number;
-  name!: string;
-  email?: string;
-  country_id?: number;
-  remember_token?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare email?: string;
+  declare country_id?: number;
+  declare remember_token?: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // user belongsTo country via country_id
+  // User belongsTo Country via country_id
   country!: Country;
   getCountry!: Sequelize.BelongsToGetAssociationMixin<Country>;
   setCountry!: Sequelize.BelongsToSetAssociationMixin<Country, CountryId>;
   createCountry!: Sequelize.BelongsToCreateAssociationMixin<Country>;
-  // user hasMany actionlog via user_id
+  // User hasMany Actionlog via user_id
   actionlogs!: Actionlog[];
   getActionlogs!: Sequelize.HasManyGetAssociationsMixin<Actionlog>;
   setActionlogs!: Sequelize.HasManySetAssociationsMixin<Actionlog, ActionlogId>;
@@ -53,7 +53,7 @@ export class User extends Model<IUserAttributes, UserCreationAttributes> impleme
   hasActionlog!: Sequelize.HasManyHasAssociationMixin<Actionlog, ActionlogId>;
   hasActionlogs!: Sequelize.HasManyHasAssociationsMixin<Actionlog, ActionlogId>;
   countActionlogs!: Sequelize.HasManyCountAssociationsMixin;
-  // user hasMany discord_user via user_id
+  // User hasMany DiscordUser via user_id
   discord_users!: DiscordUser[];
   getDiscord_users!: Sequelize.HasManyGetAssociationsMixin<DiscordUser>;
   setDiscord_users!: Sequelize.HasManySetAssociationsMixin<DiscordUser, DiscordUserId>;
@@ -65,7 +65,7 @@ export class User extends Model<IUserAttributes, UserCreationAttributes> impleme
   hasDiscord_user!: Sequelize.HasManyHasAssociationMixin<DiscordUser, DiscordUserId>;
   hasDiscord_users!: Sequelize.HasManyHasAssociationsMixin<DiscordUser, DiscordUserId>;
   countDiscord_users!: Sequelize.HasManyCountAssociationsMixin;
-  // user hasMany github_user via user_id
+  // User hasMany GithubUser via user_id
   github_users!: GithubUser[];
   getGithub_users!: Sequelize.HasManyGetAssociationsMixin<GithubUser>;
   setGithub_users!: Sequelize.HasManySetAssociationsMixin<GithubUser, GithubUserId>;
@@ -77,7 +77,7 @@ export class User extends Model<IUserAttributes, UserCreationAttributes> impleme
   hasGithub_user!: Sequelize.HasManyHasAssociationMixin<GithubUser, GithubUserId>;
   hasGithub_users!: Sequelize.HasManyHasAssociationsMixin<GithubUser, GithubUserId>;
   countGithub_users!: Sequelize.HasManyCountAssociationsMixin;
-  // user hasMany player via user_id
+  // User hasMany Player via user_id
   players!: Player[];
   getPlayers!: Sequelize.HasManyGetAssociationsMixin<Player>;
   setPlayers!: Sequelize.HasManySetAssociationsMixin<Player, PlayerId>;
@@ -89,7 +89,7 @@ export class User extends Model<IUserAttributes, UserCreationAttributes> impleme
   hasPlayer!: Sequelize.HasManyHasAssociationMixin<Player, PlayerId>;
   hasPlayers!: Sequelize.HasManyHasAssociationsMixin<Player, PlayerId>;
   countPlayers!: Sequelize.HasManyCountAssociationsMixin;
-  // user hasMany session via user_id
+  // User hasMany Session via user_id
   sessions!: Session[];
   getSessions!: Sequelize.HasManyGetAssociationsMixin<Session>;
   setSessions!: Sequelize.HasManySetAssociationsMixin<Session, SessionId>;
@@ -101,7 +101,7 @@ export class User extends Model<IUserAttributes, UserCreationAttributes> impleme
   hasSession!: Sequelize.HasManyHasAssociationMixin<Session, SessionId>;
   hasSessions!: Sequelize.HasManyHasAssociationsMixin<Session, SessionId>;
   countSessions!: Sequelize.HasManyCountAssociationsMixin;
-  // user hasMany steam_user via user_id
+  // User hasMany SteamUser via user_id
   steam_users!: SteamUser[];
   getSteam_users!: Sequelize.HasManyGetAssociationsMixin<SteamUser>;
   setSteam_users!: Sequelize.HasManySetAssociationsMixin<SteamUser, SteamUserId>;
@@ -113,7 +113,7 @@ export class User extends Model<IUserAttributes, UserCreationAttributes> impleme
   hasSteam_user!: Sequelize.HasManyHasAssociationMixin<SteamUser, SteamUserId>;
   hasSteam_users!: Sequelize.HasManyHasAssociationsMixin<SteamUser, SteamUserId>;
   countSteam_users!: Sequelize.HasManyCountAssociationsMixin;
-  // user hasMany twitch_user via user_id
+  // User hasMany TwitchUser via user_id
   twitch_users!: TwitchUser[];
   getTwitch_users!: Sequelize.HasManyGetAssociationsMixin<TwitchUser>;
   setTwitch_users!: Sequelize.HasManySetAssociationsMixin<TwitchUser, TwitchUserId>;
@@ -127,7 +127,7 @@ export class User extends Model<IUserAttributes, UserCreationAttributes> impleme
   countTwitch_users!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof User {
-    return User.init({
+    return sequelize.define('User', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -156,7 +156,6 @@ export class User extends Model<IUserAttributes, UserCreationAttributes> impleme
         allowNull: true
       }
     }, {
-      sequelize,
       tableName: 'users',
       timestamps: true,
       paranoid: true,
@@ -170,6 +169,6 @@ export class User extends Model<IUserAttributes, UserCreationAttributes> impleme
           ]
         },
       ]
-    });
+    }) as typeof User;
   }
 }

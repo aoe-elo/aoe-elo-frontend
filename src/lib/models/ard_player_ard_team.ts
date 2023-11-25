@@ -20,27 +20,27 @@ export type ArdPlayerArdTeamOptionalAttributes = "ard_player_id" | "ard_team_id"
 export type ArdPlayerArdTeamCreationAttributes = Optional<IArdPlayerArdTeamAttributes, ArdPlayerArdTeamOptionalAttributes>;
 
 export class ArdPlayerArdTeam extends Model<IArdPlayerArdTeamAttributes, ArdPlayerArdTeamCreationAttributes> implements IArdPlayerArdTeamAttributes {
-  id!: number;
-  ard_player_id?: number;
-  ard_team_id?: number;
-  is_active!: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare ard_player_id?: number;
+  declare ard_team_id?: number;
+  declare is_active: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // ard_player_ard_team belongsTo ard_player via ard_player_id
+  // ArdPlayerArdTeam belongsTo ArdPlayer via ard_player_id
   ard_player!: ArdPlayer;
   getArd_player!: Sequelize.BelongsToGetAssociationMixin<ArdPlayer>;
   setArd_player!: Sequelize.BelongsToSetAssociationMixin<ArdPlayer, ArdPlayerId>;
   createArd_player!: Sequelize.BelongsToCreateAssociationMixin<ArdPlayer>;
-  // ard_player_ard_team belongsTo ard_team via ard_team_id
+  // ArdPlayerArdTeam belongsTo ArdTeam via ard_team_id
   ard_team!: ArdTeam;
   getArd_team!: Sequelize.BelongsToGetAssociationMixin<ArdTeam>;
   setArd_team!: Sequelize.BelongsToSetAssociationMixin<ArdTeam, ArdTeamId>;
   createArd_team!: Sequelize.BelongsToCreateAssociationMixin<ArdTeam>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ArdPlayerArdTeam {
-    return ArdPlayerArdTeam.init({
+    return sequelize.define('ArdPlayerArdTeam', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -71,7 +71,6 @@ export class ArdPlayerArdTeam extends Model<IArdPlayerArdTeamAttributes, ArdPlay
         defaultValue: 1
       }
     }, {
-      sequelize,
       tableName: 'ard_player_ard_team',
       timestamps: true,
       paranoid: true,
@@ -86,6 +85,6 @@ export class ArdPlayerArdTeam extends Model<IArdPlayerArdTeamAttributes, ArdPlay
           ]
         },
       ]
-    });
+    }) as typeof ArdPlayerArdTeam;
   }
 }

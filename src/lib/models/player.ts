@@ -3,7 +3,7 @@ import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import type { ArdPlayer, ArdPlayerId } from './ard_player';
 import type { Country, CountryId } from './country';
-import type { Elo1v1Cache, Elo1v1CacheId } from './elo_1v1_cache';
+import type { Elo1V1Cache, Elo1V1CacheId } from './elo_1v1_cache';
 import type { PlayerTeam, PlayerTeamId } from './player_team';
 import type { User, UserId } from './user';
 
@@ -34,48 +34,48 @@ export type PlayerOptionalAttributes = "current_elo" | "base_elo" | "current_atp
 export type PlayerCreationAttributes = Optional<IPlayerAttributes, PlayerOptionalAttributes>;
 
 export class Player extends Model<IPlayerAttributes, PlayerCreationAttributes> implements IPlayerAttributes {
-  id!: number;
-  name!: string;
-  current_elo?: number;
-  base_elo!: number;
-  current_atp?: number;
-  base_atp!: number;
-  voobly_id_main?: string;
-  relic_link_id_main?: string;
-  steam_id_main?: string;
-  liquipedia_handle?: string;
-  discord_handle?: string;
-  twitch_handle?: string;
-  aoe_reference_data_player_id?: number;
-  country_id?: number;
-  user_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare current_elo?: number;
+  declare base_elo: number;
+  declare current_atp?: number;
+  declare base_atp: number;
+  declare voobly_id_main?: string;
+  declare relic_link_id_main?: string;
+  declare steam_id_main?: string;
+  declare liquipedia_handle?: string;
+  declare discord_handle?: string;
+  declare twitch_handle?: string;
+  declare aoe_reference_data_player_id?: number;
+  declare country_id?: number;
+  declare user_id?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // player belongsTo ard_player via aoe_reference_data_player_id
+  // Player belongsTo ArdPlayer via aoe_reference_data_player_id
   aoe_reference_data_player!: ArdPlayer;
   getAoe_reference_data_player!: Sequelize.BelongsToGetAssociationMixin<ArdPlayer>;
   setAoe_reference_data_player!: Sequelize.BelongsToSetAssociationMixin<ArdPlayer, ArdPlayerId>;
   createAoe_reference_data_player!: Sequelize.BelongsToCreateAssociationMixin<ArdPlayer>;
-  // player belongsTo country via country_id
+  // Player belongsTo Country via country_id
   country!: Country;
   getCountry!: Sequelize.BelongsToGetAssociationMixin<Country>;
   setCountry!: Sequelize.BelongsToSetAssociationMixin<Country, CountryId>;
   createCountry!: Sequelize.BelongsToCreateAssociationMixin<Country>;
-  // player hasMany elo_1v1_cache via player_id
-  elo_1v1_caches!: Elo1v1Cache[];
-  getElo_1v1_caches!: Sequelize.HasManyGetAssociationsMixin<Elo1v1Cache>;
-  setElo_1v1_caches!: Sequelize.HasManySetAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
-  addElo_1v1_cache!: Sequelize.HasManyAddAssociationMixin<Elo1v1Cache, Elo1v1CacheId>;
-  addElo_1v1_caches!: Sequelize.HasManyAddAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
-  createElo_1v1_cache!: Sequelize.HasManyCreateAssociationMixin<Elo1v1Cache>;
-  removeElo_1v1_cache!: Sequelize.HasManyRemoveAssociationMixin<Elo1v1Cache, Elo1v1CacheId>;
-  removeElo_1v1_caches!: Sequelize.HasManyRemoveAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
-  hasElo_1v1_cache!: Sequelize.HasManyHasAssociationMixin<Elo1v1Cache, Elo1v1CacheId>;
-  hasElo_1v1_caches!: Sequelize.HasManyHasAssociationsMixin<Elo1v1Cache, Elo1v1CacheId>;
-  countElo_1v1_caches!: Sequelize.HasManyCountAssociationsMixin;
-  // player hasMany player_team via player_id
+  // Player hasMany Elo1V1Cache via player_id
+  elo_1_v_1_caches!: Elo1V1Cache[];
+  getElo_1_v_1_caches!: Sequelize.HasManyGetAssociationsMixin<Elo1V1Cache>;
+  setElo_1_v_1_caches!: Sequelize.HasManySetAssociationsMixin<Elo1V1Cache, Elo1V1CacheId>;
+  addElo_1_v_1_cach!: Sequelize.HasManyAddAssociationMixin<Elo1V1Cache, Elo1V1CacheId>;
+  addElo_1_v_1_caches!: Sequelize.HasManyAddAssociationsMixin<Elo1V1Cache, Elo1V1CacheId>;
+  createElo_1_v_1_cach!: Sequelize.HasManyCreateAssociationMixin<Elo1V1Cache>;
+  removeElo_1_v_1_cach!: Sequelize.HasManyRemoveAssociationMixin<Elo1V1Cache, Elo1V1CacheId>;
+  removeElo_1_v_1_caches!: Sequelize.HasManyRemoveAssociationsMixin<Elo1V1Cache, Elo1V1CacheId>;
+  hasElo_1_v_1_cach!: Sequelize.HasManyHasAssociationMixin<Elo1V1Cache, Elo1V1CacheId>;
+  hasElo_1_v_1_caches!: Sequelize.HasManyHasAssociationsMixin<Elo1V1Cache, Elo1V1CacheId>;
+  countElo_1_v_1_caches!: Sequelize.HasManyCountAssociationsMixin;
+  // Player hasMany PlayerTeam via player_id
   player_teams!: PlayerTeam[];
   getPlayer_teams!: Sequelize.HasManyGetAssociationsMixin<PlayerTeam>;
   setPlayer_teams!: Sequelize.HasManySetAssociationsMixin<PlayerTeam, PlayerTeamId>;
@@ -87,14 +87,14 @@ export class Player extends Model<IPlayerAttributes, PlayerCreationAttributes> i
   hasPlayer_team!: Sequelize.HasManyHasAssociationMixin<PlayerTeam, PlayerTeamId>;
   hasPlayer_teams!: Sequelize.HasManyHasAssociationsMixin<PlayerTeam, PlayerTeamId>;
   countPlayer_teams!: Sequelize.HasManyCountAssociationsMixin;
-  // player belongsTo user via user_id
+  // Player belongsTo User via user_id
   user!: User;
   getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
   setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
   createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Player {
-    return Player.init({
+    return sequelize.define('Player', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -181,7 +181,6 @@ export class Player extends Model<IPlayerAttributes, PlayerCreationAttributes> i
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'players',
       timestamps: true,
       paranoid: true,
@@ -241,6 +240,6 @@ export class Player extends Model<IPlayerAttributes, PlayerCreationAttributes> i
           ]
         },
       ]
-    });
+    }) as typeof Player;
   }
 }

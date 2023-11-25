@@ -22,25 +22,25 @@ export type GithubUserOptionalAttributes = "name" | "email" | "github_token" | "
 export type GithubUserCreationAttributes = Optional<IGithubUserAttributes, GithubUserOptionalAttributes>;
 
 export class GithubUser extends Model<IGithubUserAttributes, GithubUserCreationAttributes> implements IGithubUserAttributes {
-  id!: number;
-  github_id!: string;
-  name?: string;
-  email?: string;
-  github_token?: string;
-  github_refresh_token?: string;
-  user_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare github_id: string;
+  declare name?: string;
+  declare email?: string;
+  declare github_token?: string;
+  declare github_refresh_token?: string;
+  declare user_id?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // github_user belongsTo user via user_id
+  // GithubUser belongsTo User via user_id
   user!: User;
   getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
   setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
   createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof GithubUser {
-    return GithubUser.init({
+    return sequelize.define('GithubUser', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -78,7 +78,6 @@ export class GithubUser extends Model<IGithubUserAttributes, GithubUserCreationA
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'github_users',
       timestamps: true,
       paranoid: true,
@@ -100,6 +99,6 @@ export class GithubUser extends Model<IGithubUserAttributes, GithubUserCreationA
           ]
         },
       ]
-    });
+    }) as typeof GithubUser;
   }
 }

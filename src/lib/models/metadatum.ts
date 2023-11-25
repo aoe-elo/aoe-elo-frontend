@@ -11,9 +11,9 @@ export interface IMetadatumAttributes {
   integer_value?: number;
   smallint_value?: number;
   datetime_value?: Date;
-  str50_value?: string;
-  str100_value?: string;
-  str255_value?: string;
+  str_50_value?: string;
+  str_100_value?: string;
+  str_255_value?: string;
   text_value?: string;
   json_value?: string;
   metadatable_id: number;
@@ -26,33 +26,33 @@ export interface IMetadatumAttributes {
 
 export type MetadatumPk = "id";
 export type MetadatumId = Metadatum[MetadatumPk];
-export type MetadatumOptionalAttributes = "sub_key" | "boolean_value" | "integer_value" | "smallint_value" | "datetime_value" | "str50_value" | "str100_value" | "str255_value" | "text_value" | "json_value" | "is_verified" | "created_at" | "updated_at" | "deleted_at";
+export type MetadatumOptionalAttributes = "sub_key" | "boolean_value" | "integer_value" | "smallint_value" | "datetime_value" | "str_50_value" | "str_100_value" | "str_255_value" | "text_value" | "json_value" | "is_verified" | "created_at" | "updated_at" | "deleted_at";
 export type MetadatumCreationAttributes = Optional<IMetadatumAttributes, MetadatumOptionalAttributes>;
 
 export class Metadatum extends Model<IMetadatumAttributes, MetadatumCreationAttributes> implements IMetadatumAttributes {
-  id!: number;
-  key!: string;
-  sub_key?: string;
-  type_of_value!: string;
-  boolean_value?: number;
-  integer_value?: number;
-  smallint_value?: number;
-  datetime_value?: Date;
-  str50_value?: string;
-  str100_value?: string;
-  str255_value?: string;
-  text_value?: string;
-  json_value?: string;
-  metadatable_id!: number;
-  metadatable_type!: string;
-  is_verified!: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare key: string;
+  declare sub_key?: string;
+  declare type_of_value: string;
+  declare boolean_value?: number;
+  declare integer_value?: number;
+  declare smallint_value?: number;
+  declare datetime_value?: Date;
+  declare str_50_value?: string;
+  declare str_100_value?: string;
+  declare str_255_value?: string;
+  declare text_value?: string;
+  declare json_value?: string;
+  declare metadatable_id: number;
+  declare metadatable_type: string;
+  declare is_verified: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Metadatum {
-    return Metadatum.init({
+    return sequelize.define('Metadatum', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -90,17 +90,20 @@ export class Metadatum extends Model<IMetadatumAttributes, MetadatumCreationAttr
         type: DataTypes.DATE,
         allowNull: true
       },
-      str50_value: {
+      str_50_value: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        field: 'str50_value'
       },
-      str100_value: {
+      str_100_value: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        field: 'str100_value'
       },
-      str255_value: {
+      str_255_value: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        field: 'str255_value'
       },
       text_value: {
         type: DataTypes.TEXT,
@@ -126,7 +129,6 @@ export class Metadatum extends Model<IMetadatumAttributes, MetadatumCreationAttr
         defaultValue: 0
       }
     }, {
-      sequelize,
       tableName: 'metadata',
       timestamps: true,
       paranoid: true,
@@ -144,6 +146,6 @@ export class Metadatum extends Model<IMetadatumAttributes, MetadatumCreationAttr
           ]
         },
       ]
-    });
+    }) as typeof Metadatum;
   }
 }

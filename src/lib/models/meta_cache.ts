@@ -14,15 +14,15 @@ export type MetaCacheId = MetaCache[MetaCachePk];
 export type MetaCacheCreationAttributes = IMetaCacheAttributes;
 
 export class MetaCache extends Model<IMetaCacheAttributes, MetaCacheCreationAttributes> implements IMetaCacheAttributes {
-  id!: number;
-  name!: number;
-  value_int!: number;
-  value_float!: number;
-  value_str!: string;
+  declare id: number;
+  declare name: number;
+  declare value_int: number;
+  declare value_float: number;
+  declare value_str: string;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof MetaCache {
-    return MetaCache.init({
+    return sequelize.define('MetaCache', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -46,10 +46,9 @@ export class MetaCache extends Model<IMetaCacheAttributes, MetaCacheCreationAttr
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'meta_cache',
       timestamps: false,
       underscored: true,
-    });
+    }) as typeof MetaCache;
   }
 }

@@ -19,15 +19,15 @@ export type AtpCategoryOptionalAttributes = "base_value" | "modifier" | "created
 export type AtpCategoryCreationAttributes = Optional<IAtpCategoryAttributes, AtpCategoryOptionalAttributes>;
 
 export class AtpCategory extends Model<IAtpCategoryAttributes, AtpCategoryCreationAttributes> implements IAtpCategoryAttributes {
-  id!: number;
-  category!: number;
-  sub_category!: string;
-  base_value?: number;
-  modifier!: number;
-  created_at?: Date;
-  updated_at?: Date;
+  declare id: number;
+  declare category: number;
+  declare sub_category: string;
+  declare base_value?: number;
+  declare modifier: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
 
-  // atp_category hasMany tournament via atp_category_id
+  // AtpCategory hasMany Tournament via atp_category_id
   tournaments!: Tournament[];
   getTournaments!: Sequelize.HasManyGetAssociationsMixin<Tournament>;
   setTournaments!: Sequelize.HasManySetAssociationsMixin<Tournament, TournamentId>;
@@ -41,7 +41,7 @@ export class AtpCategory extends Model<IAtpCategoryAttributes, AtpCategoryCreati
   countTournaments!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof AtpCategory {
-    return AtpCategory.init({
+    return sequelize.define('AtpCategory', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -68,7 +68,6 @@ export class AtpCategory extends Model<IAtpCategoryAttributes, AtpCategoryCreati
         defaultValue: 10
       }
     }, {
-      sequelize,
       tableName: 'atp_categories',
       timestamps: true,
       underscored: true,
@@ -82,6 +81,6 @@ export class AtpCategory extends Model<IAtpCategoryAttributes, AtpCategoryCreati
           ]
         },
       ]
-    });
+    }) as typeof AtpCategory;
   }
 }

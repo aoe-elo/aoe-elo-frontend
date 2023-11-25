@@ -18,13 +18,13 @@ export type RoleOptionalAttributes = "created_at" | "updated_at";
 export type RoleCreationAttributes = Optional<IRoleAttributes, RoleOptionalAttributes>;
 
 export class Role extends Model<IRoleAttributes, RoleCreationAttributes> implements IRoleAttributes {
-  id!: number;
-  name!: string;
-  guard_name!: string;
-  created_at?: Date;
-  updated_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare guard_name: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
 
-  // role hasMany model_has_role via role_id
+  // Role hasMany ModelHasRole via role_id
   model_has_roles!: ModelHasRole[];
   getModel_has_roles!: Sequelize.HasManyGetAssociationsMixin<ModelHasRole>;
   setModel_has_roles!: Sequelize.HasManySetAssociationsMixin<ModelHasRole, ModelHasRoleId>;
@@ -36,7 +36,7 @@ export class Role extends Model<IRoleAttributes, RoleCreationAttributes> impleme
   hasModel_has_role!: Sequelize.HasManyHasAssociationMixin<ModelHasRole, ModelHasRoleId>;
   hasModel_has_roles!: Sequelize.HasManyHasAssociationsMixin<ModelHasRole, ModelHasRoleId>;
   countModel_has_roles!: Sequelize.HasManyCountAssociationsMixin;
-  // role hasMany role_has_permission via role_id
+  // Role hasMany RoleHasPermission via role_id
   role_has_permissions!: RoleHasPermission[];
   getRole_has_permissions!: Sequelize.HasManyGetAssociationsMixin<RoleHasPermission>;
   setRole_has_permissions!: Sequelize.HasManySetAssociationsMixin<RoleHasPermission, RoleHasPermissionId>;
@@ -50,7 +50,7 @@ export class Role extends Model<IRoleAttributes, RoleCreationAttributes> impleme
   countRole_has_permissions!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Role {
-    return Role.init({
+    return sequelize.define('Role', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -68,7 +68,6 @@ export class Role extends Model<IRoleAttributes, RoleCreationAttributes> impleme
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'roles',
       timestamps: true,
       underscored: true,
@@ -82,6 +81,6 @@ export class Role extends Model<IRoleAttributes, RoleCreationAttributes> impleme
           ]
         },
       ]
-    });
+    }) as typeof Role;
   }
 }

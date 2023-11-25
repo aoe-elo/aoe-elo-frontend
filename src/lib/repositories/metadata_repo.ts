@@ -1,15 +1,15 @@
-import { models } from "$lib/sequelize";
+import { models } from "$lib/db_setup";
 import type { IMetadatumAttributes, MetadatumId as MetadataId } from "$lib/models/metadatum";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type MetadataData = IMetadatumAttributes;
-type Metadata = typeof models.metadatum;
+type Metadata = typeof models.Metadatum;
 
 interface IMetadataRepositoryInterface<MetadataId, ReviewData> extends IBaseRepositoryInterface<MetadataId, ReviewData> { }
 
 export class MetadataRepository implements IMetadataRepositoryInterface<MetadataId, MetadataData> {
 
-    constructor(private readonly model: Metadata = models.metadatum) { }
+    constructor(private readonly model: Metadata = models.Metadatum) { }
 
     async getAll(): Promise<MetadataData[]> {
         return this.model.findAll();

@@ -21,16 +21,16 @@ export type StageableOptionalAttributes = "stage_order" | "created_at" | "update
 export type StageableCreationAttributes = Optional<IStageableAttributes, StageableOptionalAttributes>;
 
 export class Stageable extends Model<IStageableAttributes, StageableCreationAttributes> implements IStageableAttributes {
-  id!: number;
-  stage_order?: number;
-  stageable_id!: number;
-  stageable_type!: string;
-  stage_id!: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare stage_order?: number;
+  declare stageable_id: number;
+  declare stageable_type: string;
+  declare stage_id: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // stageable hasMany set via stageable_id
+  // Stageable hasMany Set via stageable_id
   sets!: Set[];
   getSets!: Sequelize.HasManyGetAssociationsMixin<Set>;
   setSets!: Sequelize.HasManySetAssociationsMixin<Set, SetId>;
@@ -42,14 +42,14 @@ export class Stageable extends Model<IStageableAttributes, StageableCreationAttr
   hasSet!: Sequelize.HasManyHasAssociationMixin<Set, SetId>;
   hasSets!: Sequelize.HasManyHasAssociationsMixin<Set, SetId>;
   countSets!: Sequelize.HasManyCountAssociationsMixin;
-  // stageable belongsTo stage via stage_id
+  // Stageable belongsTo Stage via stage_id
   stage!: Stage;
   getStage!: Sequelize.BelongsToGetAssociationMixin<Stage>;
   setStage!: Sequelize.BelongsToSetAssociationMixin<Stage, StageId>;
   createStage!: Sequelize.BelongsToCreateAssociationMixin<Stage>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Stageable {
-    return Stageable.init({
+    return sequelize.define('Stageable', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -80,7 +80,6 @@ export class Stageable extends Model<IStageableAttributes, StageableCreationAttr
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'stageables',
       timestamps: true,
       paranoid: true,
@@ -96,6 +95,6 @@ export class Stageable extends Model<IStageableAttributes, StageableCreationAttr
           ]
         },
       ]
-    });
+    }) as typeof Stageable;
   }
 }

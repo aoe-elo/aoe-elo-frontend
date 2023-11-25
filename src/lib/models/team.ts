@@ -28,32 +28,32 @@ export type TeamOptionalAttributes = "current_elo" | "base_elo" | "current_atp" 
 export type TeamCreationAttributes = Optional<ITeamAttributes, TeamOptionalAttributes>;
 
 export class Team extends Model<ITeamAttributes, TeamCreationAttributes> implements ITeamAttributes {
-  id!: number;
-  name!: string;
-  tag!: string;
-  current_elo?: number;
-  base_elo!: number;
-  current_atp?: number;
-  base_atp!: number;
-  primary_color?: string;
-  secondary_color?: string;
-  aoe_reference_data_team_id?: number;
-  country_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare tag: string;
+  declare current_elo?: number;
+  declare base_elo: number;
+  declare current_atp?: number;
+  declare base_atp: number;
+  declare primary_color?: string;
+  declare secondary_color?: string;
+  declare aoe_reference_data_team_id?: number;
+  declare country_id?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // team belongsTo ard_team via aoe_reference_data_team_id
+  // Team belongsTo ArdTeam via aoe_reference_data_team_id
   aoe_reference_data_team!: ArdTeam;
   getAoe_reference_data_team!: Sequelize.BelongsToGetAssociationMixin<ArdTeam>;
   setAoe_reference_data_team!: Sequelize.BelongsToSetAssociationMixin<ArdTeam, ArdTeamId>;
   createAoe_reference_data_team!: Sequelize.BelongsToCreateAssociationMixin<ArdTeam>;
-  // team belongsTo country via country_id
+  // Team belongsTo Country via country_id
   country!: Country;
   getCountry!: Sequelize.BelongsToGetAssociationMixin<Country>;
   setCountry!: Sequelize.BelongsToSetAssociationMixin<Country, CountryId>;
   createCountry!: Sequelize.BelongsToCreateAssociationMixin<Country>;
-  // team hasMany player_team via team_id
+  // Team hasMany PlayerTeam via team_id
   player_teams!: PlayerTeam[];
   getPlayer_teams!: Sequelize.HasManyGetAssociationsMixin<PlayerTeam>;
   setPlayer_teams!: Sequelize.HasManySetAssociationsMixin<PlayerTeam, PlayerTeamId>;
@@ -67,7 +67,7 @@ export class Team extends Model<ITeamAttributes, TeamCreationAttributes> impleme
   countPlayer_teams!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Team {
-    return Team.init({
+    return sequelize.define('Team', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -127,7 +127,6 @@ export class Team extends Model<ITeamAttributes, TeamCreationAttributes> impleme
         }
       }
     }, {
-      sequelize,
       tableName: 'teams',
       timestamps: true,
       paranoid: true,
@@ -142,6 +141,6 @@ export class Team extends Model<ITeamAttributes, TeamCreationAttributes> impleme
           ]
         },
       ]
-    });
+    }) as typeof Team;
   }
 }

@@ -17,16 +17,16 @@ export type ExternDeCacheOptionalAttributes = "relic_link_id" | "created_at" | "
 export type ExternDeCacheCreationAttributes = Optional<IExternDeCacheAttributes, ExternDeCacheOptionalAttributes>;
 
 export class ExternDeCache extends Model<IExternDeCacheAttributes, ExternDeCacheCreationAttributes> implements IExternDeCacheAttributes {
-  id!: number;
-  relic_link_id?: string;
-  rating!: number;
-  rank!: number;
-  created_at?: Date;
-  updated_at?: Date;
+  declare id: number;
+  declare relic_link_id?: string;
+  declare rating: number;
+  declare rank: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ExternDeCache {
-    return ExternDeCache.init({
+    return sequelize.define('ExternDeCache', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -46,10 +46,9 @@ export class ExternDeCache extends Model<IExternDeCacheAttributes, ExternDeCache
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'extern_de_cache',
       timestamps: true,
       underscored: true,
-    });
+    }) as typeof ExternDeCache;
   }
 }

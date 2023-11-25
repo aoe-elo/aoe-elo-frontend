@@ -1,4 +1,4 @@
-import { database } from "$lib/sequelize";
+import { database } from "$lib/db_setup";
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {

@@ -18,14 +18,14 @@ export type LocationStyleOptionalAttributes = "weight" | "created_at" | "updated
 export type LocationStyleCreationAttributes = Optional<ILocationStyleAttributes, LocationStyleOptionalAttributes>;
 
 export class LocationStyle extends Model<ILocationStyleAttributes, LocationStyleCreationAttributes> implements ILocationStyleAttributes {
-  id!: number;
-  style!: string;
-  weight?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare style: string;
+  declare weight?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // location_style hasMany location_location_style via location_style_id
+  // LocationStyle hasMany LocationLocationStyle via location_style_id
   location_location_styles!: LocationLocationStyle[];
   getLocation_location_styles!: Sequelize.HasManyGetAssociationsMixin<LocationLocationStyle>;
   setLocation_location_styles!: Sequelize.HasManySetAssociationsMixin<LocationLocationStyle, LocationLocationStyleId>;
@@ -39,7 +39,7 @@ export class LocationStyle extends Model<ILocationStyleAttributes, LocationStyle
   countLocation_location_styles!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof LocationStyle {
-    return LocationStyle.init({
+    return sequelize.define('LocationStyle', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -56,11 +56,10 @@ export class LocationStyle extends Model<ILocationStyleAttributes, LocationStyle
         defaultValue: 10
       }
     }, {
-      sequelize,
       tableName: 'location_styles',
       timestamps: true,
       paranoid: true,
       underscored: true,
-    });
+    }) as typeof LocationStyle;
   }
 }

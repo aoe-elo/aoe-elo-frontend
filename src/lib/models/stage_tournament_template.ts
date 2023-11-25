@@ -18,17 +18,17 @@ export type StageTournamentTemplateOptionalAttributes = "description" | "created
 export type StageTournamentTemplateCreationAttributes = Optional<IStageTournamentTemplateAttributes, StageTournamentTemplateOptionalAttributes>;
 
 export class StageTournamentTemplate extends Model<IStageTournamentTemplateAttributes, StageTournamentTemplateCreationAttributes> implements IStageTournamentTemplateAttributes {
-  id!: number;
-  name!: string;
-  short_name!: string;
-  description?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare short_name: string;
+  declare description?: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof StageTournamentTemplate {
-    return StageTournamentTemplate.init({
+    return sequelize.define('StageTournamentTemplate', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -50,7 +50,6 @@ export class StageTournamentTemplate extends Model<IStageTournamentTemplateAttri
         allowNull: true
       }
     }, {
-      sequelize,
       tableName: 'stage_tournament_templates',
       timestamps: true,
       paranoid: true,
@@ -65,6 +64,6 @@ export class StageTournamentTemplate extends Model<IStageTournamentTemplateAttri
           ]
         },
       ]
-    });
+    }) as typeof StageTournamentTemplate;
   }
 }

@@ -19,26 +19,26 @@ export type LocationLocationStyleOptionalAttributes = "location_id" | "location_
 export type LocationLocationStyleCreationAttributes = Optional<ILocationLocationStyleAttributes, LocationLocationStyleOptionalAttributes>;
 
 export class LocationLocationStyle extends Model<ILocationLocationStyleAttributes, LocationLocationStyleCreationAttributes> implements ILocationLocationStyleAttributes {
-  id!: number;
-  location_id?: number;
-  location_style_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare location_id?: number;
+  declare location_style_id?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // location_location_style belongsTo location_style via location_style_id
+  // LocationLocationStyle belongsTo LocationStyle via location_style_id
   location_style!: LocationStyle;
   getLocation_style!: Sequelize.BelongsToGetAssociationMixin<LocationStyle>;
   setLocation_style!: Sequelize.BelongsToSetAssociationMixin<LocationStyle, LocationStyleId>;
   createLocation_style!: Sequelize.BelongsToCreateAssociationMixin<LocationStyle>;
-  // location_location_style belongsTo location via location_id
+  // LocationLocationStyle belongsTo Location via location_id
   location!: Location;
   getLocation!: Sequelize.BelongsToGetAssociationMixin<Location>;
   setLocation!: Sequelize.BelongsToSetAssociationMixin<Location, LocationId>;
   createLocation!: Sequelize.BelongsToCreateAssociationMixin<Location>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof LocationLocationStyle {
-    return LocationLocationStyle.init({
+    return sequelize.define('LocationLocationStyle', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -64,7 +64,6 @@ export class LocationLocationStyle extends Model<ILocationLocationStyleAttribute
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'location_location_styles',
       timestamps: true,
       paranoid: true,
@@ -79,6 +78,6 @@ export class LocationLocationStyle extends Model<ILocationLocationStyleAttribute
           ]
         },
       ]
-    });
+    }) as typeof LocationLocationStyle;
   }
 }

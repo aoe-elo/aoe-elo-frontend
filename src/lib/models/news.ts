@@ -21,20 +21,20 @@ export type NewsOptionalAttributes = "pinned" | "abstract" | "description" | "ta
 export type NewsCreationAttributes = Optional<INewsAttributes, NewsOptionalAttributes>;
 
 export class News extends Model<INewsAttributes, NewsCreationAttributes> implements INewsAttributes {
-  id!: number;
-  title!: string;
-  pinned!: number;
-  abstract?: string;
-  content!: string;
-  description?: string;
-  tags?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare title: string;
+  declare pinned: number;
+  declare abstract?: string;
+  declare content: string;
+  declare description?: string;
+  declare tags?: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof News {
-    return News.init({
+    return sequelize.define('News', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -67,11 +67,10 @@ export class News extends Model<INewsAttributes, NewsCreationAttributes> impleme
         allowNull: true
       }
     }, {
-      sequelize,
       tableName: 'news',
       timestamps: true,
       paranoid: true,
       underscored: true,
-    });
+    }) as typeof News;
   }
 }

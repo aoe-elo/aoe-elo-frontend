@@ -1,15 +1,15 @@
-import { models } from "$lib/sequelize";
+import { models } from "$lib/db_setup";
 import type { IReviewAttributes, ReviewId } from "$lib/models/review";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type ReviewData = IReviewAttributes;
-type Review = typeof models.review;
+type Review = typeof models.Review;
 
 interface IReviewRepositoryInterface<ReviewId, ReviewData> extends IBaseRepositoryInterface<ReviewId, ReviewData> { }
 
 export class ReviewRepository implements IReviewRepositoryInterface<ReviewId, ReviewData> {
 
-    constructor(private readonly model: Review = models.review) { }
+    constructor(private readonly model: Review = models.Review) { }
 
     async getAll(): Promise<ReviewData[]> {
         return this.model.findAll();

@@ -1,6 +1,7 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
+import type { Achievement, AchievementId } from './achievement';
 
 export interface IAchievableAttributes {
   id: number;
@@ -28,8 +29,14 @@ export class Achievable extends Model<IAchievableAttributes, AchievableCreationA
   declare updated_at?: Date;
   declare deleted_at?: Date;
 
+  // Achievable belongsTo Achievement via achievement_id
+  achievement!: Achievement;
+  getAchievement!: Sequelize.BelongsToGetAssociationMixin<Achievement>;
+  setAchievement!: Sequelize.BelongsToSetAssociationMixin<Achievement, AchievementId>;
+  createAchievement!: Sequelize.BelongsToCreateAssociationMixin<Achievement>;
+
   static initModel(sequelize: Sequelize.Sequelize): typeof Achievable {
-    return Achievable.init({
+    return sequelize.define('Achievable', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -61,7 +68,6 @@ export class Achievable extends Model<IAchievableAttributes, AchievableCreationA
         defaultValue: 0
       }
     }, {
-      sequelize,
       tableName: 'achievables',
       timestamps: true,
       paranoid: true,
@@ -78,6 +84,6 @@ export class Achievable extends Model<IAchievableAttributes, AchievableCreationA
           ]
         },
       ]
-    });
+    }) as typeof Achievable;
   }
 }

@@ -33,26 +33,26 @@ export type CountryOptionalAttributes = "capital" | "citizenship" | "country_cod
 export type CountryCreationAttributes = Optional<ICountryAttributes, CountryOptionalAttributes>;
 
 export class Country extends Model<ICountryAttributes, CountryCreationAttributes> implements ICountryAttributes {
-  id!: number;
-  capital?: string;
-  citizenship?: string;
-  country_code!: string;
-  currency?: string;
-  currency_code?: string;
-  currency_sub_unit?: string;
-  currency_symbol?: string;
-  currency_decimals?: number;
-  full_name?: string;
-  iso_3166_2!: string;
-  iso_3166_3!: string;
-  name!: string;
-  region_code!: string;
-  sub_region_code!: string;
-  eea!: number;
-  calling_code?: string;
-  flag?: string;
+  declare id: number;
+  declare capital?: string;
+  declare citizenship?: string;
+  declare country_code: string;
+  declare currency?: string;
+  declare currency_code?: string;
+  declare currency_sub_unit?: string;
+  declare currency_symbol?: string;
+  declare currency_decimals?: number;
+  declare full_name?: string;
+  declare iso_3166_2: string;
+  declare iso_3166_3: string;
+  declare name: string;
+  declare region_code: string;
+  declare sub_region_code: string;
+  declare eea: number;
+  declare calling_code?: string;
+  declare flag?: string;
 
-  // country hasMany ard_player via country_id
+  // Country hasMany ArdPlayer via country_id
   ard_players!: ArdPlayer[];
   getArd_players!: Sequelize.HasManyGetAssociationsMixin<ArdPlayer>;
   setArd_players!: Sequelize.HasManySetAssociationsMixin<ArdPlayer, ArdPlayerId>;
@@ -64,7 +64,7 @@ export class Country extends Model<ICountryAttributes, CountryCreationAttributes
   hasArd_player!: Sequelize.HasManyHasAssociationMixin<ArdPlayer, ArdPlayerId>;
   hasArd_players!: Sequelize.HasManyHasAssociationsMixin<ArdPlayer, ArdPlayerId>;
   countArd_players!: Sequelize.HasManyCountAssociationsMixin;
-  // country hasMany player via country_id
+  // Country hasMany Player via country_id
   players!: Player[];
   getPlayers!: Sequelize.HasManyGetAssociationsMixin<Player>;
   setPlayers!: Sequelize.HasManySetAssociationsMixin<Player, PlayerId>;
@@ -76,7 +76,7 @@ export class Country extends Model<ICountryAttributes, CountryCreationAttributes
   hasPlayer!: Sequelize.HasManyHasAssociationMixin<Player, PlayerId>;
   hasPlayers!: Sequelize.HasManyHasAssociationsMixin<Player, PlayerId>;
   countPlayers!: Sequelize.HasManyCountAssociationsMixin;
-  // country hasMany team via country_id
+  // Country hasMany Team via country_id
   teams!: Team[];
   getTeams!: Sequelize.HasManyGetAssociationsMixin<Team>;
   setTeams!: Sequelize.HasManySetAssociationsMixin<Team, TeamId>;
@@ -88,7 +88,7 @@ export class Country extends Model<ICountryAttributes, CountryCreationAttributes
   hasTeam!: Sequelize.HasManyHasAssociationMixin<Team, TeamId>;
   hasTeams!: Sequelize.HasManyHasAssociationsMixin<Team, TeamId>;
   countTeams!: Sequelize.HasManyCountAssociationsMixin;
-  // country hasMany user via country_id
+  // Country hasMany User via country_id
   users!: User[];
   getUsers!: Sequelize.HasManyGetAssociationsMixin<User>;
   setUsers!: Sequelize.HasManySetAssociationsMixin<User, UserId>;
@@ -102,7 +102,7 @@ export class Country extends Model<ICountryAttributes, CountryCreationAttributes
   countUsers!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Country {
-    return Country.init({
+    return sequelize.define('Country', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -185,7 +185,6 @@ export class Country extends Model<ICountryAttributes, CountryCreationAttributes
         allowNull: true
       }
     }, {
-      sequelize,
       tableName: 'countries',
       timestamps: false,
       underscored: true,
@@ -197,6 +196,6 @@ export class Country extends Model<ICountryAttributes, CountryCreationAttributes
           ]
         },
       ]
-    });
+    }) as typeof Country;
   }
 }

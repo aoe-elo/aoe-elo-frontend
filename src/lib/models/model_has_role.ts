@@ -13,18 +13,18 @@ export type ModelHasRoleId = ModelHasRole[ModelHasRolePk];
 export type ModelHasRoleCreationAttributes = IModelHasRoleAttributes;
 
 export class ModelHasRole extends Model<IModelHasRoleAttributes, ModelHasRoleCreationAttributes> implements IModelHasRoleAttributes {
-  role_id!: number;
-  model_type!: string;
-  model_id!: number;
+  declare role_id: number;
+  declare model_type: string;
+  declare model_id: number;
 
-  // ModelHasRole belongsTo role via role_id
+  // ModelHasRole belongsTo Role via role_id
   role!: Role;
   getRole!: Sequelize.BelongsToGetAssociationMixin<Role>;
   setRole!: Sequelize.BelongsToSetAssociationMixin<Role, RoleId>;
   createRole!: Sequelize.BelongsToCreateAssociationMixin<Role>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ModelHasRole {
-    return ModelHasRole.init({
+    return sequelize.define('ModelHasRole', {
       role_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -45,13 +45,12 @@ export class ModelHasRole extends Model<IModelHasRoleAttributes, ModelHasRoleCre
         primaryKey: true
       }
     }, {
-      sequelize,
-      tableName: 'ModelHasRoles',
+      tableName: 'model_has_roles',
       timestamps: false,
       underscored: true,
       indexes: [
         {
-          name: "sqlite_autoindex_ModelHasRoles_1",
+          name: "sqlite_autoindex_model_has_roles_1",
           unique: true,
           fields: [
             { name: "role_id" },
@@ -60,13 +59,13 @@ export class ModelHasRole extends Model<IModelHasRoleAttributes, ModelHasRoleCre
           ]
         },
         {
-          name: "ModelHasRoles_model_id_model_type_index",
+          name: "model_has_roles_model_id_model_type_index",
           fields: [
             { name: "model_id" },
             { name: "model_type" },
           ]
         },
       ]
-    });
+    }) as typeof ModelHasRole;
   }
 }

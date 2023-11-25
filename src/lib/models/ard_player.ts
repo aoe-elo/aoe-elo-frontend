@@ -24,18 +24,18 @@ export type ArdPlayerOptionalAttributes = "country_id" | "aoeelo_id" | "esports_
 export type ArdPlayerCreationAttributes = Optional<IArdPlayerAttributes, ArdPlayerOptionalAttributes>;
 
 export class ArdPlayer extends Model<IArdPlayerAttributes, ArdPlayerCreationAttributes> implements IArdPlayerAttributes {
-  id!: number;
-  name!: string;
-  country_id?: number;
-  aoeelo_id?: number;
-  esports_earnings?: number;
-  liquipedia_handle?: string;
-  discord_id?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare country_id?: number;
+  declare aoeelo_id?: number;
+  declare esports_earnings?: number;
+  declare liquipedia_handle?: string;
+  declare discord_id?: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // ard_player hasMany ard_player_ard_team via ard_player_id
+  // ArdPlayer hasMany ArdPlayerArdTeam via ard_player_id
   ard_player_ard_teams!: ArdPlayerArdTeam[];
   getArd_player_ard_teams!: Sequelize.HasManyGetAssociationsMixin<ArdPlayerArdTeam>;
   setArd_player_ard_teams!: Sequelize.HasManySetAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
@@ -47,7 +47,7 @@ export class ArdPlayer extends Model<IArdPlayerAttributes, ArdPlayerCreationAttr
   hasArd_player_ard_team!: Sequelize.HasManyHasAssociationMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
   hasArd_player_ard_teams!: Sequelize.HasManyHasAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
   countArd_player_ard_teams!: Sequelize.HasManyCountAssociationsMixin;
-  // ard_player hasMany player via aoe_reference_data_player_id
+  // ArdPlayer hasMany Player via aoe_reference_data_player_id
   players!: Player[];
   getPlayers!: Sequelize.HasManyGetAssociationsMixin<Player>;
   setPlayers!: Sequelize.HasManySetAssociationsMixin<Player, PlayerId>;
@@ -59,14 +59,14 @@ export class ArdPlayer extends Model<IArdPlayerAttributes, ArdPlayerCreationAttr
   hasPlayer!: Sequelize.HasManyHasAssociationMixin<Player, PlayerId>;
   hasPlayers!: Sequelize.HasManyHasAssociationsMixin<Player, PlayerId>;
   countPlayers!: Sequelize.HasManyCountAssociationsMixin;
-  // ard_player belongsTo country via country_id
+  // ArdPlayer belongsTo Country via country_id
   country!: Country;
   getCountry!: Sequelize.BelongsToGetAssociationMixin<Country>;
   setCountry!: Sequelize.BelongsToSetAssociationMixin<Country, CountryId>;
   createCountry!: Sequelize.BelongsToCreateAssociationMixin<Country>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ArdPlayer {
-    return ArdPlayer.init({
+    return sequelize.define('ArdPlayer', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -107,7 +107,6 @@ export class ArdPlayer extends Model<IArdPlayerAttributes, ArdPlayerCreationAttr
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'ard_players',
       modelName: 'App\\Models\\ArdPlayer',
       timestamps: true,
@@ -150,6 +149,6 @@ export class ArdPlayer extends Model<IArdPlayerAttributes, ArdPlayerCreationAttr
           ]
         },
       ]
-    });
+    }) as typeof ArdPlayer;
   }
 }

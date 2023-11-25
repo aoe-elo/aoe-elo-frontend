@@ -1,15 +1,15 @@
-import { models } from "$lib/sequelize";
+import { models } from "$lib/db_setup";
 import type { IActionlogAttributes, ActionlogId } from "$lib/models/actionlog";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type ActionlogData = IActionlogAttributes;
-type Actionlog = typeof models.actionlog;
+type Actionlog = typeof models.Actionlog;
 
 interface IActionlogRepositoryInterface<ActionlogId, ActionlogData> extends IBaseRepositoryInterface<ActionlogId, ActionlogData> { }
 
 export class ActionlogRepository implements IActionlogRepositoryInterface<ActionlogId, ActionlogData> {
 
-    constructor(private readonly model: Actionlog = models.actionlog) { }
+    constructor(private readonly model: Actionlog = models.Actionlog) { }
 
     async getAll(): Promise<ActionlogData[]> {
         return this.model.findAll();

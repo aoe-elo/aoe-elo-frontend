@@ -17,16 +17,16 @@ export type MigrationlogOptionalAttributes = "save_confirmed" | "created_at" | "
 export type MigrationlogCreationAttributes = Optional<IMigrationlogAttributes, MigrationlogOptionalAttributes>;
 
 export class Migrationlog extends Model<IMigrationlogAttributes, MigrationlogCreationAttributes> implements IMigrationlogAttributes {
-  id!: number;
-  migratory_id!: number;
-  migratory_type!: string;
-  save_confirmed?: number;
-  created_at?: Date;
-  updated_at?: Date;
+  declare id: number;
+  declare migratory_id: number;
+  declare migratory_type: string;
+  declare save_confirmed?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Migrationlog {
-    return Migrationlog.init({
+    return sequelize.define('Migrationlog', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -47,10 +47,9 @@ export class Migrationlog extends Model<IMigrationlogAttributes, MigrationlogCre
         defaultValue: 0
       }
     }, {
-      sequelize,
       tableName: 'migrationlog',
       timestamps: true,
       underscored: true,
-    });
+    }) as typeof Migrationlog;
   }
 }

@@ -20,19 +20,19 @@ export type RatingCheckpointOptionalAttributes = "rating" | "created_at" | "upda
 export type RatingCheckpointCreationAttributes = Optional<IRatingCheckpointAttributes, RatingCheckpointOptionalAttributes>;
 
 export class RatingCheckpoint extends Model<IRatingCheckpointAttributes, RatingCheckpointCreationAttributes> implements IRatingCheckpointAttributes {
-  id!: number;
-  participant_id!: number;
-  participant_type!: string;
-  rating!: number;
-  valid_period_start!: Date;
-  valid_period_end!: Date;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare participant_id: number;
+  declare participant_type: string;
+  declare rating: number;
+  declare valid_period_start: Date;
+  declare valid_period_end: Date;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof RatingCheckpoint {
-    return RatingCheckpoint.init({
+    return sequelize.define('RatingCheckpoint', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -65,7 +65,6 @@ export class RatingCheckpoint extends Model<IRatingCheckpointAttributes, RatingC
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'rating_checkpoints',
       timestamps: true,
       paranoid: true,
@@ -82,6 +81,6 @@ export class RatingCheckpoint extends Model<IRatingCheckpointAttributes, RatingC
           ]
         },
       ]
-    });
+    }) as typeof RatingCheckpoint;
   }
 }

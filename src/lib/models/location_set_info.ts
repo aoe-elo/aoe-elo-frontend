@@ -19,26 +19,26 @@ export type LocationSetInfoOptionalAttributes = "set_info_id" | "location_id" | 
 export type LocationSetInfoCreationAttributes = Optional<ILocationSetInfoAttributes, LocationSetInfoOptionalAttributes>;
 
 export class LocationSetInfo extends Model<ILocationSetInfoAttributes, LocationSetInfoCreationAttributes> implements ILocationSetInfoAttributes {
-  id!: number;
-  set_info_id?: number;
-  location_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare set_info_id?: number;
+  declare location_id?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // location_set_info belongsTo location via location_id
+  // LocationSetInfo belongsTo Location via location_id
   location!: Location;
   getLocation!: Sequelize.BelongsToGetAssociationMixin<Location>;
   setLocation!: Sequelize.BelongsToSetAssociationMixin<Location, LocationId>;
   createLocation!: Sequelize.BelongsToCreateAssociationMixin<Location>;
-  // location_set_info belongsTo set_info via set_info_id
-  set_info!: SetInfo;
-  getSet_info!: Sequelize.BelongsToGetAssociationMixin<SetInfo>;
-  setSet_info!: Sequelize.BelongsToSetAssociationMixin<SetInfo, SetInfoId>;
-  createSet_info!: Sequelize.BelongsToCreateAssociationMixin<SetInfo>;
+  // LocationSetInfo belongsTo SetInfo via set_info_id
+  setInfo!: SetInfo;
+  getSetInfo!: Sequelize.BelongsToGetAssociationMixin<SetInfo>;
+  setSetInfo!: Sequelize.BelongsToSetAssociationMixin<SetInfo, SetInfoId>;
+  createSetInfo!: Sequelize.BelongsToCreateAssociationMixin<SetInfo>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof LocationSetInfo {
-    return LocationSetInfo.init({
+    return sequelize.define('LocationSetInfo', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -62,11 +62,10 @@ export class LocationSetInfo extends Model<ILocationSetInfoAttributes, LocationS
         }
       }
     }, {
-      sequelize,
       tableName: 'location_set_info',
       timestamps: true,
       paranoid: true,
       underscored: true,
-    });
+    }) as typeof LocationSetInfo;
   }
 }

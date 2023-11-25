@@ -13,18 +13,18 @@ export type ModelHasPermissionId = ModelHasPermission[ModelHasPermissionPk];
 export type ModelHasPermissionCreationAttributes = IModelHasPermissionAttributes;
 
 export class ModelHasPermission extends Model<IModelHasPermissionAttributes, ModelHasPermissionCreationAttributes> implements IModelHasPermissionAttributes {
-  permission_id!: number;
-  model_type!: string;
-  model_id!: number;
+  declare permission_id: number;
+  declare model_type: string;
+  declare model_id: number;
 
-  // ModelHasPermission belongsTo permission via permission_id
+  // ModelHasPermission belongsTo Permission via permission_id
   permission!: Permission;
   getPermission!: Sequelize.BelongsToGetAssociationMixin<Permission>;
   setPermission!: Sequelize.BelongsToSetAssociationMixin<Permission, PermissionId>;
   createPermission!: Sequelize.BelongsToCreateAssociationMixin<Permission>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ModelHasPermission {
-    return ModelHasPermission.init({
+    return sequelize.define('ModelHasPermission', {
       permission_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -45,13 +45,12 @@ export class ModelHasPermission extends Model<IModelHasPermissionAttributes, Mod
         primaryKey: true
       }
     }, {
-      sequelize,
-      tableName: 'ModelHasPermissions',
+      tableName: 'model_has_permissions',
       timestamps: false,
       underscored: true,
       indexes: [
         {
-          name: "sqlite_autoindex_ModelHasPermissions_1",
+          name: "sqlite_autoindex_model_has_permissions_1",
           unique: true,
           fields: [
             { name: "permission_id" },
@@ -60,13 +59,13 @@ export class ModelHasPermission extends Model<IModelHasPermissionAttributes, Mod
           ]
         },
         {
-          name: "ModelHasPermissions_model_id_model_type_index",
+          name: "model_has_permissions_model_id_model_type_index",
           fields: [
             { name: "model_id" },
             { name: "model_type" },
           ]
         },
       ]
-    });
+    }) as typeof ModelHasPermission;
   }
 }

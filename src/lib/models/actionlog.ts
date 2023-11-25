@@ -2,6 +2,8 @@ import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
 import { uppercaseFirst } from '$lib/util';
+import type { Action, ActionId } from './action';
+import type { User, UserId } from './user';
 
 export interface IActionlogAttributes {
   id: number;
@@ -31,6 +33,17 @@ export class Actionlog extends Model<IActionlogAttributes, ActionlogCreationAttr
   declare updated_at?: Date;
   declare deleted_at?: Date;
 
+  // Actionlog belongsTo Action via action_id
+  action!: Action;
+  getAction!: Sequelize.BelongsToGetAssociationMixin<Action>;
+  setAction!: Sequelize.BelongsToSetAssociationMixin<Action, ActionId>;
+  createAction!: Sequelize.BelongsToCreateAssociationMixin<Action>;
+  // Actionlog belongsTo User via user_id
+  user!: User;
+  getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
+  setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
+  createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
+
   // TODO!: Support polymorphic lazy loading
   // TODO!: Needs to have another logic, because the loggable_type is not a model
   // TODO!: Create lookup table for loggable_type
@@ -46,7 +59,7 @@ export class Actionlog extends Model<IActionlogAttributes, ActionlogCreationAttr
   }
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Actionlog {
-    return Actionlog.init({
+    return sequelize.define('Actionlog', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -85,7 +98,6 @@ export class Actionlog extends Model<IActionlogAttributes, ActionlogCreationAttr
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'actionlog',
       timestamps: true,
       paranoid: true,
@@ -103,6 +115,6 @@ export class Actionlog extends Model<IActionlogAttributes, ActionlogCreationAttr
           ]
         },
       ]
-    });
+    }) as typeof Actionlog;
   }
 }

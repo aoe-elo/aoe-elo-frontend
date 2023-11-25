@@ -18,17 +18,17 @@ export type ExternVooblyCacheOptionalAttributes = "ladder" | "rank" | "created_a
 export type ExternVooblyCacheCreationAttributes = Optional<IExternVooblyCacheAttributes, ExternVooblyCacheOptionalAttributes>;
 
 export class ExternVooblyCache extends Model<IExternVooblyCacheAttributes, ExternVooblyCacheCreationAttributes> implements IExternVooblyCacheAttributes {
-  id!: number;
-  voobly_id!: number;
-  ladder!: number;
-  rating!: number;
-  rank?: number;
-  created_at?: Date;
-  updated_at?: Date;
+  declare id: number;
+  declare voobly_id: number;
+  declare ladder: number;
+  declare rating: number;
+  declare rank?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ExternVooblyCache {
-    return ExternVooblyCache.init({
+    return sequelize.define('ExternVooblyCache', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -53,10 +53,9 @@ export class ExternVooblyCache extends Model<IExternVooblyCacheAttributes, Exter
         allowNull: true
       }
     }, {
-      sequelize,
       tableName: 'extern_voobly_cache',
       timestamps: true,
       underscored: true,
-    });
+    }) as typeof ExternVooblyCache;
   }
 }

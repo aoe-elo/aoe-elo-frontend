@@ -1,9 +1,9 @@
-import { models } from "$lib/sequelize";
+import { models } from "$lib/db_setup";
 import type { ILocationAttributes, LocationId } from "$lib/models/location";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type LocationData = ILocationAttributes;
-type Location = typeof models.location;
+type Location = typeof models.Location;
 
 interface ILocationRepositoryInterface<LocationId, LocationData> extends IBaseRepositoryInterface<LocationId, LocationData> {
     getAllPartiallyCached(): Promise<Partial<LocationData[]>>;
@@ -12,7 +12,7 @@ interface ILocationRepositoryInterface<LocationId, LocationData> extends IBaseRe
 
 export class LocationRepository implements ILocationRepositoryInterface<LocationId, LocationData> {
 
-    constructor(private readonly model: Location = models.location) { }
+    constructor(private readonly model: Location = models.Location) { }
 
     async getAll(): Promise<LocationData[]> {
         return this.model.findAll();

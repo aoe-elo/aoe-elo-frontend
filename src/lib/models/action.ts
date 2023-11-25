@@ -1,6 +1,7 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
+import type { Actionlog, ActionlogId } from './actionlog';
 
 export interface IActionAttributes {
   id: number;
@@ -24,8 +25,21 @@ export class Action extends Model<IActionAttributes, ActionCreationAttributes> i
   declare updated_at?: Date;
   declare deleted_at?: Date;
 
+  // Action hasMany Actionlog via action_id
+  actionlogs!: Actionlog[];
+  getActionlogs!: Sequelize.HasManyGetAssociationsMixin<Actionlog>;
+  setActionlogs!: Sequelize.HasManySetAssociationsMixin<Actionlog, ActionlogId>;
+  addActionlog!: Sequelize.HasManyAddAssociationMixin<Actionlog, ActionlogId>;
+  addActionlogs!: Sequelize.HasManyAddAssociationsMixin<Actionlog, ActionlogId>;
+  createActionlog!: Sequelize.HasManyCreateAssociationMixin<Actionlog>;
+  removeActionlog!: Sequelize.HasManyRemoveAssociationMixin<Actionlog, ActionlogId>;
+  removeActionlogs!: Sequelize.HasManyRemoveAssociationsMixin<Actionlog, ActionlogId>;
+  hasActionlog!: Sequelize.HasManyHasAssociationMixin<Actionlog, ActionlogId>;
+  hasActionlogs!: Sequelize.HasManyHasAssociationsMixin<Actionlog, ActionlogId>;
+  countActionlogs!: Sequelize.HasManyCountAssociationsMixin;
+
   static initModel(sequelize: Sequelize.Sequelize): typeof Action {
-    return Action.init({
+    return sequelize.define('Action', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -41,12 +55,11 @@ export class Action extends Model<IActionAttributes, ActionCreationAttributes> i
         allowNull: true
       }
     }, {
-      sequelize,
       tableName: 'actions',
       timestamps: true,
       paranoid: true,
       underscored: true,
       modelName: 'App\\Models\\Action',
-    });
+    }) as typeof Action;
   }
 }

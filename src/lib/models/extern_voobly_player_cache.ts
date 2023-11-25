@@ -5,7 +5,7 @@ import { DataTypes, Model } from 'sequelize';
 export interface IExternVooblyPlayerCacheAttributes {
   id: number;
   voobly_id: number;
-  rm_1v1: number;
+  rm_1_v_1: number;
   rm_tg: number;
   created_at?: Date;
   updated_at?: Date;
@@ -17,16 +17,16 @@ export type ExternVooblyPlayerCacheOptionalAttributes = "created_at" | "updated_
 export type ExternVooblyPlayerCacheCreationAttributes = Optional<IExternVooblyPlayerCacheAttributes, ExternVooblyPlayerCacheOptionalAttributes>;
 
 export class ExternVooblyPlayerCache extends Model<IExternVooblyPlayerCacheAttributes, ExternVooblyPlayerCacheCreationAttributes> implements IExternVooblyPlayerCacheAttributes {
-  id!: number;
-  voobly_id!: number;
-  rm_1v1!: number;
-  rm_tg!: number;
-  created_at?: Date;
-  updated_at?: Date;
+  declare id: number;
+  declare voobly_id: number;
+  declare rm_1_v_1: number;
+  declare rm_tg: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ExternVooblyPlayerCache {
-    return ExternVooblyPlayerCache.init({
+    return sequelize.define('ExternVooblyPlayerCache', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -37,19 +37,19 @@ export class ExternVooblyPlayerCache extends Model<IExternVooblyPlayerCacheAttri
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      rm_1v1: {
+      rm_1_v_1: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        field: 'rm_1v1'
       },
       rm_tg: {
         type: DataTypes.INTEGER,
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'extern_voobly_player_cache',
       timestamps: true,
       underscored: true,
-    });
+    }) as typeof ExternVooblyPlayerCache;
   }
 }

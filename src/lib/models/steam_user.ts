@@ -21,24 +21,24 @@ export type SteamUserOptionalAttributes = "nickname" | "name" | "avatar" | "user
 export type SteamUserCreationAttributes = Optional<ISteamUserAttributes, SteamUserOptionalAttributes>;
 
 export class SteamUser extends Model<ISteamUserAttributes, SteamUserCreationAttributes> implements ISteamUserAttributes {
-  id!: number;
-  steam_id!: string;
-  nickname?: string;
-  name?: string;
-  avatar?: string;
-  user_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare steam_id: string;
+  declare nickname?: string;
+  declare name?: string;
+  declare avatar?: string;
+  declare user_id?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // steam_user belongsTo user via user_id
+  // SteamUser belongsTo User via user_id
   user!: User;
   getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
   setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
   createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof SteamUser {
-    return SteamUser.init({
+    return sequelize.define('SteamUser', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -72,7 +72,6 @@ export class SteamUser extends Model<ISteamUserAttributes, SteamUserCreationAttr
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'steam_users',
       timestamps: true,
       paranoid: true,
@@ -94,6 +93,6 @@ export class SteamUser extends Model<ISteamUserAttributes, SteamUserCreationAttr
           ]
         },
       ]
-    });
+    }) as typeof SteamUser;
   }
 }

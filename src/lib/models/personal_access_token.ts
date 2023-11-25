@@ -21,20 +21,20 @@ export type PersonalAccessTokenOptionalAttributes = "abilities" | "last_used_at"
 export type PersonalAccessTokenCreationAttributes = Optional<IPersonalAccessTokenAttributes, PersonalAccessTokenOptionalAttributes>;
 
 export class PersonalAccessToken extends Model<IPersonalAccessTokenAttributes, PersonalAccessTokenCreationAttributes> implements IPersonalAccessTokenAttributes {
-  id!: number;
-  tokenable_type!: string;
-  tokenable_id!: number;
-  name!: string;
-  token!: string;
-  abilities?: string;
-  last_used_at?: Date;
-  expires_at?: Date;
-  created_at?: Date;
-  updated_at?: Date;
+  declare id: number;
+  declare tokenable_type: string;
+  declare tokenable_id: number;
+  declare name: string;
+  declare token: string;
+  declare abilities?: string;
+  declare last_used_at?: Date;
+  declare expires_at?: Date;
+  declare created_at?: Date;
+  declare updated_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof PersonalAccessToken {
-    return PersonalAccessToken.init({
+    return sequelize.define('PersonalAccessToken', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -71,7 +71,6 @@ export class PersonalAccessToken extends Model<IPersonalAccessTokenAttributes, P
         allowNull: true
       }
     }, {
-      sequelize,
       tableName: 'personal_access_tokens',
       timestamps: true,
       underscored: true,
@@ -91,6 +90,6 @@ export class PersonalAccessToken extends Model<IPersonalAccessTokenAttributes, P
           ]
         },
       ]
-    });
+    }) as typeof PersonalAccessToken;
   }
 }

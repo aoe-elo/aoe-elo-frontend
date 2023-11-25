@@ -21,17 +21,17 @@ export type StageOptionalAttributes = "bracket" | "default_order" | "weight" | "
 export type StageCreationAttributes = Optional<IStageAttributes, StageOptionalAttributes>;
 
 export class Stage extends Model<IStageAttributes, StageCreationAttributes> implements IStageAttributes {
-  id!: number;
-  name!: string;
-  bracket!: number;
-  default_order!: number;
-  weight!: number;
-  importance!: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare bracket: number;
+  declare default_order: number;
+  declare weight: number;
+  declare importance: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // stage hasMany stageable via stage_id
+  // Stage hasMany Stageable via stage_id
   stageables!: Stageable[];
   getStageables!: Sequelize.HasManyGetAssociationsMixin<Stageable>;
   setStageables!: Sequelize.HasManySetAssociationsMixin<Stageable, StageableId>;
@@ -45,7 +45,7 @@ export class Stage extends Model<IStageAttributes, StageCreationAttributes> impl
   countStageables!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Stage {
-    return Stage.init({
+    return sequelize.define('Stage', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -82,7 +82,6 @@ export class Stage extends Model<IStageAttributes, StageCreationAttributes> impl
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'stages',
       timestamps: true,
       paranoid: true,
@@ -100,6 +99,6 @@ export class Stage extends Model<IStageAttributes, StageCreationAttributes> impl
           ]
         },
       ]
-    });
+    }) as typeof Stage;
   }
 }

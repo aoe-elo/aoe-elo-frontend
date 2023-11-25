@@ -23,26 +23,26 @@ export type TournamentResultOptionalAttributes = "type" | "prize_amount" | "priz
 export type TournamentResultCreationAttributes = Optional<ITournamentResultAttributes, TournamentResultOptionalAttributes>;
 
 export class TournamentResult extends Model<ITournamentResultAttributes, TournamentResultCreationAttributes> implements ITournamentResultAttributes {
-  id!: number;
-  type?: number;
-  prize_amount?: number;
-  prize_currency!: number;
-  source?: string;
-  participatory_id!: number;
-  participatory_type!: string;
-  tournament_id!: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare type?: number;
+  declare prize_amount?: number;
+  declare prize_currency: number;
+  declare source?: string;
+  declare participatory_id: number;
+  declare participatory_type: string;
+  declare tournament_id: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // tournament_result belongsTo tournament via tournament_id
+  // TournamentResult belongsTo Tournament via tournament_id
   tournament!: Tournament;
   getTournament!: Sequelize.BelongsToGetAssociationMixin<Tournament>;
   setTournament!: Sequelize.BelongsToSetAssociationMixin<Tournament, TournamentId>;
   createTournament!: Sequelize.BelongsToCreateAssociationMixin<Tournament>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof TournamentResult {
-    return TournamentResult.init({
+    return sequelize.define('TournamentResult', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -83,11 +83,10 @@ export class TournamentResult extends Model<ITournamentResultAttributes, Tournam
         }
       }
     }, {
-      sequelize,
       tableName: 'tournament_results',
       timestamps: true,
       paranoid: true,
       underscored: true,
-    });
+    }) as typeof TournamentResult;
   }
 }

@@ -1,6 +1,7 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
+import type { Achievable, AchievableId } from './achievable';
 
 export interface IAchievementAttributes {
   id: number;
@@ -28,8 +29,21 @@ export class Achievement extends Model<IAchievementAttributes, AchievementCreati
   declare updated_at?: Date;
   declare deleted_at?: Date;
 
+  // Achievement hasMany Achievable via achievement_id
+  achievables!: Achievable[];
+  getAchievables!: Sequelize.HasManyGetAssociationsMixin<Achievable>;
+  setAchievables!: Sequelize.HasManySetAssociationsMixin<Achievable, AchievableId>;
+  addAchievable!: Sequelize.HasManyAddAssociationMixin<Achievable, AchievableId>;
+  addAchievables!: Sequelize.HasManyAddAssociationsMixin<Achievable, AchievableId>;
+  createAchievable!: Sequelize.HasManyCreateAssociationMixin<Achievable>;
+  removeAchievable!: Sequelize.HasManyRemoveAssociationMixin<Achievable, AchievableId>;
+  removeAchievables!: Sequelize.HasManyRemoveAssociationsMixin<Achievable, AchievableId>;
+  hasAchievable!: Sequelize.HasManyHasAssociationMixin<Achievable, AchievableId>;
+  hasAchievables!: Sequelize.HasManyHasAssociationsMixin<Achievable, AchievableId>;
+  countAchievables!: Sequelize.HasManyCountAssociationsMixin;
+
   static initModel(sequelize: Sequelize.Sequelize): typeof Achievement {
-    return Achievement.init({
+    return sequelize.define('Achievement', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -56,7 +70,6 @@ export class Achievement extends Model<IAchievementAttributes, AchievementCreati
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'achievements',
       timestamps: true,
       paranoid: true,
@@ -73,6 +86,6 @@ export class Achievement extends Model<IAchievementAttributes, AchievementCreati
           ]
         },
       ]
-    });
+    }) as typeof Achievement;
   }
 }

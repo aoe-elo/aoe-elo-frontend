@@ -22,25 +22,25 @@ export type TwitchUserOptionalAttributes = "nickname" | "name" | "email" | "avat
 export type TwitchUserCreationAttributes = Optional<ITwitchUserAttributes, TwitchUserOptionalAttributes>;
 
 export class TwitchUser extends Model<ITwitchUserAttributes, TwitchUserCreationAttributes> implements ITwitchUserAttributes {
-  id!: number;
-  twitch_id!: string;
-  nickname?: string;
-  name?: string;
-  email?: string;
-  avatar?: string;
-  user_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare twitch_id: string;
+  declare nickname?: string;
+  declare name?: string;
+  declare email?: string;
+  declare avatar?: string;
+  declare user_id?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // twitch_user belongsTo user via user_id
+  // TwitchUser belongsTo User via user_id
   user!: User;
   getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
   setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
   createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof TwitchUser {
-    return TwitchUser.init({
+    return sequelize.define('TwitchUser', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -78,7 +78,6 @@ export class TwitchUser extends Model<ITwitchUserAttributes, TwitchUserCreationA
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'twitch_users',
       timestamps: true,
       paranoid: true,
@@ -100,6 +99,6 @@ export class TwitchUser extends Model<ITwitchUserAttributes, TwitchUserCreationA
           ]
         },
       ]
-    });
+    }) as typeof TwitchUser;
   }
 }

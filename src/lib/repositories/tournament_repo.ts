@@ -1,9 +1,9 @@
-import { models } from "$lib/sequelize";
+import { models } from "$lib/db_setup";
 import type { ITournamentAttributes, TournamentId } from "$lib/models/tournament";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type TournamentData = ITournamentAttributes;
-type Tournament = typeof models.tournament;
+type Tournament = typeof models.Tournament;
 
 interface ITournamentRepositoryInterface<TournamentId, TournamentData> extends IBaseRepositoryInterface<TournamentId, TournamentData> {
     getByName(name: string): Promise<TournamentData | null>
@@ -12,7 +12,7 @@ interface ITournamentRepositoryInterface<TournamentId, TournamentData> extends I
 
 export class TournamentRepository implements ITournamentRepositoryInterface<TournamentId, TournamentData> {
 
-    constructor(private readonly model: Tournament = models.tournament) { }
+    constructor(private readonly model: Tournament = models.Tournament) { }
 
     async getAll(): Promise<TournamentData[]> {
         return this.model.findAll();

@@ -14,13 +14,13 @@ export type PasswordResetTokenOptionalAttributes = "created_at";
 export type PasswordResetTokenCreationAttributes = Optional<IPasswordResetTokenAttributes, PasswordResetTokenOptionalAttributes>;
 
 export class PasswordResetToken extends Model<IPasswordResetTokenAttributes, PasswordResetTokenCreationAttributes> implements IPasswordResetTokenAttributes {
-  email!: string;
-  token!: string;
-  created_at?: Date;
+  declare email: string;
+  declare token: string;
+  declare created_at?: Date;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof PasswordResetToken {
-    return PasswordResetToken.init({
+    return sequelize.define('PasswordResetToken', {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -32,7 +32,6 @@ export class PasswordResetToken extends Model<IPasswordResetTokenAttributes, Pas
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'password_reset_tokens',
       timestamps: true,
       underscored: true,
@@ -45,6 +44,6 @@ export class PasswordResetToken extends Model<IPasswordResetTokenAttributes, Pas
           ]
         },
       ]
-    });
+    }) as typeof PasswordResetToken;
   }
 }

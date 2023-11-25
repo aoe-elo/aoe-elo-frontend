@@ -18,13 +18,13 @@ export type PermissionOptionalAttributes = "created_at" | "updated_at";
 export type PermissionCreationAttributes = Optional<IPermissionAttributes, PermissionOptionalAttributes>;
 
 export class Permission extends Model<IPermissionAttributes, PermissionCreationAttributes> implements IPermissionAttributes {
-  id!: number;
-  name!: string;
-  guard_name!: string;
-  created_at?: Date;
-  updated_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare guard_name: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
 
-  // permission hasMany model_has_permission via permission_id
+  // Permission hasMany ModelHasPermission via permission_id
   model_has_permissions!: ModelHasPermission[];
   getModel_has_permissions!: Sequelize.HasManyGetAssociationsMixin<ModelHasPermission>;
   setModel_has_permissions!: Sequelize.HasManySetAssociationsMixin<ModelHasPermission, ModelHasPermissionId>;
@@ -36,7 +36,7 @@ export class Permission extends Model<IPermissionAttributes, PermissionCreationA
   hasModel_has_permission!: Sequelize.HasManyHasAssociationMixin<ModelHasPermission, ModelHasPermissionId>;
   hasModel_has_permissions!: Sequelize.HasManyHasAssociationsMixin<ModelHasPermission, ModelHasPermissionId>;
   countModel_has_permissions!: Sequelize.HasManyCountAssociationsMixin;
-  // permission hasMany role_has_permission via permission_id
+  // Permission hasMany RoleHasPermission via permission_id
   role_has_permissions!: RoleHasPermission[];
   getRole_has_permissions!: Sequelize.HasManyGetAssociationsMixin<RoleHasPermission>;
   setRole_has_permissions!: Sequelize.HasManySetAssociationsMixin<RoleHasPermission, RoleHasPermissionId>;
@@ -50,7 +50,7 @@ export class Permission extends Model<IPermissionAttributes, PermissionCreationA
   countRole_has_permissions!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Permission {
-    return Permission.init({
+    return sequelize.define('Permission', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -68,7 +68,6 @@ export class Permission extends Model<IPermissionAttributes, PermissionCreationA
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'permissions',
       timestamps: true,
       underscored: true,
@@ -82,6 +81,6 @@ export class Permission extends Model<IPermissionAttributes, PermissionCreationA
           ]
         },
       ]
-    });
+    }) as typeof Permission;
   }
 }

@@ -22,29 +22,29 @@ export type PlayerTeamOptionalAttributes = "joined_at" | "left_at" | "is_active"
 export type PlayerTeamCreationAttributes = Optional<IPlayerTeamAttributes, PlayerTeamOptionalAttributes>;
 
 export class PlayerTeam extends Model<IPlayerTeamAttributes, PlayerTeamCreationAttributes> implements IPlayerTeamAttributes {
-  id!: number;
-  joined_at?: Date;
-  left_at?: Date;
-  is_active?: number;
-  player_id!: number;
-  team_id!: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare joined_at?: Date;
+  declare left_at?: Date;
+  declare is_active?: number;
+  declare player_id: number;
+  declare team_id: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // player_team belongsTo player via player_id
+  // PlayerTeam belongsTo Player via player_id
   player!: Player;
   getPlayer!: Sequelize.BelongsToGetAssociationMixin<Player>;
   setPlayer!: Sequelize.BelongsToSetAssociationMixin<Player, PlayerId>;
   createPlayer!: Sequelize.BelongsToCreateAssociationMixin<Player>;
-  // player_team belongsTo team via team_id
+  // PlayerTeam belongsTo Team via team_id
   team!: Team;
   getTeam!: Sequelize.BelongsToGetAssociationMixin<Team>;
   setTeam!: Sequelize.BelongsToSetAssociationMixin<Team, TeamId>;
   createTeam!: Sequelize.BelongsToCreateAssociationMixin<Team>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof PlayerTeam {
-    return PlayerTeam.init({
+    return sequelize.define('PlayerTeam', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -85,7 +85,6 @@ export class PlayerTeam extends Model<IPlayerTeamAttributes, PlayerTeamCreationA
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'player_team',
       timestamps: true,
       paranoid: true,
@@ -102,6 +101,6 @@ export class PlayerTeam extends Model<IPlayerTeamAttributes, PlayerTeamCreationA
           ]
         },
       ]
-    });
+    }) as typeof PlayerTeam;
   }
 }

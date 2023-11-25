@@ -18,13 +18,13 @@ export type ArdTeamOptionalAttributes = "created_at" | "updated_at" | "deleted_a
 export type ArdTeamCreationAttributes = Optional<IArdTeamAttributes, ArdTeamOptionalAttributes>;
 
 export class ArdTeam extends Model<IArdTeamAttributes, ArdTeamCreationAttributes> implements IArdTeamAttributes {
-  id!: number;
-  name!: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare name: string;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // ard_team hasMany ard_player_ard_team via ard_team_id
+  // ArdTeam hasMany ArdPlayerArdTeam via ard_team_id
   ard_player_ard_teams!: ArdPlayerArdTeam[];
   getArd_player_ard_teams!: Sequelize.HasManyGetAssociationsMixin<ArdPlayerArdTeam>;
   setArd_player_ard_teams!: Sequelize.HasManySetAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
@@ -36,7 +36,7 @@ export class ArdTeam extends Model<IArdTeamAttributes, ArdTeamCreationAttributes
   hasArd_player_ard_team!: Sequelize.HasManyHasAssociationMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
   hasArd_player_ard_teams!: Sequelize.HasManyHasAssociationsMixin<ArdPlayerArdTeam, ArdPlayerArdTeamId>;
   countArd_player_ard_teams!: Sequelize.HasManyCountAssociationsMixin;
-  // ard_team hasMany team via aoe_reference_data_team_id
+  // ArdTeam hasMany Team via aoe_reference_data_team_id
   teams!: Team[];
   getTeams!: Sequelize.HasManyGetAssociationsMixin<Team>;
   setTeams!: Sequelize.HasManySetAssociationsMixin<Team, TeamId>;
@@ -50,7 +50,7 @@ export class ArdTeam extends Model<IArdTeamAttributes, ArdTeamCreationAttributes
   countTeams!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ArdTeam {
-    return ArdTeam.init({
+    return sequelize.define('ArdTeam', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -63,7 +63,6 @@ export class ArdTeam extends Model<IArdTeamAttributes, ArdTeamCreationAttributes
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'ard_teams',
       timestamps: true,
       paranoid: true,
@@ -77,6 +76,6 @@ export class ArdTeam extends Model<IArdTeamAttributes, ArdTeamCreationAttributes
           ]
         },
       ]
-    });
+    }) as typeof ArdTeam;
   }
 }

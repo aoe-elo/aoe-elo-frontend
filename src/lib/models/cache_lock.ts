@@ -12,13 +12,13 @@ export type CacheLockId = CacheLock[CacheLockPk];
 export type CacheLockCreationAttributes = ICacheLockAttributes;
 
 export class CacheLock extends Model<ICacheLockAttributes, CacheLockCreationAttributes> implements ICacheLockAttributes {
-  key!: string;
-  owner!: string;
-  expiration!: number;
+  declare key: string;
+  declare owner: string;
+  declare expiration: number;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof CacheLock {
-    return CacheLock.init({
+    return sequelize.define('CacheLock', {
       key: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -34,7 +34,6 @@ export class CacheLock extends Model<ICacheLockAttributes, CacheLockCreationAttr
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'cache_locks',
       timestamps: false,
       underscored: true,
@@ -47,6 +46,6 @@ export class CacheLock extends Model<ICacheLockAttributes, CacheLockCreationAttr
           ]
         },
       ]
-    });
+    }) as typeof CacheLock;
   }
 }

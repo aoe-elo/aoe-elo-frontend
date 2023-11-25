@@ -1,7 +1,7 @@
 import type * as Sequelize from 'sequelize';
 import type { Optional } from 'sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { Set as match, SetId as matchId } from './set';
+import type { Set as Match, SetId as MatchId } from './set';
 
 export interface IRatingDeltaAttributes {
   id: number;
@@ -21,24 +21,24 @@ export type RatingDeltaOptionalAttributes = "rating_delta" | "created_at" | "upd
 export type RatingDeltaCreationAttributes = Optional<IRatingDeltaAttributes, RatingDeltaOptionalAttributes>;
 
 export class RatingDelta extends Model<IRatingDeltaAttributes, RatingDeltaCreationAttributes> implements IRatingDeltaAttributes {
-  id!: number;
-  participant_id!: number;
-  participant_type!: string;
-  set_id!: number;
-  rating_delta!: number;
-  date_delta!: Date;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare participant_id: number;
+  declare participant_type: string;
+  declare set_id: number;
+  declare rating_delta: number;
+  declare date_delta: Date;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // rating_delta belongsTo set via set_id
-  match!: match;
-  getMatch!: Sequelize.BelongsToGetAssociationMixin<match>;
-  setMatch!: Sequelize.BelongsToSetAssociationMixin<match, matchId>;
-  createMatch!: Sequelize.BelongsToCreateAssociationMixin<match>;
+  // RatingDelta belongsTo Set via set_id
+  match!: Match;
+  getMatch!: Sequelize.BelongsToGetAssociationMixin<Match>;
+  setMatch!: Sequelize.BelongsToSetAssociationMixin<Match, MatchId>;
+  createMatch!: Sequelize.BelongsToCreateAssociationMixin<Match>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof RatingDelta {
-    return RatingDelta.init({
+    return sequelize.define('RatingDelta', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -74,7 +74,6 @@ export class RatingDelta extends Model<IRatingDeltaAttributes, RatingDeltaCreati
         allowNull: false
       }
     }, {
-      sequelize,
       tableName: 'rating_deltas',
       timestamps: true,
       paranoid: true,
@@ -90,6 +89,6 @@ export class RatingDelta extends Model<IRatingDeltaAttributes, RatingDeltaCreati
           ]
         },
       ]
-    });
+    }) as typeof RatingDelta;
   }
 }

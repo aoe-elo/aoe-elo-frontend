@@ -22,25 +22,25 @@ export type DiscordUserOptionalAttributes = "nickname" | "name" | "email" | "ava
 export type DiscordUserCreationAttributes = Optional<IDiscordUserAttributes, DiscordUserOptionalAttributes>;
 
 export class DiscordUser extends Model<IDiscordUserAttributes, DiscordUserCreationAttributes> implements IDiscordUserAttributes {
-  id!: number;
-  discord_id!: string;
-  nickname?: string;
-  name?: string;
-  email?: string;
-  avatar?: string;
-  user_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  declare id: number;
+  declare discord_id: string;
+  declare nickname?: string;
+  declare name?: string;
+  declare email?: string;
+  declare avatar?: string;
+  declare user_id?: number;
+  declare created_at?: Date;
+  declare updated_at?: Date;
+  declare deleted_at?: Date;
 
-  // discord_user belongsTo user via user_id
+  // DiscordUser belongsTo User via user_id
   user!: User;
   getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
   setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
   createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof DiscordUser {
-    return DiscordUser.init({
+    return sequelize.define('DiscordUser', {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -79,7 +79,6 @@ export class DiscordUser extends Model<IDiscordUserAttributes, DiscordUserCreati
         unique: true
       }
     }, {
-      sequelize,
       tableName: 'discord_users',
       timestamps: true,
       paranoid: true,
@@ -108,6 +107,6 @@ export class DiscordUser extends Model<IDiscordUserAttributes, DiscordUserCreati
           ]
         },
       ]
-    });
+    }) as typeof DiscordUser;
   }
 }

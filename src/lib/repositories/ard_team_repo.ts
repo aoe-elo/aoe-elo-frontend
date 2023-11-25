@@ -1,13 +1,13 @@
-import { models } from "$lib/sequelize";
+import { models } from "$lib/db_setup";
 import type { IArdTeamAttributes, ArdTeamId } from "$lib/models/ard_team";
 import type { ITeamRepositoryInterface } from "$lib/repositories/team_repo";
 
 type ArdTeamData = IArdTeamAttributes;
-type ArdTeam = typeof models.ard_team;
+type ArdTeam = typeof models.ArdTeam;
 
 export class ArdTeamRepository implements ITeamRepositoryInterface<ArdTeamId, ArdTeamData> {
 
-    constructor(private readonly model: ArdTeam = models.ard_team) { }
+    constructor(private readonly model: ArdTeam = models.ArdTeam) { }
 
     async getAll(): Promise<ArdTeamData[]> {
         return this.model.findAll();
