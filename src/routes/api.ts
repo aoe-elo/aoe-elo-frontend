@@ -1,20 +1,20 @@
 import { error } from '@sveltejs/kit';
-import { HIGHLIGHTED_TOURNEYS } from './data';
+import { HIGHLIGHTED_TOURNEYS } from '$lib/data';
 import { masterlist } from '$lib/data/tournaments.json';
 import type { Tournament, TournamentDetail } from "$lib/types/tournament";
-import { APP } from '$lib/bootstrap';
+import { APP } from './hooks.server';
 
 /* 
 * This is the API that the frontend uses to get data from the backend.
 *
 */
-export class api {
+export class API {
 	static async getLandingPagePlayers() {
-		return await APP.repositories.players.getAllPartiallyCached();
+		return APP.repositories.players.getAllPartiallyCached();
 	}
 
 	static async getLandingPageTournaments() {
-		return await APP.repositories.tournaments.getAllPartiallyCached();
+		return APP.repositories.tournaments.getAllPartiallyCached();
 	}
 }
 

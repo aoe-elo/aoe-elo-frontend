@@ -1,15 +1,11 @@
-import { APP } from "$lib/bootstrap";
-import type { ISetAttributes, SetId as MatchId } from "$lib/models/set";
-import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
-
-type MatchData = ISetAttributes;
-type Match = typeof APP.models.Set;
+import { type ISetAttributes as MatchData, type SetId as MatchId, Set as Match } from "$models/set";
+import type { IBaseRepositoryInterface } from "$interfaces/repository";
 
 interface IMatchRepositoryInterface<MatchId, MatchData> extends IBaseRepositoryInterface<MatchId, MatchData> { }
 
 export class MatchRepository implements IMatchRepositoryInterface<MatchId, MatchData> {
 
-    constructor(private readonly model: Match = APP.models.Set) { }
+    constructor(private readonly model: typeof Match = Match) { }
 
     async getAll(): Promise<MatchData[]> {
         return this.model.findAll();

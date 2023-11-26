@@ -1,42 +1,52 @@
-import { db_status, get_models } from "$lib/db_setup";
-// import { run_dev } from "./backend_dev";
-import { UserRepository } from "$lib/repositories/user_repo";
-// import { MetadataRepository } from "$lib/repositories/metadata_repo";
-// import { ReviewRepository } from "$lib/repositories/review_repo";
-import { TournamentRepository } from "$lib/repositories/tournament_repo";
-import { TeamRepository } from "$lib/repositories/team_repo";
-import { PlayerRepository } from "$lib/repositories/player_repo";
+import { db_status, get_database, init_models_with_db_connection } from "$lib/db_setup";
+import { UserRepository } from "$repositories/user_repo";
+// import { MetadataRepository } from "$repositories/metadata_repo";
+// import { ReviewRepository } from "$repositories/review_repo";
+import { TournamentRepository } from "$repositories/tournament_repo";
+import { TeamRepository } from "$repositories/team_repo";
+import { PlayerRepository } from "$repositories/player_repo";
 import { app_mode } from "$lib/util";
+import type { AppMode } from "$types/enums";
+import type { ModelReturnType } from "$models/init-models";
 
-function init_repositories() {
+type InitRepositoryReturnType = {
+    players: PlayerRepository;
+    teams: TeamRepository;
+    tournaments: TournamentRepository;
+    users: UserRepository;
+};
+
+function init_repositories(models: ModelReturnType): InitRepositoryReturnType {
     return {
-        players: new PlayerRepository(),
-        teams: new TeamRepository(),
-        tournaments: new TournamentRepository(),
-        users: new UserRepository()
+        players: new PlayerRepository(models.Player, models.Country),
+        teams: new TeamRepository(models.Team),
+        tournaments: new TournamentRepository(models.Tournament),
+        users: new UserRepository(models.User)
         // actionlog: new ActionlogRepository(),
         // ard_player: new ArdPlayerRepository(),
         // ard_team: new ArdTeamRepository(),
         // achievement: new AchievementRepository(),
         // review: new ReviewRepository(),
-        // metadatum: new MetadataRepository(),
+        // metadata: new MetadataRepository(),
     };
 };
 
 
-export const app_init = async () => {
+type AppInitReturnType = {
+    mode: AppMode;
+    repositories: InitRepositoryReturnType;
+};
+
+export function app_init(): AppInitReturnType {
 
     const mode = app_mode();
-    db_status(mode);
-    const models = get_models(mode);
-    const repositories = init_repositories();
-
-    // TODO!: Remove this, it's just for testing
-    // await run_dev();
+    const database = get_database(mode);
+    db_status(database);
+    const models = init_models_with_db_connection(database);
+    const repositories = init_repositories(models);
 
     return {
         mode,
-        models,
         repositories
     };
 }

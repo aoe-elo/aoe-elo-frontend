@@ -1,12 +1,14 @@
-import { APP } from "$lib/bootstrap";
+import { APP } from "./hooks.server";
 
 
 export async function run_dev() {
     // const users = await models.user.findOne();
     // console.log(users);
 
-    // const daut = await models.player.findOne({ where: { id: 1 }, include: ["country"] });
+    // const daut = await APP.repositories.players.getById(1);
     // console.log(JSON.stringify(daut, null, 2));
+
+    APP.repositories.players.getAllPaginated(0, 25).then((players) => console.log(JSON.stringify(players, null, 2)));
 
     // const all_players_cache = await models.player.findAll({ attributes: ["id", "name"] });
     // console.log(JSON.stringify(all_players_cache, null, 2));

@@ -1,6 +1,6 @@
-import type { Tourney } from '$lib/types';
+import type { Tournament } from '$types/tournament';
 
-export const HIGHLIGHTED_TOURNEYS: Tourney[] = [
+export const HIGHLIGHTED_TOURNEYS: Tournament[] = [
 	{
 		id: 546,
 		name: 'King of the Desert 5',

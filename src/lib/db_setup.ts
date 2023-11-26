@@ -1,43 +1,42 @@
 import { Sequelize } from 'sequelize';
-import { initModels, type ModelReturnType } from "$lib/models/init-models";
+import { initModels, type ModelReturnType } from "$models/init-models";
 import { match } from 'ts-pattern';
-import { AppMode } from '$lib/types/enums';
+import { AppMode } from '$types/enums';
 
-export const prod_database = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'database/database.sqlite',
-    // dialectOptions: {
-    // Your sqlite3 options here
-    // for instance, this is how you can configure the database opening mode:
-    // DEFAULT: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
-    // mode: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
-    // },
-});
+export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 
-export const dev_database = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'database/dev_database.sqlite',
-});
+    console.log("Getting database for AppMode: " + mode);
 
-export const test_database = new Sequelize('sqlite::memory:');
+    let settings;
 
-export function get_models(mode: AppMode = AppMode.DEV): ModelReturnType {
     match(mode)
         .with(AppMode.DEV, () => {
-            return init_models_with_db_connection(dev_database);
+            settings = {
+                dialect: 'sqlite',
+                storage: 'database/dev_database.sqlite',
+            };
         })
         .with(AppMode.PROD, () => {
-            return init_models_with_db_connection(prod_database);
+            settings = {
+                dialect: 'sqlite',
+                storage: 'database/database.sqlite',
+                // dialectOptions: {
+                // Your sqlite3 options here
+                // for instance, this is how you can configure the database opening mode:
+                // DEFAULT: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
+                // mode: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
+                // },
+            }
+
         })
         .with(AppMode.TEST, () => {
-            return init_models_with_db_connection(test_database);
+            settings = 'sqlite::memory:';
         })
-        .exhaustive();
 
-    return init_models_with_db_connection(dev_database);
+    return new Sequelize(settings);
 }
 
-function init_models_with_db_connection(database: Sequelize): ModelReturnType {
+export function init_models_with_db_connection(database: Sequelize): ModelReturnType {
     try {
         return initModels(database);
     } catch (error) {
@@ -46,28 +45,10 @@ function init_models_with_db_connection(database: Sequelize): ModelReturnType {
     }
 }
 
-export async function db_status(mode: AppMode = AppMode.DEV) {
-
-    let database: Sequelize = dev_database;
-
-    match(mode)
-        .with(AppMode.DEV, () => {
-            database = dev_database;
-        })
-        .with(AppMode.PROD, () => {
-            database = prod_database;
-        })
-        .with(AppMode.TEST, () => {
-            database = test_database;
-
-            // Sync all models that aren't already in the database
-            database.sync({ force: true });
-        })
-        .exhaustive();
-
+export function db_status(database: Sequelize) {
     try {
         database.authenticate().then(() => console.log("Database connection established"));
-        database.databaseVersion().then((v) => console.log(v));
+        database.databaseVersion().then((v) => console.log("Database version: " + v));
     } catch (error) {
         console.error('Unable to connect to the database:', error);
         throw error;
