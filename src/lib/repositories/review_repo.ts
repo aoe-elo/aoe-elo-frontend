@@ -1,15 +1,15 @@
-import { models } from "$lib/db_setup";
+import { APP } from "$lib/bootstrap";
 import type { IReviewAttributes, ReviewId } from "$lib/models/review";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type ReviewData = IReviewAttributes;
-type Review = typeof models.Review;
+type Review = typeof APP.models.Review;
 
 interface IReviewRepositoryInterface<ReviewId, ReviewData> extends IBaseRepositoryInterface<ReviewId, ReviewData> { }
 
 export class ReviewRepository implements IReviewRepositoryInterface<ReviewId, ReviewData> {
 
-    constructor(private readonly model: Review = models.Review) { }
+    constructor(private readonly model: Review = APP.models.Review) { }
 
     async getAll(): Promise<ReviewData[]> {
         return this.model.findAll();

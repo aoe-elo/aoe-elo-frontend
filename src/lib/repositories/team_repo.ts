@@ -1,9 +1,9 @@
-import { models } from "$lib/db_setup";
+import { APP } from "$lib/bootstrap";
 import type { ITeamAttributes, TeamId } from "$lib/models/team";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type TeamData = ITeamAttributes;
-type Team = typeof models.Team;
+type Team = typeof APP.models.Team;
 
 export interface ITeamRepositoryInterface<TeamId, TeamData> extends IBaseRepositoryInterface<TeamId, TeamData> {
     getByName(name: string): Promise<TeamData | null>;
@@ -12,7 +12,7 @@ export interface ITeamRepositoryInterface<TeamId, TeamData> extends IBaseReposit
 
 export class TeamRepository implements ITeamRepositoryInterface<TeamId, TeamData> {
 
-    constructor(private readonly model: Team = models.Team) { }
+    constructor(private readonly model: Team = APP.models.Team) { }
 
     async getAll(): Promise<TeamData[]> {
         return this.model.findAll();

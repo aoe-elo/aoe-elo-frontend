@@ -1,20 +1,20 @@
-import { models } from "$lib/db_setup";
+import { APP } from "$lib/bootstrap";
 import type { IArdPlayerAttributes, ArdPlayerId } from "$lib/models/ard_player";
 import type { IPlayerRepositoryInterface } from "$lib/repositories/player_repo";
 
 type PlayerData = IArdPlayerAttributes;
-type Player = typeof models.ArdPlayer;
+type Player = typeof APP.models.ArdPlayer;
 
 export class ArdPlayerRepository implements IPlayerRepositoryInterface<ArdPlayerId, PlayerData> {
 
-    constructor(private readonly model: Player = models.ArdPlayer) { }
+    constructor(private readonly model: Player = APP.models.ArdPlayer) { }
 
     async getAll(): Promise<PlayerData[]> {
         return this.model.findAll();
     }
 
     async getAllPaginated(offset: number, limit: number = 25): Promise<PlayerData[]> {
-        return this.model.findAll({ offset, limit, include: [{ model: models.Country, as: "country", attributes: ["name", "iso_3166_2"] }] });
+        return this.model.findAll({ offset, limit, include: [{ model: APP.models.Country, as: "country", attributes: ["name", "iso_3166_2"] }] });
     }
 
     async getAllPartiallyCached(): Promise<Partial<PlayerData[]>> {

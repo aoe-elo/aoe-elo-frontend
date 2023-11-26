@@ -1,9 +1,9 @@
-import { models } from "$lib/db_setup";
+import { APP } from "$lib/bootstrap";
 import type { ITournamentAttributes, TournamentId } from "$lib/models/tournament";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type TournamentData = ITournamentAttributes;
-type Tournament = typeof models.Tournament;
+type Tournament = typeof APP.models.Tournament;
 
 interface ITournamentRepositoryInterface<TournamentId, TournamentData> extends IBaseRepositoryInterface<TournamentId, TournamentData> {
     getByName(name: string): Promise<TournamentData | null>
@@ -12,7 +12,7 @@ interface ITournamentRepositoryInterface<TournamentId, TournamentData> extends I
 
 export class TournamentRepository implements ITournamentRepositoryInterface<TournamentId, TournamentData> {
 
-    constructor(private readonly model: Tournament = models.Tournament) { }
+    constructor(private readonly model: Tournament = APP.models.Tournament) { }
 
     async getAll(): Promise<TournamentData[]> {
         return this.model.findAll();

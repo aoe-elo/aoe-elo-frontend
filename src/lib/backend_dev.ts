@@ -1,8 +1,4 @@
-import { models } from "$lib/db_setup";
-
-import { PlayerRepository } from "$lib/repositories/player_repo";
-import { ArdPlayerRepository } from "$lib/repositories/ard_player_repo";
-import { Actionlog } from "$lib/models/actionlog";
+import { APP } from "$lib/bootstrap";
 
 
 export async function run_dev() {

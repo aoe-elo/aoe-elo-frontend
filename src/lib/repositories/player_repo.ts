@@ -1,9 +1,9 @@
-import { models } from "$lib/db_setup";
+import { APP } from "$lib/bootstrap";
 import type { IPlayerAttributes, PlayerId } from "$lib/models/player";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type PlayerData = IPlayerAttributes;
-type Player = typeof models.Player;
+type Player = typeof APP.models.Player;
 
 export interface IPlayerRepositoryInterface<PlayerId, PlayerData> extends IBaseRepositoryInterface<PlayerId, PlayerData> {
     getByName(name: string): Promise<PlayerData | null>;
@@ -12,14 +12,14 @@ export interface IPlayerRepositoryInterface<PlayerId, PlayerData> extends IBaseR
 
 export class PlayerRepository implements IPlayerRepositoryInterface<PlayerId, PlayerData> {
 
-    constructor(private readonly model: Player = models.Player) { }
+    constructor(private readonly model: Player = APP.models.Player) { }
 
     async getAll(): Promise<PlayerData[]> {
         return this.model.findAll();
     }
 
     async getAllPaginated(offset: number, limit: number = 25): Promise<PlayerData[]> {
-        return this.model.findAll({ offset, limit, include: [{ model: models.Country, as: "country", attributes: ["name", "iso_3166_2"] }] });
+        return this.model.findAll({ offset, limit, include: [{ model: APP.models.Country, as: "country", attributes: ["name", "iso_3166_2"] }] });
     }
 
     async getAllPartiallyCached(): Promise<Partial<PlayerData[]>> {

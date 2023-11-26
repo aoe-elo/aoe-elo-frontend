@@ -1,9 +1,9 @@
-import { models } from "$lib/db_setup";
+import { APP } from "$lib/bootstrap";
 import type { IUserAttributes, UserId } from "$lib/models/user";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type UserData = IUserAttributes;
-type User = typeof models.User;
+type User = typeof APP.models.User;
 
 interface IUserRepositoryInterface<UserId, UserData> extends IBaseRepositoryInterface<UserId, UserData> {
     getByName(name: string): Promise<UserData | null>
@@ -12,7 +12,7 @@ interface IUserRepositoryInterface<UserId, UserData> extends IBaseRepositoryInte
 
 export class UserRepository implements IUserRepositoryInterface<UserId, UserData> {
 
-    constructor(private readonly model: User = models.User) { }
+    constructor(private readonly model: User = APP.models.User) { }
 
     async getAll(): Promise<UserData[]> {
         return this.model.findAll();

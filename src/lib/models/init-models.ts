@@ -273,7 +273,63 @@ export type {
   UserCreationAttributes,
 };
 
-export function initModels(sequelize: Sequelize) {
+export type ModelReturnType = {
+  Achievable: typeof _Achievable;
+  Achievement: typeof _Achievement;
+  Actionlog: typeof _Actionlog;
+  Action: typeof _Action;
+  ArdPlayerArdTeam: typeof _ArdPlayerArdTeam;
+  ArdPlayer: typeof _ArdPlayer;
+  ArdTeam: typeof _ArdTeam;
+  AtpCategory: typeof _AtpCategory;
+  Cache: typeof _Cache;
+  CacheLock: typeof _CacheLock;
+  CacheMostVisited: typeof _CacheMostVisited;
+  Country: typeof _Country;
+  DiscordUser: typeof _DiscordUser;
+  Elo1V1Cache: typeof _Elo1V1Cache;
+  ExternDeCache: typeof _ExternDeCache;
+  ExternVooblyCache: typeof _ExternVooblyCache;
+  ExternVooblyPlayerCache: typeof _ExternVooblyPlayerCache;
+  FailedJob: typeof _FailedJob;
+  GithubUser: typeof _GithubUser;
+  Job: typeof _Job;
+  LocationLocationStyle: typeof _LocationLocationStyle;
+  LocationSetInfo: typeof _LocationSetInfo;
+  LocationStyle: typeof _LocationStyle;
+  Location: typeof _Location;
+  MetaCache: typeof _MetaCache;
+  Metadatum: typeof _Metadatum;
+  Migrationlog: typeof _Migrationlog;
+  ModelHasPermission: typeof _ModelHasPermission;
+  ModelHasRole: typeof _ModelHasRole;
+  News: typeof _News;
+  PasswordResetToken: typeof _PasswordResetToken;
+  Permission: typeof _Permission;
+  PersonalAccessToken: typeof _PersonalAccessToken;
+  PlayerTeam: typeof _PlayerTeam;
+  Player: typeof _Player;
+  RatingCheckpoint: typeof _RatingCheckpoint;
+  RatingDelta: typeof _RatingDelta;
+  Review: typeof _Review;
+  RoleHasPermission: typeof _RoleHasPermission;
+  Role: typeof _Role;
+  Session: typeof _Session;
+  SetInfo: typeof _SetInfo;
+  Set: typeof _Set;
+  StageTournamentTemplate: typeof _StageTournamentTemplate;
+  Stageable: typeof _Stageable;
+  Stage: typeof _Stage;
+  SteamUser: typeof _SteamUser;
+  Team: typeof _Team;
+  Telemetry: typeof _Telemetry;
+  TournamentResult: typeof _TournamentResult;
+  Tournament: typeof _Tournament;
+  TwitchUser: typeof _TwitchUser;
+  User: typeof _User;
+};
+
+export function initModels(sequelize: Sequelize): ModelReturnType {
   const Achievable = _Achievable.initModel(sequelize);
   const Achievement = _Achievement.initModel(sequelize);
   const Actionlog = _Actionlog.initModel(sequelize);

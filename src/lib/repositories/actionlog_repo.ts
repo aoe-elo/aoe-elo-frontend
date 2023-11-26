@@ -1,15 +1,15 @@
-import { models } from "$lib/db_setup";
+import { APP } from "$lib/bootstrap";
 import type { IActionlogAttributes, ActionlogId } from "$lib/models/actionlog";
 import type { IBaseRepositoryInterface } from "$lib/interfaces/repository";
 
 type ActionlogData = IActionlogAttributes;
-type Actionlog = typeof models.Actionlog;
+type Actionlog = typeof APP.models.Actionlog;
 
 interface IActionlogRepositoryInterface<ActionlogId, ActionlogData> extends IBaseRepositoryInterface<ActionlogId, ActionlogData> { }
 
 export class ActionlogRepository implements IActionlogRepositoryInterface<ActionlogId, ActionlogData> {
 
-    constructor(private readonly model: Actionlog = models.Actionlog) { }
+    constructor(private readonly model: Actionlog = APP.models.Actionlog) { }
 
     async getAll(): Promise<ActionlogData[]> {
         return this.model.findAll();
