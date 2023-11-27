@@ -1,14 +1,14 @@
 import { db_status, get_database } from "$lib/db_setup";
-import { UserRepository } from "$repositories/user_repo";
+import { app_mode } from "$lib/util";
+import type { ModelReturnType } from "$models/init-models.model";
+import { ActionlogRepository } from "$repositories/actionlog_repo";
+import { PlayerRepository } from "$repositories/player_repo";
+import { TeamRepository } from "$repositories/team_repo";
 // import { MetadataRepository } from "$repositories/metadata_repo";
 // import { ReviewRepository } from "$repositories/review_repo";
 import { TournamentRepository } from "$repositories/tournament_repo";
-import { TeamRepository } from "$repositories/team_repo";
-import { PlayerRepository } from "$repositories/player_repo";
-import { app_mode } from "$lib/util";
+import { UserRepository } from "$repositories/user_repo";
 import type { AppMode } from "$types/enums";
-import type { ModelReturnType } from "$models/init-models.model";
-import { ActionlogRepository } from "$repositories/actionlog_repo";
 import type { Sequelize } from "sequelize-typescript";
 
 type InitRepositoryReturnType = {

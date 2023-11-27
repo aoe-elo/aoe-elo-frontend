@@ -1,20 +1,20 @@
 import type { Optional } from "sequelize";
-import Country from "./country.model";
 import {
+	AllowNull,
 	AutoIncrement,
-	Table,
+	BelongsTo,
 	Column,
+	CreatedAt,
+	DataType,
+	DeletedAt,
+	ForeignKey,
 	Model,
 	PrimaryKey,
+	Table,
 	Unique,
-	AllowNull,
-	DataType,
-	BelongsTo,
-	ForeignKey,
-	DeletedAt,
 	UpdatedAt,
-	CreatedAt,
 } from "sequelize-typescript";
+import Country from "./country.model";
 
 export interface IUserAttributes {
 	id: number;

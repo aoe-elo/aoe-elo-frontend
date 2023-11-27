@@ -1,8 +1,8 @@
 import type * as Sequelize from "sequelize";
 import type { Optional } from "sequelize";
 import { DataTypes, Model } from "sequelize";
-import type { LocationStyle, LocationStyleId } from "./location_style.model";
 import type { Location, LocationId } from "./location.model";
+import type { LocationStyle, LocationStyleId } from "./location_style.model";
 
 export interface ILocationLocationStyleAttributes {
 	id: number;

@@ -1,5 +1,5 @@
-import type { SetId as MatchId, Set as Match } from "$models/set.model";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
+import type { Set as Match, SetId as MatchId } from "$models/set.model";
 
 type IMatchRepositoryInterface<MatchId, MatchData> = IBaseRepositoryInterface<
 	MatchId,

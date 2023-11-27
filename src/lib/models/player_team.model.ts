@@ -1,20 +1,20 @@
 import type { Optional } from "sequelize";
+import {
+	AllowNull,
+	AutoIncrement,
+	Column,
+	CreatedAt,
+	DataType,
+	Default,
+	DeletedAt,
+	ForeignKey,
+	Model,
+	PrimaryKey,
+	Table,
+	UpdatedAt,
+} from "sequelize-typescript";
 import Player from "./player.model";
 import Team from "./team.model";
-import {
-	AutoIncrement,
-	Table,
-	Column,
-	Model,
-	Default,
-	PrimaryKey,
-	AllowNull,
-	DataType,
-	ForeignKey,
-	DeletedAt,
-	UpdatedAt,
-	CreatedAt,
-} from "sequelize-typescript";
 
 export interface IPlayerTeamAttributes {
 	id: number;

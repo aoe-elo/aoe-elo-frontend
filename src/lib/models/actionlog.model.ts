@@ -1,7 +1,7 @@
+import { uppercaseFirst } from "$lib/util";
 import type * as Sequelize from "sequelize";
 import type { Optional } from "sequelize";
 import { DataTypes, Model } from "sequelize";
-import { uppercaseFirst } from "$lib/util";
 import type { Action, ActionId } from "./action.model";
 import type { User, UserId } from "./user.model";
 

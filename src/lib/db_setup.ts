@@ -1,7 +1,7 @@
+import { AppMode } from "$types/enums";
 import { Sequelize } from "sequelize-typescript";
 // import { initModels, type ModelReturnType } from "$models/init-models";
 import { match } from "ts-pattern";
-import { AppMode } from "$types/enums";
 import { model_match } from "./util";
 
 export function get_database(mode: AppMode = AppMode.DEV): Sequelize {

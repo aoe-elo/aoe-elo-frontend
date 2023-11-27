@@ -1,21 +1,21 @@
 import type { Optional } from "sequelize";
-import ArdPlayerArdTeam from "./ard_player_ard_team.model";
-import Team from "./team.model";
-import ArdPlayer from "./ard_player.model";
 import {
+	AllowNull,
 	AutoIncrement,
+	BelongsTo,
 	BelongsToMany,
-	Table,
 	Column,
+	CreatedAt,
+	DataType,
+	DeletedAt,
 	Model,
 	PrimaryKey,
-	AllowNull,
-	DataType,
-	BelongsTo,
-	DeletedAt,
+	Table,
 	UpdatedAt,
-	CreatedAt,
 } from "sequelize-typescript";
+import ArdPlayer from "./ard_player.model";
+import ArdPlayerArdTeam from "./ard_player_ard_team.model";
+import Team from "./team.model";
 
 export interface IArdTeamAttributes {
 	id: number;

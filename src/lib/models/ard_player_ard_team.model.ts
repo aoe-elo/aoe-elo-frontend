@@ -1,21 +1,21 @@
 import type { Optional } from "sequelize";
+import {
+	AllowNull,
+	AutoIncrement,
+	Column,
+	CreatedAt,
+	DataType,
+	Default,
+	DeletedAt,
+	ForeignKey,
+	Model,
+	PrimaryKey,
+	Table,
+	Unique,
+	UpdatedAt,
+} from "sequelize-typescript";
 import ArdPlayer from "./ard_player.model";
 import ArdTeam from "./ard_team.model";
-import {
-	AutoIncrement,
-	Table,
-	Column,
-	Model,
-	Default,
-	PrimaryKey,
-	Unique,
-	AllowNull,
-	DataType,
-	ForeignKey,
-	DeletedAt,
-	UpdatedAt,
-	CreatedAt,
-} from "sequelize-typescript";
 
 export interface IArdPlayerArdTeamAttributes {
 	id: number;

@@ -1,5 +1,5 @@
-import type { Handle } from "@sveltejs/kit";
 import { app_init } from "$lib/bootstrap";
+import type { Handle } from "@sveltejs/kit";
 import { run_dev } from "./backend_dev";
 
 export const handle: Handle = async ({ event, resolve }) => {

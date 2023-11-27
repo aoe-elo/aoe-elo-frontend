@@ -1,20 +1,20 @@
 import type { Optional } from "sequelize";
-import AtpCategory from "./atp_category.model";
 import {
-	AutoIncrement,
-	Table,
-	Column,
-	Model,
-	Default,
-	PrimaryKey,
-	Unique,
 	AllowNull,
-	DataType,
-	ForeignKey,
-	DeletedAt,
-	UpdatedAt,
+	AutoIncrement,
+	Column,
 	CreatedAt,
+	DataType,
+	Default,
+	DeletedAt,
+	ForeignKey,
+	Model,
+	PrimaryKey,
+	Table,
+	Unique,
+	UpdatedAt,
 } from "sequelize-typescript";
+import AtpCategory from "./atp_category.model";
 
 export interface ITournamentAttributes {
 	id: number;

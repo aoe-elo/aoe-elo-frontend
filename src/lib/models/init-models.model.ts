@@ -3,98 +3,103 @@ import { match } from "ts-pattern";
 
 import { Achievable as _Achievable } from "./achievable.model";
 import type {
-	IAchievableAttributes,
 	AchievableCreationAttributes,
+	IAchievableAttributes,
 } from "./achievable.model";
 import { Achievement as _Achievement } from "./achievement.model";
 import type {
-	IAchievementAttributes,
 	AchievementCreationAttributes,
+	IAchievementAttributes,
 } from "./achievement.model";
-import { Actionlog as _Actionlog } from "./actionlog.model";
-import type {
-	IActionlogAttributes,
-	ActionlogCreationAttributes,
-} from "./actionlog.model";
 import { Action as _Action } from "./action.model";
 import type {
-	IActionAttributes,
 	ActionCreationAttributes,
+	IActionAttributes,
 } from "./action.model";
-import { ArdPlayerArdTeam as _ArdPlayerArdTeam } from "./ard_player_ard_team.model";
+import { Actionlog as _Actionlog } from "./actionlog.model";
 import type {
-	IArdPlayerArdTeamAttributes,
-	ArdPlayerArdTeamCreationAttributes,
-} from "./ard_player_ard_team.model";
+	ActionlogCreationAttributes,
+	IActionlogAttributes,
+} from "./actionlog.model";
 import { ArdPlayer as _ArdPlayer } from "./ard_player.model";
 import type {
-	IArdPlayerAttributes,
 	ArdPlayerCreationAttributes,
+	IArdPlayerAttributes,
 } from "./ard_player.model";
+import { ArdPlayerArdTeam as _ArdPlayerArdTeam } from "./ard_player_ard_team.model";
+import type {
+	ArdPlayerArdTeamCreationAttributes,
+	IArdPlayerArdTeamAttributes,
+} from "./ard_player_ard_team.model";
 import { ArdTeam as _ArdTeam } from "./ard_team.model";
 import type {
-	IArdTeamAttributes,
 	ArdTeamCreationAttributes,
+	IArdTeamAttributes,
 } from "./ard_team.model";
 import { AtpCategory as _AtpCategory } from "./atp_category.model";
 import type {
-	IAtpCategoryAttributes,
 	AtpCategoryCreationAttributes,
+	IAtpCategoryAttributes,
 } from "./atp_category.model";
 import { Cache as _Cache } from "./cache.model";
-import type { ICacheAttributes, CacheCreationAttributes } from "./cache.model";
+import type { CacheCreationAttributes, ICacheAttributes } from "./cache.model";
 import { CacheLock as _CacheLock } from "./cache_lock.model";
 import type {
-	ICacheLockAttributes,
 	CacheLockCreationAttributes,
+	ICacheLockAttributes,
 } from "./cache_lock.model";
 import { CacheMostVisited as _CacheMostVisited } from "./cache_most_visited.model";
 import type {
-	ICacheMostVisitedAttributes,
 	CacheMostVisitedCreationAttributes,
+	ICacheMostVisitedAttributes,
 } from "./cache_most_visited.model";
 import { Country as _Country } from "./country.model";
 import type {
-	ICountryAttributes,
 	CountryCreationAttributes,
+	ICountryAttributes,
 } from "./country.model";
 import { DiscordUser as _DiscordUser } from "./discord_user.model";
 import type {
-	IDiscordUserAttributes,
 	DiscordUserCreationAttributes,
+	IDiscordUserAttributes,
 } from "./discord_user.model";
 import { Elo1V1Cache as _Elo1V1Cache } from "./elo_1v1_cache.model";
 import type {
-	IElo1V1CacheAttributes,
 	Elo1V1CacheCreationAttributes,
+	IElo1V1CacheAttributes,
 } from "./elo_1v1_cache.model";
 import { ExternDeCache as _ExternDeCache } from "./extern_de_cache.model";
 import type {
-	IExternDeCacheAttributes,
 	ExternDeCacheCreationAttributes,
+	IExternDeCacheAttributes,
 } from "./extern_de_cache.model";
 import { ExternVooblyCache as _ExternVooblyCache } from "./extern_voobly_cache.model";
 import type {
-	IExternVooblyCacheAttributes,
 	ExternVooblyCacheCreationAttributes,
+	IExternVooblyCacheAttributes,
 } from "./extern_voobly_cache.model";
 import { ExternVooblyPlayerCache as _ExternVooblyPlayerCache } from "./extern_voobly_player_cache.model";
 import type {
-	IExternVooblyPlayerCacheAttributes,
 	ExternVooblyPlayerCacheCreationAttributes,
+	IExternVooblyPlayerCacheAttributes,
 } from "./extern_voobly_player_cache.model";
 import { FailedJob as _FailedJob } from "./failed_job.model";
 import type {
-	IFailedJobAttributes,
 	FailedJobCreationAttributes,
+	IFailedJobAttributes,
 } from "./failed_job.model";
 import { GithubUser as _GithubUser } from "./github_user.model";
 import type {
-	IGithubUserAttributes,
 	GithubUserCreationAttributes,
+	IGithubUserAttributes,
 } from "./github_user.model";
 import { Job as _Job } from "./job.model";
 import type { IJobAttributes, JobCreationAttributes } from "./job.model";
+import { Location as _Location } from "./location.model";
+import type {
+	ILocationAttributes,
+	LocationCreationAttributes,
+} from "./location.model";
 import { LocationLocationStyle as _LocationLocationStyle } from "./location_location_style.model";
 import type {
 	ILocationLocationStyleAttributes,
@@ -110,11 +115,6 @@ import type {
 	ILocationStyleAttributes,
 	LocationStyleCreationAttributes,
 } from "./location_style.model";
-import { Location as _Location } from "./location.model";
-import type {
-	ILocationAttributes,
-	LocationCreationAttributes,
-} from "./location.model";
 import { MetaCache as _MetaCache } from "./meta_cache.model";
 import type {
 	IMetaCacheAttributes,
@@ -157,16 +157,16 @@ import type {
 	IPersonalAccessTokenAttributes,
 	PersonalAccessTokenCreationAttributes,
 } from "./personal_access_token.model";
-import { PlayerTeam as _PlayerTeam } from "./player_team.model";
-import type {
-	IPlayerTeamAttributes,
-	PlayerTeamCreationAttributes,
-} from "./player_team.model";
 import { Player as _Player } from "./player.model";
 import type {
 	IPlayerAttributes,
 	PlayerCreationAttributes,
 } from "./player.model";
+import { PlayerTeam as _PlayerTeam } from "./player_team.model";
+import type {
+	IPlayerTeamAttributes,
+	PlayerTeamCreationAttributes,
+} from "./player_team.model";
 import { RatingCheckpoint as _RatingCheckpoint } from "./rating_checkpoint.model";
 import type {
 	IRatingCheckpointAttributes,
@@ -182,25 +182,27 @@ import type {
 	IReviewAttributes,
 	ReviewCreationAttributes,
 } from "./review.model";
+import { Role as _Role } from "./role.model";
+import type { IRoleAttributes, RoleCreationAttributes } from "./role.model";
 import { RoleHasPermission as _RoleHasPermission } from "./role_has_permission.model";
 import type {
 	IRoleHasPermissionAttributes,
 	RoleHasPermissionCreationAttributes,
 } from "./role_has_permission.model";
-import { Role as _Role } from "./role.model";
-import type { IRoleAttributes, RoleCreationAttributes } from "./role.model";
 import { Session as _Session } from "./session.model";
 import type {
 	ISessionAttributes,
 	SessionCreationAttributes,
 } from "./session.model";
+import { Set as _Set } from "./set.model";
+import type { ISetAttributes, SetCreationAttributes } from "./set.model";
 import { SetInfo as _SetInfo } from "./set_info.model";
 import type {
 	ISetInfoAttributes,
 	SetInfoCreationAttributes,
 } from "./set_info.model";
-import { Set as _Set } from "./set.model";
-import type { ISetAttributes, SetCreationAttributes } from "./set.model";
+import { Stage as _Stage } from "./stage.model";
+import type { IStageAttributes, StageCreationAttributes } from "./stage.model";
 import { StageTournamentTemplate as _StageTournamentTemplate } from "./stage_tournament_template.model";
 import type {
 	IStageTournamentTemplateAttributes,
@@ -211,8 +213,6 @@ import type {
 	IStageableAttributes,
 	StageableCreationAttributes,
 } from "./stageable.model";
-import { Stage as _Stage } from "./stage.model";
-import type { IStageAttributes, StageCreationAttributes } from "./stage.model";
 import { SteamUser as _SteamUser } from "./steam_user.model";
 import type {
 	ISteamUserAttributes,
@@ -225,16 +225,16 @@ import type {
 	ITelemetryAttributes,
 	TelemetryCreationAttributes,
 } from "./telemetry.model";
-import { TournamentResult as _TournamentResult } from "./tournament_result.model";
-import type {
-	ITournamentResultAttributes,
-	TournamentResultCreationAttributes,
-} from "./tournament_result.model";
 import { Tournament as _Tournament } from "./tournament.model";
 import type {
 	ITournamentAttributes,
 	TournamentCreationAttributes,
 } from "./tournament.model";
+import { TournamentResult as _TournamentResult } from "./tournament_result.model";
+import type {
+	ITournamentResultAttributes,
+	TournamentResultCreationAttributes,
+} from "./tournament_result.model";
 import { TwitchUser as _TwitchUser } from "./twitch_user.model";
 import type {
 	ITwitchUserAttributes,

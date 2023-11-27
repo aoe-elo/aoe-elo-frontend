@@ -1,5 +1,5 @@
-import type { TeamId, Team } from "$models/team.model";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
+import type { Team, TeamId } from "$models/team.model";
 
 export interface ITeamRepositoryInterface<TeamId, TeamData>
 	extends IBaseRepositoryInterface<TeamId, TeamData> {

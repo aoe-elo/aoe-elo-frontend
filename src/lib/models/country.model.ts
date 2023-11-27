@@ -1,19 +1,19 @@
 import type { Optional } from "sequelize";
+import {
+	AllowNull,
+	AutoIncrement,
+	Column,
+	DataType,
+	Default,
+	HasMany,
+	Model,
+	PrimaryKey,
+	Table,
+} from "sequelize-typescript";
 import ArdPlayer from "./ard_player.model";
 import Player from "./player.model";
 import Team from "./team.model";
 import User from "./user.model";
-import {
-	AutoIncrement,
-	Table,
-	Column,
-	Model,
-	Default,
-	PrimaryKey,
-	AllowNull,
-	DataType,
-	HasMany,
-} from "sequelize-typescript";
 
 export interface ICountryAttributes {
 	id: number;

@@ -1,7 +1,7 @@
-import { error } from "@sveltejs/kit";
 import { HIGHLIGHTED_TOURNEYS } from "$lib/data";
 import { masterlist } from "$lib/data/tournaments.json";
 import type { Tournament, TournamentDetail } from "$lib/types/tournament";
+import { error } from "@sveltejs/kit";
 import { APP } from "./hooks.server";
 
 /*

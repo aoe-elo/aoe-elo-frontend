@@ -1,19 +1,19 @@
 import type { Optional } from "sequelize";
-import Tournament from "./tournament.model";
 import {
-	AutoIncrement,
-	Table,
-	Column,
-	Model,
-	Default,
-	PrimaryKey,
-	Unique,
 	AllowNull,
-	DataType,
-	HasMany,
-	UpdatedAt,
+	AutoIncrement,
+	Column,
 	CreatedAt,
+	DataType,
+	Default,
+	HasMany,
+	Model,
+	PrimaryKey,
+	Table,
+	Unique,
+	UpdatedAt,
 } from "sequelize-typescript";
+import Tournament from "./tournament.model";
 
 export interface IAtpCategoryAttributes {
 	id: number;

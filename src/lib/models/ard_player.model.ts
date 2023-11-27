@@ -1,25 +1,25 @@
 import type { Optional } from "sequelize";
+import {
+	AllowNull,
+	AutoIncrement,
+	BelongsTo,
+	BelongsToMany,
+	Column,
+	CreatedAt,
+	DataType,
+	DeletedAt,
+	ForeignKey,
+	HasOne,
+	Model,
+	PrimaryKey,
+	Table,
+	Unique,
+	UpdatedAt,
+} from "sequelize-typescript";
 import ArdPlayerArdTeam from "./ard_player_ard_team.model";
 import ArdTeam from "./ard_team.model";
 import Country from "./country.model";
 import Player from "./player.model";
-import {
-	AutoIncrement,
-	Table,
-	Column,
-	Model,
-	PrimaryKey,
-	Unique,
-	AllowNull,
-	DataType,
-	BelongsTo,
-	ForeignKey,
-	DeletedAt,
-	UpdatedAt,
-	CreatedAt,
-	HasOne,
-	BelongsToMany,
-} from "sequelize-typescript";
 
 export interface IArdPlayerAttributes {
 	id: number;
