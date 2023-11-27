@@ -1,5 +1,6 @@
-import type { ArdPlayerId, ArdPlayer } from "$models/ard_player";
-import type { Country } from "$models/country";
+import type { ArdPlayerId, } from "$models/ard_player.model";
+import type ArdPlayer from "$models/ard_player.model";
+import type Country from "$models/country.model";
 import type { IPlayerRepositoryInterface } from "$repositories/player_repo";
 
 

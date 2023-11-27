@@ -6,6 +6,10 @@ export const uppercaseFirst = (str: string) => {
     return `${str[0].toUpperCase()}${str.substring(1)}`;
 };
 
+export const model_match = (filename: string, member: string) => {
+    return filename.substring(0, filename.indexOf('.model')).replaceAll('_', '') === member.toLowerCase();
+}
+
 export const app_mode = (): AppMode => {
     const mode_string: string = DotEnv().parsed?.APP_MODE ?? "dev";
 

@@ -1,6 +1,6 @@
-import type { PlayerId, Player } from "$models/player";
+import type { PlayerId, Player } from "$models/player.model";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Country } from "$models/country";
+import type { Country } from "$models/country.model";
 
 export interface IPlayerRepositoryInterface<PlayerId, PlayerData> extends IBaseRepositoryInterface<PlayerId, PlayerData> {
     getByName(name: string): Promise<PlayerData | null>;

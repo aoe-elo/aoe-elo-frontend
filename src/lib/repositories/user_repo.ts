@@ -1,5 +1,7 @@
-import type { UserId, User } from "$models/user";
+import type { UserId } from "$models/user.model";
+import User from "$models/user.model";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
+import type { Repository, Sequelize } from "sequelize-typescript";
 
 interface IUserRepositoryInterface<UserId, UserData> extends IBaseRepositoryInterface<UserId, UserData> {
     getByName(name: string): Promise<UserData | null>
@@ -7,27 +9,30 @@ interface IUserRepositoryInterface<UserId, UserData> extends IBaseRepositoryInte
 }
 
 export class UserRepository implements IUserRepositoryInterface<UserId, User> {
+    private readonly user: Repository<User>;
 
-    constructor(private readonly model: typeof User) { }
+    constructor(connection: Sequelize) {
+        this.user = connection.getRepository(User);
+    }
 
     async getAll(): Promise<User[]> {
-        return this.model.findAll();
+        return this.user.findAll();
     }
 
     async getAllPaginated(offset: number, limit: number = 25): Promise<User[]> {
-        return this.model.findAll({ offset, limit });
+        return this.user.findAll({ offset, limit });
     }
 
     async getAllPartiallyCached(): Promise<Partial<User[]>> {
-        return this.model.findAll({ attributes: ["id", "name"] })
+        return this.user.findAll({ attributes: ["id", "name"] })
     }
 
     async getById(id: UserId): Promise<User | null> {
-        return this.model.findByPk(id);
+        return this.user.findByPk(id);
     }
 
     async getByName(name: string): Promise<User | null> {
-        return this.model.findOne({ where: { name: name } });
+        return this.user.findOne({ where: { name: name } });
     }
 
     async create(details: Partial<User>, actionlog_user_id: number, actionlog_summary: string): Promise<UserId> {

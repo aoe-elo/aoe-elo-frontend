@@ -1,4 +1,4 @@
-import { db_status, get_database, init_models_with_db_connection } from "$lib/db_setup";
+import { db_status, get_database } from "$lib/db_setup";
 import { UserRepository } from "$repositories/user_repo";
 // import { MetadataRepository } from "$repositories/metadata_repo";
 // import { ReviewRepository } from "$repositories/review_repo";
@@ -7,22 +7,25 @@ import { TeamRepository } from "$repositories/team_repo";
 import { PlayerRepository } from "$repositories/player_repo";
 import { app_mode } from "$lib/util";
 import type { AppMode } from "$types/enums";
-import type { ModelReturnType } from "$models/init-models";
+import type { ModelReturnType } from "$models/init-models.model";
+import { ActionlogRepository } from "$repositories/actionlog_repo";
+import type { Sequelize } from "sequelize-typescript";
 
 type InitRepositoryReturnType = {
-    players: PlayerRepository;
-    teams: TeamRepository;
-    tournaments: TournamentRepository;
+    // actionlog: ActionlogRepository;
+    // players: PlayerRepository;
+    // teams: TeamRepository;
+    // tournaments: TournamentRepository;
     users: UserRepository;
 };
 
-function init_repositories(models: ModelReturnType): InitRepositoryReturnType {
+function init_repositories(connection: Sequelize): InitRepositoryReturnType {
     return {
-        players: new PlayerRepository(models.Player, models.Country),
-        teams: new TeamRepository(models.Team),
-        tournaments: new TournamentRepository(models.Tournament),
-        users: new UserRepository(models.User)
-        // actionlog: new ActionlogRepository(),
+        users: new UserRepository(connection)
+        // actionlog: new ActionlogRepository(db),
+        // players: new PlayerRepository(db, db),
+        // teams: new TeamRepository(db),
+        // tournaments: new TournamentRepository(db),
         // ard_player: new ArdPlayerRepository(),
         // ard_team: new ArdTeamRepository(),
         // achievement: new AchievementRepository(),
@@ -40,10 +43,9 @@ type AppInitReturnType = {
 export function app_init(): AppInitReturnType {
 
     const mode = app_mode();
-    const database = get_database(mode);
-    db_status(database);
-    const models = init_models_with_db_connection(database);
-    const repositories = init_repositories(models);
+    const connection = get_database(mode);
+    db_status(connection);
+    const repositories = init_repositories(connection);
 
     return {
         mode,

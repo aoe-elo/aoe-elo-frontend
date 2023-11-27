@@ -1,4 +1,4 @@
-import type { TournamentId, Tournament } from "$models/tournament";
+import type { TournamentId, Tournament } from "$models/tournament.model";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 
 interface ITournamentRepositoryInterface<TournamentId, TournamentData> extends IBaseRepositoryInterface<TournamentId, TournamentData> {

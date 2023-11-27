@@ -1,7 +1,8 @@
-import { Sequelize } from 'sequelize';
-import { initModels, type ModelReturnType } from "$models/init-models";
+import { Sequelize } from 'sequelize-typescript';
+// import { initModels, type ModelReturnType } from "$models/init-models";
 import { match } from 'ts-pattern';
 import { AppMode } from '$types/enums';
+import { model_match } from './util';
 
 export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 
@@ -14,12 +15,22 @@ export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
             settings = {
                 dialect: 'sqlite',
                 storage: 'database/dev_database.sqlite',
+                repositoryMode: true,
+                models: [__dirname + '/models/*.model.ts'],
+                modelMatch: (filename: string, member: string) => {
+                    model_match(filename, member);
+                },
             };
         })
         .with(AppMode.PROD, () => {
             settings = {
                 dialect: 'sqlite',
                 storage: 'database/database.sqlite',
+                repositoryMode: true,
+                models: [__dirname + '/models/*.model.ts'],
+                modelMatch: (filename: string, member: string) => {
+                    model_match(filename, member);
+                },
                 // dialectOptions: {
                 // Your sqlite3 options here
                 // for instance, this is how you can configure the database opening mode:
@@ -30,20 +41,27 @@ export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 
         })
         .with(AppMode.TEST, () => {
-            settings = 'sqlite::memory:';
+            settings = {
+                storage: 'sqlite::memory:',
+                repositoryMode: true,
+                models: [__dirname + '/models/*.model.ts'],
+                modelMatch: (filename: string, member: string) => {
+                    model_match(filename, member);
+                },
+            }
         })
 
     return new Sequelize(settings);
 }
 
-export function init_models_with_db_connection(database: Sequelize): ModelReturnType {
-    try {
-        return initModels(database);
-    } catch (error) {
-        console.error('Unable to initialize models:', error);
-        throw error;
-    }
-}
+// export function init_models_with_db_connection(database: Sequelize): ModelReturnType {
+//     try {
+//         return initModels(database);
+//     } catch (error) {
+//         console.error('Unable to initialize models:', error);
+//         throw error;
+//     }
+// }
 
 export function db_status(database: Sequelize) {
     try {

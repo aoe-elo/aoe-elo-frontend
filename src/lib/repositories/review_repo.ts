@@ -1,4 +1,4 @@
-import type { ReviewId, Review } from "$models/review";
+import type { ReviewId, Review } from "$models/review.model";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 
 interface IReviewRepositoryInterface<ReviewId, ReviewData> extends IBaseRepositoryInterface<ReviewId, ReviewData> { }

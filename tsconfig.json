@@ -10,9 +10,11 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"target": "ESNext",
+		"target": "ESNext", // TODO!: maybe es6 is needed for sequelize-typescript
 		"module": "ESNext",
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//

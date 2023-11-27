@@ -1,18 +1,20 @@
-import { type ActionlogId, Actionlog } from "$models/actionlog";
+import type { ActionlogId, Actionlog } from "$models/actionlog.model";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
+import type { Action } from "$models/action.model";
+import type User from "$models/user.model";
 
 interface IActionlogRepositoryInterface<ActionlogId, ActionlogData> extends IBaseRepositoryInterface<ActionlogId, ActionlogData> { }
 
 export class ActionlogRepository implements IActionlogRepositoryInterface<ActionlogId, Actionlog> {
 
-    constructor(private readonly model: typeof Actionlog) { }
+    constructor(private readonly model: typeof Actionlog, private readonly action: typeof Action, private readonly user: typeof User) { }
 
     async getAll(): Promise<Actionlog[]> {
         return this.model.findAll();
     }
 
     async getAllPaginated(offset: number, limit: number = 25): Promise<Actionlog[]> {
-        return this.model.findAll({ offset, limit });
+        return this.model.findAll({ offset, limit, include: [{ model: this.action, as: 'action', attributes: ["name", "description"] }, { model: this.user, as: 'user', attributes: ["id", "name"] }] });
     }
 
     async getById(id: ActionlogId): Promise<Actionlog | null> {

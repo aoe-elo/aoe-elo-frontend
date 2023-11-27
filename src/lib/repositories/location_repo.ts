@@ -1,4 +1,4 @@
-import type { LocationId, Location } from "$models/location";
+import type { LocationId, Location } from "$models/location.model";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 
 interface ILocationRepositoryInterface<LocationId, LocationData> extends IBaseRepositoryInterface<LocationId, LocationData> {

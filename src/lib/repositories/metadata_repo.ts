@@ -1,4 +1,4 @@
-import type { MetadatumId, Metadatum } from "$models/metadatum";
+import type { MetadatumId, Metadatum } from "$models/metadatum.model";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 
 interface IMetadataRepositoryInterface<MetadatumId, ReviewData> extends IBaseRepositoryInterface<MetadatumId, ReviewData> { }
