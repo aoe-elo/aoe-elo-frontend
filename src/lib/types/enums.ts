@@ -1,5 +1,5 @@
 export enum AppMode {
-    DEV = "development",
-    PROD = "production",
-    TEST = "test"
+	DEV = "development",
+	PROD = "production",
+	TEST = "test",
 }

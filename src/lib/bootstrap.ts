@@ -12,43 +12,41 @@ import { ActionlogRepository } from "$repositories/actionlog_repo";
 import type { Sequelize } from "sequelize-typescript";
 
 type InitRepositoryReturnType = {
-    // actionlog: ActionlogRepository;
-    // players: PlayerRepository;
-    // teams: TeamRepository;
-    // tournaments: TournamentRepository;
-    users: UserRepository;
+	// actionlog: ActionlogRepository;
+	// players: PlayerRepository;
+	// teams: TeamRepository;
+	// tournaments: TournamentRepository;
+	users: UserRepository;
 };
 
 function init_repositories(connection: Sequelize): InitRepositoryReturnType {
-    return {
-        users: new UserRepository(connection)
-        // actionlog: new ActionlogRepository(db),
-        // players: new PlayerRepository(db, db),
-        // teams: new TeamRepository(db),
-        // tournaments: new TournamentRepository(db),
-        // ard_player: new ArdPlayerRepository(),
-        // ard_team: new ArdTeamRepository(),
-        // achievement: new AchievementRepository(),
-        // review: new ReviewRepository(),
-        // metadata: new MetadataRepository(),
-    };
-};
-
+	return {
+		users: new UserRepository(connection),
+		// actionlog: new ActionlogRepository(db),
+		// players: new PlayerRepository(db, db),
+		// teams: new TeamRepository(db),
+		// tournaments: new TournamentRepository(db),
+		// ard_player: new ArdPlayerRepository(),
+		// ard_team: new ArdTeamRepository(),
+		// achievement: new AchievementRepository(),
+		// review: new ReviewRepository(),
+		// metadata: new MetadataRepository(),
+	};
+}
 
 type AppInitReturnType = {
-    mode: AppMode;
-    repositories: InitRepositoryReturnType;
+	mode: AppMode;
+	repositories: InitRepositoryReturnType;
 };
 
 export function app_init(): AppInitReturnType {
+	const mode = app_mode();
+	const connection = get_database(mode);
+	db_status(connection);
+	const repositories = init_repositories(connection);
 
-    const mode = app_mode();
-    const connection = get_database(mode);
-    db_status(connection);
-    const repositories = init_repositories(connection);
-
-    return {
-        mode,
-        repositories
-    };
+	return {
+		mode,
+		repositories,
+	};
 }

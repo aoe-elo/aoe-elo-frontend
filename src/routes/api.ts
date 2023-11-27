@@ -1,13 +1,13 @@
-import { error } from '@sveltejs/kit';
-import { HIGHLIGHTED_TOURNEYS } from '$lib/data';
-import { masterlist } from '$lib/data/tournaments.json';
+import { error } from "@sveltejs/kit";
+import { HIGHLIGHTED_TOURNEYS } from "$lib/data";
+import { masterlist } from "$lib/data/tournaments.json";
 import type { Tournament, TournamentDetail } from "$lib/types/tournament";
-import { APP } from './hooks.server';
+import { APP } from "./hooks.server";
 
-/* 
-* This is the API that the frontend uses to get data from the backend.
-*
-*/
+/*
+ * This is the API that the frontend uses to get data from the backend.
+ *
+ */
 export class API {
 	static async getLandingPagePlayers() {
 		return APP.repositories.players.getAllPartiallyCached();
@@ -17,7 +17,6 @@ export class API {
 		return APP.repositories.tournaments.getAllPartiallyCached();
 	}
 }
-
 
 const getTournament = async () => {
 	const response: Tournament = await getAllTournaments();
@@ -33,7 +32,7 @@ function adaptTournament(release: Tournament): TournamentDetail {
 		short: release.short,
 		start: release.start,
 		end: release.end,
-		prizemoney: release.prizemoney
+		prizemoney: release.prizemoney,
 	};
 }
 
@@ -44,11 +43,11 @@ export default {
 	},
 	getMasterList: () => {
 		return masterlist;
-	}
+	},
 };
 
 async function getAllTournaments() {
-	const res = await fetch('./tournaments.json');
+	const res = await fetch("./tournaments.json");
 	const allTournaments: Tournament[] = await res.json();
 
 	return { allTournaments };
