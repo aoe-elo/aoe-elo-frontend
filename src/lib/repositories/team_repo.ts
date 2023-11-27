@@ -1,4 +1,4 @@
-import { type ITeamAttributes, type TeamId, Team } from "$models/team";
+import type { TeamId, Team } from "$models/team";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 
 export interface ITeamRepositoryInterface<TeamId, TeamData> extends IBaseRepositoryInterface<TeamId, TeamData> {
@@ -6,35 +6,35 @@ export interface ITeamRepositoryInterface<TeamId, TeamData> extends IBaseReposit
     getAllPartiallyCached(): Promise<Partial<TeamData[]>>;
 }
 
-export class TeamRepository implements ITeamRepositoryInterface<TeamId, ITeamAttributes> {
+export class TeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
 
-    constructor(private readonly model: typeof Team = Team) { }
+    constructor(private readonly model: typeof Team) { }
 
-    async getAll(): Promise<ITeamAttributes[]> {
+    async getAll(): Promise<Team[]> {
         return this.model.findAll();
     }
 
-    async getAllPaginated(offset: number, limit: number = 25): Promise<ITeamAttributes[]> {
+    async getAllPaginated(offset: number, limit: number = 25): Promise<Team[]> {
         return this.model.findAll({ offset, limit });
     }
 
-    async getAllPartiallyCached(): Promise<Partial<ITeamAttributes[]>> {
+    async getAllPartiallyCached(): Promise<Partial<Team[]>> {
         return this.model.findAll({ attributes: ["id", "name"] })
     }
 
-    async getById(id: TeamId): Promise<ITeamAttributes | null> {
+    async getById(id: TeamId): Promise<Team | null> {
         return this.model.findByPk(id);
     }
 
-    async getByName(name: string): Promise<ITeamAttributes | null> {
+    async getByName(name: string): Promise<Team | null> {
         return this.model.findOne({ where: { name } });
     }
 
-    async create(details: Partial<ITeamAttributes>, actionlog_user_id: number, actionlog_summary: string): Promise<TeamId> {
+    async create(details: Partial<Team>, actionlog_user_id: number, actionlog_summary: string): Promise<TeamId> {
         throw new Error("Method not implemented.");
     }
 
-    async update(id: TeamId, new_details: Partial<ITeamAttributes>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: TeamId, new_details: Partial<Team>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
     async delete(team_id: TeamId, user_id: number, actionlog_summary: string): Promise<boolean> {
@@ -42,35 +42,35 @@ export class TeamRepository implements ITeamRepositoryInterface<TeamId, ITeamAtt
     }
 }
 
-export class MockTeamRepository implements ITeamRepositoryInterface<TeamId, ITeamAttributes> {
+export class MockTeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
 
     constructor(/* empty */) { }
 
-    async getAll(): Promise<ITeamAttributes[]> {
-        return [{ id: 1, name: "Test", country_id: 123 } as ITeamAttributes, { id: 2, name: "Test2", country_id: 123 } as ITeamAttributes];
+    async getAll(): Promise<Team[]> {
+        return [{ id: 1, name: "Test", country_id: 123 } as Team, { id: 2, name: "Test2", country_id: 123 } as Team];
     }
 
-    async getAllPaginated(offset: number, limit: number = 25): Promise<ITeamAttributes[]> {
+    async getAllPaginated(offset: number, limit: number = 25): Promise<Team[]> {
         throw new Error("Method not implemented.");
     }
 
-    async getAllPartiallyCached(): Promise<ITeamAttributes[]> {
-        return [{ id: 1, name: "Test", country_id: 123 } as ITeamAttributes, { id: 2, name: "Test2", country_id: 123 } as ITeamAttributes];
+    async getAllPartiallyCached(): Promise<Team[]> {
+        return [{ id: 1, name: "Test", country_id: 123 } as Team, { id: 2, name: "Test2", country_id: 123 } as Team];
     }
 
-    async getById(id: TeamId): Promise<ITeamAttributes | null> {
-        return { id: id, name: "Test", country_id: 123 } as ITeamAttributes;
+    async getById(id: TeamId): Promise<Team | null> {
+        return { id: id, name: "Test", country_id: 123 } as Team;
     }
 
-    async getByName(name: string): Promise<ITeamAttributes | null> {
-        return { id: 1, name: name, country_id: 123 } as ITeamAttributes;
+    async getByName(name: string): Promise<Team | null> {
+        return { id: 1, name: name, country_id: 123 } as Team;
     }
 
-    async create(details: Partial<ITeamAttributes>, actionlog_user_id: number, actionlog_summary: string): Promise<TeamId> {
+    async create(details: Partial<Team>, actionlog_user_id: number, actionlog_summary: string): Promise<TeamId> {
         return Promise.resolve(1);
     }
 
-    async update(id: TeamId, new_details: Partial<ITeamAttributes>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: TeamId, new_details: Partial<Team>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(false);
     }
 

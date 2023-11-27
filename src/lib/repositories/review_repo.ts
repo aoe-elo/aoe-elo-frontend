@@ -1,29 +1,29 @@
-import { type IReviewAttributes, type ReviewId, Review } from "$models/review";
+import type { ReviewId, Review } from "$models/review";
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 
 interface IReviewRepositoryInterface<ReviewId, ReviewData> extends IBaseRepositoryInterface<ReviewId, ReviewData> { }
 
-export class ReviewRepository implements IReviewRepositoryInterface<ReviewId, IReviewAttributes> {
+export class ReviewRepository implements IReviewRepositoryInterface<ReviewId, Review> {
 
-    constructor(private readonly model: typeof Review = Review) { }
+    constructor(private readonly model: typeof Review) { }
 
-    async getAll(): Promise<IReviewAttributes[]> {
+    async getAll(): Promise<Review[]> {
         return this.model.findAll();
     }
 
-    async getAllPaginated(offset: number, limit: number = 25): Promise<IReviewAttributes[]> {
+    async getAllPaginated(offset: number, limit: number = 25): Promise<Review[]> {
         return this.model.findAll({ offset, limit });
     }
 
-    async getById(id: ReviewId): Promise<IReviewAttributes | null> {
+    async getById(id: ReviewId): Promise<Review | null> {
         return this.model.findByPk(id);
     }
 
-    async create(details: Partial<IReviewAttributes>, actionlog_user_id: number, actionlog_summary: string): Promise<ReviewId> {
+    async create(details: Partial<Review>, actionlog_user_id: number, actionlog_summary: string): Promise<ReviewId> {
         throw new Error("Method not implemented.");
     }
 
-    async update(id: ReviewId, new_details: Partial<IReviewAttributes>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: ReviewId, new_details: Partial<Review>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
     async delete(id: ReviewId, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
@@ -31,27 +31,27 @@ export class ReviewRepository implements IReviewRepositoryInterface<ReviewId, IR
     }
 }
 
-export class MockMatchRepository implements IReviewRepositoryInterface<ReviewId, IReviewAttributes> {
+export class MockMatchRepository implements IReviewRepositoryInterface<ReviewId, Review> {
 
     constructor(/* empty */) { }
 
-    async getAll(): Promise<IReviewAttributes[]> {
+    async getAll(): Promise<Review[]> {
         throw new Error("Method not implemented.");
     }
 
-    async getAllPaginated(offset: number, limit: number = 25): Promise<IReviewAttributes[]> {
+    async getAllPaginated(offset: number, limit: number = 25): Promise<Review[]> {
         throw new Error("Method not implemented.");
     }
 
-    async getById(id: ReviewId): Promise<IReviewAttributes | null> {
+    async getById(id: ReviewId): Promise<Review | null> {
         throw new Error("Method not implemented.");
     }
 
-    async create(details: Partial<IReviewAttributes>, actionlog_user_id: number, actionlog_summary: string): Promise<ReviewId> {
+    async create(details: Partial<Review>, actionlog_user_id: number, actionlog_summary: string): Promise<ReviewId> {
         return Promise.resolve(1);
     }
 
-    async update(id: ReviewId, new_details: Partial<IReviewAttributes>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
+    async update(id: ReviewId, new_details: Partial<Review>, actionlog_user_id: number, actionlog_summary: string): Promise<boolean> {
         return Promise.resolve(false);
     }
 
