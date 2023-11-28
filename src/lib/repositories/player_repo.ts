@@ -21,11 +21,11 @@ export class PlayerRepository
 		this.country = connection.getRepository(Country);
 	}
 
-	async getAll(): Promise<Player[]> {
+	getAll(): Promise<Player[]> {
 		return this.player.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Player[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Player[]> {
 		return this.player.findAll({
 			offset,
 			limit,
@@ -39,11 +39,11 @@ export class PlayerRepository
 		});
 	}
 
-	async getAllPartiallyCached(): Promise<Partial<Player[]>> {
+	getAllPartiallyCached(): Promise<Partial<Player[]>> {
 		return this.player.findAll({ attributes: ["id", "name"] });
 	}
 
-	async getById(id: PlayerId): Promise<Player | null> {
+	getById(id: PlayerId): Promise<Player | null> {
 		return this.player.findByPk(id, {
 			include: [
 				{
@@ -55,11 +55,11 @@ export class PlayerRepository
 		});
 	}
 
-	async getByName(name: string): Promise<Player | null> {
+	getByName(name: string): Promise<Player | null> {
 		return this.player.findOne({ where: { name: name } });
 	}
 
-	async create(
+	create(
 		details: Partial<Player>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -67,7 +67,7 @@ export class PlayerRepository
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: PlayerId,
 		new_details: Partial<Player>,
 		actionlog_user_id: number,
@@ -75,7 +75,7 @@ export class PlayerRepository
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: PlayerId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -89,33 +89,33 @@ export class MockPlayerRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<Player[]> {
+	getAll(): Promise<Player[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as Player,
 			{ id: 2, name: "Test2", country_id: 123 } as Player,
 		];
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Player[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Player[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPartiallyCached(): Promise<Player[]> {
+	getAllPartiallyCached(): Promise<Player[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as Player,
 			{ id: 2, name: "Test2", country_id: 123 } as Player,
 		];
 	}
 
-	async getById(id: PlayerId): Promise<Player | null> {
+	getById(id: PlayerId): Promise<Player | null> {
 		return { id: id, name: "Test", country_id: 123 } as Player;
 	}
 
-	async getByName(name: string): Promise<Player | null> {
+	getByName(name: string): Promise<Player | null> {
 		return { id: 1, name: name, country_id: 123 } as Player;
 	}
 
-	async create(
+	create(
 		details: Partial<Player>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -123,7 +123,7 @@ export class MockPlayerRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: PlayerId,
 		new_details: Partial<Player>,
 		actionlog_user_id: number,
@@ -132,7 +132,7 @@ export class MockPlayerRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: PlayerId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

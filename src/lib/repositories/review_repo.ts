@@ -9,19 +9,19 @@ export class ReviewRepository
 {
 	constructor(private readonly model: typeof Review) {}
 
-	async getAll(): Promise<Review[]> {
+	getAll(): Promise<Review[]> {
 		return this.model.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Review[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Review[]> {
 		return this.model.findAll({ offset, limit });
 	}
 
-	async getById(id: ReviewId): Promise<Review | null> {
+	getById(id: ReviewId): Promise<Review | null> {
 		return this.model.findByPk(id);
 	}
 
-	async create(
+	create(
 		details: Partial<Review>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -29,7 +29,7 @@ export class ReviewRepository
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: ReviewId,
 		new_details: Partial<Review>,
 		actionlog_user_id: number,
@@ -37,7 +37,7 @@ export class ReviewRepository
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: ReviewId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -51,19 +51,19 @@ export class MockMatchRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<Review[]> {
+	getAll(): Promise<Review[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Review[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Review[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getById(id: ReviewId): Promise<Review | null> {
+	getById(id: ReviewId): Promise<Review | null> {
 		throw new Error("Method not implemented.");
 	}
 
-	async create(
+	create(
 		details: Partial<Review>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -71,7 +71,7 @@ export class MockMatchRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: ReviewId,
 		new_details: Partial<Review>,
 		actionlog_user_id: number,
@@ -80,7 +80,7 @@ export class MockMatchRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: ReviewId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

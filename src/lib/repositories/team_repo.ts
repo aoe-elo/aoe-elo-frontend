@@ -19,27 +19,27 @@ export class TeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
 		this.player = connection.getRepository(Player);
 	}
 
-	async getAll(): Promise<Team[]> {
+	getAll(): Promise<Team[]> {
 		return this.team.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Team[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Team[]> {
 		return this.team.findAll({ offset, limit });
 	}
 
-	async getAllPartiallyCached(): Promise<Partial<Team[]>> {
+	getAllPartiallyCached(): Promise<Partial<Team[]>> {
 		return this.team.findAll({ attributes: ["id", "name"] });
 	}
 
-	async getById(id: TeamId): Promise<Team | null> {
+	getById(id: TeamId): Promise<Team | null> {
 		return this.team.findByPk(id, { include: [this.player] });
 	}
 
-	async getByName(name: string): Promise<Team | null> {
+	getByName(name: string): Promise<Team | null> {
 		return this.team.findOne({ where: { name } });
 	}
 
-	async create(
+	create(
 		details: Partial<Team>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -47,7 +47,7 @@ export class TeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: TeamId,
 		new_details: Partial<Team>,
 		actionlog_user_id: number,
@@ -55,7 +55,7 @@ export class TeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		team_id: TeamId,
 		user_id: number,
 		actionlog_summary: string,
@@ -69,33 +69,33 @@ export class MockTeamRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<Team[]> {
+	getAll(): Promise<Team[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as Team,
 			{ id: 2, name: "Test2", country_id: 123 } as Team,
 		];
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Team[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Team[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPartiallyCached(): Promise<Team[]> {
+	getAllPartiallyCached(): Promise<Team[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as Team,
 			{ id: 2, name: "Test2", country_id: 123 } as Team,
 		];
 	}
 
-	async getById(id: TeamId): Promise<Team | null> {
+	getById(id: TeamId): Promise<Team | null> {
 		return { id: id, name: "Test", country_id: 123 } as Team;
 	}
 
-	async getByName(name: string): Promise<Team | null> {
+	getByName(name: string): Promise<Team | null> {
 		return { id: 1, name: name, country_id: 123 } as Team;
 	}
 
-	async create(
+	create(
 		details: Partial<Team>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -103,7 +103,7 @@ export class MockTeamRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: TeamId,
 		new_details: Partial<Team>,
 		actionlog_user_id: number,
@@ -112,7 +112,7 @@ export class MockTeamRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: TeamId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

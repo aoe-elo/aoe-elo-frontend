@@ -16,27 +16,27 @@ export class UserRepository implements IUserRepositoryInterface<UserId, User> {
 		this.user = connection.getRepository(User);
 	}
 
-	async getAll(): Promise<User[]> {
+	getAll(): Promise<User[]> {
 		return this.user.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<User[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<User[]> {
 		return this.user.findAll({ offset, limit });
 	}
 
-	async getAllPartiallyCached(): Promise<Partial<User[]>> {
+	getAllPartiallyCached(): Promise<Partial<User[]>> {
 		return this.user.findAll({ attributes: ["id", "name"] });
 	}
 
-	async getById(id: UserId): Promise<User | null> {
+	getById(id: UserId): Promise<User | null> {
 		return this.user.findByPk(id);
 	}
 
-	async getByName(name: string): Promise<User | null> {
+	getByName(name: string): Promise<User | null> {
 		return this.user.findOne({ where: { name: name } });
 	}
 
-	async create(
+	create(
 		details: Partial<User>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -44,7 +44,7 @@ export class UserRepository implements IUserRepositoryInterface<UserId, User> {
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: UserId,
 		new_user_details: Partial<User>,
 		actionlog_user_id: number,
@@ -52,7 +52,7 @@ export class UserRepository implements IUserRepositoryInterface<UserId, User> {
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: UserId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -66,33 +66,33 @@ export class MockUserRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<User[]> {
+	getAll(): Promise<User[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as User,
 			{ id: 2, name: "Test2", country_id: 123 } as User,
 		];
 	}
 
-	async getAllPaginated(): Promise<User[]> {
+	getAllPaginated(): Promise<User[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPartiallyCached(): Promise<User[]> {
+	getAllPartiallyCached(): Promise<User[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as User,
 			{ id: 2, name: "Test2", country_id: 123 } as User,
 		];
 	}
 
-	async getById(id: UserId): Promise<User | null> {
+	getById(id: UserId): Promise<User | null> {
 		return { id: id, name: "Test", country_id: 123 } as User;
 	}
 
-	async getByName(name: string): Promise<User | null> {
+	getByName(name: string): Promise<User | null> {
 		return { id: 1, name: name, country_id: 123 } as User;
 	}
 
-	async create(
+	create(
 		details: Partial<User>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -100,7 +100,7 @@ export class MockUserRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: UserId,
 		new_details: Partial<User>,
 		actionlog_user_id: number,
@@ -109,7 +109,7 @@ export class MockUserRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: UserId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

@@ -15,11 +15,11 @@ export class ActionlogRepository
 		private readonly user: typeof User,
 	) {}
 
-	async getAll(): Promise<Actionlog[]> {
+	getAll(): Promise<Actionlog[]> {
 		return this.model.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Actionlog[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Actionlog[]> {
 		return this.model.findAll({
 			offset,
 			limit,
@@ -34,11 +34,11 @@ export class ActionlogRepository
 		});
 	}
 
-	async getById(id: ActionlogId): Promise<Actionlog | null> {
+	getById(id: ActionlogId): Promise<Actionlog | null> {
 		return this.model.findByPk(id);
 	}
 
-	async create(
+	create(
 		details: Partial<Actionlog>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -46,7 +46,7 @@ export class ActionlogRepository
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: ActionlogId,
 		new_details: Partial<Actionlog>,
 		actionlog_user_id: number,
@@ -54,7 +54,7 @@ export class ActionlogRepository
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: ActionlogId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -68,19 +68,19 @@ export class MockActionlogRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<Actionlog[]> {
+	getAll(): Promise<Actionlog[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Actionlog[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Actionlog[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getById(id: ActionlogId): Promise<Actionlog | null> {
+	getById(id: ActionlogId): Promise<Actionlog | null> {
 		throw new Error("Method not implemented.");
 	}
 
-	async create(
+	create(
 		details: Partial<Actionlog>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -88,7 +88,7 @@ export class MockActionlogRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: ActionlogId,
 		new_details: Partial<Actionlog>,
 		actionlog_user_id: number,
@@ -97,7 +97,7 @@ export class MockActionlogRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: ActionlogId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

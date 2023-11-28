@@ -7,27 +7,27 @@ export class ArdTeamRepository
 {
 	constructor(private readonly model: typeof ArdTeam) {}
 
-	async getAll(): Promise<ArdTeam[]> {
+	getAll(): Promise<ArdTeam[]> {
 		return this.model.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<ArdTeam[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<ArdTeam[]> {
 		return this.model.findAll({ offset, limit });
 	}
 
-	async getAllPartiallyCached(): Promise<Partial<ArdTeam[]>> {
+	getAllPartiallyCached(): Promise<Partial<ArdTeam[]>> {
 		return this.model.findAll({ attributes: ["id", "name"] });
 	}
 
-	async getById(id: ArdTeamId): Promise<ArdTeam | null> {
+	getById(id: ArdTeamId): Promise<ArdTeam | null> {
 		return this.model.findByPk(id);
 	}
 
-	async getByName(name: string): Promise<ArdTeam | null> {
+	getByName(name: string): Promise<ArdTeam | null> {
 		return this.model.findOne({ where: { name } });
 	}
 
-	async create(
+	create(
 		details: Partial<ArdTeam>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -35,7 +35,7 @@ export class ArdTeamRepository
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: ArdTeamId,
 		new_details: Partial<ArdTeam>,
 		actionlog_user_id: number,
@@ -43,7 +43,7 @@ export class ArdTeamRepository
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: ArdTeamId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -57,33 +57,33 @@ export class MockArdTeamRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<ArdTeam[]> {
+	getAll(): Promise<ArdTeam[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as ArdTeam,
 			{ id: 2, name: "Test2", country_id: 123 } as ArdTeam,
 		];
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<ArdTeam[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<ArdTeam[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPartiallyCached(): Promise<ArdTeam[]> {
+	getAllPartiallyCached(): Promise<ArdTeam[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as ArdTeam,
 			{ id: 2, name: "Test2", country_id: 123 } as ArdTeam,
 		];
 	}
 
-	async getById(id: ArdTeamId): Promise<ArdTeam | null> {
+	getById(id: ArdTeamId): Promise<ArdTeam | null> {
 		return { id: id, name: "Test", country_id: 123 } as ArdTeam;
 	}
 
-	async getByName(name: string): Promise<ArdTeam | null> {
+	getByName(name: string): Promise<ArdTeam | null> {
 		return { id: 1, name: name, country_id: 123 } as ArdTeam;
 	}
 
-	async create(
+	create(
 		details: Partial<ArdTeam>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -91,7 +91,7 @@ export class MockArdTeamRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: ArdTeamId,
 		new_details: Partial<ArdTeam>,
 		actionlog_user_id: number,
@@ -100,7 +100,7 @@ export class MockArdTeamRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: ArdTeamId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

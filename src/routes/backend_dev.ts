@@ -3,8 +3,8 @@ import { APP } from "./hooks.server";
 export async function run_dev() {
 	// const players = (await APP.repositories.players.getAllPaginated(0, 5)).forEach((player) => player.getCountry().then((country) => console.log(JSON.stringify(country, null, 2))));
 
-	const team = await APP.repositories.teams.getById(5);
-	console.log(JSON.stringify(team, null, 2));
+	const data = await APP.repositories.tournaments.getHighlighted(10000, 5);
+	console.log(JSON.stringify(data, null, 2));
 
 	// const actions = await models.actionlog.findAll({ group: ["loggable_type"], attributes: ["loggable_type"] });
 	// const actions = await models.actionlog.findAll({ include: ["action"], limit: 2, offset: 1523 });

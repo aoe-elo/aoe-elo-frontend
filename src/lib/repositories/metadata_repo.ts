@@ -9,19 +9,19 @@ export class MetadataRepository
 {
 	constructor(private readonly model: typeof Metadatum) {}
 
-	async getAll(): Promise<Metadatum[]> {
+	getAll(): Promise<Metadatum[]> {
 		return this.model.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Metadatum[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Metadatum[]> {
 		return this.model.findAll({ offset, limit });
 	}
 
-	async getById(id: MetadatumId): Promise<Metadatum | null> {
+	getById(id: MetadatumId): Promise<Metadatum | null> {
 		return this.model.findByPk(id);
 	}
 
-	async create(
+	create(
 		details: Partial<Metadatum>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -29,7 +29,7 @@ export class MetadataRepository
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: MetadatumId,
 		new_details: Partial<Metadatum>,
 		actionlog_user_id: number,
@@ -37,7 +37,7 @@ export class MetadataRepository
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: MetadatumId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -51,19 +51,19 @@ export class MockMetadataRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<Metadatum[]> {
+	getAll(): Promise<Metadatum[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Metadatum[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Metadatum[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getById(id: MetadatumId): Promise<Metadatum | null> {
+	getById(id: MetadatumId): Promise<Metadatum | null> {
 		throw new Error("Method not implemented.");
 	}
 
-	async create(
+	create(
 		details: Partial<Metadatum>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -71,7 +71,7 @@ export class MockMetadataRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: MetadatumId,
 		new_details: Partial<Metadatum>,
 		actionlog_user_id: number,
@@ -80,7 +80,7 @@ export class MockMetadataRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: MetadatumId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

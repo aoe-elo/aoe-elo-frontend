@@ -11,19 +11,19 @@ export class MatchRepository
 {
 	constructor(private readonly model: typeof Match) {}
 
-	async getAll(): Promise<Match[]> {
+	getAll(): Promise<Match[]> {
 		return this.model.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Match[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Match[]> {
 		return this.model.findAll({ offset, limit });
 	}
 
-	async getById(id: MatchId): Promise<Match | null> {
+	getById(id: MatchId): Promise<Match | null> {
 		return this.model.findByPk(id);
 	}
 
-	async create(
+	create(
 		details: Partial<Match>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -31,7 +31,7 @@ export class MatchRepository
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: MatchId,
 		new_details: Partial<Match>,
 		actionlog_user_id: number,
@@ -39,7 +39,7 @@ export class MatchRepository
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: MatchId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -53,19 +53,19 @@ export class MockMatchRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<Match[]> {
+	getAll(): Promise<Match[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Match[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Match[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getById(id: MatchId): Promise<Match | null> {
+	getById(id: MatchId): Promise<Match | null> {
 		throw new Error("Method not implemented.");
 	}
 
-	async create(
+	create(
 		details: Partial<Match>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -73,7 +73,7 @@ export class MockMatchRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: MatchId,
 		new_details: Partial<Match>,
 		actionlog_user_id: number,
@@ -82,7 +82,7 @@ export class MockMatchRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: MatchId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

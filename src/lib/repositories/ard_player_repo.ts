@@ -11,11 +11,11 @@ export class ArdPlayerRepository
 		private readonly country: typeof Country,
 	) {}
 
-	async getAll(): Promise<ArdPlayer[]> {
+	getAll(): Promise<ArdPlayer[]> {
 		return this.model.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<ArdPlayer[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<ArdPlayer[]> {
 		return this.model.findAll({
 			offset,
 			limit,
@@ -29,19 +29,19 @@ export class ArdPlayerRepository
 		});
 	}
 
-	async getAllPartiallyCached(): Promise<Partial<ArdPlayer[]>> {
+	getAllPartiallyCached(): Promise<Partial<ArdPlayer[]>> {
 		return this.model.findAll({ attributes: ["id", "name"] });
 	}
 
-	async getById(id: ArdPlayerId): Promise<ArdPlayer | null> {
+	getById(id: ArdPlayerId): Promise<ArdPlayer | null> {
 		return this.model.findByPk(id);
 	}
 
-	async getByName(name: string): Promise<ArdPlayer | null> {
+	getByName(name: string): Promise<ArdPlayer | null> {
 		return this.model.findOne({ where: { name: name } });
 	}
 
-	async create(
+	create(
 		details: Partial<ArdPlayer>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -49,7 +49,7 @@ export class ArdPlayerRepository
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: ArdPlayerId,
 		new_details: Partial<ArdPlayer>,
 		actionlog_user_id: number,
@@ -57,7 +57,7 @@ export class ArdPlayerRepository
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: ArdPlayerId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -71,33 +71,33 @@ export class MockArdPlayerRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<ArdPlayer[]> {
+	getAll(): Promise<ArdPlayer[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as ArdPlayer,
 			{ id: 2, name: "Test2", country_id: 123 } as ArdPlayer,
 		];
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<ArdPlayer[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<ArdPlayer[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPartiallyCached(): Promise<ArdPlayer[]> {
+	getAllPartiallyCached(): Promise<ArdPlayer[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as ArdPlayer,
 			{ id: 2, name: "Test2", country_id: 123 } as ArdPlayer,
 		];
 	}
 
-	async getById(id: ArdPlayerId): Promise<ArdPlayer | null> {
+	getById(id: ArdPlayerId): Promise<ArdPlayer | null> {
 		return { id: id, name: "Test", country_id: 123 } as ArdPlayer;
 	}
 
-	async getByName(name: string): Promise<ArdPlayer | null> {
+	getByName(name: string): Promise<ArdPlayer | null> {
 		return { id: 1, name: name, country_id: 123 } as ArdPlayer;
 	}
 
-	async create(
+	create(
 		details: Partial<ArdPlayer>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -105,7 +105,7 @@ export class MockArdPlayerRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: ArdPlayerId,
 		new_details: Partial<ArdPlayer>,
 		actionlog_user_id: number,
@@ -114,7 +114,7 @@ export class MockArdPlayerRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: ArdPlayerId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

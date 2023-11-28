@@ -1,5 +1,6 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 import { Tournament, type TournamentId } from "$models/tournament.model";
+import { Op } from "sequelize";
 import type { Repository, Sequelize } from "sequelize-typescript";
 
 interface ITournamentRepositoryInterface<TournamentId, TournamentData>
@@ -17,27 +18,35 @@ export class TournamentRepository
 		this.tournament = connection.getRepository(Tournament);
 	}
 
-	async getAll(): Promise<Tournament[]> {
+	getAll(): Promise<Tournament[]> {
 		return this.tournament.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Tournament[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Tournament[]> {
 		return this.tournament.findAll({ offset, limit });
 	}
 
-	async getAllPartiallyCached(): Promise<Partial<Tournament[]>> {
+	getAllPartiallyCached(): Promise<Partial<Tournament[]>> {
 		return this.tournament.findAll({ attributes: ["id", "name"] });
 	}
 
-	async getById(id: TournamentId): Promise<Tournament | null> {
+	getById(id: TournamentId): Promise<Tournament | null> {
 		return this.tournament.findByPk(id);
 	}
 
-	async getByName(name: string): Promise<Tournament | null> {
+	getHighlighted(prize_pool_min: number, limit = 5): Promise<Tournament[]> {
+		return this.tournament.findAll({
+			order: [["started_at", "DESC"]],
+			limit: limit,
+			where: { prize_pool: { [Op.gte]: prize_pool_min } },
+		});
+	}
+
+	getByName(name: string): Promise<Tournament | null> {
 		return this.tournament.findOne({ where: { name } });
 	}
 
-	async create(
+	create(
 		details: Partial<Tournament>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -45,7 +54,7 @@ export class TournamentRepository
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: TournamentId,
 		new_details: Partial<Tournament>,
 		actionlog_user_id: number,
@@ -53,7 +62,7 @@ export class TournamentRepository
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: TournamentId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -67,27 +76,27 @@ export class MockTournamentRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<Tournament[]> {
+	getAll(): Promise<Tournament[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Tournament[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Tournament[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPartiallyCached(): Promise<Tournament[]> {
+	getAllPartiallyCached(): Promise<Tournament[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getById(id: TournamentId): Promise<Tournament | null> {
+	getById(id: TournamentId): Promise<Tournament | null> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getByName(name: string): Promise<Tournament | null> {
+	getByName(name: string): Promise<Tournament | null> {
 		throw new Error("Method not implemented.");
 	}
 
-	async create(
+	create(
 		details: Partial<Tournament>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -95,7 +104,7 @@ export class MockTournamentRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: TournamentId,
 		new_details: Partial<Tournament>,
 		actionlog_user_id: number,
@@ -104,7 +113,7 @@ export class MockTournamentRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: TournamentId,
 		actionlog_user_id: number,
 		actionlog_summary: string,

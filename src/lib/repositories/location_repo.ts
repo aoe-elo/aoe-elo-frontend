@@ -11,27 +11,27 @@ export class LocationRepository
 {
 	constructor(private readonly model: typeof Location) {}
 
-	async getAll(): Promise<Location[]> {
+	getAll(): Promise<Location[]> {
 		return this.model.findAll();
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Location[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Location[]> {
 		return this.model.findAll({ offset, limit });
 	}
 
-	async getAllPartiallyCached(): Promise<Partial<Location[]>> {
+	getAllPartiallyCached(): Promise<Partial<Location[]>> {
 		return this.model.findAll({ attributes: ["id", "name"] });
 	}
 
-	async getById(id: LocationId): Promise<Location | null> {
+	getById(id: LocationId): Promise<Location | null> {
 		return this.model.findByPk(id);
 	}
 
-	async getByName(name: string): Promise<Location | null> {
+	getByName(name: string): Promise<Location | null> {
 		return this.model.findOne({ where: { name: name } });
 	}
 
-	async create(
+	create(
 		details: Partial<Location>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -39,7 +39,7 @@ export class LocationRepository
 		throw new Error("Method not implemented.");
 	}
 
-	async update(
+	update(
 		id: LocationId,
 		new_details: Partial<Location>,
 		actionlog_user_id: number,
@@ -47,7 +47,7 @@ export class LocationRepository
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	async delete(
+	delete(
 		id: LocationId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -61,23 +61,23 @@ export class MockLocationRepository
 {
 	constructor(/* empty */) {}
 
-	async getAll(): Promise<Location[]> {
+	getAll(): Promise<Location[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPaginated(offset: number, limit = 25): Promise<Location[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<Location[]> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getAllPartiallyCached(): Promise<Partial<Location[]>> {
+	getAllPartiallyCached(): Promise<Partial<Location[]>> {
 		throw new Error("Method not implemented.");
 	}
 
-	async getById(id: LocationId): Promise<Location | null> {
+	getById(id: LocationId): Promise<Location | null> {
 		throw new Error("Method not implemented.");
 	}
 
-	async create(
+	create(
 		details: Partial<Location>,
 		actionlog_user_id: number,
 		actionlog_summary: string,
@@ -85,7 +85,7 @@ export class MockLocationRepository
 		return Promise.resolve(1);
 	}
 
-	async update(
+	update(
 		id: LocationId,
 		new_details: Partial<Location>,
 		actionlog_user_id: number,
@@ -94,7 +94,7 @@ export class MockLocationRepository
 		return Promise.resolve(false);
 	}
 
-	async delete(
+	delete(
 		id: LocationId,
 		actionlog_user_id: number,
 		actionlog_summary: string,
