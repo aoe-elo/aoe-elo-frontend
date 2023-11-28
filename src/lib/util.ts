@@ -15,14 +15,14 @@ export const model_match = (filename: string, member: string) => {
 };
 
 export const app_mode = (): AppMode => {
-	const mode_string: string = DotEnv().parsed?.APP_MODE ?? "dev";
+	const mode_string: string = DotEnv().parsed?.AOE_ELO_APP_MODE ?? "development";
 
 	match(mode_string)
-		.with("dev", () => {
+		.with("development", () => {
 			console.log("Running in development mode");
 			return AppMode.DEV;
 		})
-		.with("prod", () => {
+		.with("production", () => {
 			console.log("Running in production mode");
 			return AppMode.PROD;
 		})

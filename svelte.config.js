@@ -1,5 +1,9 @@
 import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/kit/vite";
+import { config as DotEnv } from "dotenv";
+
+const model_dir = DotEnv().parsed?.AOE_ELO_DB_MODEL_DIR ?? "models";
+
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -15,7 +19,7 @@ const config = {
 			$api: "src/routes/api",
 			$components: "src/lib/components",
 			$interfaces: "src/lib/interfaces",
-			$models: "src/lib/models",
+			$models: model_dir,
 			$repositories: "src/lib/repositories",
 			$services: "src/lib/services",
 			$types: "src/lib/types",

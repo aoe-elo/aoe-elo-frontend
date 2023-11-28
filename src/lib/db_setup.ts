@@ -10,19 +10,25 @@ import { Tournament } from "$models/tournament.model";
 import { User } from "$models/user.model";
 import { AppMode } from "$types/enums";
 import { Sequelize } from "sequelize-typescript";
-// import { initModels, type ModelReturnType } from "$models/init-models";
 import { match } from "ts-pattern";
-import { model_match } from "./util";
+// import { model_match } from "./util";
+import { config as DotEnv } from "dotenv";
 
 export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 	console.log(`Getting database for AppMode: ${mode}`);
 
+	const db_dialect: string =
+		DotEnv().parsed?.AOE_ELO_DB_DIALECT ?? "sqlite::memory:";
+	const db_storage_dir: string =
+		DotEnv().parsed?.AOE_ELO_DB_STORAGE_DIR ?? "database";
+	const model_dir: string = DotEnv().parsed?.AOE_ELO_DB_MODEL_DIR ?? "models";
+
 	let settings;
 
-	const model_dir = `${process.cwd()}\\src\\lib\\models\\*.model.ts`;
-	console.log(`Model directory: ${model_dir}`);
+	const model_glob = `${model_dir}/*.model.ts`;
+	console.log(`Model directory: ${model_glob}`);
 
-	const model_types = [
+	const supported_model_types = [
 		ArdPlayer,
 		ArdPlayerArdTeam,
 		ArdTeam,
@@ -38,10 +44,10 @@ export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 	match(mode)
 		.with(AppMode.DEV, () => {
 			settings = {
-				dialect: "sqlite",
-				storage: "database/dev_database.sqlite",
+				dialect: db_dialect,
+				storage: `${db_storage_dir}/dev_database.sqlite`,
 				repositoryMode: true,
-				models: model_types,
+				models: supported_model_types,
 				// models: [model_dir],
 				// modelMatch: (filename: string, member: string) => {
 				// 	console.log(`File: ${filename} Member: ${member}`);
@@ -51,10 +57,10 @@ export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 		})
 		.with(AppMode.PROD, () => {
 			settings = {
-				dialect: "sqlite",
-				storage: "database/database.sqlite",
+				dialect: db_dialect,
+				storage: `${db_storage_dir}/database.sqlite`,
 				repositoryMode: true,
-				models: model_types,
+				models: supported_model_types,
 				// models: [model_dir],
 				// modelMatch: (filename: string, member: string) => {
 				// 	model_match(filename, member);
@@ -71,7 +77,7 @@ export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 			settings = {
 				storage: "sqlite::memory:",
 				repositoryMode: true,
-				models: model_types,
+				models: supported_model_types,
 				// models: [model_dir],
 				// modelMatch: (filename: string, member: string) => {
 				// 	model_match(filename, member);
