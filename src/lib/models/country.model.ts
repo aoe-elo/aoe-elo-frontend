@@ -63,6 +63,8 @@ export type CountryCreationAttributes = Optional<
 
 @Table({
 	tableName: "countries",
+	timestamps: false,
+	paranoid: false,
 	underscored: true,
 	indexes: [
 		{

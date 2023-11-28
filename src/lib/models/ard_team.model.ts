@@ -8,6 +8,7 @@ import {
 	DataType,
 	DeletedAt,
 	HasMany,
+	HasOne,
 	Model,
 	PrimaryKey,
 	Table,
@@ -88,6 +89,6 @@ export class ArdTeam
 	)
 	players?: Array<ArdPlayer & { ArdPlayerArdTeam: ArdPlayerArdTeam }>;
 
-	@HasMany(() => Team)
+	@HasOne(() => Team)
 	team?: Team;
 }

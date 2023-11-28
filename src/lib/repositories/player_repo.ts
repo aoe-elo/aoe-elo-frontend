@@ -44,7 +44,15 @@ export class PlayerRepository
 	}
 
 	async getById(id: PlayerId): Promise<Player | null> {
-		return this.player.findByPk(id);
+		return this.player.findByPk(id, {
+			include: [
+				{
+					model: this.country,
+					as: "country",
+					attributes: ["name", "iso_3166_2"],
+				},
+			],
+		});
 	}
 
 	async getByName(name: string): Promise<Player | null> {

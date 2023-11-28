@@ -3,9 +3,10 @@ import { APP } from "./hooks.server";
 export async function run_dev() {
 	// const players = (await APP.repositories.players.getAllPaginated(0, 5)).forEach((player) => player.getCountry().then((country) => console.log(JSON.stringify(country, null, 2))));
 
-	(await APP.repositories.teams.getAllPaginated(0, 5)).forEach((user) =>
-		console.log(JSON.stringify(user, null, 2)),
-	);
+	const player = await APP.repositories.players.getById(5);
+	console.log(JSON.stringify(player, null, 2));
+	// const players = await gl?.$get("players");
+	// players?.forEach((player) => console.log(JSON.stringify(players, null, 4)));
 
 	// const actions = await models.actionlog.findAll({ group: ["loggable_type"], attributes: ["loggable_type"] });
 	// const actions = await models.actionlog.findAll({ include: ["action"], limit: 2, offset: 1523 });

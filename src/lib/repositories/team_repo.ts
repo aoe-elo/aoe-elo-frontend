@@ -1,4 +1,5 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
+import { Player } from "$models/player.model";
 import type { TeamId } from "$models/team.model";
 import { Team } from "$models/team.model";
 import type { Repository, Sequelize } from "sequelize-typescript";
@@ -11,9 +12,11 @@ export interface ITeamRepositoryInterface<TeamId, TeamData>
 
 export class TeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
 	private readonly team: Repository<Team>;
+	private readonly player: Repository<Player>;
 
 	constructor(connection: Sequelize) {
 		this.team = connection.getRepository(Team);
+		this.player = connection.getRepository(Player);
 	}
 
 	async getAll(): Promise<Team[]> {
@@ -29,7 +32,7 @@ export class TeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
 	}
 
 	async getById(id: TeamId): Promise<Team | null> {
-		return this.team.findByPk(id);
+		return this.team.findByPk(id, { include: [this.player] });
 	}
 
 	async getByName(name: string): Promise<Team | null> {
