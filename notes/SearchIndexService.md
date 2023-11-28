@@ -1,3 +1,5 @@
+# Search Index Service
+
 one thing we need to figure out is a search api for us. i think there it makes sense, that we have a json like:
 
 ```json
