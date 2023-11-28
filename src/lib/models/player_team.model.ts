@@ -13,8 +13,8 @@ import {
 	Table,
 	UpdatedAt,
 } from "sequelize-typescript";
-import Player from "./player.model";
-import Team from "./team.model";
+import { Player } from "./player.model";
+import { Team } from "./team.model";
 
 export interface IPlayerTeamAttributes {
 	id: number;
@@ -44,8 +44,6 @@ export type PlayerTeamCreationAttributes = Optional<
 
 @Table({
 	tableName: "player_team",
-	timestamps: true,
-	paranoid: true,
 	underscored: true,
 	indexes: [
 		{
@@ -60,48 +58,73 @@ export type PlayerTeamCreationAttributes = Optional<
 		},
 	],
 })
-export default class PlayerTeam
+export class PlayerTeam
 	extends Model<IPlayerTeamAttributes, PlayerTeamCreationAttributes>
 	implements IPlayerTeamAttributes
 {
 	// TODO!: Check/Drop unique constraints
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
-	@Column
 	@AllowNull
+	@Column({
+		type: DataType.DATE,
+	})
 	declare joined_at?: Date;
 
-	@Column
 	@AllowNull
+	@Column({
+		type: DataType.DATE,
+	})
 	declare left_at?: Date;
 
+	@Default(1)
+	@AllowNull(true)
 	@Column({
 		type: DataType.BOOLEAN,
 	})
-	@Default(1)
-	@AllowNull(true)
 	declare is_active?: number;
 
-	@Column
 	@ForeignKey(() => Player)
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare player_id: number;
 
-	@Column
 	@ForeignKey(() => Team)
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare team_id: number;
 
 	@CreatedAt
+	@Column({
+		type: DataType.DATE,
+	})({
+		type: DataType.DATE,
+	})
 	declare created_at?: Date;
 
 	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})({
+		type: DataType.DATE,
+	})
 	declare updated_at?: Date;
 
 	@DeletedAt
+	@Column({
+		type: DataType.DATE,
+	})({
+		type: DataType.DATE,
+	})
 	declare deleted_at?: Date;
 }

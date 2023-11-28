@@ -10,10 +10,10 @@ import {
 	PrimaryKey,
 	Table,
 } from "sequelize-typescript";
-import ArdPlayer from "./ard_player.model";
-import Player from "./player.model";
-import Team from "./team.model";
-import User from "./user.model";
+import { ArdPlayer } from "./ard_player.model";
+import { Player } from "./player.model";
+import { Team } from "./team.model";
+import { User } from "./user.model";
 
 export interface ICountryAttributes {
 	id: number;
@@ -71,112 +71,118 @@ export type CountryCreationAttributes = Optional<
 		},
 	],
 })
-export default class Country
+export class Country
 	extends Model<ICountryAttributes, CountryCreationAttributes>
 	implements ICountryAttributes
 {
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare capital?: string;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare citizenship?: string;
 
+	@Default("")
 	@Column({
 		type: DataType.TEXT,
 	})
-	@Default("")
 	declare country_code: string;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare currency?: string;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare currency_code?: string;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare currency_sub_unit?: string;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare currency_symbol?: string;
 
-	@Column
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare currency_decimals?: number;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare full_name?: string;
 
+	@Default("")
 	@Column({
 		type: DataType.TEXT,
 	})
-	@Default("")
 	declare iso_3166_2: string;
 
+	@Default("")
 	@Column({
 		type: DataType.TEXT,
 	})
-	@Default("")
 	declare iso_3166_3: string;
 
+	@Default("")
 	@Column({
 		type: DataType.TEXT,
 	})
-	@Default("")
 	declare name: string;
 
+	@Default("")
 	@Column({
 		type: DataType.TEXT,
 	})
-	@Default("")
 	declare region_code: string;
 
+	@Default("")
 	@Column({
 		type: DataType.TEXT,
 	})
-	@Default("")
 	declare sub_region_code: string;
 
-	@Column
 	@Default(0)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare eea: number;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare calling_code?: string;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare flag?: string;
 
 	@HasMany(() => ArdPlayer)

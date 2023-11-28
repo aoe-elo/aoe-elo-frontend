@@ -7,10 +7,11 @@ export const uppercaseFirst = (str: string) => {
 };
 
 export const model_match = (filename: string, member: string) => {
-	return (
+	const match =
 		filename.substring(0, filename.indexOf(".model")).replaceAll("_", "") ===
-		member.toLowerCase()
-	);
+		member.toLowerCase();
+	console.log(`File: ${filename} Member: ${member} => match: ${match}`);
+	return match;
 };
 
 export const app_mode = (): AppMode => {

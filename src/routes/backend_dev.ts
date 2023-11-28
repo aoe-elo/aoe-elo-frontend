@@ -4,9 +4,7 @@ export async function run_dev() {
 	// const players = (await APP.repositories.players.getAllPaginated(0, 5)).forEach((player) => player.getCountry().then((country) => console.log(JSON.stringify(country, null, 2))));
 
 	(await APP.repositories.users.getAllPaginated(0, 5)).forEach((user) =>
-		user
-			.getCountry()
-			.then((country) => console.log(JSON.stringify(country, null, 2))),
+		console.log(JSON.stringify(user, null, 2)),
 	);
 
 	// const actions = await models.actionlog.findAll({ group: ["loggable_type"], attributes: ["loggable_type"] });

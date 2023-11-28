@@ -1,7 +1,7 @@
 import type * as Sequelize from "sequelize";
 import type { Optional } from "sequelize";
 import { DataTypes, Model } from "sequelize";
-import type { User, UserId } from "./user.model";
+import type { User, UserId } from "../user.model";
 
 export interface IDiscordUserAttributes {
 	id: number;

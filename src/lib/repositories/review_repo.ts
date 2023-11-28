@@ -1,5 +1,5 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Review, ReviewId } from "$models/review.model";
+import type { Review, ReviewId } from "$models/TODO/review.model";
 
 type IReviewRepositoryInterface<ReviewId, ReviewData> =
 	IBaseRepositoryInterface<ReviewId, ReviewData>;

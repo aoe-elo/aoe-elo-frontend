@@ -13,7 +13,7 @@ import {
 	Unique,
 	UpdatedAt,
 } from "sequelize-typescript";
-import Tournament from "./tournament.model";
+import { Tournament } from "./tournament.model";
 
 export interface IAtpCategoryAttributes {
 	id: number;
@@ -48,41 +48,55 @@ export type AtpCategoryCreationAttributes = Optional<
 		},
 	],
 })
-export default class AtpCategory
+export class AtpCategory
 	extends Model<IAtpCategoryAttributes, AtpCategoryCreationAttributes>
 	implements IAtpCategoryAttributes
 {
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
-	@Column
 	@AllowNull(false)
 	@Unique(true)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare category: number;
 
+	@AllowNull(false)
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull(false)
-	@Unique(true)
 	declare sub_category: string;
 
-	@Column
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare base_value?: number;
 
-	@Column
-	@AllowNull
 	@Default(10)
+	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare modifier: number;
 
 	@CreatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare created_at?: Date;
 
 	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare updated_at?: Date;
 
 	@HasMany(() => Tournament, { onDelete: "RESTRICT", onUpdate: "CASCADE" })

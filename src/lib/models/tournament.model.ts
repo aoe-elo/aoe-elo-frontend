@@ -14,7 +14,7 @@ import {
 	Unique,
 	UpdatedAt,
 } from "sequelize-typescript";
-import AtpCategory from "./atp_category.model";
+import { AtpCategory } from "./atp_category.model";
 
 export interface ITournamentAttributes {
 	id: number;
@@ -78,95 +78,127 @@ export type TournamentCreationAttributes = Optional<
 		},
 	],
 })
-export default class Tournament
+export class Tournament
 	extends Model<ITournamentAttributes, TournamentCreationAttributes>
 	implements ITournamentAttributes
 {
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
+	@Unique(true)
+	@AllowNull(false)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull(false)
-	@Unique(true)
 	declare name: string;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare short_name: string;
 
-	@Column
+	@Column({
+		type: DataType.DATE,
+	})
 	declare started_at?: Date;
 
-	@Column
+	@Column({
+		type: DataType.DATE,
+	})
 	declare ended_at?: Date;
 
-	@Column
 	@Default(1)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare weight: number;
 
-	@Column
 	@Default(1)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare game_mode: number;
 
-	@Column
 	@Default(1)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare format_type: number;
 
-	@Column
 	@Default(1)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare event_type: number;
 
-	@Column
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare prize_pool?: number;
 
-	@Column
 	@Default(1)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare prize_currency: number;
 
-	@Column
 	@Default(1)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare structure: number;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare evaluation?: string;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare website_link?: string;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare liquipedia_link?: string;
 
-	@ForeignKey(() => AtpCategory)
 	@AllowNull
+	@ForeignKey(() => AtpCategory)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare atp_category_id?: number;
 
 	@CreatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare created_at?: Date;
 
 	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare updated_at?: Date;
 
 	@DeletedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare deleted_at?: Date;
 }

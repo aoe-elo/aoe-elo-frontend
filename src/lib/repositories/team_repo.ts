@@ -1,5 +1,7 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Team, TeamId } from "$models/team.model";
+import type { TeamId } from "$models/team.model";
+import { Team } from "$models/team.model";
+import type { Repository, Sequelize } from "sequelize-typescript";
 
 export interface ITeamRepositoryInterface<TeamId, TeamData>
 	extends IBaseRepositoryInterface<TeamId, TeamData> {
@@ -8,26 +10,30 @@ export interface ITeamRepositoryInterface<TeamId, TeamData>
 }
 
 export class TeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
-	constructor(private readonly model: typeof Team) {}
+	private readonly team: Repository<Team>;
+
+	constructor(connection: Sequelize) {
+		this.team = connection.getRepository(Team);
+	}
 
 	async getAll(): Promise<Team[]> {
-		return this.model.findAll();
+		return this.team.findAll();
 	}
 
 	async getAllPaginated(offset: number, limit = 25): Promise<Team[]> {
-		return this.model.findAll({ offset, limit });
+		return this.team.findAll({ offset, limit });
 	}
 
 	async getAllPartiallyCached(): Promise<Partial<Team[]>> {
-		return this.model.findAll({ attributes: ["id", "name"] });
+		return this.team.findAll({ attributes: ["id", "name"] });
 	}
 
 	async getById(id: TeamId): Promise<Team | null> {
-		return this.model.findByPk(id);
+		return this.team.findByPk(id);
 	}
 
 	async getByName(name: string): Promise<Team | null> {
-		return this.model.findOne({ where: { name } });
+		return this.team.findOne({ where: { name } });
 	}
 
 	async create(

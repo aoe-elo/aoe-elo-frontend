@@ -10,11 +10,11 @@ import { APP } from "./hooks.server";
  */
 export class API {
 	static async getLandingPagePlayers() {
-		return APP.repositories.players.getAllPartiallyCached();
+		// return APP.repositories.players.getAllPartiallyCached();
 	}
 
 	static async getLandingPageTournaments() {
-		return APP.repositories.tournaments.getAllPartiallyCached();
+		// return APP.repositories.tournaments.getAllPartiallyCached();
 	}
 }
 

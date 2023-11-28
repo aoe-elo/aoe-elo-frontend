@@ -1,6 +1,6 @@
 import { db_status, get_database } from "$lib/db_setup";
 import { app_mode } from "$lib/util";
-import type { ModelReturnType } from "$models/init-models.model";
+// import type { ModelReturnType } from "$models/init-models.model";
 import { ActionlogRepository } from "$repositories/actionlog_repo";
 import { PlayerRepository } from "$repositories/player_repo";
 import { TeamRepository } from "$repositories/team_repo";
@@ -22,10 +22,10 @@ type InitRepositoryReturnType = {
 function init_repositories(connection: Sequelize): InitRepositoryReturnType {
 	return {
 		users: new UserRepository(connection),
+		// players: new PlayerRepository(connection),
+		// teams: new TeamRepository(connection),
+		// tournaments: new TournamentRepository(connection),
 		// actionlog: new ActionlogRepository(db),
-		// players: new PlayerRepository(db, db),
-		// teams: new TeamRepository(db),
-		// tournaments: new TournamentRepository(db),
 		// ard_player: new ArdPlayerRepository(),
 		// ard_team: new ArdTeamRepository(),
 		// achievement: new AchievementRepository(),

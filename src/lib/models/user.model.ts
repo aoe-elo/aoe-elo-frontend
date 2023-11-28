@@ -14,7 +14,7 @@ import {
 	Unique,
 	UpdatedAt,
 } from "sequelize-typescript";
-import Country from "./country.model";
+import { Country } from "./country.model";
 
 export interface IUserAttributes {
 	id: number;
@@ -52,45 +52,55 @@ export type UserCreationAttributes = Optional<
 		},
 	],
 })
-export default class User
+export class User
 	extends Model<IUserAttributes, UserCreationAttributes>
 	implements IUserAttributes
 {
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
-	@Column({
-		type: DataType.TEXT,
-	})
 	@AllowNull(false)
 	@Unique
+	@Column({
+		type: DataType.TEXT,
+	})
 	declare name: string;
 
+	@Unique
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique
 	declare email?: string;
 
-	@Column
 	@ForeignKey(() => Country)
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare country_id?: number;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare remember_token?: string;
 
 	@CreatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare created_at?: Date;
 
 	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare updated_at?: Date;
 
 	@DeletedAt

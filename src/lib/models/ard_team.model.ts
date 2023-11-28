@@ -2,20 +2,20 @@ import type { Optional } from "sequelize";
 import {
 	AllowNull,
 	AutoIncrement,
-	BelongsTo,
 	BelongsToMany,
 	Column,
 	CreatedAt,
 	DataType,
 	DeletedAt,
+	HasMany,
 	Model,
 	PrimaryKey,
 	Table,
 	UpdatedAt,
 } from "sequelize-typescript";
-import ArdPlayer from "./ard_player.model";
-import ArdPlayerArdTeam from "./ard_player_ard_team.model";
-import Team from "./team.model";
+import { ArdPlayer } from "./ard_player.model";
+import { ArdPlayerArdTeam } from "./ard_player_ard_team.model";
+import { Team } from "./team.model";
 
 export interface IArdTeamAttributes {
 	id: number;
@@ -46,29 +46,40 @@ export type ArdTeamCreationAttributes = Optional<
 		},
 	],
 })
-export default class ArdTeam
+export class ArdTeam
 	extends Model<IArdTeamAttributes, ArdTeamCreationAttributes>
 	implements IArdTeamAttributes
 {
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
+	@AllowNull(false)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull(false)
 	declare name: string;
 
 	@CreatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare created_at?: Date;
 
 	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare updated_at?: Date;
 
 	@DeletedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare deleted_at?: Date;
 
 	@BelongsToMany(
@@ -77,6 +88,6 @@ export default class ArdTeam
 	)
 	players?: Array<ArdPlayer & { ArdPlayerArdTeam: ArdPlayerArdTeam }>;
 
-	@BelongsTo(() => Team)
+	@HasMany(() => Team)
 	team?: Team;
 }

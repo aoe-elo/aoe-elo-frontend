@@ -14,8 +14,8 @@ import {
 	Unique,
 	UpdatedAt,
 } from "sequelize-typescript";
-import ArdPlayer from "./ard_player.model";
-import ArdTeam from "./ard_team.model";
+import { ArdPlayer } from "./ard_player.model";
+import { ArdTeam } from "./ard_team.model";
 
 export interface IArdPlayerArdTeamAttributes {
 	id: number;
@@ -52,41 +52,60 @@ export type ArdPlayerArdTeamCreationAttributes = Optional<
 		},
 	],
 })
-export default class ArdPlayerArdTeam
+export class ArdPlayerArdTeam
 	extends Model<IArdPlayerArdTeamAttributes, ArdPlayerArdTeamCreationAttributes>
 	implements IArdPlayerArdTeamAttributes
 {
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
-	@Column
 	@ForeignKey(() => ArdPlayer)
 	@Unique(true)
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare ard_player_id?: number;
 
-	@Column
 	@ForeignKey(() => ArdTeam)
 	@AllowNull
 	@Unique(true)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare ard_team_id?: number;
 
+	@Default(1)
+	@AllowNull(false)
 	@Column({
 		type: DataType.BOOLEAN,
 	})
-	@Default(1)
-	@AllowNull(false)
 	declare is_active: boolean;
 
 	@CreatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare created_at?: Date;
 
 	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})({
+		type: DataType.DATE,
+	})
 	declare updated_at?: Date;
 
 	@DeletedAt
+	@Column({
+		type: DataType.DATE,
+	})({
+		type: DataType.DATE,
+	})
 	declare deleted_at?: Date;
 }

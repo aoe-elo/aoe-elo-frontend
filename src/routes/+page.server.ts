@@ -1,4 +1,4 @@
-import { API } from "./api";
+// import { API } from "./api";
 
 export async function load({ params, setHeaders }) {
 	// const players = API.getLandingPagePlayers();

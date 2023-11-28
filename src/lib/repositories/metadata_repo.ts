@@ -1,5 +1,5 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Metadatum, MetadatumId } from "$models/metadatum.model";
+import type { Metadatum, MetadatumId } from "$models/TODO/metadatum.model";
 
 type IMetadataRepositoryInterface<MetadatumId, ReviewData> =
 	IBaseRepositoryInterface<MetadatumId, ReviewData>;

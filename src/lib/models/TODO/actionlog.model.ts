@@ -2,8 +2,9 @@ import { uppercaseFirst } from "$lib/util";
 import type * as Sequelize from "sequelize";
 import type { Optional } from "sequelize";
 import { DataTypes, Model } from "sequelize";
+import { match } from "ts-pattern";
+import type { User, UserId } from "../user.model";
 import type { Action, ActionId } from "./action.model";
-import type { User, UserId } from "./user.model";
 
 export interface IActionlogAttributes {
 	id: number;
@@ -135,3 +136,53 @@ export class Actionlog
 		) as typeof Actionlog;
 	}
 }
+
+Actionlog.addHook("afterFind", (findResult) => {
+	// If findResult is null return early
+	if (findResult === null) return;
+
+	if (!Array.isArray(findResult))
+		findResult = [findResult] as Model<
+			IActionlogAttributes,
+			ActionlogCreationAttributes
+		>[];
+	for (const instance of findResult) {
+		console.log(instance);
+		match(instance.loggable_type)
+			.with("App\\Models\\ArdPlayer", () => {
+				if (instance.ArdPlayer !== undefined) return;
+				instance.loggable_type = instance.ArdPlayer;
+			})
+			.with("App\\Models\\Country", () => {
+				console.log("Country");
+				if (instance.Country !== undefined) {
+					instance.loggable_type = instance.Country;
+				}
+			})
+			// TODO!: Add all other types
+			// .with("achievement", () => instance.loggable_type = instance.achievement)
+			// .with("ard_player", () => instance.loggable_type = instance.ard_player)
+			// .with("ard_team", () => instance.loggable_type = instance.ard_team)
+			// .with("atp_category", () => instance.loggable_type = instance.atp_category)
+			// .with("country", () => instance.loggable_type = instance.country)
+			// .with("location", () => instance.loggable_type = instance.location)
+			// .with("location_style", () => instance.loggable_type = instance.location_style)
+			// .with("metadatum", () => instance.loggable_type = instance.metadatum)
+			// .with("news", () => instance.loggable_type = instance.news)
+			// .with("player", () => instance.loggable_type = instance.player)
+			// .with("review", () => instance.loggable_type = instance.review)
+			// .with("set", () => instance.loggable_type = instance.set)
+			// .with("stage", () => instance.loggable_type = instance.stage)
+			// .with("team", () => instance.loggable_type = instance.team)
+			// .with("tournament", () => instance.loggable_type = instance.tournament)
+			// .with("user", () => instance.loggable_type = instance.user)
+			.otherwise(() => (instance.loggable_type = null));
+	}
+
+	// TODO!: Needed?
+	// To prevent mistakes:
+	// delete instance.image;
+	// delete instance.dataValues.image;
+	// delete instance.video;
+	// delete instance.dataValues.video;
+});

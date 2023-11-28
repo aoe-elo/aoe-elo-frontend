@@ -1,61 +1,58 @@
 import type * as Sequelize from "sequelize";
 import type { Optional } from "sequelize";
 import { DataTypes, Model } from "sequelize";
-import type { User, UserId } from "./user.model";
+import type { User, UserId } from "../user.model";
 
-export interface IGithubUserAttributes {
+export interface ISteamUserAttributes {
 	id: number;
-	github_id: string;
+	steam_id: string;
+	nickname?: string;
 	name?: string;
-	email?: string;
-	github_token?: string;
-	github_refresh_token?: string;
+	avatar?: string;
 	user_id?: number;
 	created_at?: Date;
 	updated_at?: Date;
 	deleted_at?: Date;
 }
 
-export type GithubUserPk = "id";
-export type GithubUserId = GithubUser[GithubUserPk];
-export type GithubUserOptionalAttributes =
+export type SteamUserPk = "id";
+export type SteamUserId = SteamUser[SteamUserPk];
+export type SteamUserOptionalAttributes =
+	| "nickname"
 	| "name"
-	| "email"
-	| "github_token"
-	| "github_refresh_token"
+	| "avatar"
 	| "user_id"
 	| "created_at"
 	| "updated_at"
 	| "deleted_at";
-export type GithubUserCreationAttributes = Optional<
-	IGithubUserAttributes,
-	GithubUserOptionalAttributes
+export type SteamUserCreationAttributes = Optional<
+	ISteamUserAttributes,
+	SteamUserOptionalAttributes
 >;
 
-export class GithubUser
-	extends Model<IGithubUserAttributes, GithubUserCreationAttributes>
-	implements IGithubUserAttributes
+export class SteamUser
+	extends Model<ISteamUserAttributes, SteamUserCreationAttributes>
+	implements ISteamUserAttributes
 {
 	declare id: number;
-	declare github_id: string;
+	declare steam_id: string;
+	declare nickname?: string;
 	declare name?: string;
-	declare email?: string;
-	declare github_token?: string;
-	declare github_refresh_token?: string;
+	declare avatar?: string;
 	declare user_id?: number;
 	declare created_at?: Date;
 	declare updated_at?: Date;
 	declare deleted_at?: Date;
 
-	// GithubUser belongsTo User via user_id
+	// SteamUser belongsTo User via user_id
 	user!: User;
 	getUser!: Sequelize.BelongsToGetAssociationMixin<User>;
 	setUser!: Sequelize.BelongsToSetAssociationMixin<User, UserId>;
 	createUser!: Sequelize.BelongsToCreateAssociationMixin<User>;
 
-	static initModel(sequelize: Sequelize.Sequelize): typeof GithubUser {
+	static initModel(sequelize: Sequelize.Sequelize): typeof SteamUser {
 		return sequelize.define(
-			"GithubUser",
+			"SteamUser",
 			{
 				id: {
 					autoIncrement: true,
@@ -63,24 +60,20 @@ export class GithubUser
 					allowNull: false,
 					primaryKey: true,
 				},
-				github_id: {
+				steam_id: {
 					type: DataTypes.STRING,
 					allowNull: false,
 					unique: true,
+				},
+				nickname: {
+					type: DataTypes.STRING,
+					allowNull: true,
 				},
 				name: {
 					type: DataTypes.STRING,
 					allowNull: true,
 				},
-				email: {
-					type: DataTypes.STRING,
-					allowNull: true,
-				},
-				github_token: {
-					type: DataTypes.STRING,
-					allowNull: true,
-				},
-				github_refresh_token: {
+				avatar: {
 					type: DataTypes.STRING,
 					allowNull: true,
 				},
@@ -95,23 +88,23 @@ export class GithubUser
 				},
 			},
 			{
-				tableName: "github_users",
+				tableName: "steam_users",
 				timestamps: true,
 				paranoid: true,
 				underscored: true,
 				indexes: [
 					{
-						name: "github_users_user_id_github_id_unique",
+						name: "steam_users_user_id_steam_id_unique",
 						unique: true,
-						fields: [{ name: "user_id" }, { name: "github_id" }],
+						fields: [{ name: "user_id" }, { name: "steam_id" }],
 					},
 					{
-						name: "github_users_github_id_unique",
+						name: "steam_users_steam_id_unique",
 						unique: true,
-						fields: [{ name: "github_id" }],
+						fields: [{ name: "steam_id" }],
 					},
 				],
 			},
-		) as typeof GithubUser;
+		) as typeof SteamUser;
 	}
 }

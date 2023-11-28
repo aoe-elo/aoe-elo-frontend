@@ -16,10 +16,10 @@ import {
 	Unique,
 	UpdatedAt,
 } from "sequelize-typescript";
-import ArdTeam from "./ard_team.model";
-import Country from "./country.model";
-import Player from "./player.model";
-import PlayerTeam from "./player_team.model";
+import { ArdTeam } from "./ard_team.model";
+import { Country } from "./country.model";
+import { Player } from "./player.model";
+import { PlayerTeam } from "./player_team.model";
 
 export interface ITeamAttributes {
 	id: number;
@@ -68,73 +68,96 @@ export type TeamCreationAttributes = Optional<
 		},
 	],
 })
-export default class Team
+export class Team
 	extends Model<ITeamAttributes, TeamCreationAttributes>
 	implements ITeamAttributes
 {
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@Unique(true)
 	declare name: string;
 
+	@Unique
 	@Column({
 		type: DataType.TEXT,
 	})
-	@Unique
 	declare tag: string;
 
-	@Column
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare current_elo?: number;
 
-	@Column
 	@Default(1800)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare base_elo: number;
 
-	@Column
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare current_atp?: number;
 
-	@Column
 	@Default(1800)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare base_atp: number;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare primary_color?: string;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare secondary_color?: string;
 
-	@Column
 	@ForeignKey(() => ArdTeam)
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare aoe_reference_data_team_id?: number;
 
-	@Column
 	@ForeignKey(() => Country)
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare country_id?: number;
 
 	@CreatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare created_at?: Date;
 
 	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare updated_at?: Date;
 
 	@DeletedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare deleted_at?: Date;
 
 	@BelongsTo(() => ArdTeam)

@@ -16,11 +16,11 @@ import {
 	Unique,
 	UpdatedAt,
 } from "sequelize-typescript";
-import ArdPlayer from "./ard_player.model";
-import Country from "./country.model";
-import PlayerTeam from "./player_team.model";
-import Team from "./team.model";
-import User from "./user.model";
+import { ArdPlayer } from "./ard_player.model";
+import { Country } from "./country.model";
+import { PlayerTeam } from "./player_team.model";
+import { Team } from "./team.model";
+import { User } from "./user.model";
 
 export interface IPlayerAttributes {
 	id: number;
@@ -114,101 +114,133 @@ export type PlayerCreationAttributes = Optional<
 		},
 	],
 })
-export default class Player
+export class Player
 	extends Model<IPlayerAttributes, PlayerCreationAttributes>
 	implements IPlayerAttributes
 {
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
-	@Column({
-		type: DataType.TEXT,
-	})
 	@AllowNull(false)
 	@Unique(true)
+	@Column({
+		type: DataType.TEXT,
+	})
 	declare name: string;
 
-	@Column
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare current_elo?: number;
 
-	@Column
 	@Default(1800)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare base_elo: number;
 
-	@Column
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare current_atp?: number;
 
-	@Column
 	@Default(1800)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare base_atp: number;
 
+	@AllowNull
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
 	declare voobly_id_main?: string;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare relic_link_id_main?: string;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare steam_id_main?: string;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare liquipedia_handle?: string;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare discord_handle?: string;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare twitch_handle?: string;
 
-	@Column
-	@ForeignKey(() => ArdPlayer)
 	@AllowNull
+	@ForeignKey(() => ArdPlayer)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare aoe_reference_data_player_id?: number;
 
-	@Column
-	@ForeignKey(() => Country)
 	@AllowNull
+	@ForeignKey(() => Country)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare country_id?: number;
 
 	@ForeignKey(() => User)
 	@AllowNull
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare user_id?: number;
 
 	@CreatedAt
+	@Column({
+		type: DataType.DATE,
+	})({
+		type: DataType.DATE,
+	})
 	declare created_at?: Date;
 
 	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})({
+		type: DataType.DATE,
+	})
 	declare updated_at?: Date;
 
 	@DeletedAt
+	@Column({
+		type: DataType.DATE,
+	})({
+		type: DataType.DATE,
+	})
 	declare deleted_at?: Date;
 
 	@BelongsTo(() => ArdPlayer)

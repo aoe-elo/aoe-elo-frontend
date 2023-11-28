@@ -1,5 +1,6 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Tournament, TournamentId } from "$models/tournament.model";
+import { Tournament, type TournamentId } from "$models/tournament.model";
+import type { Repository, Sequelize } from "sequelize-typescript";
 
 interface ITournamentRepositoryInterface<TournamentId, TournamentData>
 	extends IBaseRepositoryInterface<TournamentId, TournamentData> {
@@ -10,26 +11,30 @@ interface ITournamentRepositoryInterface<TournamentId, TournamentData>
 export class TournamentRepository
 	implements ITournamentRepositoryInterface<TournamentId, Tournament>
 {
-	constructor(private readonly model: typeof Tournament) {}
+	private readonly tournament: Repository<Tournament>;
+
+	constructor(connection: Sequelize) {
+		this.tournament = connection.getRepository(Tournament);
+	}
 
 	async getAll(): Promise<Tournament[]> {
-		return this.model.findAll();
+		return this.tournament.findAll();
 	}
 
 	async getAllPaginated(offset: number, limit = 25): Promise<Tournament[]> {
-		return this.model.findAll({ offset, limit });
+		return this.tournament.findAll({ offset, limit });
 	}
 
 	async getAllPartiallyCached(): Promise<Partial<Tournament[]>> {
-		return this.model.findAll({ attributes: ["id", "name"] });
+		return this.tournament.findAll({ attributes: ["id", "name"] });
 	}
 
 	async getById(id: TournamentId): Promise<Tournament | null> {
-		return this.model.findByPk(id);
+		return this.tournament.findByPk(id);
 	}
 
 	async getByName(name: string): Promise<Tournament | null> {
-		return this.model.findOne({ where: { name } });
+		return this.tournament.findOne({ where: { name } });
 	}
 
 	async create(

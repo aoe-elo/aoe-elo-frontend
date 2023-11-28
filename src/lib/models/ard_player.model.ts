@@ -16,10 +16,10 @@ import {
 	Unique,
 	UpdatedAt,
 } from "sequelize-typescript";
-import ArdPlayerArdTeam from "./ard_player_ard_team.model";
-import ArdTeam from "./ard_team.model";
-import Country from "./country.model";
-import Player from "./player.model";
+import { ArdPlayerArdTeam } from "./ard_player_ard_team.model";
+import { ArdTeam } from "./ard_team.model";
+import { Country } from "./country.model";
+import { Player } from "./player.model";
 
 export interface IArdPlayerAttributes {
 	id: number;
@@ -82,59 +82,76 @@ export type ArdPlayerCreationAttributes = Optional<
 		},
 	],
 })
-export default class ArdPlayer
+export class ArdPlayer
 	extends Model<IArdPlayerAttributes, ArdPlayerCreationAttributes>
 	implements IArdPlayerAttributes
 {
-	@Column
 	@PrimaryKey
 	@AutoIncrement
 	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare id: number;
 
-	@Column({
-		type: DataType.TEXT,
-	})
 	@AllowNull(false)
 	@Unique(true)
+	@Column({
+		type: DataType.TEXT,
+	})
 	declare name: string;
 
-	@Column
-	@ForeignKey(() => Country)
 	@AllowNull
+	@ForeignKey(() => Country)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare country_id?: number;
 
-	@Column
-	@ForeignKey(() => Player)
 	@AllowNull
+	@ForeignKey(() => Player)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare aoeelo_id?: number;
 
-	@Column
-	@Unique(true)
 	@AllowNull
+	@Unique(true)
+	@Column({
+		type: DataType.INTEGER,
+	})
 	declare esports_earnings?: number;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare liquipedia_handle?: string;
 
+	@AllowNull
+	@Unique(true)
 	@Column({
 		type: DataType.TEXT,
 	})
-	@AllowNull
-	@Unique(true)
 	declare discord_id?: string;
 
 	@CreatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare created_at?: Date;
 
 	@UpdatedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare updated_at?: Date;
 
 	@DeletedAt
+	@Column({
+		type: DataType.DATE,
+	})
 	declare deleted_at?: Date;
 
 	@HasOne(() => Player)

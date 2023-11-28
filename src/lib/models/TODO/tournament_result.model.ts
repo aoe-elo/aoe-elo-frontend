@@ -1,7 +1,7 @@
 import type * as Sequelize from "sequelize";
 import type { Optional } from "sequelize";
 import { DataTypes, Model } from "sequelize";
-import type { Tournament, TournamentId } from "./tournament.model";
+import type { Tournament, TournamentId } from "../tournament.model";
 
 export interface ITournamentResultAttributes {
 	id: number;

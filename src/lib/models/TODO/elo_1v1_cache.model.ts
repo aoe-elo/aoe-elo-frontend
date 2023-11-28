@@ -1,9 +1,9 @@
 import type * as Sequelize from "sequelize";
 import type { Optional } from "sequelize";
 import { DataTypes, Model } from "sequelize";
-import type { Player, PlayerId } from "./player.model";
+import type { Player, PlayerId } from "../player.model";
+import type { Tournament, TournamentId } from "../tournament.model";
 import type { Set as Match, SetId as MatchId } from "./set.model";
-import type { Tournament, TournamentId } from "./tournament.model";
 
 export interface IElo1V1CacheAttributes {
 	id: number;

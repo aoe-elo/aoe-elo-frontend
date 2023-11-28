@@ -1,7 +1,7 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Action } from "$models/action.model";
-import type { Actionlog, ActionlogId } from "$models/actionlog.model";
-import type User from "$models/user.model";
+import type { Action } from "$models/TODO/action.model";
+import type { Actionlog, ActionlogId } from "$models/TODO/actionlog.model";
+import type { User } from "$models/user.model";
 
 type IActionlogRepositoryInterface<ActionlogId, ActionlogData> =
 	IBaseRepositoryInterface<ActionlogId, ActionlogData>;

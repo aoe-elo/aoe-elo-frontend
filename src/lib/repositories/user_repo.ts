@@ -1,6 +1,6 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 import type { UserId } from "$models/user.model";
-import User from "$models/user.model";
+import { User } from "$models/user.model";
 import type { Repository, Sequelize } from "sequelize-typescript";
 
 interface IUserRepositoryInterface<UserId, UserData>

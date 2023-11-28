@@ -1,5 +1,5 @@
 import type { ArdTeamId } from "$models/ard_team.model";
-import type ArdTeam from "$models/ard_team.model";
+import type { ArdTeam } from "$models/ard_team.model";
 import type { ITeamRepositoryInterface } from "$repositories/team_repo";
 
 export class ArdTeamRepository

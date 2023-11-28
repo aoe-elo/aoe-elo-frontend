@@ -1,6 +1,8 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Country } from "$models/country.model";
-import type { Player, PlayerId } from "$models/player.model";
+import { Country } from "$models/country.model";
+import { Player } from "$models/player.model";
+import type { PlayerId } from "$models/player.model";
+import type { Repository, Sequelize } from "sequelize-typescript";
 
 export interface IPlayerRepositoryInterface<PlayerId, PlayerData>
 	extends IBaseRepositoryInterface<PlayerId, PlayerData> {
@@ -11,10 +13,13 @@ export interface IPlayerRepositoryInterface<PlayerId, PlayerData>
 export class PlayerRepository
 	implements IPlayerRepositoryInterface<PlayerId, Player>
 {
-	constructor(
-		private readonly player: typeof Player,
-		private readonly country: typeof Country,
-	) {}
+	private readonly player: Repository<Player>;
+	private readonly country: Repository<Country>;
+
+	constructor(connection: Sequelize) {
+		this.player = connection.getRepository(Player);
+		this.country = connection.getRepository(Country);
+	}
 
 	async getAll(): Promise<Player[]> {
 		return this.player.findAll();

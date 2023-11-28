@@ -1,3 +1,13 @@
+import { ArdPlayer } from "$models/ard_player.model";
+import { ArdPlayerArdTeam } from "$models/ard_player_ard_team.model";
+import { ArdTeam } from "$models/ard_team.model";
+import { AtpCategory } from "$models/atp_category.model";
+import { Country } from "$models/country.model";
+import { Player } from "$models/player.model";
+import { PlayerTeam } from "$models/player_team.model";
+import { Team } from "$models/team.model";
+import { Tournament } from "$models/tournament.model";
+import { User } from "$models/user.model";
 import { AppMode } from "$types/enums";
 import { Sequelize } from "sequelize-typescript";
 // import { initModels, type ModelReturnType } from "$models/init-models";
@@ -9,16 +19,34 @@ export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 
 	let settings;
 
+	const model_dir = `${process.cwd()}\\src\\lib\\models\\*.model.ts`;
+	console.log(`Model directory: ${model_dir}`);
+
+	const model_types = [
+		ArdPlayer,
+		ArdPlayerArdTeam,
+		ArdTeam,
+		AtpCategory,
+		Country,
+		PlayerTeam,
+		Player,
+		Team,
+		Tournament,
+		User,
+	];
+
 	match(mode)
 		.with(AppMode.DEV, () => {
 			settings = {
 				dialect: "sqlite",
 				storage: "database/dev_database.sqlite",
 				repositoryMode: true,
-				models: [`${__dirname}/models/*.model.ts`],
-				modelMatch: (filename: string, member: string) => {
-					model_match(filename, member);
-				},
+				models: model_types,
+				// models: [model_dir],
+				// modelMatch: (filename: string, member: string) => {
+				// 	console.log(`File: ${filename} Member: ${member}`);
+				// 	model_match(filename, member);
+				// },
 			};
 		})
 		.with(AppMode.PROD, () => {
@@ -26,10 +54,11 @@ export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 				dialect: "sqlite",
 				storage: "database/database.sqlite",
 				repositoryMode: true,
-				models: [`${__dirname}/models/*.model.ts`],
-				modelMatch: (filename: string, member: string) => {
-					model_match(filename, member);
-				},
+				models: model_types,
+				// models: [model_dir],
+				// modelMatch: (filename: string, member: string) => {
+				// 	model_match(filename, member);
+				// },
 				// dialectOptions: {
 				// Your sqlite3 options here
 				// for instance, this is how you can configure the database opening mode:
@@ -42,10 +71,11 @@ export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 			settings = {
 				storage: "sqlite::memory:",
 				repositoryMode: true,
-				models: [`${__dirname}/models/*.model.ts`],
-				modelMatch: (filename: string, member: string) => {
-					model_match(filename, member);
-				},
+				models: model_types,
+				// models: [model_dir],
+				// modelMatch: (filename: string, member: string) => {
+				// 	model_match(filename, member);
+				// },
 			};
 		});
 
