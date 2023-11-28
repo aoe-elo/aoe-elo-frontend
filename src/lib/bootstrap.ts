@@ -13,18 +13,18 @@ import type { Sequelize } from "sequelize-typescript";
 
 type InitRepositoryReturnType = {
 	// actionlog: ActionlogRepository;
-	// players: PlayerRepository;
-	// teams: TeamRepository;
-	// tournaments: TournamentRepository;
+	players: PlayerRepository;
+	teams: TeamRepository;
+	tournaments: TournamentRepository;
 	users: UserRepository;
 };
 
 function init_repositories(connection: Sequelize): InitRepositoryReturnType {
 	return {
 		users: new UserRepository(connection),
-		// players: new PlayerRepository(connection),
-		// teams: new TeamRepository(connection),
-		// tournaments: new TournamentRepository(connection),
+		players: new PlayerRepository(connection),
+		teams: new TeamRepository(connection),
+		tournaments: new TournamentRepository(connection),
 		// actionlog: new ActionlogRepository(db),
 		// ard_player: new ArdPlayerRepository(),
 		// ard_team: new ArdTeamRepository(),
