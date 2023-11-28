@@ -36,6 +36,7 @@ function init_repositories(connection: Sequelize): InitRepositoryReturnType {
 
 type AppInitReturnType = {
 	mode: AppMode;
+	connection: Sequelize;
 	repositories: InitRepositoryReturnType;
 };
 
@@ -47,6 +48,7 @@ export function app_init(): AppInitReturnType {
 
 	return {
 		mode,
+		connection,
 		repositories,
 	};
 }
