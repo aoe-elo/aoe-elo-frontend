@@ -4,7 +4,6 @@ import { config as DotEnv } from "dotenv";
 
 const model_dir = DotEnv().parsed?.AOE_ELO_DB_MODEL_DIR ?? "models";
 
-
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors

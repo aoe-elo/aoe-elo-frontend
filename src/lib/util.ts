@@ -15,7 +15,8 @@ export const model_match = (filename: string, member: string) => {
 };
 
 export const app_mode = (): AppMode => {
-	const mode_string: string = DotEnv().parsed?.AOE_ELO_APP_MODE ?? "development";
+	const mode_string: string =
+		DotEnv().parsed?.AOE_ELO_APP_MODE ?? "development";
 
 	match(mode_string)
 		.with("development", () => {

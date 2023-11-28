@@ -9,10 +9,10 @@ import { Team } from "$models/team.model";
 import { Tournament } from "$models/tournament.model";
 import { User } from "$models/user.model";
 import { AppMode } from "$types/enums";
-import { Sequelize } from "sequelize-typescript";
-import { match } from "ts-pattern";
 // import { model_match } from "./util";
 import { config as DotEnv } from "dotenv";
+import { Sequelize } from "sequelize-typescript";
+import { match } from "ts-pattern";
 
 export function get_database(mode: AppMode = AppMode.DEV): Sequelize {
 	console.log(`Getting database for AppMode: ${mode}`);
