@@ -1,30 +1,28 @@
 import type { ArdTeamId } from "$models/ard_team.model";
-import type { ArdTeam } from "$models/ard_team.model";
+import { ArdTeam } from "$models/ard_team.model";
 import type { ITeamRepositoryInterface } from "$repositories/team_repo";
 
 export class ArdTeamRepository
 	implements ITeamRepositoryInterface<ArdTeamId, ArdTeam>
 {
-	constructor(private readonly model: typeof ArdTeam) {}
-
 	getAll(): Promise<ArdTeam[]> {
-		return this.model.findAll();
+		return ArdTeam.findAll();
 	}
 
 	getAllPaginated(offset: number, limit = 25): Promise<ArdTeam[]> {
-		return this.model.findAll({ offset, limit });
+		return ArdTeam.findAll({ offset, limit });
 	}
 
 	getAllPartiallyCached(): Promise<Partial<ArdTeam[]>> {
-		return this.model.findAll({ attributes: ["id", "name"] });
+		return ArdTeam.findAll({ attributes: ["id", "name"] });
 	}
 
 	getById(id: ArdTeamId): Promise<ArdTeam | null> {
-		return this.model.findByPk(id);
+		return ArdTeam.findByPk(id);
 	}
 
 	getByName(name: string): Promise<ArdTeam | null> {
-		return this.model.findOne({ where: { name } });
+		return ArdTeam.findOne({ where: { name } });
 	}
 
 	create(
@@ -55,8 +53,6 @@ export class ArdTeamRepository
 export class MockArdTeamRepository
 	implements ITeamRepositoryInterface<ArdTeamId, ArdTeam>
 {
-	constructor(/* empty */) {}
-
 	getAll(): Promise<ArdTeam[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as ArdTeam,

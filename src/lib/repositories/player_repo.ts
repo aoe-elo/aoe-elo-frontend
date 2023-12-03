@@ -2,7 +2,7 @@ import type { IBaseRepositoryInterface } from "$interfaces/repository";
 import { Country } from "$models/country.model";
 import { Player } from "$models/player.model";
 import type { PlayerId } from "$models/player.model";
-import type { Repository, Sequelize } from "sequelize-typescript";
+import type { Sequelize } from "@sequelize/core";
 
 export interface IPlayerRepositoryInterface<PlayerId, PlayerData>
 	extends IBaseRepositoryInterface<PlayerId, PlayerData> {
@@ -13,25 +13,17 @@ export interface IPlayerRepositoryInterface<PlayerId, PlayerData>
 export class PlayerRepository
 	implements IPlayerRepositoryInterface<PlayerId, Player>
 {
-	private readonly player: Repository<Player>;
-	private readonly country: Repository<Country>;
-
-	constructor(connection: Sequelize) {
-		this.player = connection.getRepository(Player);
-		this.country = connection.getRepository(Country);
-	}
-
 	getAll(): Promise<Player[]> {
-		return this.player.findAll();
+		return Player.findAll();
 	}
 
 	getAllPaginated(offset: number, limit = 25): Promise<Player[]> {
-		return this.player.findAll({
+		return Player.findAll({
 			offset,
 			limit,
 			include: [
 				{
-					model: this.country,
+					model: Country,
 					as: "country",
 					attributes: ["name", "iso_3166_2"],
 				},
@@ -40,14 +32,14 @@ export class PlayerRepository
 	}
 
 	getAllPartiallyCached(): Promise<Partial<Player[]>> {
-		return this.player.findAll({ attributes: ["id", "name"] });
+		return Player.findAll({ attributes: ["id", "name"] });
 	}
 
 	getById(id: PlayerId): Promise<Player | null> {
-		return this.player.findByPk(id, {
+		return Player.findByPk(id, {
 			include: [
 				{
-					model: this.country,
+					model: Country,
 					as: "country",
 					attributes: ["name", "iso_3166_2"],
 				},
@@ -56,7 +48,7 @@ export class PlayerRepository
 	}
 
 	getByName(name: string): Promise<Player | null> {
-		return this.player.findOne({ where: { name: name } });
+		return Player.findOne({ where: { name: name } });
 	}
 
 	create(

@@ -1,0 +1,376 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cache_most_visited {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  day       DateTime @db.Date
+  page      String   @db.Text
+  entity_id Int?     @db.UnsignedInt
+  visits    Int      @db.UnsignedInt
+}
+
+model country {
+  id      Int    @id @default(autoincrement()) @db.UnsignedInt
+  iso_key String @db.VarChar(10)
+  name    String @db.Text
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model elo_1v1_cache {
+  id            Int      @id @default(autoincrement()) @db.UnsignedInt
+  created       DateTime @db.DateTime(0)
+  type          String   @default("match") @db.VarChar(255)
+  match_id      Int?     @db.UnsignedInt
+  player_id     Int      @db.UnsignedInt
+  elo_before    Int      @db.UnsignedInt
+  elo_after     Int      @db.UnsignedInt
+  match_time    DateTime @db.Date
+  tournament_id Int?     @db.UnsignedInt
+
+  @@index([match_id], map: "match_id")
+  @@index([match_time], map: "match_time")
+  @@index([player_id], map: "player_id")
+  @@index([tournament_id], map: "tournament_id")
+}
+
+model extern_de_cache {
+  id       Int      @id @default(autoincrement()) @db.UnsignedInt
+  steam_id String   @db.VarChar(40)
+  time     DateTime @db.DateTime(0)
+  rating   Int      @db.UnsignedInt
+  rank     Int      @db.UnsignedInt
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model extern_voobly_cache {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  voobly_id Int      @db.UnsignedInt
+  ladder    Int      @default(1) @db.UnsignedInt
+  rating    Int      @db.UnsignedInt
+  ranking   Int?     @db.UnsignedInt
+  time      DateTime @db.DateTime(0)
+
+  @@index([voobly_id], map: "voobly_id")
+}
+
+model extern_voobly_player_cache {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  voobly_id Int      @db.UnsignedInt
+  rm_1v1    Int      @db.UnsignedInt
+  rm_tg     Int      @db.UnsignedInt
+  time      DateTime @db.DateTime(0)
+
+  @@index([voobly_id], map: "voobly_id")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model match_1v1 {
+  id            Int       @id @default(autoincrement()) @db.UnsignedInt
+  date          DateTime? @db.Date
+  tournament_id Int?      @db.UnsignedInt
+  stage_id      Int       @default(1) @db.UnsignedInt
+  player_1_id   Int       @db.UnsignedInt
+  player_2_id   Int       @db.UnsignedInt
+  score_1       Int       @db.UnsignedInt
+  score_2       Int       @db.UnsignedInt
+  create_user   Int       @db.UnsignedInt
+  create_time   DateTime  @db.DateTime(0)
+  update_user   Int       @db.UnsignedInt
+  update_time   DateTime  @db.DateTime(0)
+
+  @@index([create_user], map: "created_user")
+  @@index([date, tournament_id, player_1_id, player_2_id], map: "date")
+  @@index([stage_id], map: "stage_id")
+  @@index([update_user], map: "update_user")
+}
+
+model match_1v1_event {
+  id            Int       @id @default(autoincrement()) @db.UnsignedInt
+  date          DateTime? @db.Date
+  time          DateTime? @db.Time(0)
+  tournament_id Int       @db.UnsignedInt
+  stage_id      Int       @db.UnsignedInt
+  player_1_id   Int?      @db.UnsignedInt
+  player_2_id   Int?      @db.UnsignedInt
+  bo            Int?      @db.UnsignedInt
+  create_user   Int       @db.UnsignedInt
+  create_time   DateTime  @db.DateTime(0)
+  update_user   Int       @db.UnsignedInt
+  update_time   DateTime  @db.DateTime(0)
+
+  @@index([create_user], map: "create_user")
+  @@index([stage_id], map: "stage_id")
+  @@index([player_1_id, player_2_id], map: "tournament_id")
+  @@index([tournament_id], map: "tournament_id_2")
+  @@index([update_user], map: "update_user")
+}
+
+model meta_cache {
+  id          Int    @id @default(autoincrement()) @db.UnsignedInt
+  name        Int    @unique(map: "name")
+  value_int   Int
+  value_float Float
+  value_str   String @db.Text
+}
+
+model page_ip_info {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+  time         DateTime @db.DateTime(0)
+  ip           BigInt?
+  data         String?  @db.Text
+  longitude    Float?
+  latitude     Float?
+  country      String?  @db.VarChar(100)
+  country_code String?  @db.VarChar(10)
+  city         String?  @db.Text
+  error        String?  @db.Text
+}
+
+model page_visit {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  time        DateTime @db.DateTime(0)
+  session_key String?  @db.VarChar(255)
+  hash        String?  @db.VarChar(100)
+  user        Int?     @db.UnsignedInt
+  ip          BigInt?
+  ip_info     Int?     @db.UnsignedInt
+  domain      String?  @db.VarChar(100)
+  path        String?  @db.Text
+  page        String?  @db.VarChar(255)
+  entity_id   Int?     @db.UnsignedInt
+
+  @@index([ip_info], map: "ip_info")
+  @@index([page, entity_id], map: "page")
+  @@index([session_key], map: "session_key")
+  @@index([user], map: "user")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model player {
+  id              Int      @id @default(autoincrement()) @db.UnsignedInt
+  name            String   @unique(map: "name") @db.VarChar(100)
+  alias           String   @db.VarChar(255)
+  team_id         Int?     @db.UnsignedInt
+  country_key     String?  @db.VarChar(10)
+  initial_elo_1v1 Int?     @db.UnsignedInt
+  voobly_id       Int?     @db.UnsignedInt
+  steam_id        String?  @db.VarChar(40)
+  steam_id_failed String?  @db.VarChar(40)
+  twitch          String?  @db.Text
+  youtube         String?  @db.Text
+  twitter         String?  @db.Text
+  facebook        String?  @db.Text
+  create_user     Int      @db.UnsignedInt
+  create_time     DateTime @db.DateTime(0)
+  update_user     Int      @db.UnsignedInt
+  update_time     DateTime @db.DateTime(0)
+
+  @@index([create_user], map: "create_user")
+  @@index([team_id], map: "team_id")
+  @@index([update_user], map: "update_user")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model player_bak {
+  id              Int      @id @default(autoincrement()) @db.UnsignedInt
+  name            String   @unique(map: "name") @db.VarChar(30)
+  alias           String   @db.VarChar(255)
+  team_id         Int?     @db.UnsignedInt
+  country_key     String?  @db.VarChar(10)
+  initial_elo_1v1 Int?     @db.UnsignedInt
+  voobly_id       Int?     @db.UnsignedInt
+  steam_id        String?  @db.VarChar(40)
+  steam_id_failed String?  @db.VarChar(40)
+  twitch          String?  @db.Text
+  youtube         String?  @db.Text
+  twitter         String?  @db.Text
+  facebook        String?  @db.Text
+  create_user     Int      @db.UnsignedInt
+  create_time     DateTime @db.DateTime(0)
+  update_user     Int      @db.UnsignedInt
+  update_time     DateTime @db.DateTime(0)
+
+  @@index([create_user], map: "create_user")
+  @@index([team_id], map: "team_id")
+  @@index([update_user], map: "update_user")
+}
+
+model player_cache {
+  id              Int       @id @default(autoincrement()) @db.UnsignedInt
+  player_id       Int       @unique(map: "player_id") @db.UnsignedInt
+  num_matches     Int?      @db.UnsignedInt
+  num_wins        Int?      @db.UnsignedInt
+  num_games       Int?      @db.UnsignedInt
+  tournament_ids  String?   @db.Text
+  last_match      Int?      @db.UnsignedInt
+  last_match_time DateTime? @db.DateTime(0)
+  rank            Int?      @db.UnsignedInt
+  elo             Int?      @db.UnsignedInt
+  elo_update      DateTime? @db.DateTime(0)
+  elo_peak        Int?      @db.UnsignedInt
+  de_elo          Int?      @db.UnsignedInt
+  de_rank         Int?      @db.UnsignedInt
+  de_update       DateTime? @db.DateTime(0)
+  voobly_elo      Int?      @db.UnsignedInt
+  voobly_rank     Int?      @db.UnsignedInt
+  voobly_update   DateTime? @db.DateTime(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model player_info {
+  id          Int      @db.UnsignedInt
+  player      Int      @db.UnsignedInt
+  type        String   @db.VarChar(255)
+  value_int   Int?
+  value_str   String?  @db.Text
+  create_time DateTime @db.DateTime(0)
+  create_user Int      @db.UnsignedInt
+
+  @@ignore
+}
+
+model stage {
+  id         Int    @id @default(autoincrement()) @db.UnsignedInt
+  name       String @db.Text
+  bracket    Int    @default(1) @db.UnsignedInt
+  index      Int    @default(1) @db.UnsignedInt
+  weight     Float  @default(1) @db.Float
+  importance Int    @default(1) @db.UnsignedInt
+}
+
+model subscription {
+  id      Int      @id @default(autoincrement()) @db.UnsignedInt
+  created DateTime @db.DateTime(0)
+  email   String   @db.Text
+  session String   @db.Text
+}
+
+model team {
+  id              Int       @id @default(autoincrement()) @db.UnsignedInt
+  name            String    @unique(map: "name") @db.VarChar(100)
+  tag             String    @db.VarChar(30)
+  primary_color   String?   @db.VarChar(30)
+  secondary_color String?   @db.VarChar(30)
+  create_user     Int?      @db.UnsignedInt
+  create_time     DateTime? @db.DateTime(0)
+  update_user     Int?      @db.UnsignedInt
+  update_time     DateTime? @db.DateTime(0)
+
+  @@index([create_user], map: "create_user")
+  @@index([update_user], map: "update_user")
+}
+
+model ticket {
+  id      Int      @id @default(autoincrement()) @db.UnsignedInt
+  created DateTime @db.DateTime(0)
+  user    Int?     @db.UnsignedInt
+  type    String   @db.VarChar(255)
+  done    Int      @default(0)
+  message String   @db.Text
+  contact String   @db.Text
+  hash    String   @db.Text
+  session String   @db.Text
+
+  @@index([user], map: "user")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model tournament {
+  id          Int                  @id @default(autoincrement()) @db.UnsignedInt
+  name        String               @db.VarChar(255)
+  short       String               @db.VarChar(100)
+  start       DateTime?            @db.Date
+  end         DateTime?            @db.Date
+  weight      Int                  @default(1) @db.UnsignedInt
+  type        tournament_type      @default(cup)
+  prizemoney  Int?                 @db.UnsignedInt
+  parent_id   Int?                 @db.UnsignedInt
+  structure   tournament_structure
+  evaluation  String?              @db.VarChar(30)
+  website     String?              @db.Text
+  comment     String?              @db.Text
+  create_user Int                  @db.UnsignedInt
+  create_time DateTime             @db.DateTime(0)
+  update_user Int                  @db.UnsignedInt
+  update_time DateTime             @db.DateTime(0)
+
+  @@index([create_user], map: "create_user")
+  @@index([parent_id], map: "parent_id")
+  @@index([update_user], map: "update_user")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model tournament_info {
+  id            Int      @id @default(autoincrement()) @db.UnsignedInt
+  create_user   Int      @db.UnsignedInt
+  create_time   DateTime @db.DateTime(0)
+  tournament_id Int      @db.UnsignedInt
+  type          Int      @db.UnsignedInt
+  description   String   @db.Text
+  value         String   @db.Text
+
+  @@index([create_user], map: "create_user")
+  @@index([type], map: "type")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model tournament_info_bak {
+  id            Int      @id @default(autoincrement()) @db.UnsignedInt
+  create_user   Int      @db.UnsignedInt
+  create_time   DateTime @db.DateTime(0)
+  tournament_id Int      @db.UnsignedInt
+  type          Int      @db.UnsignedInt
+  description   String   @db.Text
+  value         String   @db.Text
+
+  @@index([create_user], map: "create_user")
+  @@index([type], map: "type")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model tournament_result {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  tournament  Int      @db.UnsignedInt
+  player      Int      @db.UnsignedInt
+  type        Int?     @db.UnsignedInt
+  money       Int?     @db.UnsignedInt
+  source      String?  @db.Text
+  create_time DateTime @db.DateTime(0)
+  create_user Int      @db.UnsignedInt
+
+  @@index([create_user], map: "create_user")
+  @@index([player], map: "player")
+  @@index([tournament], map: "tournament")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model user {
+  id               Int    @id @default(autoincrement()) @db.UnsignedInt
+  name             String @db.VarChar(100)
+  pass             String @db.VarChar(255)
+  rank             Int    @default(1) @db.UnsignedInt
+  allow_tournament Int?   @default(0) @db.UnsignedInt
+  allow_player     Int?   @default(0) @db.UnsignedInt
+  allow_match      Int?   @default(0)
+  allow_see        Int?   @default(0) @db.UnsignedInt
+}
+
+enum tournament_type {
+  cup
+  qualifier
+}
+
+enum tournament_structure {
+  single_elemination @map("single-elemination")
+  double_elimination @map("double-elimination")
+  league
+  other
+  group
+  group_ko           @map("group-ko")
+}

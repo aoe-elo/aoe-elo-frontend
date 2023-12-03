@@ -1,7 +1,6 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 import { Tournament, type TournamentId } from "$models/tournament.model";
-import { Op } from "sequelize";
-import type { Repository, Sequelize } from "sequelize-typescript";
+import { Op } from "@sequelize/core";
 
 interface ITournamentRepositoryInterface<TournamentId, TournamentData>
 	extends IBaseRepositoryInterface<TournamentId, TournamentData> {
@@ -12,30 +11,24 @@ interface ITournamentRepositoryInterface<TournamentId, TournamentData>
 export class TournamentRepository
 	implements ITournamentRepositoryInterface<TournamentId, Tournament>
 {
-	private readonly tournament: Repository<Tournament>;
-
-	constructor(connection: Sequelize) {
-		this.tournament = connection.getRepository(Tournament);
-	}
-
 	getAll(): Promise<Tournament[]> {
-		return this.tournament.findAll();
+		return Tournament.findAll();
 	}
 
 	getAllPaginated(offset: number, limit = 25): Promise<Tournament[]> {
-		return this.tournament.findAll({ offset, limit });
+		return Tournament.findAll({ offset, limit });
 	}
 
 	getAllPartiallyCached(): Promise<Partial<Tournament[]>> {
-		return this.tournament.findAll({ attributes: ["id", "name"] });
+		return Tournament.findAll({ attributes: ["id", "name"] });
 	}
 
 	getById(id: TournamentId): Promise<Tournament | null> {
-		return this.tournament.findByPk(id);
+		return Tournament.findByPk(id);
 	}
 
 	getHighlighted(prize_pool_min: number, limit = 5): Promise<Tournament[]> {
-		return this.tournament.findAll({
+		return Tournament.findAll({
 			order: [["started_at", "DESC"]],
 			limit: limit,
 			where: { prize_pool: { [Op.gte]: prize_pool_min } },
@@ -43,7 +36,7 @@ export class TournamentRepository
 	}
 
 	getByName(name: string): Promise<Tournament | null> {
-		return this.tournament.findOne({ where: { name } });
+		return Tournament.findOne({ where: { name } });
 	}
 
 	create(
@@ -74,8 +67,6 @@ export class TournamentRepository
 export class MockTournamentRepository
 	implements ITournamentRepositoryInterface<TournamentId, Tournament>
 {
-	constructor(/* empty */) {}
-
 	getAll(): Promise<Tournament[]> {
 		throw new Error("Method not implemented.");
 	}

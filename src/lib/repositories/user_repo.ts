@@ -1,7 +1,6 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 import type { UserId } from "$models/user.model";
 import { User } from "$models/user.model";
-import type { Repository, Sequelize } from "sequelize-typescript";
 
 interface IUserRepositoryInterface<UserId, UserData>
 	extends IBaseRepositoryInterface<UserId, UserData> {
@@ -10,30 +9,24 @@ interface IUserRepositoryInterface<UserId, UserData>
 }
 
 export class UserRepository implements IUserRepositoryInterface<UserId, User> {
-	private readonly user: Repository<User>;
-
-	constructor(connection: Sequelize) {
-		this.user = connection.getRepository(User);
-	}
-
 	getAll(): Promise<User[]> {
-		return this.user.findAll();
+		return User.findAll();
 	}
 
 	getAllPaginated(offset: number, limit = 25): Promise<User[]> {
-		return this.user.findAll({ offset, limit });
+		return User.findAll({ offset, limit });
 	}
 
 	getAllPartiallyCached(): Promise<Partial<User[]>> {
-		return this.user.findAll({ attributes: ["id", "name"] });
+		return User.findAll({ attributes: ["id", "name"] });
 	}
 
 	getById(id: UserId): Promise<User | null> {
-		return this.user.findByPk(id);
+		return User.findByPk(id);
 	}
 
 	getByName(name: string): Promise<User | null> {
-		return this.user.findOne({ where: { name: name } });
+		return User.findOne({ where: { name: name } });
 	}
 
 	create(
@@ -64,8 +57,6 @@ export class UserRepository implements IUserRepositoryInterface<UserId, User> {
 export class MockUserRepository
 	implements IUserRepositoryInterface<UserId, User>
 {
-	constructor(/* empty */) {}
-
 	getAll(): Promise<User[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as User,

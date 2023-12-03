@@ -1,27 +1,22 @@
 import type { ArdPlayerId } from "$models/ard_player.model";
-import type { ArdPlayer } from "$models/ard_player.model";
-import type { Country } from "$models/country.model";
+import { ArdPlayer } from "$models/ard_player.model";
+import { Country } from "$models/country.model";
 import type { IPlayerRepositoryInterface } from "$repositories/player_repo";
 
 export class ArdPlayerRepository
 	implements IPlayerRepositoryInterface<ArdPlayerId, ArdPlayer>
 {
-	constructor(
-		private readonly model: typeof ArdPlayer,
-		private readonly country: typeof Country,
-	) {}
-
 	getAll(): Promise<ArdPlayer[]> {
-		return this.model.findAll();
+		return ArdPlayer.findAll();
 	}
 
 	getAllPaginated(offset: number, limit = 25): Promise<ArdPlayer[]> {
-		return this.model.findAll({
+		return ArdPlayer.findAll({
 			offset,
 			limit,
 			include: [
 				{
-					model: this.country,
+					model: Country,
 					as: "country",
 					attributes: ["name", "iso_3166_2"],
 				},
@@ -30,15 +25,15 @@ export class ArdPlayerRepository
 	}
 
 	getAllPartiallyCached(): Promise<Partial<ArdPlayer[]>> {
-		return this.model.findAll({ attributes: ["id", "name"] });
+		return ArdPlayer.findAll({ attributes: ["id", "name"] });
 	}
 
 	getById(id: ArdPlayerId): Promise<ArdPlayer | null> {
-		return this.model.findByPk(id);
+		return ArdPlayer.findByPk(id);
 	}
 
 	getByName(name: string): Promise<ArdPlayer | null> {
-		return this.model.findOne({ where: { name: name } });
+		return ArdPlayer.findOne({ where: { name: name } });
 	}
 
 	create(
@@ -69,8 +64,6 @@ export class ArdPlayerRepository
 export class MockArdPlayerRepository
 	implements IPlayerRepositoryInterface<ArdPlayerId, ArdPlayer>
 {
-	constructor(/* empty */) {}
-
 	getAll(): Promise<ArdPlayer[]> {
 		return [
 			{ id: 1, name: "Test", country_id: 123 } as ArdPlayer,

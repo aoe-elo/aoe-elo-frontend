@@ -1,5 +1,5 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Location, LocationId } from "$models/TODO/location.model";
+import { Location, type LocationId } from "$models/TODO/location.model";
 
 interface ILocationRepositoryInterface<LocationId, LocationData>
 	extends IBaseRepositoryInterface<LocationId, LocationData> {
@@ -9,26 +9,24 @@ interface ILocationRepositoryInterface<LocationId, LocationData>
 export class LocationRepository
 	implements ILocationRepositoryInterface<LocationId, Location>
 {
-	constructor(private readonly model: typeof Location) {}
-
 	getAll(): Promise<Location[]> {
-		return this.model.findAll();
+		return Location.findAll();
 	}
 
 	getAllPaginated(offset: number, limit = 25): Promise<Location[]> {
-		return this.model.findAll({ offset, limit });
+		return Location.findAll({ offset, limit });
 	}
 
 	getAllPartiallyCached(): Promise<Partial<Location[]>> {
-		return this.model.findAll({ attributes: ["id", "name"] });
+		return Location.findAll({ attributes: ["id", "name"] });
 	}
 
 	getById(id: LocationId): Promise<Location | null> {
-		return this.model.findByPk(id);
+		return Location.findByPk(id);
 	}
 
 	getByName(name: string): Promise<Location | null> {
-		return this.model.findOne({ where: { name: name } });
+		return Location.findOne({ where: { name: name } });
 	}
 
 	create(
