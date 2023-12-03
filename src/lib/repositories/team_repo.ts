@@ -2,6 +2,7 @@ import type { IBaseRepositoryInterface } from "$interfaces/repository";
 import { Player } from "$models/player.model";
 import type { TeamId } from "$models/team.model";
 import { Team } from "$models/team.model";
+import type { PrismaClient } from "@prisma/client";
 
 export interface ITeamRepositoryInterface<TeamId, TeamData>
 	extends IBaseRepositoryInterface<TeamId, TeamData> {
@@ -9,25 +10,28 @@ export interface ITeamRepositoryInterface<TeamId, TeamData>
 	getAllPartiallyCached(): Promise<Partial<TeamData[]>>;
 }
 
-export class TeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
+export class TeamRepository<T extends PrismaClient> implements ITeamRepositoryInterface<TeamId, Team> {
+
+	constructor(private readonly model: T) {}
+
 	getAll(): Promise<Team[]> {
-		return Team.findAll();
+		return this.model.team.findMany();
 	}
 
 	getAllPaginated(offset: number, limit = 25): Promise<Team[]> {
-		return Team.findAll({ offset, limit });
+		return this.model.team.findMany({ skip: offset, take: limit });
 	}
 
 	getAllPartiallyCached(): Promise<Partial<Team[]>> {
-		return Team.findAll({ attributes: ["id", "name"] });
+		return this.model.team.findMany({ select: {id: true, name: true} });
 	}
 
 	getById(id: TeamId): Promise<Team | null> {
-		return Team.findByPk(id, { include: [Player] });
+		return this.model.team.findUnique({where: { id: id }, include: { player: true }});
 	}
 
 	getByName(name: string): Promise<Team | null> {
-		return Team.findOne({ where: { name } });
+		return this.model.team.findFirst({ where: { name: name } });
 	}
 
 	create(
@@ -55,59 +59,59 @@ export class TeamRepository implements ITeamRepositoryInterface<TeamId, Team> {
 	}
 }
 
-export class MockTeamRepository
-	implements ITeamRepositoryInterface<TeamId, Team>
-{
-	constructor(/* empty */) {}
+// export class MockTeamRepository
+// 	implements ITeamRepositoryInterface<TeamId, Team>
+// {
+// 	constructor(/* empty */) {}
 
-	getAll(): Promise<Team[]> {
-		return [
-			{ id: 1, name: "Test", country_id: 123 } as Team,
-			{ id: 2, name: "Test2", country_id: 123 } as Team,
-		];
-	}
+// 	getAll(): Promise<Team[]> {
+// 		return [
+// 			{ id: 1, name: "Test", country_id: 123 } as Team,
+// 			{ id: 2, name: "Test2", country_id: 123 } as Team,
+// 		];
+// 	}
 
-	getAllPaginated(offset: number, limit = 25): Promise<Team[]> {
-		throw new Error("Method not implemented.");
-	}
+// 	getAllPaginated(offset: number, limit = 25): Promise<Team[]> {
+// 		throw new Error("Method not implemented.");
+// 	}
 
-	getAllPartiallyCached(): Promise<Team[]> {
-		return [
-			{ id: 1, name: "Test", country_id: 123 } as Team,
-			{ id: 2, name: "Test2", country_id: 123 } as Team,
-		];
-	}
+// 	getAllPartiallyCached(): Promise<Team[]> {
+// 		return [
+// 			{ id: 1, name: "Test", country_id: 123 } as Team,
+// 			{ id: 2, name: "Test2", country_id: 123 } as Team,
+// 		];
+// 	}
 
-	getById(id: TeamId): Promise<Team | null> {
-		return { id: id, name: "Test", country_id: 123 } as Team;
-	}
+// 	getById(id: TeamId): Promise<Team | null> {
+// 		return { id: id, name: "Test", country_id: 123 } as Team;
+// 	}
 
-	getByName(name: string): Promise<Team | null> {
-		return { id: 1, name: name, country_id: 123 } as Team;
-	}
+// 	getByName(name: string): Promise<Team | null> {
+// 		return { id: 1, name: name, country_id: 123 } as Team;
+// 	}
 
-	create(
-		details: Partial<Team>,
-		actionlog_user_id: number,
-		actionlog_summary: string,
-	): Promise<TeamId> {
-		return Promise.resolve(1);
-	}
+// 	create(
+// 		details: Partial<Team>,
+// 		actionlog_user_id: number,
+// 		actionlog_summary: string,
+// 	): Promise<TeamId> {
+// 		return Promise.resolve(1);
+// 	}
 
-	update(
-		id: TeamId,
-		new_details: Partial<Team>,
-		actionlog_user_id: number,
-		actionlog_summary: string,
-	): Promise<boolean> {
-		return Promise.resolve(false);
-	}
+// 	update(
+// 		id: TeamId,
+// 		new_details: Partial<Team>,
+// 		actionlog_user_id: number,
+// 		actionlog_summary: string,
+// 	): Promise<boolean> {
+// 		return Promise.resolve(false);
+// 	}
 
-	delete(
-		id: TeamId,
-		actionlog_user_id: number,
-		actionlog_summary: string,
-	): Promise<boolean> {
-		return Promise.resolve(true);
-	}
-}
+// 	delete(
+// 		id: TeamId,
+// 		actionlog_user_id: number,
+// 		actionlog_summary: string,
+// 	): Promise<boolean> {
+// 		return Promise.resolve(true);
+// 	}
+// }

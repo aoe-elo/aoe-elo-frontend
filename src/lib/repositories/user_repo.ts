@@ -1,6 +1,9 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { UserId } from "$models/user.model";
-import { User } from "$models/user.model";
+import type { Prisma, PrismaClient } from "@prisma/client";
+
+const user_id: Prisma.userSelect = {id: true};
+type UserId = typeof user_id;
+
 
 interface IUserRepositoryInterface<UserId, UserData>
 	extends IBaseRepositoryInterface<UserId, UserData> {
@@ -8,25 +11,28 @@ interface IUserRepositoryInterface<UserId, UserData>
 	getAllPartiallyCached(): Promise<Partial<UserData[]>>;
 }
 
-export class UserRepository implements IUserRepositoryInterface<UserId, User> {
+export class UserRepository<T extends PrismaClient> implements IUserRepositoryInterface<UserId, User> {
+
+	constructor(private readonly model: T) {}
+	
 	getAll(): Promise<User[]> {
-		return User.findAll();
+		return this.model.user.findMany();
 	}
 
 	getAllPaginated(offset: number, limit = 25): Promise<User[]> {
-		return User.findAll({ offset, limit });
+		return this.model.user.findMany({ skip: offset, take: limit });
 	}
 
 	getAllPartiallyCached(): Promise<Partial<User[]>> {
-		return User.findAll({ attributes: ["id", "name"] });
+		return this.model.user.findMany({ select: { id: true, name: true} });
 	}
 
 	getById(id: UserId): Promise<User | null> {
-		return User.findByPk(id);
+		return this.model.user.findUnique({ where: { id: id } });
 	}
 
 	getByName(name: string): Promise<User | null> {
-		return User.findOne({ where: { name: name } });
+		return this.model.user.findFirst({ where: { name: name } });
 	}
 
 	create(
@@ -54,57 +60,57 @@ export class UserRepository implements IUserRepositoryInterface<UserId, User> {
 	}
 }
 
-export class MockUserRepository
-	implements IUserRepositoryInterface<UserId, User>
-{
-	getAll(): Promise<User[]> {
-		return [
-			{ id: 1, name: "Test", country_id: 123 } as User,
-			{ id: 2, name: "Test2", country_id: 123 } as User,
-		];
-	}
+// export class MockUserRepository
+// 	implements IUserRepositoryInterface<UserId, User>
+// {
+// 	getAll(): Promise<User[]> {
+// 		return [
+// 			{ id: 1, name: "Test", country_id: 123 } as User,
+// 			{ id: 2, name: "Test2", country_id: 123 } as User,
+// 		];
+// 	}
 
-	getAllPaginated(): Promise<User[]> {
-		throw new Error("Method not implemented.");
-	}
+// 	getAllPaginated(): Promise<User[]> {
+// 		throw new Error("Method not implemented.");
+// 	}
 
-	getAllPartiallyCached(): Promise<User[]> {
-		return [
-			{ id: 1, name: "Test", country_id: 123 } as User,
-			{ id: 2, name: "Test2", country_id: 123 } as User,
-		];
-	}
+// 	getAllPartiallyCached(): Promise<User[]> {
+// 		return [
+// 			{ id: 1, name: "Test", country_id: 123 } as User,
+// 			{ id: 2, name: "Test2", country_id: 123 } as User,
+// 		];
+// 	}
 
-	getById(id: UserId): Promise<User | null> {
-		return { id: id, name: "Test", country_id: 123 } as User;
-	}
+// 	getById(id: UserId): Promise<User | null> {
+// 		return { id: id, name: "Test", country_id: 123 } as User;
+// 	}
 
-	getByName(name: string): Promise<User | null> {
-		return { id: 1, name: name, country_id: 123 } as User;
-	}
+// 	getByName(name: string): Promise<User | null> {
+// 		return { id: 1, name: name, country_id: 123 } as User;
+// 	}
 
-	create(
-		details: Partial<User>,
-		actionlog_user_id: number,
-		actionlog_summary: string,
-	): Promise<UserId> {
-		return Promise.resolve(1);
-	}
+// 	create(
+// 		details: Partial<User>,
+// 		actionlog_user_id: number,
+// 		actionlog_summary: string,
+// 	): Promise<UserId> {
+// 		return Promise.resolve(1);
+// 	}
 
-	update(
-		id: UserId,
-		new_details: Partial<User>,
-		actionlog_user_id: number,
-		actionlog_summary: string,
-	): Promise<boolean> {
-		return Promise.resolve(false);
-	}
+// 	update(
+// 		id: UserId,
+// 		new_details: Partial<User>,
+// 		actionlog_user_id: number,
+// 		actionlog_summary: string,
+// 	): Promise<boolean> {
+// 		return Promise.resolve(false);
+// 	}
 
-	delete(
-		id: UserId,
-		actionlog_user_id: number,
-		actionlog_summary: string,
-	): Promise<boolean> {
-		return Promise.resolve(true);
-	}
-}
+// 	delete(
+// 		id: UserId,
+// 		actionlog_user_id: number,
+// 		actionlog_summary: string,
+// 	): Promise<boolean> {
+// 		return Promise.resolve(true);
+// 	}
+// }

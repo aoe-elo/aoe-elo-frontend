@@ -1,4 +1,4 @@
-import { app_init } from "$lib/bootstrap_sequelize";
+import { app_init } from "$lib/bootstrap";
 import type { Handle } from "@sveltejs/kit";
 import { run_dev } from "./backend_dev";
 
