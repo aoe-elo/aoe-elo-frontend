@@ -7,24 +7,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model cache_most_visited {
+model CacheMostVisited {
   id        Int      @id @default(autoincrement()) @db.UnsignedInt
   day       DateTime @db.Date
   page      String   @db.Text
   entity_id Int?     @db.UnsignedInt
   visits    Int      @db.UnsignedInt
+
+  @@map("cache_most_visited")
 }
 
-model country {
-  id           Int            @id @default(autoincrement()) @db.UnsignedInt
-  iso_key      String         @unique @db.VarChar(10)
-  name         String         @db.Text
-  page_ip_info page_ip_info[]
-  player       player[]
+model Country {
+  id               Int          @id @default(autoincrement()) @db.UnsignedInt
+  iso_key          String       @unique @db.VarChar(10)
+  name             String       @db.Text
+  ipInformation    PageIpInfo[]
+  playersOfCountry Player[]
+
+  @@map("country")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model elo_1v1_cache {
+model Elo1V1Cache {
   id            Int      @id @default(autoincrement()) @db.UnsignedInt
   created       DateTime @db.DateTime(0)
   type          String   @default("match") @db.VarChar(255)
@@ -35,28 +39,31 @@ model elo_1v1_cache {
   match_time    DateTime @db.Date // redundant
   tournament_id Int?     @db.UnsignedInt // redundant
 
-  match      match_1v1?  @relation(fields: [match_id], references: [id])
-  player     player?     @relation(fields: [player_id], references: [id])
-  tournament tournament? @relation(fields: [tournament_id], references: [id])
+  cachedMatch      Match?      @relation(fields: [match_id], references: [id])
+  cachedPlayer     Player?     @relation(fields: [player_id], references: [id])
+  cachedTournament Tournament? @relation(fields: [tournament_id], references: [id])
 
   @@index([match_id], map: "match_id")
   @@index([match_time], map: "match_time")
   @@index([player_id], map: "player_id")
   @@index([tournament_id], map: "tournament_id")
+  @@map("elo_1v1_cache")
 }
 
-model extern_de_cache {
+model ExternDeCache {
   id       Int      @id @default(autoincrement()) @db.UnsignedInt
   steam_id String   @db.VarChar(40)
   time     DateTime @db.DateTime(0)
   rating   Int      @db.UnsignedInt
   rank     Int      @db.UnsignedInt
 
-  player player? @relation(fields: [steam_id], references: [steam_id_failed])
+  cachedPlayer Player? @relation(fields: [steam_id], references: [steam_id_failed])
+
+  @@map("extern_de_cache")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model extern_voobly_cache {
+model ExternVooblyCache {
   id        Int      @id @default(autoincrement()) @db.UnsignedInt
   voobly_id Int      @db.UnsignedInt
   ladder    Int      @default(1) @db.UnsignedInt // 1: rm 1v1
@@ -64,25 +71,27 @@ model extern_voobly_cache {
   ranking   Int?     @db.UnsignedInt
   time      DateTime @db.DateTime(0)
 
-  player player? @relation(fields: [voobly_id], references: [voobly_id])
+  cachedPlayer Player? @relation(fields: [voobly_id], references: [voobly_id])
 
   @@index([voobly_id], map: "voobly_id")
+  @@map("extern_voobly_cache")
 }
 
-model extern_voobly_player_cache {
+model ExternVooblyPlayerCache {
   id        Int      @id @default(autoincrement()) @db.UnsignedInt
   voobly_id Int      @db.UnsignedInt
   rm_1v1    Int      @db.UnsignedInt
   rm_tg     Int      @db.UnsignedInt
   time      DateTime @db.DateTime(0)
 
-  player player? @relation(fields: [voobly_id], references: [voobly_id])
+  cachedPlayer Player? @relation(fields: [voobly_id], references: [voobly_id])
 
   @@index([voobly_id], map: "voobly_id")
+  @@map("extern_voobly_player_cache")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model match_1v1 {
+model Match {
   id            Int       @id @default(autoincrement()) @db.UnsignedInt
   date          DateTime? @db.Date // when this match was played (null=auto from tournament)
   tournament_id Int?      @db.UnsignedInt
@@ -96,19 +105,20 @@ model match_1v1 {
   update_user   Int       @db.UnsignedInt
   update_time   DateTime  @db.DateTime(0)
 
-  tournament    tournament?     @relation(fields: [tournament_id], references: [id])
-  stage         stage           @relation(fields: [stage_id], references: [id])
-  player_1      player          @relation("p1", fields: [player_1_id], references: [id])
-  player_2      player          @relation("p2", fields: [player_2_id], references: [id])
-  created_by    user?           @relation("create", fields: [create_user], references: [id])
-  updated_by    user?           @relation("update", fields: [update_user], references: [id])
-  elo_1v1_cache elo_1v1_cache[]
-  player_cache  player_cache[]
+  playedInTournament   Tournament?   @relation(fields: [tournament_id], references: [id])
+  playedAtStage        Stage         @relation(fields: [stage_id], references: [id])
+  participatingPlayer1 Player        @relation("p1", fields: [player_1_id], references: [id])
+  participatingPlayer2 Player        @relation("p2", fields: [player_2_id], references: [id])
+  createdByUser        User?         @relation("create", fields: [create_user], references: [id])
+  updatedByUser        User?         @relation("update", fields: [update_user], references: [id])
+  cachedEloItems       Elo1V1Cache[]
+  cachedPlayerItems    PlayerCache[]
 
   @@index([create_user], map: "created_user")
   @@index([date, tournament_id, player_1_id, player_2_id], map: "date")
   @@index([stage_id], map: "stage_id")
   @@index([update_user], map: "update_user")
+  @@map("match_1v1")
 }
 
 model match_1v1_event {
@@ -133,30 +143,34 @@ model match_1v1_event {
   @@ignore
 }
 
-model meta_cache {
+model MetaCache {
   id          Int    @id @default(autoincrement()) @db.UnsignedInt
   name        Int    @unique(map: "name")
   value_int   Int
   value_float Float
   value_str   String @db.Text
+
+  @@map("meta_cache")
 }
 
-model page_ip_info {
+model PageIpInfo {
   id           Int      @id @default(autoincrement()) @db.UnsignedInt
   time         DateTime @db.DateTime(0)
   ip           BigInt?
   data         String?  @db.Text
   longitude    Float?
   latitude     Float?
-  country      String?  @db.VarChar(100)
+  country_name String?  @map("country") @db.VarChar(100)
   country_code String?  @db.VarChar(10)
   city         String?  @db.Text
   error        String?  @db.Text
 
-  country_info country? @relation(fields: [country_code], references: [iso_key])
+  countryInfo Country? @relation(fields: [country_code], references: [iso_key])
+
+  @@map("page_ip_info")
 }
 
-model page_visit {
+model PageVisit {
   id          Int      @id @default(autoincrement()) @db.UnsignedInt
   time        DateTime @db.DateTime(0)
   session_key String?  @db.VarChar(255)
@@ -169,49 +183,51 @@ model page_visit {
   page        String?  @db.VarChar(255)
   entity_id   Int?     @db.UnsignedInt
 
-  user_info user? @relation(fields: [user], references: [id])
+  userInfo User? @relation(fields: [user], references: [id])
 
   @@index([ip_info], map: "ip_info")
   @@index([page, entity_id], map: "page")
   @@index([session_key], map: "session_key")
   @@index([user], map: "user")
+  @@map("page_visit")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model player {
-  id                         Int                          @id @default(autoincrement()) @db.UnsignedInt
-  name                       String                       @unique(map: "name") @db.VarChar(100)
-  alias                      String                       @db.VarChar(255) // comma-separated
-  team_id                    Int?                         @db.UnsignedInt
-  country_key                String?                      @db.VarChar(10)
-  initial_elo_1v1            Int?                         @db.UnsignedInt
-  voobly_id                  Int?                         @unique @db.UnsignedInt
-  steam_id                   String?                      @db.VarChar(40)
-  steam_id_failed            String?                      @unique @db.VarChar(40)
-  twitch                     String?                      @db.Text
-  youtube                    String?                      @db.Text
-  twitter                    String?                      @db.Text
-  facebook                   String?                      @db.Text
-  create_user                Int                          @db.UnsignedInt
-  create_time                DateTime                     @db.DateTime(0)
-  update_user                Int                          @db.UnsignedInt
-  update_time                DateTime                     @db.DateTime(0)
-  extern_voobly_player_cache extern_voobly_player_cache[]
-  extern_voobly_cache        extern_voobly_cache[]
-  p1_1v1_matches             match_1v1[]                  @relation("p1")
-  p2_1v1_matches             match_1v1[]                  @relation("p2")
-  extern_de_cache            extern_de_cache[]
-  elo_1v1_cache              elo_1v1_cache[]
-  team                       team?                        @relation(fields: [team_id], references: [id])
-  country                    country?                     @relation(fields: [country_key], references: [iso_key])
-  created_by                 user?                        @relation("create", fields: [create_user], references: [id])
-  updated_by                 user?                        @relation("update", fields: [update_user], references: [id])
-  player_cache               player_cache?
-  tournament_result          tournament_result[]
+model Player {
+  id                          Int                       @id @default(autoincrement()) @db.UnsignedInt
+  name                        String                    @unique(map: "name") @db.VarChar(100)
+  alias                       String                    @db.VarChar(255) // comma-separated
+  team_id                     Int?                      @db.UnsignedInt
+  country_key                 String?                   @db.VarChar(10)
+  initial_elo_1v1             Int?                      @db.UnsignedInt
+  voobly_id                   Int?                      @unique @db.UnsignedInt
+  steam_id                    String?                   @db.VarChar(40)
+  steam_id_failed             String?                   @unique @db.VarChar(40)
+  twitch                      String?                   @db.Text
+  youtube                     String?                   @db.Text
+  twitter                     String?                   @db.Text
+  facebook                    String?                   @db.Text
+  create_user                 Int                       @db.UnsignedInt
+  create_time                 DateTime                  @db.DateTime(0)
+  update_user                 Int                       @db.UnsignedInt
+  update_time                 DateTime                  @db.DateTime(0)
+  externVooblyPlayerCache     ExternVooblyPlayerCache[]
+  externVooblyCache           ExternVooblyCache[]
+  participatingPlayer1Matches Match[]                   @relation("p1")
+  participatingPlayer2Matches Match[]                   @relation("p2")
+  externDeCache               ExternDeCache[]
+  elo1V1Cache                 Elo1V1Cache[]
+  memberOfTeam                Team?                     @relation(fields: [team_id], references: [id])
+  fromCountry                 Country?                  @relation(fields: [country_key], references: [iso_key])
+  createdByUser               User?                     @relation("create", fields: [create_user], references: [id])
+  updatedByUser               User?                     @relation("update", fields: [update_user], references: [id])
+  cachedPlayerItem            PlayerCache?
+  tournamentResultItem        TournamentResult[]
 
   @@index([create_user], map: "create_user")
   @@index([team_id], map: "team_id")
   @@index([update_user], map: "update_user")
+  @@map("player")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -240,7 +256,7 @@ model player_bak {
   @@ignore
 }
 
-model player_cache {
+model PlayerCache {
   id              Int       @id @default(autoincrement()) @db.UnsignedInt
   player_id       Int       @unique(map: "player_id") @db.UnsignedInt
   num_matches     Int?      @db.UnsignedInt
@@ -260,8 +276,10 @@ model player_cache {
   voobly_rank     Int?      @db.UnsignedInt
   voobly_update   DateTime? @db.DateTime(0)
 
-  player       player?    @relation(fields: [player_id], references: [id])
-  latest_match match_1v1? @relation(fields: [last_match], references: [id])
+  cachedPlayer  Player? @relation(fields: [player_id], references: [id])
+  lastMatchItem Match?  @relation(fields: [last_match], references: [id])
+
+  @@map("player_cache")
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -277,24 +295,28 @@ model player_info {
   @@ignore
 }
 
-model stage {
-  id         Int         @id @default(autoincrement()) @db.UnsignedInt
-  name       String      @db.Text
-  bracket    Int         @default(1) @db.UnsignedInt
-  index      Int         @default(1) @db.UnsignedInt
-  weight     Float       @default(1) @db.Float
-  importance Int         @default(1) @db.UnsignedInt
-  match_1v1  match_1v1[]
+model Stage {
+  id            Int     @id @default(autoincrement()) @db.UnsignedInt
+  name          String  @db.Text
+  bracket       Int     @default(1) @db.UnsignedInt
+  index         Int     @default(1) @db.UnsignedInt
+  weight        Float   @default(1) @db.Float
+  importance    Int     @default(1) @db.UnsignedInt
+  playedMatches Match[]
+
+  @@map("stage")
 }
 
-model subscription {
+model Subscription {
   id      Int      @id @default(autoincrement()) @db.UnsignedInt
   created DateTime @db.DateTime(0)
   email   String   @db.Text
   session String   @db.Text
+
+  @@map("subscription")
 }
 
-model team {
+model Team {
   id              Int       @id @default(autoincrement()) @db.UnsignedInt
   name            String    @unique(map: "name") @db.VarChar(100)
   tag             String    @db.VarChar(30)
@@ -304,15 +326,16 @@ model team {
   create_time     DateTime? @db.DateTime(0)
   update_user     Int?      @db.UnsignedInt
   update_time     DateTime? @db.DateTime(0)
-  player          player[]
-  created_by      user?     @relation("create", fields: [create_user], references: [id])
-  updated_by      user?     @relation("update", fields: [update_user], references: [id])
+  playersInTeam   Player[]
+  createdByUser   User?     @relation("create", fields: [create_user], references: [id])
+  updatedByUser   User?     @relation("update", fields: [update_user], references: [id])
 
   @@index([create_user], map: "create_user")
   @@index([update_user], map: "update_user")
+  @@map("team")
 }
 
-model ticket {
+model Ticket {
   id      Int      @id @default(autoincrement()) @db.UnsignedInt
   created DateTime @db.DateTime(0)
   user    Int?     @db.UnsignedInt
@@ -323,47 +346,49 @@ model ticket {
   hash    String   @db.Text
   session String   @db.Text
 
-  user_info user? @relation(fields: [user], references: [id])
+  userInfo User? @relation(fields: [user], references: [id])
 
   @@index([user], map: "user")
+  @@map("ticket")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model tournament {
-  id                  Int                   @id @default(autoincrement()) @db.UnsignedInt
-  name                String                @db.VarChar(255)
-  short               String                @db.VarChar(100)
-  start               DateTime?             @db.Date
-  end                 DateTime?             @db.Date
-  weight              Int                   @default(1) @db.UnsignedInt
-  type                tournament_type       @default(cup)
-  prizemoney          Int?                  @db.UnsignedInt // $
-  parent_id           Int?                  @db.UnsignedInt
-  structure           tournament_structure
-  evaluation          String?               @db.VarChar(30)
-  website             String?               @db.Text
-  comment             String?               @db.Text
-  create_user         Int                   @db.UnsignedInt
-  create_time         DateTime              @db.DateTime(0)
-  update_user         Int                   @db.UnsignedInt
-  update_time         DateTime              @db.DateTime(0)
-  elo_1v1_cache       elo_1v1_cache[]
-  match_1v1           match_1v1[]
-  tournament_info_bak tournament_info_bak[]
-  tournament_info     tournament_info[]
-  tournament_result   tournament_result[]
-  created_by          user?                 @relation("create", fields: [create_user], references: [id])
-  updated_by          user?                 @relation("update", fields: [update_user], references: [id])
-  parent              tournament?           @relation("family", fields: [parent_id], references: [id])
-  children            tournament[]          @relation("family")
+model Tournament {
+  id                   Int                    @id @default(autoincrement()) @db.UnsignedInt
+  name                 String                 @db.VarChar(255)
+  short                String                 @db.VarChar(100)
+  start                DateTime?              @db.Date
+  end                  DateTime?              @db.Date
+  weight               Int                    @default(1) @db.UnsignedInt
+  type                 tournament_type        @default(cup)
+  prizemoney           Int?                   @db.UnsignedInt // $
+  parent_id            Int?                   @db.UnsignedInt
+  structure            tournament_structure
+  evaluation           String?                @db.VarChar(30)
+  website              String?                @db.Text
+  comment              String?                @db.Text
+  create_user          Int                    @db.UnsignedInt
+  create_time          DateTime               @db.DateTime(0)
+  update_user          Int                    @db.UnsignedInt
+  update_time          DateTime               @db.DateTime(0)
+  elo1V1CacheItem      Elo1V1Cache[]
+  matchesInTournament  Match[]
+  tournamentInfoBackup TournamentInfoBackup[]
+  tournamentInfo       TournamentInfo[]
+  tournamentResults    TournamentResult[]
+  createdByUser        User?                  @relation("create", fields: [create_user], references: [id])
+  updatedByUser        User?                  @relation("update", fields: [update_user], references: [id])
+  parentTournament     Tournament?            @relation("family", fields: [parent_id], references: [id])
+  childTournaments     Tournament[]           @relation("family")
 
   @@index([create_user], map: "create_user")
   @@index([parent_id], map: "parent_id")
   @@index([update_user], map: "update_user")
+  @@map("tournament")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model tournament_info {
+model TournamentInfo {
   id            Int      @id @default(autoincrement()) @db.UnsignedInt
   create_user   Int      @db.UnsignedInt
   create_time   DateTime @db.DateTime(0)
@@ -372,15 +397,16 @@ model tournament_info {
   description   String   @db.Text
   value         String   @db.Text
 
-  tournament tournament? @relation(fields: [tournament_id], references: [id])
-  created_by user?       @relation("create", fields: [create_user], references: [id])
+  aboutTournament Tournament? @relation(fields: [tournament_id], references: [id])
+  createdByUser   User?       @relation("create", fields: [create_user], references: [id])
 
   @@index([create_user], map: "create_user")
   @@index([type], map: "type")
+  @@map("tournament_info")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model tournament_info_bak {
+model TournamentInfoBackup {
   id            Int      @id @default(autoincrement()) @db.UnsignedInt
   create_user   Int      @db.UnsignedInt
   create_time   DateTime @db.DateTime(0)
@@ -389,56 +415,60 @@ model tournament_info_bak {
   description   String   @db.Text
   value         String   @db.Text
 
-  tournament tournament? @relation(fields: [tournament_id], references: [id])
-  created_by user?       @relation("create", fields: [create_user], references: [id])
+  aboutTournament Tournament? @relation(fields: [tournament_id], references: [id])
+  createdByUser   User?       @relation("create", fields: [create_user], references: [id])
 
   @@index([create_user], map: "create_user")
   @@index([type], map: "type")
+  @@map("tournament_info_bak")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model tournament_result {
-  id          Int      @id @default(autoincrement()) @db.UnsignedInt
-  tournament  Int      @db.UnsignedInt
-  player      Int      @db.UnsignedInt
-  type        Int?     @db.UnsignedInt // 1: win, ..., 5: semi-finals, null: other
-  money       Int?     @db.UnsignedInt
-  source      String?  @db.Text
-  create_time DateTime @db.DateTime(0)
-  create_user Int      @db.UnsignedInt
+model TournamentResult {
+  id            Int      @id @default(autoincrement()) @db.UnsignedInt
+  tournament_id Int      @map("tournament") @db.UnsignedInt
+  player_id     Int      @map("player") @db.UnsignedInt
+  type          Int?     @db.UnsignedInt // 1: win, ..., 5: semi-finals, null: other
+  money         Int?     @db.UnsignedInt
+  source        String?  @db.Text
+  create_time   DateTime @db.DateTime(0)
+  create_user   Int      @db.UnsignedInt
 
-  tournament_played tournament? @relation(fields: [tournament], references: [id])
-  created_by        user?       @relation("create", fields: [create_user], references: [id])
-  player_result     player?     @relation(fields: [player], references: [id])
+  playedInTournament Tournament? @relation(fields: [tournament_id], references: [id])
+  createdByUser      User?       @relation("create", fields: [create_user], references: [id])
+  resultForPlayer    Player?     @relation(fields: [player_id], references: [id])
 
   @@index([create_user], map: "create_user")
-  @@index([player], map: "player")
-  @@index([tournament], map: "tournament")
+  @@index([player_id], map: "player")
+  @@index([tournament_id], map: "tournament")
+  @@map("tournament_result")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model user {
-  id                          Int                   @id @default(autoincrement()) @db.UnsignedInt
-  name                        String                @db.VarChar(100)
-  pass                        String                @db.VarChar(255)
-  rank                        Int                   @default(1) @db.UnsignedInt // 1: admin, 2: normal
-  allow_tournament            Int?                  @default(0) @db.UnsignedInt // 0: nothing, 1: create, 2: and update, 3: and remove
-  allow_player                Int?                  @default(0) @db.UnsignedInt // 0: nothing, 1: create, 2: and update, 3: and remove
-  allow_match                 Int?                  @default(0) // 0: nothing, 1: create, 2: and update, 3: and remove
-  allow_see                   Int?                  @default(0) @db.UnsignedInt // 0: nothing, 1: create, 2: and update, 3: and remove
-  created_1v1_matches         match_1v1[]           @relation("create")
-  updated_1v1_matches         match_1v1[]           @relation("update")
-  visited_pages               page_visit[]
-  created_players             player[]              @relation("create")
-  updated_players             player[]              @relation("update")
-  created_tournament_info_bak tournament_info_bak[] @relation("create")
-  created_tournament_results  tournament_result[]   @relation("create")
-  created_tournament_info     tournament_info[]     @relation("create")
-  created_tournaments         tournament[]          @relation("create")
-  updated_tournaments         tournament[]          @relation("update")
-  created_teams               team[]                @relation("create")
-  updated_teams               team[]                @relation("update")
-  ticket                      ticket[]
+model User {
+  id                           Int                    @id @default(autoincrement()) @db.UnsignedInt
+  name                         String                 @db.VarChar(100)
+  pass                         String                 @db.VarChar(255)
+  rank                         Int                    @default(1) @db.UnsignedInt // 1: admin, 2: normal
+  allow_tournament             Int?                   @default(0) @db.UnsignedInt // 0: nothing, 1: create, 2: and update, 3: and remove
+  allow_player                 Int?                   @default(0) @db.UnsignedInt // 0: nothing, 1: create, 2: and update, 3: and remove
+  allow_match                  Int?                   @default(0) // 0: nothing, 1: create, 2: and update, 3: and remove
+  allow_see                    Int?                   @default(0) @db.UnsignedInt // 0: nothing, 1: create, 2: and update, 3: and remove
+  createdMatches               Match[]                @relation("create")
+  updatedMatches               Match[]                @relation("update")
+  createdPlayers               Player[]               @relation("create")
+  updatedPlayers               Player[]               @relation("update")
+  createdTeams                 Team[]                 @relation("create")
+  updatedTeams                 Team[]                 @relation("update")
+  createdTournamentInfoBackups TournamentInfoBackup[] @relation("create")
+  createdTournamentResults     TournamentResult[]     @relation("create")
+  createdTournamentInfo        TournamentInfo[]       @relation("create")
+  createdTournaments           Tournament[]           @relation("create")
+  updatedTournaments           Tournament[]           @relation("update")
+  createdTickets               Ticket[]
+  visitedPages                 PageVisit[]
+
+  @@map("user")
 }
 
 enum tournament_type {
