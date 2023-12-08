@@ -1,13 +1,13 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import { Tournament, type TournamentId } from "$models/tournament.model";
-import type { PrismaClient } from "@prisma/client";
-import { Op } from "@sequelize/core";
+import type { PrismaClient, Tournament } from "@prisma/client";
 
 interface ITournamentRepositoryInterface<TournamentId, TournamentData>
 	extends IBaseRepositoryInterface<TournamentId, TournamentData> {
 	getByName(name: string): Promise<TournamentData | null>;
-	getAllPartiallyCached(): Promise<Partial<TournamentData[]>>;
+	getAllPartiallyCached(): Promise<Partial<TournamentData>[]>;
 }
+
+type TournamentId = Tournament["id"];
 
 export class TournamentRepository<T extends PrismaClient>
 	implements ITournamentRepositoryInterface<TournamentId, Tournament>
@@ -23,7 +23,7 @@ export class TournamentRepository<T extends PrismaClient>
 		return this.model.tournament.findMany({ skip: offset, take: limit });
 	}
 
-	getAllPartiallyCached(): Promise<Partial<Tournament[]>> {
+	getAllPartiallyCached(): Promise<Partial<Tournament>[]> {
 		return this.model.tournament.findMany({ select: {id: true, name: true} });
 	}
 

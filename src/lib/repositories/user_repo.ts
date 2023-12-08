@@ -1,14 +1,12 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Prisma, PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient, User } from "@prisma/client";
 
-const user_id: Prisma.userSelect = {id: true};
-type UserId = typeof user_id;
-
+type UserId = User["id"];
 
 interface IUserRepositoryInterface<UserId, UserData>
 	extends IBaseRepositoryInterface<UserId, UserData> {
 	getByName(name: string): Promise<UserData | null>;
-	getAllPartiallyCached(): Promise<Partial<UserData[]>>;
+	getAllPartiallyCached(): Promise<Partial<UserData>[]>;
 }
 
 export class UserRepository<T extends PrismaClient> implements IUserRepositoryInterface<UserId, User> {
@@ -23,7 +21,7 @@ export class UserRepository<T extends PrismaClient> implements IUserRepositoryIn
 		return this.model.user.findMany({ skip: offset, take: limit });
 	}
 
-	getAllPartiallyCached(): Promise<Partial<User[]>> {
+	getAllPartiallyCached(): Promise<Partial<User>[]> {
 		return this.model.user.findMany({ select: { id: true, name: true} });
 	}
 

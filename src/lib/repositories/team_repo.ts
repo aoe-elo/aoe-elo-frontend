@@ -1,14 +1,14 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import { Player } from "$models/player.model";
-import type { TeamId } from "$models/team.model";
-import { Team } from "$models/team.model";
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient, Team } from "@prisma/client";
+
+type TeamId = Team["id"];
 
 export interface ITeamRepositoryInterface<TeamId, TeamData>
 	extends IBaseRepositoryInterface<TeamId, TeamData> {
 	getByName(name: string): Promise<TeamData | null>;
-	getAllPartiallyCached(): Promise<Partial<TeamData[]>>;
+	getAllPartiallyCached(): Promise<Partial<TeamData>[]>;
 }
+
 
 export class TeamRepository<T extends PrismaClient> implements ITeamRepositoryInterface<TeamId, Team> {
 
@@ -22,12 +22,12 @@ export class TeamRepository<T extends PrismaClient> implements ITeamRepositoryIn
 		return this.model.team.findMany({ skip: offset, take: limit });
 	}
 
-	getAllPartiallyCached(): Promise<Partial<Team[]>> {
+	getAllPartiallyCached(): Promise<Partial<Team>[]> {
 		return this.model.team.findMany({ select: {id: true, name: true} });
 	}
 
 	getById(id: TeamId): Promise<Team | null> {
-		return this.model.team.findUnique({where: { id: id }, include: { player: true }});
+		return this.model.team.findUnique({where: { id: id }, include: { playersInTeam: true }});
 	}
 
 	getByName(name: string): Promise<Team | null> {

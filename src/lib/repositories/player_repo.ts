@@ -1,14 +1,13 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import { Country } from "$models/country.model";
-import { Player } from "$models/player.model";
-import type { PlayerId } from "$models/player.model";
-import type { PrismaClient } from "@prisma/client";
-import { Sequelize } from "@sequelize/core";
+import type { PrismaClient, Player } from "@prisma/client";
+
+
+type PlayerId = Player["id"];
 
 export interface IPlayerRepositoryInterface<PlayerId, PlayerData>
 	extends IBaseRepositoryInterface<PlayerId, PlayerData> {
 	getByName(name: string): Promise<PlayerData | null>;
-	getAllPartiallyCached(): Promise<Partial<PlayerData[]>>;
+	getAllPartiallyCached(): Promise<Partial<PlayerData>[]>;
 }
 
 export class PlayerRepository<T extends PrismaClient>
@@ -25,18 +24,18 @@ export class PlayerRepository<T extends PrismaClient>
 		return this.model.player.findMany({
 			skip: offset,
 			take: limit,
-			include: { country: true, team: true },
+			include: { fromCountry: true, memberOfTeam: true },
 		});
 	}
 
-	getAllPartiallyCached(): Promise<Partial<Player[]>> {
+	getAllPartiallyCached(): Promise<Partial<Player>[]> {
 		return this.model.player.findMany({ select: { id: true, name: true} });
 	}
 
 	getById(id: PlayerId): Promise<Player | null> {
 		return this.model.player.findUnique({
 			where: { id: id },
-			include: { country: true, team: true },
+			include: { fromCountry: true, memberOfTeam: true },
 		});
 	}
 
