@@ -1,6 +1,6 @@
-import type { Tournament } from "$types/tournament";
+import type { ITournament } from "$interfaces/data/tournament";
 
-export const HIGHLIGHTED_TOURNEYS: Tournament[] = [
+export const HIGHLIGHTED_TOURNEYS: ITournament[] = [
 	{
 		id: 546,
 		name: "King of the Desert 5",

@@ -1,4 +1,4 @@
-export interface Tournament {
+export interface ITournament {
 	id: number;
 	name: string;
 	url: string;
@@ -9,7 +9,7 @@ export interface Tournament {
 	prizemoney: number;
 }
 
-export interface TournamentDetail {
+export interface ITournamentDetail {
 	id: number;
 	name: string;
 	url: string;
