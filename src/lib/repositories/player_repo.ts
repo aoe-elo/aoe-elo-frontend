@@ -1,7 +1,6 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 import type { PrismaClient, Player } from "@prisma/client";
 
-
 type PlayerId = Player["id"];
 
 export interface IPlayerRepositoryInterface<PlayerId, PlayerData>

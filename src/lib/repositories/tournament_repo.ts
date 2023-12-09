@@ -1,13 +1,13 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 import type { PrismaClient, Tournament } from "@prisma/client";
 
+type TournamentId = Tournament["id"];
+
 interface ITournamentRepositoryInterface<TournamentId, TournamentData>
 	extends IBaseRepositoryInterface<TournamentId, TournamentData> {
 	getByName(name: string): Promise<TournamentData | null>;
 	getAllPartiallyCached(): Promise<Partial<TournamentData>[]>;
 }
-
-type TournamentId = Tournament["id"];
 
 export class TournamentRepository<T extends PrismaClient>
 	implements ITournamentRepositoryInterface<TournamentId, Tournament>

@@ -1,5 +1,5 @@
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Prisma, PrismaClient, User } from "@prisma/client";
+import type { PrismaClient, User } from "@prisma/client";
 
 type UserId = User["id"];
 
