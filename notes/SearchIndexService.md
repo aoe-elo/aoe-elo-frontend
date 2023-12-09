@@ -20,4 +20,5 @@ index: {
 
 - and there is a `SearchIndexService` that creates that every now and then and caches it
 - we send the json to the frontend and cache it there as well and use it for autocompletion and live search
-- when a client requests something, we send the id and type to the backend and it returns the object  
+- when a client requests something, we send the id and type to the backend and it returns the object
+- when a client wants to go to the page, we use the link and redirect to it  
