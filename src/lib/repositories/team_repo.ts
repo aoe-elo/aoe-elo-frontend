@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
 import type { PrismaClient, Team } from "@prisma/client";
 
@@ -35,25 +36,25 @@ export class TeamRepository<T extends PrismaClient> implements ITeamRepositoryIn
 	}
 
 	create(
-		details: Partial<Team>,
-		actionlog_user_id: number,
-		actionlog_summary: string,
+		_details: Partial<Team>,
+		_actionlog_user_id: number,
+		_actionlog_summary: string,
 	): Promise<TeamId> {
 		throw new Error("Method not implemented.");
 	}
 
 	update(
-		id: TeamId,
-		new_details: Partial<Team>,
-		actionlog_user_id: number,
-		actionlog_summary: string,
+		_id: TeamId,
+		_new_details: Partial<Team>,
+		_actionlog_user_id: number,
+		_actionlog_summary: string,
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
 	delete(
-		team_id: TeamId,
-		user_id: number,
-		actionlog_summary: string,
+		_team_id: TeamId,
+		_user_id: number,
+		_actionlog_summary: string,
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
