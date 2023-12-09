@@ -2,31 +2,71 @@
 
 ## Player
 
-name
-T-ELO
-T-ELO rank
-total tournaments
-total wins
-total second place
-total third place
-total series
-series wins
-total games
-team
-country
-country flag
-date started as active player
-peak ELO
-peak ELO date
-total earnings
-historical Elo by month
+```ts
+interface IPlayer {
+  id: number;
+  name: string;
+  dateStartedActive: string;
+  tournamentElo: number;
+  tournamentEloRank: number;
+  peakElo: number;
+  peakEloDate: string;
+  totalAmountEarnings: number;
+  totalAmountTournaments: number;
+  totalAmountWins: number;
+  totalAmountSecond: number;
+  totalAmountThird: number;
+  totalAmountSeries: number;
+  seriesWins: number;
+  totalGames: number;
+  lifetimeOpponentsTop5: IPlayerLifetimeTop5Details[];
+  country: ICountryDetails;
+  historicalElo: IHistoricalElo[]; // by month?
+  teamActive: ITeamDetails;
+  tournaments: IPlayerTournament[];
+  matches: IMatch[];
+}
+```
 
-## Tournament
+```ts
+interface ICountryDetails {
+  id: number;
+  name: string;
+  isoKey: string;
+  flagUrl: string;
+}
+```
 
-played tournament names
-played tournament dates
-played tournament final rank
-played tournament Elo gain/loss amount
+```ts
+interface IHistoricalElo {
+    date: string; // YYYY-MM(-DD?)
+    elo: number;
+}
+```
+
+```ts
+interface ITeamDetails {
+    id: number;
+    name: string;
+    shortName: string;
+    logoUrl: string;
+    externalPageUrl?: string;
+    liquipediaUrl?: string;
+}
+```
+
+```ts
+interface IPlayerTournament {
+  id: number;
+  name: string;
+  date: string;
+  finalRank: number;
+  amountGainLoss: number;
+  location?: ICountryDetails;
+  prizePool: number;
+  matches: IMatches[];
+}
+```
 
 ## Matches
 
@@ -42,7 +82,12 @@ played series elo gained/lost by match
 played series prediction
 played series additional comments
 
-lifetime opponents top 5
 opponent name
 number of series
 total series wins
+
+```ts
+interface IMatch {
+  ...
+}
+```
