@@ -1,6 +1,6 @@
 export interface IMatch {
 	id: number;
-    name: string;
+	name: string;
 }
 
 export interface IMatchDetail {

@@ -1,6 +1,9 @@
+import type {
+	ITournament,
+	ITournamentDetail,
+} from "$interfaces/data/tournament";
 import { HIGHLIGHTED_TOURNEYS } from "$lib/data";
 import { masterlist } from "$lib/data/tournaments.json";
-import type { ITournament, ITournamentDetail } from "$interfaces/data/tournament";
 import { error } from "@sveltejs/kit";
 import { APP } from "./hooks.server";
 

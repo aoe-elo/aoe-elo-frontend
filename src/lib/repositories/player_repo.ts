@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { PrismaClient, Player } from "@prisma/client";
+import type { Player, PrismaClient } from "@prisma/client";
 
 type PlayerId = Player["id"];
 
@@ -13,7 +13,6 @@ export interface IPlayerRepositoryInterface<PlayerId, PlayerData>
 export class PlayerRepository<T extends PrismaClient>
 	implements IPlayerRepositoryInterface<PlayerId, Player>
 {
-
 	constructor(private readonly model: T) {}
 
 	getAll(): Promise<Player[]> {
@@ -28,8 +27,12 @@ export class PlayerRepository<T extends PrismaClient>
 		});
 	}
 
-	getAllPartiallyCached(): Promise<Partial<Player & {id: number, name: string}>[]> {
-		return this.model.player.findMany({ select: { id: true, name: true, aliases: true} });
+	getAllPartiallyCached(): Promise<
+		Partial<Player & { id: number; name: string }>[]
+	> {
+		return this.model.player.findMany({
+			select: { id: true, name: true, aliases: true },
+		});
 	}
 
 	getById(id: PlayerId): Promise<Player | null> {
@@ -59,7 +62,7 @@ export class PlayerRepository<T extends PrismaClient>
 	): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	
+
 	delete(
 		_id: PlayerId,
 		_actionlog_user_id: number,

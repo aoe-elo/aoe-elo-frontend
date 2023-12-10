@@ -13,7 +13,6 @@ interface ITournamentRepositoryInterface<TournamentId, TournamentData>
 export class TournamentRepository<T extends PrismaClient>
 	implements ITournamentRepositoryInterface<TournamentId, Tournament>
 {
-
 	constructor(private readonly model: T) {}
 
 	getAll(): Promise<Tournament[]> {
@@ -24,17 +23,21 @@ export class TournamentRepository<T extends PrismaClient>
 		return this.model.tournament.findMany({ skip: offset, take: limit });
 	}
 
-	getAllPartiallyCached(): Promise<Partial<Tournament & {id: number, name: string}>[]> {
-		return this.model.tournament.findMany({ select: {id: true, name: true, short: true, start: true, end: true} });
+	getAllPartiallyCached(): Promise<
+		Partial<Tournament & { id: number; name: string }>[]
+	> {
+		return this.model.tournament.findMany({
+			select: { id: true, name: true, short: true, start: true, end: true },
+		});
 	}
 
 	getById(id: TournamentId): Promise<Tournament | null> {
-		return this.model.tournament.findUnique({ where: {id: id}});
+		return this.model.tournament.findUnique({ where: { id: id } });
 	}
 
 	getHighlighted(prize_pool_min: number, limit = 5): Promise<Tournament[]> {
 		return this.model.tournament.findMany({
-			orderBy: {start: 'desc'},
+			orderBy: { start: "desc" },
 			take: limit,
 			where: { prizemoney: { gt: prize_pool_min } },
 		});

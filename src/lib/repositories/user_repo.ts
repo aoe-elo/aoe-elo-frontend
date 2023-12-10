@@ -10,10 +10,11 @@ interface IUserRepositoryInterface<UserId, UserData>
 	getAllPartiallyCached(): Promise<Partial<UserData>[]>;
 }
 
-export class UserRepository<T extends PrismaClient> implements IUserRepositoryInterface<UserId, User> {
-
+export class UserRepository<T extends PrismaClient>
+	implements IUserRepositoryInterface<UserId, User>
+{
 	constructor(private readonly model: T) {}
-	
+
 	getAll(): Promise<User[]> {
 		return this.model.user.findMany();
 	}
@@ -23,7 +24,7 @@ export class UserRepository<T extends PrismaClient> implements IUserRepositoryIn
 	}
 
 	getAllPartiallyCached(): Promise<Partial<User>[]> {
-		return this.model.user.findMany({ select: { id: true, name: true} });
+		return this.model.user.findMany({ select: { id: true, name: true } });
 	}
 
 	getById(id: UserId): Promise<User | null> {

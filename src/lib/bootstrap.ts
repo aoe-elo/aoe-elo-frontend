@@ -1,4 +1,4 @@
-import { db_status, database } from "$lib/prisma";
+import { database, db_status } from "$lib/prisma";
 import { app_mode } from "$lib/util";
 import { PlayerRepository } from "$repositories/player_repo";
 import { TeamRepository } from "$repositories/team_repo";
@@ -14,7 +14,9 @@ type InitRepositoryReturnType = {
 	users: UserRepository<PrismaClient>;
 };
 
-function init_repositories_with_prisma(connection: PrismaClient): InitRepositoryReturnType {
+function init_repositories_with_prisma(
+	connection: PrismaClient,
+): InitRepositoryReturnType {
 	return {
 		users: new UserRepository(connection),
 		players: new PlayerRepository(connection),
@@ -30,7 +32,7 @@ type AppInitReturnType = {
 };
 
 export function app_init(): AppInitReturnType {
-    const connection = database;
+	const connection = database;
 	const mode = app_mode();
 	db_status(connection);
 	const repositories = init_repositories_with_prisma(connection);

@@ -10,9 +10,9 @@ export interface ITeamRepositoryInterface<TeamId, TeamData>
 	getAllPartiallyCached(): Promise<Partial<TeamData>[]>;
 }
 
-
-export class TeamRepository<T extends PrismaClient> implements ITeamRepositoryInterface<TeamId, Team> {
-
+export class TeamRepository<T extends PrismaClient>
+	implements ITeamRepositoryInterface<TeamId, Team>
+{
 	constructor(private readonly model: T) {}
 
 	getAll(): Promise<Team[]> {
@@ -23,12 +23,19 @@ export class TeamRepository<T extends PrismaClient> implements ITeamRepositoryIn
 		return this.model.team.findMany({ skip: offset, take: limit });
 	}
 
-	getAllPartiallyCached(): Promise<Partial<Team & {id: number, name: string}>[]> {
-		return this.model.team.findMany({ select: {id: true, name: true, tag: true} });
+	getAllPartiallyCached(): Promise<
+		Partial<Team & { id: number; name: string }>[]
+	> {
+		return this.model.team.findMany({
+			select: { id: true, name: true, tag: true },
+		});
 	}
 
 	getById(id: TeamId): Promise<Team | null> {
-		return this.model.team.findUnique({where: { id: id }, include: { playersInTeam: true }});
+		return this.model.team.findUnique({
+			where: { id: id },
+			include: { playersInTeam: true },
+		});
 	}
 
 	getByName(name: string): Promise<Team | null> {
