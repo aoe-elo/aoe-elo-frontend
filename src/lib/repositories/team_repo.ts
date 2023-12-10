@@ -23,8 +23,8 @@ export class TeamRepository<T extends PrismaClient> implements ITeamRepositoryIn
 		return this.model.team.findMany({ skip: offset, take: limit });
 	}
 
-	getAllPartiallyCached(): Promise<Partial<Team>[]> {
-		return this.model.team.findMany({ select: {id: true, name: true} });
+	getAllPartiallyCached(): Promise<Partial<Team & {id: number, name: string}>[]> {
+		return this.model.team.findMany({ select: {id: true, name: true, tag: true} });
 	}
 
 	getById(id: TeamId): Promise<Team | null> {

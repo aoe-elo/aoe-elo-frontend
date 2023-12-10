@@ -24,8 +24,8 @@ export class TournamentRepository<T extends PrismaClient>
 		return this.model.tournament.findMany({ skip: offset, take: limit });
 	}
 
-	getAllPartiallyCached(): Promise<Partial<Tournament>[]> {
-		return this.model.tournament.findMany({ select: {id: true, name: true} });
+	getAllPartiallyCached(): Promise<Partial<Tournament & {id: number, name: string}>[]> {
+		return this.model.tournament.findMany({ select: {id: true, name: true, short: true, start: true, end: true} });
 	}
 
 	getById(id: TournamentId): Promise<Tournament | null> {

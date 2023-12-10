@@ -25,5 +25,6 @@ index: {
 
 ## Implementation
 
+- use https://www.fusejs.io/api/indexing.html
 - use https://www.npmjs.com/package/cache-manager
 - use https://www.npmjs.com/package/cache-manager-redis-store

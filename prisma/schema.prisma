@@ -196,7 +196,7 @@ model PageVisit {
 model Player {
   id                          Int                       @id @default(autoincrement()) @db.UnsignedInt
   name                        String                    @unique(map: "name") @db.VarChar(100)
-  alias                       String                    @db.VarChar(255) // comma-separated
+  aliases                     String                    @map("alias") @db.VarChar(255) // comma-separated
   team_id                     Int?                      @db.UnsignedInt
   country_key                 String?                   @db.VarChar(10)
   initial_elo_1v1             Int?                      @db.UnsignedInt

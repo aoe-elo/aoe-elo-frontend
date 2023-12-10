@@ -28,8 +28,8 @@ export class PlayerRepository<T extends PrismaClient>
 		});
 	}
 
-	getAllPartiallyCached(): Promise<Partial<Player>[]> {
-		return this.model.player.findMany({ select: { id: true, name: true} });
+	getAllPartiallyCached(): Promise<Partial<Player & {id: number, name: string}>[]> {
+		return this.model.player.findMany({ select: { id: true, name: true, aliases: true} });
 	}
 
 	getById(id: PlayerId): Promise<Player | null> {
