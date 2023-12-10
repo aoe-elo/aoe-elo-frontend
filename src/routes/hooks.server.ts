@@ -19,8 +19,13 @@ console.log("Bootstrapping app complete.");
 
 // Create the search index
 console.info("Creating search index ...");
-SearchIndexService.createIndex();
+SearchIndexService.createSearchIndex();
 console.info("Search index created.");
+
+// Create the player comparison index
+console.info("Creating player comparison index ...");
+SearchIndexService.createPlayerComparisonIndex();
+console.info("Player comparison index created.");
 
 // TODO!: Remove this, it's just for testing
 console.log("Running dev code ...");
