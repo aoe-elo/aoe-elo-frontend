@@ -4,8 +4,6 @@ import { writeFile } from 'node:fs';
 
 // TODO: Use https://web.dev/articles/indexeddb
 
-// TODO: https://www.fusejs.io/api/indexing.html#fuse-createindex
-
 export type SearchIndexItem = {
     id: number;
     name: string;
@@ -90,15 +88,17 @@ export class SearchIndexService {
             }
         });
 
-        // create a new Fuse object with the indexData
-
+        // save base data to restore the index later
         writeFile('src/lib/data/data_index.json', JSON.stringify(indexData), (err) => { if (err) throw err; });
 
+        // create a new Fuse object with the indexData
+        // check: https://www.fusejs.io/api/indexing.html#fuse-createindex
         const fuseIndex = Fuse.createIndex(
             ["name", "alias", "short_name", "tag"],
             indexData
         );
 
+        // save index to restore the it later together with the base data
         writeFile('src/lib/data/fuse_index.json', JSON.stringify(fuseIndex.toJSON()), (err) => { if (err) throw err; });
     }
 
