@@ -1,4 +1,4 @@
-import type { ITournament } from "$interfaces/data/tournament";
+import type { ITournament } from "$interfaces/entities/tournament";
 
 export const HIGHLIGHTED_TOURNEYS: ITournament[] = [
 	{

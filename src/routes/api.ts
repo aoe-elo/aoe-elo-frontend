@@ -1,4 +1,5 @@
 import { APP } from "./hooks.server";
+import type { ITournament } from "$interfaces/entities/tournament";
 
 /** This is the API that the frontend uses to get data from the backend.
  *
@@ -54,9 +55,22 @@ export default {
 	/** Get the latest tournaments
 	 *
 	 * @param amount defaults to 5
-	 * @returns Tournament[]
+	 * @returns ITournament[]
 	 */
 	getLatestTournaments: (amount?: number) => {
-		return APP.repositories.tournaments.getLatestTournaments(amount);
+		return APP.repositories.tournaments.getLatestTournaments(amount).then((items) => {
+			// map items to ITournament
+			return items.map((item) => {
+				return {
+					id: item.id,
+					name: item.name,
+					url: item.website ? item.website : undefined,
+					short: item.short,
+					start: item.start ? item.start.toISOString() : undefined,
+					end: item.end ? item.end.toISOString() : undefined,
+					prizemoney: item.prizemoney ? item.prizemoney : undefined,
+				} as ITournament;
+			});
+		});
 	},
 };

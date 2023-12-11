@@ -1,12 +1,12 @@
 export interface ITournament {
 	id: number;
 	name: string;
-	url: string;
-	imageUrl: string;
+	url?: string;
+	imageUrl?: string;
 	short: string;
-	start: string;
-	end: string;
-	prizemoney: number;
+	start?: string;
+	end?: string;
+	prizemoney?: number;
 }
 
 export interface ITournamentDetail {
