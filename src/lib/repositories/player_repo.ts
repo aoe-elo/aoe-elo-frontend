@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Player, PrismaClient, PlayerCache } from "@prisma/client";
+import type { Player, PrismaClient, PlayerCache, Team, Country } from "@prisma/client";
 
 type PlayerId = Player["id"];
 
@@ -16,7 +16,7 @@ export interface IPlayerRepositoryInterface<PlayerId, PlayerData>
 export class PlayerRepository<T extends PrismaClient>
 	implements IPlayerRepositoryInterface<PlayerId, Player>
 {
-	constructor(private readonly model: T) {}
+	constructor(private readonly model: T) { }
 
 	getAll(): Promise<Player[]> {
 		return this.model.player.findMany();
@@ -38,10 +38,10 @@ export class PlayerRepository<T extends PrismaClient>
 		});
 	}
 
-	getById(id: PlayerId): Promise<Player | null> {
+	getById(id: PlayerId): Promise<(Player & { cachedPlayerItem?: Partial<PlayerCache>, memberOfTeam?: Partial<Team>, fromCountry?: Partial<Country> }) | null> {
 		return this.model.player.findUnique({
 			where: { id: id },
-			include: { fromCountry: true, memberOfTeam: true },
+			include: { fromCountry: true, memberOfTeam: true, cachedPlayerItem: true },
 		});
 	}
 

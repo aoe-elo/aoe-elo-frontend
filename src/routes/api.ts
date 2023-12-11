@@ -1,5 +1,7 @@
 import { APP } from "./hooks.server";
 import type { ITournament } from "$interfaces/entities/tournament";
+import type { ICountryDetails, IPlayer } from "$interfaces/entities/player";
+import type { ITeamDetails } from "$interfaces/entities/team";
 
 /** This is the API that the frontend uses to get data from the backend.
  *
@@ -43,6 +45,78 @@ export default {
 		return APP.repositories.tournaments.getHighlighted(prize_pool_min, limit);
 	},
 
+	/** Get a single player by id
+	 *
+	 * @param player_id
+	 * @returns IPlayer[]
+	 */
+	getPlayerById: (player_id: number) => {
+		return APP.repositories.players.getById(player_id).then((item) => {
+			if (!item) {
+				return null;
+			}
+
+			// map item to IPlayer
+			return {
+				id: item.id,
+				name: item.name,
+				tournamentElo: item.cachedPlayerItem ? item.cachedPlayerItem.elo : undefined,
+				tournamentEloRank: item.cachedPlayerItem ? item.cachedPlayerItem.rank : undefined,
+				peakElo: item.cachedPlayerItem ? item.cachedPlayerItem.elo_peak : undefined,
+				peakEloDate: undefined,
+				totalAmountEarnings: undefined,
+				totalAmountTournaments: item.cachedPlayerItem ? item.cachedPlayerItem.tournament_ids?.split(",").length : undefined,
+				totalAmountWins: undefined,
+				totalAmountSecond: undefined,
+				totalAmountThird: undefined,
+				totalAmountSeries: item.cachedPlayerItem ? item.cachedPlayerItem.num_matches : undefined,
+				seriesWins: item.cachedPlayerItem ? item.cachedPlayerItem.num_wins : undefined,
+				totalGames: undefined,
+				lifetimeOpponentsTop5: undefined,
+				country: item.fromCountry ? {
+					name: item.fromCountry.name,
+					isoKey: item.fromCountry.iso_key,
+					flagUrl: undefined,
+				} as ICountryDetails : undefined,
+				historicalElo: undefined,
+				teamActive: item.memberOfTeam ? {
+					id: item.memberOfTeam.id,
+					name: item.memberOfTeam.name,
+					shortName: item.memberOfTeam.tag,
+					logoUrl: undefined,
+					externalPageUrl: undefined,
+				} as ITeamDetails : undefined,
+				tournaments: undefined,
+				matches: undefined,
+			} as Partial<IPlayer>;
+		});
+	},
+
+
+	/** Get a single tournament by id
+	 *
+	 * @param tournament_id
+	 * @returns ITournament[]
+	 */
+	getTournamentById: (tournament_id: number) => {
+		return APP.repositories.tournaments.getById(tournament_id).then((item) => {
+			if (!item) {
+				return null;
+			}
+
+			// map item to ITournament
+			return {
+				id: item.id,
+				name: item.name,
+				url: item.website ? item.website : undefined,
+				short: item.short,
+				start: item.start ? item.start.toISOString() : undefined,
+				end: item.end ? item.end.toISOString() : undefined,
+				prizemoney: item.prizemoney ? item.prizemoney : undefined,
+			} as ITournament;
+		});
+	},
+
 	/** Get the top players by tournament elo
 	 *
 	 * @param amount defaults to 5
@@ -64,11 +138,11 @@ export default {
 				return {
 					id: item.id,
 					name: item.name,
-					url: item.website ? item.website : null,
+					url: item.website ? item.website : undefined,
 					short: item.short,
-					start: item.start ? item.start.toISOString() : null,
-					end: item.end ? item.end.toISOString() : null,
-					prizemoney: item.prizemoney ? item.prizemoney : null,
+					start: item.start ? item.start.toISOString() : undefined,
+					end: item.end ? item.end.toISOString() : undefined,
+					prizemoney: item.prizemoney ? item.prizemoney : undefined,
 				} as ITournament;
 			});
 		});

@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let theseTournaments: any;
+	import type { ITournament } from '$interfaces/entities/tournament';
+
+	export let theseTournaments: ITournament[];
 
 	function getTourneyDates(dates: string, year: boolean) {
 		let date = new Date(dates);
@@ -31,12 +33,20 @@
 				<h3 class="text-text3 font-semibold my-4">{tourney.name}</h3>
 				<p class="my-1">Dates:</p>
 				<p class="text-text2">
-					{getTourneyDates(tourney.start, false)}
-					- {getTourneyDates(tourney.end, true)}
+					{#if tourney.start !== undefined}
+						{getTourneyDates(tourney.start, false)}
+					{:else}
+						Not Available
+					{/if}
+					{#if tourney.end !== undefined}
+						- {getTourneyDates(tourney.end, true)}
+					{:else}
+						- Not Available
+					{/if}
 				</p>
 				<p class="text-text2 mt-4 mb-8">
 					Prize pool: <span class="font-semibold tracking-widest">
-						{#if tourney.prizemoney !== null}
+						{#if tourney.prizemoney !== undefined && tourney.prizemoney !== null}
 							${addCommas(tourney.prizemoney)}
 						{:else}
 							Not Available

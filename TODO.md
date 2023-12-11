@@ -2,6 +2,7 @@
 
 ## Data
 
+- add `LiquipediaAggregationService` to acquire logos and other data from Liquipedia
 - Implement API using mapping to interfaces
 
 ## Index

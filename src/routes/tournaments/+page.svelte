@@ -2,8 +2,12 @@
 	import Hero from '$lib/components/Page_Hero.svelte';
 	import Latest_Tournament from '$lib/components/Last_Tournament.svelte';
 	import Tournament_Grid from '$lib/components/Tournament_Grid.svelte';
+	import type { ITournament } from '$interfaces/entities/tournament';
 
-	export let data;
+	export let data: {
+		topTournaments: ITournament[];
+		allTournaments: ITournament[];
+	};
 </script>
 
 <div class="container">
