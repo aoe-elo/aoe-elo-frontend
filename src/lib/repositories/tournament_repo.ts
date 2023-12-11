@@ -14,7 +14,7 @@ interface ITournamentRepositoryInterface<TournamentId, TournamentData>
 export class TournamentRepository<T extends PrismaClient>
 	implements ITournamentRepositoryInterface<TournamentId, Tournament>
 {
-	constructor(private readonly model: T) {}
+	constructor(private readonly model: T) { }
 
 	getAll(): Promise<Tournament[]> {
 		return this.model.tournament.findMany();
@@ -25,7 +25,7 @@ export class TournamentRepository<T extends PrismaClient>
 	}
 
 	getAllPartiallyCached(): Promise<
-		Partial<Tournament & { id: number; name: string }>[]
+		Partial<Tournament>[]
 	> {
 		return this.model.tournament.findMany({
 			select: { id: true, name: true, short: true, start: true, end: true },
