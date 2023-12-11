@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Player, PrismaClient } from "@prisma/client";
+import type { Player, PrismaClient, PlayerCache } from "@prisma/client";
 
 type PlayerId = Player["id"];
 
@@ -8,6 +8,9 @@ export interface IPlayerRepositoryInterface<PlayerId, PlayerData>
 	extends IBaseRepositoryInterface<PlayerId, PlayerData> {
 	getByName(name: string): Promise<PlayerData | null>;
 	getAllPartiallyCached(): Promise<Partial<PlayerData>[]>;
+	getTopPlayersByTournamentElo(
+		amount: number,
+	): Promise<(PlayerData & { stats: Partial<PlayerCache> })[]>;
 }
 
 export class PlayerRepository<T extends PrismaClient>
@@ -44,6 +47,46 @@ export class PlayerRepository<T extends PrismaClient>
 
 	getByName(name: string): Promise<Player | null> {
 		return this.model.player.findFirst({ where: { name: name } });
+	}
+
+	getTopPlayersByTournamentElo(
+		amount: number = 5,
+	): Promise<(Player & { stats: Partial<PlayerCache> })[]> {
+		// INFO: This is a workaround/hack for the fact that the elo is not stored in the player table
+		return this.model.playerCache
+			.findMany({
+				select: {
+					num_matches: true,
+					num_wins: true,
+					num_games: true,
+					tournament_ids: true,
+					last_match: true,
+					rank: true,
+					elo: true,
+					elo_update: true,
+					elo_peak: true,
+					cachedPlayer: true, // relation
+				},
+				take: amount,
+				orderBy: { elo: "desc" },
+			})
+			.then((players) => {
+				return players.map((player) => {
+					const player_copy = { ...player };
+					// We delete the cachedPlayer property
+					// This is the relation, so we can safely
+					// delete it here in the copy
+					delete player_copy.cachedPlayer;
+
+					// We reorganize the data to match the Player type
+					const new_player = {
+						...(player.cachedPlayer as Player),
+						stats: player_copy as Partial<PlayerCache>,
+					};
+
+					return new_player;
+				});
+			});
 	}
 
 	create(

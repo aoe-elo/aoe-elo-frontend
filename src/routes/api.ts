@@ -1,65 +1,62 @@
-import type {
-	ITournament,
-	ITournamentDetail,
-} from "$interfaces/data/tournament";
-import { HIGHLIGHTED_TOURNEYS } from "$lib/data";
-import { masterlist } from "$lib/data/tournaments.json";
-import { error } from "@sveltejs/kit";
 import { APP } from "./hooks.server";
 
-/*
- * This is the API that the frontend uses to get data from the backend.
+/** This is the API that the frontend uses to get data from the backend.
+ *
+ * TODO: This is a WIP, and will be expanded as needed.
+ * TODO: We need to implement mapping to our interfaces.
  *
  */
 export default {
+	/** Get the players for the landing page
+	 *
+	 * @returns Partial<Player>[]
+	 */
 	getLandingPagePlayers: () => {
 		return APP.repositories.players.getAllPartiallyCached();
 	},
 
+	/** Get the tournaments for the landing page
+	 *
+	 * @returns Partial<Tournament>[]
+	 */
 	getLandingPageTournaments: () => {
 		return APP.repositories.tournaments.getAllPartiallyCached();
 	},
 
+	/** Get the teams for the landing page
+	 *
+	 * @returns Partial<Team>[]
+	 */
 	getLandingPageTeams: () => {
 		return APP.repositories.teams.getAllPartiallyCached();
 	},
 
-	getHighlightedTourneys: () => {
-		return APP.repositories.tournaments.getHighlighted(10000, 5);
+	/** Get the highlighted tournaments
+	 *
+	 * @param prize_pool_min defaults to 10000
+	 * @param limit defaults to 5
+	 * @returns Tournament[]
+	 *
+	 */
+	getHighlightedTourneys: (prize_pool_min?: number, limit?: number) => {
+		return APP.repositories.tournaments.getHighlighted(prize_pool_min, limit);
+	},
+
+	/** Get the top players by tournament elo
+	 *
+	 * @param amount defaults to 5
+	 * @returns (Player & { stats: Partial<PlayerCache> })[]
+	 */
+	getTopPlayers: (amount?: number) => {
+		return APP.repositories.players.getTopPlayersByTournamentElo(amount);
+	},
+
+	/** Get the latest tournaments
+	 *
+	 * @param amount defaults to 5
+	 * @returns Tournament[]
+	 */
+	getLatestTournaments: (amount?: number) => {
+		return APP.repositories.tournaments.getLatestTournaments(amount);
 	},
 };
-
-// const getTournament = async () => {
-// 	const response: Tournament = await getAllTournaments();
-// 	const adapted = adaptTournament(response);
-// 	return adapted;
-// };
-
-// function adaptTournament(release: Tournament): TournamentDetail {
-// 	return {
-// 		id: release.id,
-// 		name: release.name,
-// 		url: `/tournaments/${release.id}`,
-// 		short: release.short,
-// 		start: release.start,
-// 		end: release.end,
-// 		prizemoney: release.prizemoney,
-// 	};
-// }
-
-// export default {
-// 	// hardcode list since no images in json file
-// 	getHighlightedTourneys: () => {
-// 		return HIGHLIGHTED_TOURNEYS;
-// 	},
-// 	getMasterList: () => {
-// 		return masterlist;
-// 	},
-// };
-
-// async function getAllTournaments() {
-// 	const res = await fetch("./tournaments.json");
-// 	const allTournaments: Tournament[] = await res.json();
-
-// 	return { allTournaments };
-// }

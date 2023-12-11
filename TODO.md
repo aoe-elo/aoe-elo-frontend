@@ -2,7 +2,6 @@
 
 ## Data
 
-- Top5 players
 - Last5 tournaments
 
 ## Index

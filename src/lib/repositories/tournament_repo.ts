@@ -8,6 +8,7 @@ interface ITournamentRepositoryInterface<TournamentId, TournamentData>
 	extends IBaseRepositoryInterface<TournamentId, TournamentData> {
 	getByName(name: string): Promise<TournamentData | null>;
 	getAllPartiallyCached(): Promise<Partial<TournamentData>[]>;
+	getLatestTournaments(amount: number): Promise<TournamentData[]>;
 }
 
 export class TournamentRepository<T extends PrismaClient>
@@ -35,11 +36,21 @@ export class TournamentRepository<T extends PrismaClient>
 		return this.model.tournament.findUnique({ where: { id: id } });
 	}
 
-	getHighlighted(prize_pool_min: number, limit = 5): Promise<Tournament[]> {
+	getHighlighted(
+		prize_pool_min: number = 10000,
+		limit = 5,
+	): Promise<Tournament[]> {
 		return this.model.tournament.findMany({
 			orderBy: { start: "desc" },
 			take: limit,
 			where: { prizemoney: { gt: prize_pool_min } },
+		});
+	}
+
+	getLatestTournaments(amount: number = 5): Promise<Tournament[]> {
+		return this.model.tournament.findMany({
+			orderBy: { start: "desc" },
+			take: amount,
 		});
 	}
 
