@@ -64,11 +64,11 @@ export default {
 				return {
 					id: item.id,
 					name: item.name,
-					url: item.website ? item.website : undefined,
+					url: item.website ? item.website : null,
 					short: item.short,
-					start: item.start ? item.start.toISOString() : undefined,
-					end: item.end ? item.end.toISOString() : undefined,
-					prizemoney: item.prizemoney ? item.prizemoney : undefined,
+					start: item.start ? item.start.toISOString() : null,
+					end: item.end ? item.end.toISOString() : null,
+					prizemoney: item.prizemoney ? item.prizemoney : null,
 				} as ITournament;
 			});
 		});

@@ -52,7 +52,7 @@
 		</div>
 		<div class="place-self-stretch p-4 text-right cardbg text-text2 font-medium tracking-tighter">
 			<p class="text-6xl px-2">3</p>
-			<p class="text-4xl font-title font-bold p-2">Lierry</p>
+			<p class="text-4xl font-title font-bold p-2">Liereyy</p>
 			<p class="text-2xl px-2">elo: 2365</p>
 			<div class="pt-8 pb-2">
 				<PlayerTournamentWins />

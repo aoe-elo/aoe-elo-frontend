@@ -28,7 +28,7 @@ export class TournamentRepository<T extends PrismaClient>
 		Partial<Tournament>[]
 	> {
 		return this.model.tournament.findMany({
-			select: { id: true, name: true, short: true, start: true, end: true },
+			select: { id: true, name: true, prizemoney: true, short: true, start: true, end: true },
 		});
 	}
 
