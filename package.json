@@ -13,7 +13,8 @@
 		"lint": "biome check . --apply && prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write . && biome format --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"postinstall": "npx prisma generate"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.4.0",
