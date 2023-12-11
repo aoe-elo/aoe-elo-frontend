@@ -16,7 +16,7 @@ index: {
   },
   ...
 }
-``
+```
 
 - and there is a `SearchIndexService` that creates that every now and then and caches it
 - we send the json to the frontend and cache it there as well and use it for autocompletion and live search
@@ -25,7 +25,6 @@ index: {
 
 ## Implementation
 
-- use https://www.fusejs.io/api/indexing.html
-- use https://www.npmjs.com/package/cache-manager
-- use https://www.npmjs.com/package/cache-manager-redis-store
-```
+- use <https://www.fusejs.io/api/indexing.html>
+- use <https://www.npmjs.com/package/cache-manager>
+- use <https://www.npmjs.com/package/cache-manager-redis-store>
