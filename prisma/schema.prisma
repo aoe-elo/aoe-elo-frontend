@@ -222,7 +222,7 @@ model Player {
   createdByUser               User?                     @relation("create", fields: [create_user], references: [id])
   updatedByUser               User?                     @relation("update", fields: [update_user], references: [id])
   cachedPlayerItem            PlayerCache?
-  tournamentResultItem        TournamentResult[]
+  tournamentResultItems       TournamentResult[]
 
   @@index([create_user], map: "create_user")
   @@index([team_id], map: "team_id")
