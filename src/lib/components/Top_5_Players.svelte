@@ -1,6 +1,8 @@
 <script>
 	import PlayerSeriesWins from '../../routes/players/Player_Series_Wins.svelte';
+	import PlayerSeriesWins2 from '../../routes/players/Player_Series_Wins2.svelte';
 	import PlayerTournamentWins from '../../routes/players/Player_Tournament_Wins.svelte';
+	import PlayerTournamentWins2 from '../../routes/players/Player_Tournament_Wins2.svelte';
 </script>
 
 <div class="mt-20 mb-8">
@@ -50,17 +52,17 @@
 			</div>
 			<button class="button my-4 w-full">Full Details</button>
 		</div>
-		<div class="place-self-stretch p-4 text-right cardbg text-text2 font-medium tracking-tighter">
-			<p class="text-6xl px-2">3</p>
-			<p class="text-4xl font-title font-bold p-2">Liereyy</p>
-			<p class="text-2xl px-2">elo: 2365</p>
-			<div class="pt-8 pb-2">
-				<PlayerTournamentWins />
+		<div class="place-self-stretch p-4 text-right cardbg text-text2 font-medium">
+			<div class="bg-[url('./fleur.svg')] bg-contain bg-right-bottom bg-no-repeat">
+				<p class="text-6xl px-2">3</p>
+				<p class="text-4xl font-title font-bold p-2">Liereyy</p>
+				<p class="text-2xl px-2">elo: 2365</p>
+
+				<div class="pt-8 pb-2">
+					<PlayerTournamentWins2 />
+				</div>
+				<button class="button my-4 w-full">Player Page</button>
 			</div>
-			<div class="py-2">
-				<PlayerSeriesWins />
-			</div>
-			<button class="button my-4 w-full">Full Details</button>
 		</div>
 		<div class="place-self-stretch p-4 text-right cardbg text-text2 font-medium tracking-tighter">
 			<p class="text-6xl px-2">4</p>
