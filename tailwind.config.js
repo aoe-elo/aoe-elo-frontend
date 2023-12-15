@@ -22,7 +22,8 @@ export default {
 			},
 			gridTemplateColumns: {
 				layout: 'repeat(auto-fill, minmax(250px, 1fr))',
-				layout2: '1fr 2fr'
+				layout2: '1fr 2fr',
+				layout3: '1fr 3fr'
 			},
 			colors: {
 				current: 'currentColor',

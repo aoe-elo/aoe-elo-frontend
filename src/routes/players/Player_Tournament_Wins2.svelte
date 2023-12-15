@@ -1,7 +1,7 @@
 <div>
-	<p class="text-left px-2 pt-4 text-lg">Tournament Results</p>
-	<div class="rounded-md shadow-card px-4 py-4 text-2xl text-text1">
-		<p class="text-left text-base">Top 3 Finishes</p>
+	<p class="text-left px-2 pt-4 pb-2 text-lg">Tournament Results</p>
+	<div class="rounded-md shadow-card px-4 py-2 text-2xl text-text1">
+		<!-- <p class="text-left text-base">Top 3 Finishes</p> -->
 		<div class="flex justify-between items-center py-2">
 			<div class="flex space-x-2">
 				<div class="text-yellow-400">
@@ -34,19 +34,41 @@
 				<p>12</p>
 			</div>
 		</div>
-		<div class="flex text-text2 text-xl justify-between items-center space-x-4 py-2">
-			<p>32 / 55</p>
-			<p>58%</p>
+	</div>
+	<div class="flex space-x-6 justify-end items-center p-2 text-text2 text-xl">
+		<p>32 / 55</p>
+		<p>58%</p>
+	</div>
+
+	<div class="flex justify-between items-center py-2 pt-6">
+		<div class="rounded-md shadow-card p-4 flex text-xl">
+			<div>
+				<p class="text-left text-base">Series Won</p>
+				<hr class="border-b border-2 border-sky-900/[.55]" />
+				<p class="pt-4">172 / 226</p>
+				<p>76%</p>
+			</div>
 		</div>
-		<p class="text-left text-base pt-8">Series Won</p>
-		<div class="flex space-x-4 justify-between items-center text-xl pb-4">
-			<p>172 / 226</p>
-			<p>76%</p>
+
+		<div class="rounded-md shadow-card p-4 flex text-xl">
+			<div>
+				<p class="text-left text-base">Games Won</p>
+				<hr class="border-b border-2 border-sky-900/[.55]" />
+				<p class="pt-4">851 / 1200</p>
+				<p>71%</p>
+			</div>
 		</div>
-		<p class="text-left text-base pt-2">Games Won</p>
-		<div class="flex space-x-4 justify-between items-center text-xl">
-			<p>851 / 1200</p>
-			<p>71%</p>
+	</div>
+</div>
+<p class="text-left px-2 pt-4 pb-2 text-lg">Profile</p>
+<div class="rounded-md shadow-card px-4 py-2 text-2xl text-text1">
+	<!-- <p class="text-left text-base">Top 3 Finishes</p> -->
+	<div class="flex justify-between items-center py-2">
+		<div class="flex space-x-2">
+			<div>
+				<img src="./chinaflag.png" alt="" />
+			</div>
+			<p>Team: WWP</p>
 		</div>
 	</div>
 </div>
