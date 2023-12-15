@@ -9,14 +9,16 @@
 		<div class="p-8 cardbg grid grid-rows-layout">
 			<div>
 				<h3 class="text-text3 font-semibold my-4">{player.name}</h3>
-				<p class="my-1">Elo: {player.tournamentElo}</p>
-				<p class="my-1">ID #: {player.id}</p>
-				<p class="my-1">Elo: {player.tournamentElo}</p>
-				<p class="my-1">Team ID: {player.team_id}</p>
+				<p class="my-1">Rank: {player.stats.rank}</p>
+				<p class="my-1">Elo: {player.stats.elo}</p>
+				<p class="my-1">Peak Elo: {player.stats.elo_peak}</p>
+				<p class="my-1">Series: {player.stats.num_matches}</p>
+				<p class="my-1">Wins: {player.stats.num_wins}</p>
+				<p class="my-1">Games: {player.stats.num_games}</p>
 				<p class="my-1">Country: {player.country_key}</p>
 			</div>
 			<div class="grid text-center">
-				<a href="/players/{id}" class="mt-4 button2">Player Page</a>
+				<a href="/players/{player.id}" class="mt-4 button2">Player Page</a>
 			</div>
 		</div>
 	{/each}
