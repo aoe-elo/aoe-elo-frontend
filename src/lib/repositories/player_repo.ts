@@ -51,7 +51,7 @@ export class PlayerRepository<T extends PrismaClient>
 
 	getTopPlayersByTournamentElo(
 		amount: number = 5,
-	): Promise<(Player & { stats: Partial<PlayerCache> })[]> {
+	): Promise<(Player & { fromCountry: Country, memberOfTeam: Team, stats: Partial<PlayerCache> })[]> {
 		// INFO: This is a workaround/hack for the fact that the elo is not stored in the player table
 		return this.model.playerCache
 			.findMany({
@@ -65,7 +65,9 @@ export class PlayerRepository<T extends PrismaClient>
 					elo: true,
 					elo_update: true,
 					elo_peak: true,
-					cachedPlayer: true, // relation
+					cachedPlayer: {
+						include: { fromCountry: true, memberOfTeam: true },
+					}, // relation
 				},
 				take: amount,
 				orderBy: { elo: "desc" },

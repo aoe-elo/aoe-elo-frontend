@@ -123,7 +123,48 @@ export default {
 	 * @returns (Player & { stats: Partial<PlayerCache> })[]
 	 */
 	getTopPlayers: (amount?: number) => {
-		return APP.repositories.players.getTopPlayersByTournamentElo(amount);
+		return APP.repositories.players.getTopPlayersByTournamentElo(amount).then((items) => {
+			// map each item to IPlayer
+
+			return items.map((item) => {
+				if (!item) {
+					return null;
+				}
+
+				return {
+					id: item.id,
+					name: item.name,
+					tournamentElo: item.stats ? item.stats.elo : undefined,
+					tournamentEloRank: item.stats ? item.stats.rank : undefined,
+					peakElo: item.stats ? item.stats.elo_peak : undefined,
+					peakEloDate: undefined,
+					totalAmountEarnings: undefined,
+					totalAmountTournaments: item.stats ? item.stats.tournament_ids?.split(",").length : undefined,
+					totalAmountWins: undefined,
+					totalAmountSecond: undefined,
+					totalAmountThird: undefined,
+					totalAmountSeries: item.stats ? item.stats.num_matches : undefined,
+					seriesWins: item.stats ? item.stats.num_wins : undefined,
+					totalGames: undefined,
+					lifetimeOpponentsTop5: undefined,
+					country: item.fromCountry ? {
+						name: item.fromCountry.name,
+						isoKey: item.fromCountry.iso_key,
+						flagUrl: undefined,
+					} as ICountryDetails : undefined,
+					historicalElo: undefined,
+					teamActive: item.memberOfTeam ? {
+						id: item.memberOfTeam.id,
+						name: item.memberOfTeam.name,
+						shortName: item.memberOfTeam.tag,
+						logoUrl: undefined,
+						externalPageUrl: undefined,
+					} as ITeamDetails : undefined,
+					tournaments: undefined,
+					matches: undefined,
+				} as Partial<IPlayer>;
+			});
+		});
 	},
 
 	/** Get the latest tournaments
