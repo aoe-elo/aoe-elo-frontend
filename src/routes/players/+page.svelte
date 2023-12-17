@@ -6,8 +6,9 @@
 
 	export let data: {
 		topPlayers: IPlayer[];
-		allPlayers: IPlayer[];
+		listPlayers: IPlayer[];
 	};
+	console.log(data);
 </script>
 
 <div class="container">
@@ -18,10 +19,10 @@
 		</h2>
 	</div>
 	<PlayerGrid thesePlayers={data.topPlayers} />
-	<div class="mb-4 mt-24">
+	<div class="mb-6 mt-24">
 		<h2 class="text-brand1 font-title font-bold text-4xl sm:text-6xl tracking-tighter">
 			All Play<span class="text-brand2">ers</span>
 		</h2>
 	</div>
-	<PlayerList thesePlayers={data.allPlayers} />
+	<PlayerList allPlayers={data.listPlayers} />
 </div>
