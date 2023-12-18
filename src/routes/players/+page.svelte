@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Hero from '$lib/components/Page_Hero.svelte';
 	import PlayerGrid from '$components/Player_Grid.svelte';
-	import PlayerList from '$components/Player_List.svelte';
+	import PlayerList from './Player_List.svelte';
 	import type { IPlayer } from '$interfaces/entities/player';
 
 	export let data: {
