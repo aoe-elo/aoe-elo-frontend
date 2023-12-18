@@ -14,7 +14,7 @@
 		"format": "prettier --plugin-search-dir . --write . && biome format --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"postinstall": "npx prisma generate"
+		"postinstall": "npx prisma generate --schema prisma/aoe-elo-live.prisma"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.4.0",

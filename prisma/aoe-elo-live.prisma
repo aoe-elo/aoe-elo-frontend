@@ -1,10 +1,11 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/aoe-elo-live-client"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = env("AOE_ELO_LIVE_DATABASE_URL")
 }
 
 model CacheMostVisited {

@@ -1,8 +1,8 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient as AoeEloLivePrismaClient } from '$prisma/generated/aoe-elo-live-client'
 
-export const database = new PrismaClient();
+export const aoe_elo_live_database = new AoeEloLivePrismaClient();
 
-export function db_status(database: PrismaClient) {
+export function db_status(database: AoeEloLivePrismaClient) {
 	try {
 		database
 			.$connect()

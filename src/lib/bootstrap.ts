@@ -1,4 +1,4 @@
-import { database, db_status } from "$lib/prisma";
+import { aoe_elo_live_database, db_status } from "$lib/prisma";
 import { app_mode } from "$lib/util";
 import { PlayerRepository } from "$repositories/player_repo";
 import { TeamRepository } from "$repositories/team_repo";
@@ -32,10 +32,9 @@ type AppInitReturnType = {
 };
 
 export function app_init(): AppInitReturnType {
-	const connection = database;
 	const mode = app_mode();
-	db_status(connection);
-	const repositories = init_repositories_with_prisma(connection);
+	db_status(aoe_elo_live_database);
+	const repositories = init_repositories_with_prisma(aoe_elo_live_database);
 
 	return {
 		mode,

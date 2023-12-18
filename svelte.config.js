@@ -22,6 +22,7 @@ const config = {
 			$repositories: "src/lib/repositories",
 			$services: "src/lib/services",
 			$types: "src/lib/types",
+			$prisma: "prisma"
 		},
 	},
 };
