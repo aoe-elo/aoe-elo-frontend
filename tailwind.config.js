@@ -18,7 +18,7 @@ export default {
 			gridTemplateColumns: {
 				layout: 'repeat(auto-fill, minmax(250px, 1fr))',
 				layout2: '1fr 2fr',
-				layout3: '1fr 65%',
+				layout3: '1fr 50%',
 				layout4: '1fr 55%'
 			},
 			colors: {
