@@ -1,5 +1,5 @@
 import adapter from "@sveltejs/adapter-auto";
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { config as DotEnv } from "dotenv";
 
 const model_dir = DotEnv().parsed?.AOE_ELO_DB_MODEL_DIR ?? "models";
@@ -23,9 +23,9 @@ const config = {
 			$shooks: "src/routes/hooks.server",
 			$services: "src/lib/server/services",
 			$types: "src/lib/types",
-			$prisma: "prisma"
+			$prisma: "./prisma",
 		},
-		// TODO: SETUP CSP 
+		// TODO: SETUP CSP
 		// csp: {
 		// 	mode: 'auto',
 		// 	directives: {

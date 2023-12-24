@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { PrismaClient, Team } from "@prisma/client";
+import type { PrismaClient, Team } from "@prisma-app/aoe-elo-live-client";
 
 type TeamId = Team["id"];
 
@@ -13,7 +13,7 @@ export interface ITeamRepositoryInterface<TeamId, TeamData>
 export class TeamRepository<T extends PrismaClient>
 	implements ITeamRepositoryInterface<TeamId, Team>
 {
-	constructor(private readonly model: T) {}
+	constructor(private readonly model: T) { }
 
 	getAll(): Promise<Team[]> {
 		return this.model.team.findMany();

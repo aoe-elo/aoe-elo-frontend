@@ -1,6 +1,6 @@
 import { writeFile } from "node:fs";
+import { APP } from "$shooks";
 import Fuse from "fuse.js";
-import { APP } from '$shooks';
 
 // TODO: Use https://web.dev/articles/indexeddb
 

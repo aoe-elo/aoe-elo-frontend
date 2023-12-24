@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { PrismaClient, Tournament } from "@prisma/client";
+import type { PrismaClient, Tournament } from "@prisma-app/aoe-elo-live-client";
 
 type TournamentId = Tournament["id"];
 
@@ -24,11 +24,16 @@ export class TournamentRepository<T extends PrismaClient>
 		return this.model.tournament.findMany({ skip: offset, take: limit });
 	}
 
-	getAllPartiallyCached(): Promise<
-		Partial<Tournament>[]
-	> {
+	getAllPartiallyCached(): Promise<Partial<Tournament>[]> {
 		return this.model.tournament.findMany({
-			select: { id: true, name: true, prizemoney: true, short: true, start: true, end: true },
+			select: {
+				id: true,
+				name: true,
+				prizemoney: true,
+				short: true,
+				start: true,
+				end: true,
+			},
 		});
 	}
 
@@ -36,10 +41,7 @@ export class TournamentRepository<T extends PrismaClient>
 		return this.model.tournament.findUnique({ where: { id: id } });
 	}
 
-	getHighlighted(
-		prize_pool_min: number = 10000,
-		limit = 5,
-	): Promise<Tournament[]> {
+	getHighlighted(prize_pool_min = 10000, limit = 5): Promise<Tournament[]> {
 		return this.model.tournament.findMany({
 			orderBy: { start: "desc" },
 			take: limit,
@@ -47,7 +49,7 @@ export class TournamentRepository<T extends PrismaClient>
 		});
 	}
 
-	getLatestTournaments(amount: number = 5): Promise<Tournament[]> {
+	getLatestTournaments(amount = 5): Promise<Tournament[]> {
 		return this.model.tournament.findMany({
 			orderBy: { start: "desc" },
 			take: amount,

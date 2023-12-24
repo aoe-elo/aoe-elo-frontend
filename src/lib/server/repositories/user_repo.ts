@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { PrismaClient, User } from "@prisma/client";
+import type { PrismaClient, User } from "@prisma-app/aoe-elo-live-client";
 
 type UserId = User["id"];
 
@@ -13,7 +13,7 @@ interface IUserRepositoryInterface<UserId, UserData>
 export class UserRepository<T extends PrismaClient>
 	implements IUserRepositoryInterface<UserId, User>
 {
-	constructor(private readonly model: T) {}
+	constructor(private readonly model: T) { }
 
 	getAll(): Promise<User[]> {
 		return this.model.user.findMany();

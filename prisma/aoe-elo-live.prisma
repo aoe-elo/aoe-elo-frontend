@@ -3,7 +3,7 @@ generator client {
   // To be able to use two different Prisma clients in one project, you can specify a custom output directory for them.
   // Check: https://github.com/prisma/prisma/issues/2443#issuecomment-630679118
   // This one is used for the MySQL database.
-  output   = "./generated/aoe-elo-live-client"
+  output   = "../node_modules/@prisma-app/aoe-elo-live-client"
 }
 
 datasource db {

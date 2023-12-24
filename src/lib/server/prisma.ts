@@ -1,13 +1,12 @@
-import { PrismaClient as AoeEloLivePrismaClient } from '$prisma/generated/aoe-elo-live-client'
+import { PrismaClient as AoeEloLivePrismaClient } from "@prisma-app/aoe-elo-live-client";
 
-const globalForPrisma = globalThis as unknown as { prisma: AoeEloLivePrismaClient }
+const globalForPrisma = globalThis as unknown as {
+	prisma: AoeEloLivePrismaClient;
+};
 
-export const prisma =
+export const prisma = globalForPrisma.prisma || new AoeEloLivePrismaClient();
 
-	globalForPrisma.prisma || new AoeEloLivePrismaClient()
-
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 export function db_status(database: AoeEloLivePrismaClient) {
 	try {

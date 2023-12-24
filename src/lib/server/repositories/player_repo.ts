@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { IBaseRepositoryInterface } from "$interfaces/repository";
-import type { Player, PrismaClient, PlayerCache, Team, Country } from "@prisma/client";
+import type {
+	Country,
+	Player,
+	PlayerCache,
+	PrismaClient,
+	Team,
+} from "@prisma-app/aoe-elo-live-client";
 
 type PlayerId = Player["id"];
 
@@ -38,10 +44,23 @@ export class PlayerRepository<T extends PrismaClient>
 		});
 	}
 
-	getById(id: PlayerId): Promise<(Player & { cachedPlayerItem?: Partial<PlayerCache>, memberOfTeam?: Partial<Team>, fromCountry?: Partial<Country> }) | null> {
+	getById(
+		id: PlayerId,
+	): Promise<
+		| (Player & {
+			cachedPlayerItem?: Partial<PlayerCache>;
+			memberOfTeam?: Partial<Team>;
+			fromCountry?: Partial<Country>;
+		})
+		| null
+	> {
 		return this.model.player.findUnique({
 			where: { id: id },
-			include: { fromCountry: true, memberOfTeam: true, cachedPlayerItem: true },
+			include: {
+				fromCountry: true,
+				memberOfTeam: true,
+				cachedPlayerItem: true,
+			},
 		});
 	}
 
@@ -50,8 +69,14 @@ export class PlayerRepository<T extends PrismaClient>
 	}
 
 	getTopPlayersByTournamentElo(
-		amount: number = 5,
-	): Promise<(Player & { fromCountry: Country, memberOfTeam: Team, stats: Partial<PlayerCache> })[]> {
+		amount = 5,
+	): Promise<
+		(Player & {
+			fromCountry: Country;
+			memberOfTeam: Team;
+			stats: Partial<PlayerCache>;
+		})[]
+	> {
 		// INFO: This is a workaround/hack for the fact that the elo is not stored in the player table
 		return this.model.playerCache
 			.findMany({

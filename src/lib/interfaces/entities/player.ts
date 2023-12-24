@@ -4,7 +4,7 @@ import type { ITeamDetails } from "./team";
 export interface IPlayer {
 	id: number;
 	name: string;
-	dateStartedActive?: string;	// TODO: maybe derived from the first tournament entry?
+	dateStartedActive?: string; // TODO: maybe derived from the first tournament entry?
 	tournamentElo: number;
 	tournamentEloRank: number;
 	peakElo?: number;
@@ -15,7 +15,7 @@ export interface IPlayer {
 	totalAmountSecond?: number; // TODO: not available yet
 	totalAmountThird?: number; // TODO: not available yet
 	totalAmountSeries: number;
-	seriesWins?: number;  // TODO: what't the difference between this and totalAmountWins?
+	seriesWins?: number; // TODO: what't the difference between this and totalAmountWins?
 	totalGames: number;
 	lifetimeOpponentsTop5?: IPlayerLifetimeTop5Details[]; // TODO: not available yet
 	country: ICountryDetails;
@@ -47,3 +47,7 @@ export interface IPlayerTournament {
 	prizePool: number;
 	matches: IMatch[];
 }
+
+// TODO: Implement
+export interface IPlayerLifetimeTop5Details { }
+export interface IPlayerMatch { }
