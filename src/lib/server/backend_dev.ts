@@ -1,4 +1,4 @@
-import { APP } from "./hooks.server";
+import { APP } from "$shooks";
 
 export async function run_dev() {
 	// APP.repositories.tournaments.getLatestTournaments().then((items) => {

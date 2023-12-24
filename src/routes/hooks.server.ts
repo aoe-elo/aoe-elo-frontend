@@ -1,7 +1,7 @@
 import { app_init } from "$lib/bootstrap";
 import { SearchIndexService } from "$services/SearchIndex.service";
 import type { Handle } from "@sveltejs/kit";
-import { run_dev } from "./backend_dev";
+import { run_dev } from "$lib/server/backend_dev";
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// const session = event.cookies.get ('session')

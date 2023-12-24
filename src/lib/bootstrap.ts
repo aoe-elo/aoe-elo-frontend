@@ -1,11 +1,11 @@
-import { aoe_elo_live_database, db_status } from "$lib/prisma";
+import { prisma, db_status } from "$lib/server/prisma";
 import { app_mode } from "$lib/util";
 import { PlayerRepository } from "$repositories/player_repo";
 import { TeamRepository } from "$repositories/team_repo";
 import { TournamentRepository } from "$repositories/tournament_repo";
 import { UserRepository } from "$repositories/user_repo";
 import type { AppMode } from "$types/enums";
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "$prisma/generated/aoe-elo-live-client";
 
 type InitRepositoryReturnType = {
 	players: PlayerRepository<PrismaClient>;
@@ -33,8 +33,9 @@ type AppInitReturnType = {
 
 export function app_init(): AppInitReturnType {
 	const mode = app_mode();
-	db_status(aoe_elo_live_database);
-	const repositories = init_repositories_with_prisma(aoe_elo_live_database);
+	const connection = prisma;
+	db_status(connection);
+	const repositories = init_repositories_with_prisma(connection);
 
 	return {
 		mode,

@@ -1,4 +1,4 @@
-import { APP } from "./hooks.server";
+import { APP } from "$shooks";
 import type { ITournament } from "$interfaces/entities/tournament";
 import type { ICountryDetails, IPlayer } from "$interfaces/entities/player";
 import type { ITeamDetails } from "$interfaces/entities/team";
