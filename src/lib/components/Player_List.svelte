@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { IPlayer } from '$interfaces/entities/player';
+	import type { IPlayer } from '$repositories/entities/player';
 	import TrophyGrid from './trophy_Grid.svelte';
 	import PlayerSeriesWins2 from './Player_Series_Wins2.svelte';
 

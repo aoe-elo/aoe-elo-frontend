@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { IPlayer } from '$interfaces/entities/player';
+	import type { IPlayer } from '$repositories/entities/player';
 
 	export let thesePlayers: IPlayer[];
 </script>

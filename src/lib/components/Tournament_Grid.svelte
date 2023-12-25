@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ITournament } from '$interfaces/entities/tournament';
+	import type { ITournament } from '$repositories/entities/tournament';
 
 	export let data: ITournament[];
 

@@ -1,8 +1,8 @@
 <script>
-	import PlayerSeriesWins from '../../routes/players/Player_Series_Wins.svelte';
-	import PlayerSeriesWins2 from '../../routes/players/Player_Series_Wins2.svelte';
-	import PlayerTournamentWins from '../../routes/players/Player_Tournament_Wins.svelte';
-	import PlayerTournamentWins2 from '../../routes/players/Player_Tournament_Wins2.svelte';
+	import PlayerSeriesWins from '$lib/components/Player_Series_Wins.svelte';
+	import PlayerSeriesWins2 from '$lib/components/Player_Series_Wins2.svelte';
+	import PlayerTournamentWins from '$lib/components/Player_Tournament_Wins.svelte';
+	import PlayerTournamentWins2 from '$lib/components/Player_Tournament_Wins2.svelte';
 </script>
 
 <div class="mt-20 mb-8">

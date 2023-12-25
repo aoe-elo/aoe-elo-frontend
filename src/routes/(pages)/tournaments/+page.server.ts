@@ -1,14 +1,17 @@
+import type { PageServerLoad } from './$types';
 import API from "$api";
 
-export async function load({ params, locals }) {
 
-	// const [topTournaments, allTournaments] = await Promise.all([
-	// 	API.getLatestTournaments(),
-	// 	API.getLandingPageTournaments(),
-	// ]);
+export const load = (async ({ params, locals }) => {
 
-	// return {
-	// 	topTournaments,
-	// 	allTournaments,
-	// };
-}
+	const [topTournaments, allTournaments] = await Promise.all([
+		API.getLatestTournaments(),
+		API.getLandingPageTournaments(),
+	]);
+
+	return {
+		topTournaments,
+		allTournaments,
+	};
+
+}) satisfies PageServerLoad;
