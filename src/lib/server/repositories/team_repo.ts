@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { IBaseRepositoryInterface } from "$interfaces/repository";
+import type { IBaseRepositoryInterface } from "$lib/server/helpers/repositoryHelper";
 import type { PrismaClient, Team } from "@prisma-app/aoe-elo-live-client";
 
 type TeamId = Team["id"];

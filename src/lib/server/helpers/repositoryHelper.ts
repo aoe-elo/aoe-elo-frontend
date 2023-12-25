@@ -1,7 +1,7 @@
 export interface IBaseRepositoryInterface<Id, Data> {
 	getAll(): Promise<Data[]>;
 	getAllPaginated(offset: number, limit: number): Promise<Data[]>;
-	getById(id: Id): Promise<Data | null>;
+	getById(id: Id): Promise<Data | Partial<Data> | null>;
 	create(
 		details: Partial<Data>,
 		user_id: number,

@@ -1,6 +1,6 @@
-import type { ICountryDetails, IPlayer } from "$interfaces/entities/player";
-import type { ITeamDetails } from "$interfaces/entities/team";
-import type { ITournament } from "$interfaces/entities/tournament";
+import type { ICountryDetails, IPlayer } from "$repositories/entities/player";
+import type { ITeamDetails } from "$repositories/entities/team";
+import type { ITournament } from "$repositories/entities/tournament";
 import { APP } from "$shooks";
 
 /** This is the API that the frontend uses to get data from the backend.
@@ -36,6 +36,11 @@ export default {
 
 	/** Get the highlighted tournaments
 	 *
+	 * TODO!: Implemented as API, switch to it and remove this.
+	 * `/api/v1/tournaments/top?prize_pool_min=10000&limit=5`
+	 * 
+	 * TODO: Ordered by start date descending, maybe we need one by highest prize pool?
+	 * 
 	 * @param prize_pool_min defaults to 10000
 	 * @param limit defaults to 5
 	 * @returns Tournament[]
@@ -46,171 +51,56 @@ export default {
 	},
 
 	/** Get a single player by id
-	 *
+	 * 
+	 * TODO!: Implemented as API, switch to it and remove this.
+	 * `/api/v1/players/{id}`
+	 * 
+	 * 
 	 * @param player_id
-	 * @returns IPlayer[]
+	 * @returns IPlayer
 	 */
 	getPlayerById: (player_id: number) => {
-		return APP.repositories.players.getById(player_id).then((item) => {
-			if (!item) {
-				return null;
-			}
-
-			// map item to IPlayer
-			return {
-				id: item.id,
-				name: item.name,
-				tournamentElo: item.cachedPlayerItem
-					? item.cachedPlayerItem.elo
-					: undefined,
-				tournamentEloRank: item.cachedPlayerItem
-					? item.cachedPlayerItem.rank
-					: undefined,
-				peakElo: item.cachedPlayerItem
-					? item.cachedPlayerItem.elo_peak
-					: undefined,
-				peakEloDate: undefined,
-				totalAmountEarnings: undefined,
-				totalAmountTournaments: item.cachedPlayerItem
-					? item.cachedPlayerItem.tournament_ids?.split(",").length
-					: undefined,
-				totalAmountWins: undefined,
-				totalAmountSecond: undefined,
-				totalAmountThird: undefined,
-				totalAmountSeries: item.cachedPlayerItem
-					? item.cachedPlayerItem.num_matches
-					: undefined,
-				seriesWins: item.cachedPlayerItem
-					? item.cachedPlayerItem.num_wins
-					: undefined,
-				totalGames: undefined,
-				lifetimeOpponentsTop5: undefined,
-				country: item.fromCountry
-					? ({
-							name: item.fromCountry.name,
-							isoKey: item.fromCountry.iso_key,
-							flagUrl: undefined,
-					  } as ICountryDetails)
-					: undefined,
-				historicalElo: undefined,
-				teamActive: item.memberOfTeam
-					? ({
-							id: item.memberOfTeam.id,
-							name: item.memberOfTeam.name,
-							shortName: item.memberOfTeam.tag,
-							logoUrl: undefined,
-							externalPageUrl: undefined,
-					  } as ITeamDetails)
-					: undefined,
-				tournaments: undefined,
-				matches: undefined,
-			} as Partial<IPlayer>;
-		});
+		return APP.repositories.players.getById(player_id);
 	},
 
 	/** Get a single tournament by id
 	 *
+	 * TODO!: Implemented as API, switch to it and remove this.
+	 * `/api/v1/tournaments/{id}`
+	 * 
+	 * 
 	 * @param tournament_id
-	 * @returns ITournament[]
+	 * @returns ITournament
 	 */
 	getTournamentById: (tournament_id: number) => {
-		return APP.repositories.tournaments.getById(tournament_id).then((item) => {
-			if (!item) {
-				return null;
-			}
-
-			// map item to ITournament
-			return {
-				id: item.id,
-				name: item.name,
-				url: item.website ? item.website : undefined,
-				short: item.short,
-				start: item.start ? item.start.toISOString() : undefined,
-				end: item.end ? item.end.toISOString() : undefined,
-				prizemoney: item.prizemoney ? item.prizemoney : undefined,
-			} as ITournament;
-		});
+		return APP.repositories.tournaments.getById(tournament_id);
 	},
 
 	/** Get the top players by tournament elo
 	 *
+	 * TODO!: Implemented as API, switch to it and remove this.
+	 * `/api/v1/players/top?amount=5`
+	 * 
+	 * 
 	 * @param amount defaults to 5
 	 * @returns (Player & { stats: Partial<PlayerCache> })[]
 	 */
 	getTopPlayers: (amount?: number) => {
 		return APP.repositories.players
 			.getTopPlayersByTournamentElo(amount)
-			.then((items) => {
-				// map each item to IPlayer
-
-				return items.map((item) => {
-					if (!item) {
-						return null;
-					}
-
-					return {
-						id: item.id,
-						name: item.name,
-						tournamentElo: item.stats ? item.stats.elo : undefined,
-						tournamentEloRank: item.stats ? item.stats.rank : undefined,
-						peakElo: item.stats ? item.stats.elo_peak : undefined,
-						peakEloDate: undefined,
-						totalAmountEarnings: undefined,
-						totalAmountTournaments: item.stats
-							? item.stats.tournament_ids?.split(",").length
-							: undefined,
-						totalAmountWins: undefined,
-						totalAmountSecond: undefined,
-						totalAmountThird: undefined,
-						totalAmountSeries: item.stats ? item.stats.num_matches : undefined,
-						seriesWins: item.stats ? item.stats.num_wins : undefined,
-						totalGames: undefined,
-						lifetimeOpponentsTop5: undefined,
-						country: item.fromCountry
-							? ({
-									name: item.fromCountry.name,
-									isoKey: item.fromCountry.iso_key,
-									flagUrl: undefined,
-							  } as ICountryDetails)
-							: undefined,
-						historicalElo: undefined,
-						teamActive: item.memberOfTeam
-							? ({
-									id: item.memberOfTeam.id,
-									name: item.memberOfTeam.name,
-									shortName: item.memberOfTeam.tag,
-									logoUrl: undefined,
-									externalPageUrl: undefined,
-							  } as ITeamDetails)
-							: undefined,
-						tournaments: undefined,
-						matches: undefined,
-					} as Partial<IPlayer>;
-				});
-			});
 	},
 
 	/** Get the latest tournaments
 	 *
+	 * TODO!: Implemented as API, switch to it and remove this.
+	 * `/api/v1/tournaments/latest?amount=5`
+	 * 
+	 * 
 	 * @param amount defaults to 5
 	 * @returns ITournament[]
 	 */
 	getLatestTournaments: (amount?: number) => {
 		return APP.repositories.tournaments
 			.getLatestTournaments(amount)
-			.then((items) => {
-				// map items to ITournament
-				return items.map((item) => {
-					return {
-						id: item.id,
-						name: item.name,
-						url: item.website ? item.website : undefined,
-						short: item.short,
-						start: item.start ? item.start.toISOString() : undefined,
-						end: item.end ? item.end.toISOString() : undefined,
-						prizemoney: item.prizemoney ? item.prizemoney : undefined,
-					} as ITournament;
-				});
-			});
 	},
 };

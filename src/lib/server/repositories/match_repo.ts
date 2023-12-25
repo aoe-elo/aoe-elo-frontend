@@ -1,6 +1,6 @@
 // TODO! This file is not in use, but is kept for reference.
 
-// import type { IBaseRepositoryInterface } from "$interfaces/repository";
+// import type { IBaseRepositoryInterface } from "$lib/server/helpers/repositoryHelper";
 // // import type { Set as Match, SetId as MatchId } from "$models/TODO/set.model";
 
 // type IMatchRepositoryInterface<MatchId, MatchData> = IBaseRepositoryInterface<

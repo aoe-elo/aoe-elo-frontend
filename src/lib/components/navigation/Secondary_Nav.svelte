@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { theme, toggleTheme } from '$lib/theme';
+	import { theme, toggleTheme } from '$lib/chooseTheme';
 </script>
 
 <!-- Currently not in use, but could be added quickly depending on final design of header and footer navigation -->

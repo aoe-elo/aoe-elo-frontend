@@ -1,4 +1,4 @@
-import { db_status, prisma } from "$lib/server/prisma";
+import { db_status, prisma } from "$lib/server/dalPrisma";
 import { appMode } from "./shared/utilities/appMode";
 import type { PrismaClient } from "@prisma-app/aoe-elo-live-client";
 import { PlayerRepository } from "$repositories/player_repo";

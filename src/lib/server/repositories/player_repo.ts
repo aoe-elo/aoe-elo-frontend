@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { IBaseRepositoryInterface } from "$interfaces/repository";
+import type { IBaseRepositoryInterface } from "$lib/server/helpers/repositoryHelper";
 import type {
 	Country,
 	Player,
@@ -7,16 +7,18 @@ import type {
 	PrismaClient,
 	Team,
 } from "@prisma-app/aoe-elo-live-client";
+import type { ICountryDetails, IPlayer } from "./entities/player";
+import type { ITeamDetails } from "./entities/team";
 
 type PlayerId = Player["id"];
 
-export interface IPlayerRepositoryInterface<PlayerId, PlayerData>
-	extends IBaseRepositoryInterface<PlayerId, PlayerData> {
-	getByName(name: string): Promise<PlayerData | null>;
-	getAllPartiallyCached(): Promise<Partial<PlayerData>[]>;
+export interface IPlayerRepositoryInterface<PlayerId, IPlayer>
+	extends IBaseRepositoryInterface<PlayerId, IPlayer> {
+	getByName(name: string): Promise<IPlayer | null>;
+	getAllPartiallyCached(): Promise<Partial<IPlayer>[]>;
 	getTopPlayersByTournamentElo(
 		amount: number,
-	): Promise<(PlayerData & { stats: Partial<PlayerCache> })[]>;
+	): Promise<IPlayer[] | (Partial<IPlayer>)[] | null>;
 }
 
 export class PlayerRepository<T extends PrismaClient>
@@ -28,6 +30,7 @@ export class PlayerRepository<T extends PrismaClient>
 		return this.model.player.findMany();
 	}
 
+	
 	getAllPaginated(offset: number, limit = 25): Promise<Player[]> {
 		return this.model.player.findMany({
 			skip: offset,
@@ -46,14 +49,7 @@ export class PlayerRepository<T extends PrismaClient>
 
 	getById(
 		id: PlayerId,
-	): Promise<
-		| (Player & {
-			cachedPlayerItem?: Partial<PlayerCache>;
-			memberOfTeam?: Partial<Team>;
-			fromCountry?: Partial<Country>;
-		})
-		| null
-	> {
+	): Promise<IPlayer | Partial<IPlayer> | null> {
 		return this.model.player.findUnique({
 			where: { id: id },
 			include: {
@@ -61,6 +57,60 @@ export class PlayerRepository<T extends PrismaClient>
 				memberOfTeam: true,
 				cachedPlayerItem: true,
 			},
+		}).then((item) => {
+			if (!item) {
+				return null;
+			}
+
+			// map item to IPlayer
+			return {
+				id: item.id,
+				name: item.name,
+				tournamentElo: item.cachedPlayerItem
+					? item.cachedPlayerItem.elo
+					: undefined,
+				tournamentEloRank: item.cachedPlayerItem
+					? item.cachedPlayerItem.rank
+					: undefined,
+				peakElo: item.cachedPlayerItem
+					? item.cachedPlayerItem.elo_peak
+					: undefined,
+				peakEloDate: undefined,
+				totalAmountEarnings: undefined,
+				totalAmountTournaments: item.cachedPlayerItem
+					? item.cachedPlayerItem.tournament_ids?.split(",").length
+					: undefined,
+				totalAmountWins: undefined,
+				totalAmountSecond: undefined,
+				totalAmountThird: undefined,
+				totalAmountSeries: item.cachedPlayerItem
+					? item.cachedPlayerItem.num_matches
+					: undefined,
+				seriesWins: item.cachedPlayerItem
+					? item.cachedPlayerItem.num_wins
+					: undefined,
+				totalGames: undefined,
+				lifetimeOpponentsTop5: undefined,
+				country: item.fromCountry
+					? ({
+						name: item.fromCountry.name,
+						isoKey: item.fromCountry.iso_key,
+						flagUrl: undefined,
+					} as ICountryDetails)
+					: undefined,
+				historicalElo: undefined,
+				teamActive: item.memberOfTeam
+					? ({
+						id: item.memberOfTeam.id,
+						name: item.memberOfTeam.name,
+						shortName: item.memberOfTeam.tag,
+						logoUrl: undefined,
+						externalPageUrl: undefined,
+					} as ITeamDetails)
+					: undefined,
+				tournaments: undefined,
+				matches: undefined,
+			} as Partial<IPlayer>;
 		});
 	}
 
@@ -70,13 +120,7 @@ export class PlayerRepository<T extends PrismaClient>
 
 	getTopPlayersByTournamentElo(
 		amount = 5,
-	): Promise<
-		(Player & {
-			fromCountry: Country;
-			memberOfTeam: Team;
-			stats: Partial<PlayerCache>;
-		})[]
-	> {
+	): Promise<IPlayer[] | (Partial<IPlayer>)[] | null> {
 		// INFO: This is a workaround/hack for the fact that the elo is not stored in the player table
 		return this.model.playerCache
 			.findMany({
@@ -112,6 +156,53 @@ export class PlayerRepository<T extends PrismaClient>
 					};
 
 					return new_player;
+				});
+			}).then((items) => {
+				// map each item to IPlayer
+
+				return items.map((item) => {
+					if (!item) {
+						return null;
+					}
+
+					return {
+						id: item.id,
+						name: item.name,
+						tournamentElo: item.stats ? item.stats.elo : undefined,
+						tournamentEloRank: item.stats ? item.stats.rank : undefined,
+						peakElo: item.stats ? item.stats.elo_peak : undefined,
+						peakEloDate: undefined,
+						totalAmountEarnings: undefined,
+						totalAmountTournaments: item.stats
+							? item.stats.tournament_ids?.split(",").length
+							: undefined,
+						totalAmountWins: undefined,
+						totalAmountSecond: undefined,
+						totalAmountThird: undefined,
+						totalAmountSeries: item.stats ? item.stats.num_matches : undefined,
+						seriesWins: item.stats ? item.stats.num_wins : undefined,
+						totalGames: undefined,
+						lifetimeOpponentsTop5: undefined,
+						country: item.fromCountry
+							? ({
+								name: item.fromCountry.name,
+								isoKey: item.fromCountry.iso_key,
+								flagUrl: undefined,
+							} as ICountryDetails)
+							: undefined,
+						historicalElo: undefined,
+						teamActive: item.memberOfTeam
+							? ({
+								id: item.memberOfTeam.id,
+								name: item.memberOfTeam.name,
+								shortName: item.memberOfTeam.tag,
+								logoUrl: undefined,
+								externalPageUrl: undefined,
+							} as ITeamDetails)
+							: undefined,
+						tournaments: undefined,
+						matches: undefined,
+					} as Partial<IPlayer>;
 				});
 			});
 	}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	// import SecondaryNav from '$components/Secondary_Nav.svelte';
 
-	import { theme, toggleTheme } from '$lib/theme';
+	import { theme, toggleTheme } from '$lib/chooseTheme';
 
 	let isMenuOpen = false;
 

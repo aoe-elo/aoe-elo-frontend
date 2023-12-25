@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { IBaseRepositoryInterface } from "$interfaces/repository";
+import type { IBaseRepositoryInterface } from "$lib/server/helpers/repositoryHelper";
 import type { PrismaClient, Tournament } from "@prisma-app/aoe-elo-live-client";
+import type { ITournament } from "./entities/tournament";
 
 type TournamentId = Tournament["id"];
 
 interface ITournamentRepositoryInterface<TournamentId, TournamentData>
-	extends IBaseRepositoryInterface<TournamentId, TournamentData> {
+	extends IBaseRepositoryInterface<TournamentId, ITournament> {
 	getByName(name: string): Promise<TournamentData | null>;
 	getAllPartiallyCached(): Promise<Partial<TournamentData>[]>;
-	getLatestTournaments(amount: number): Promise<TournamentData[]>;
+	getLatestTournaments(amount: number): Promise<ITournament[]>;
 }
 
 export class TournamentRepository<T extends PrismaClient>
@@ -16,11 +17,11 @@ export class TournamentRepository<T extends PrismaClient>
 {
 	constructor(private readonly model: T) { }
 
-	getAll(): Promise<Tournament[]> {
+	getAll(): Promise<ITournament[]> {
 		return this.model.tournament.findMany();
 	}
 
-	getAllPaginated(offset: number, limit = 25): Promise<Tournament[]> {
+	getAllPaginated(offset: number, limit = 25): Promise<ITournament[]> {
 		return this.model.tournament.findMany({ skip: offset, take: limit });
 	}
 
@@ -37,11 +38,26 @@ export class TournamentRepository<T extends PrismaClient>
 		});
 	}
 
-	getById(id: TournamentId): Promise<Tournament | null> {
-		return this.model.tournament.findUnique({ where: { id: id } });
+	getById(id: TournamentId): Promise<ITournament | null> {
+		return this.model.tournament.findUnique({ where: { id: id } }).then((item) => {
+			if (!item) {
+				return null;
+			}
+
+			// map item to ITournament
+			return {
+				id: item.id,
+				name: item.name,
+				url: item.website ? item.website : undefined,
+				short: item.short,
+				start: item.start ? item.start.toISOString() : undefined,
+				end: item.end ? item.end.toISOString() : undefined,
+				prizemoney: item.prizemoney ? item.prizemoney : undefined,
+			} as ITournament;
+		});;
 	}
 
-	getHighlighted(prize_pool_min = 10000, limit = 5): Promise<Tournament[]> {
+	getHighlighted(prize_pool_min = 10000, limit = 5): Promise<ITournament[]> {
 		return this.model.tournament.findMany({
 			orderBy: { start: "desc" },
 			take: limit,
@@ -49,11 +65,24 @@ export class TournamentRepository<T extends PrismaClient>
 		});
 	}
 
-	getLatestTournaments(amount = 5): Promise<Tournament[]> {
+	getLatestTournaments(amount = 5): Promise<ITournament[]> {
 		return this.model.tournament.findMany({
 			orderBy: { start: "desc" },
 			take: amount,
-		});
+		}).then((items) => {
+			// map items to ITournament
+			return items.map((item) => {
+				return {
+					id: item.id,
+					name: item.name,
+					url: item.website ? item.website : undefined,
+					short: item.short,
+					start: item.start ? item.start.toISOString() : undefined,
+					end: item.end ? item.end.toISOString() : undefined,
+					prizemoney: item.prizemoney ? item.prizemoney : undefined,
+				} as ITournament;
+			});
+		});;
 	}
 
 	getByName(name: string): Promise<Tournament | null> {
