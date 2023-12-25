@@ -1,13 +1,10 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import Hero from '$components/Page_Hero.svelte';
 	import Latest_Tournament from '$components/Last_Tournament.svelte';
 	import Tournament_Grid from '$components/Tournament_Grid.svelte';
-	import type { ITournament } from '$interfaces/entities/tournament';
 
-	export let data: {
-		topTournaments: ITournament[];
-		allTournaments: ITournament[];
-	};
+	export let data: PageData;
 </script>
 
 <div class="container">

@@ -22,7 +22,6 @@ const config = {
 			$repositories: "src/lib/server/repositories",
 			$shooks: "src/routes/hooks.server",
 			$services: "src/lib/server/services",
-			$types: "src/lib/types",
 			$prisma: "./prisma",
 		},
 		// TODO: SETUP CSP

@@ -17,7 +17,7 @@
 		"postinstall": "npx prisma generate --schema prisma/aoe-elo-live.prisma"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.4.0",
+		"@biomejs/biome": "1.4.1",
 		"@playwright/test": "^1.40.1",
 		"@prisma/client": "^5.7.1",
 		"@sveltejs/adapter-auto": "^3.0.1",
@@ -38,9 +38,8 @@
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
 		"prisma": "^5.7.1",
-		"reflect-metadata": "^0.1.14",
 		"sqlite3": "^5.1.6",
-		"svelte": "4.2.7",
+		"svelte": "4.2.8",
 		"svelte-check": "^3.6.2",
 		"tailwindcss": "^3.4.0",
 		"ts-pattern": "^5.0.6",

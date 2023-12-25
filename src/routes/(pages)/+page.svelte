@@ -4,7 +4,9 @@
 	import PlayerComparison from '$components/Player_Comparison.svelte';
 	import { page } from '$app/stores';
 
-	export let data;
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 
 	console.log(data);
 </script>

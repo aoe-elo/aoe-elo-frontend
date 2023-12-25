@@ -1,6 +1,6 @@
 import { config as DotEnv } from "dotenv";
 import { match } from "ts-pattern";
-import { AppMode } from "./types/enums";
+import { AppMode } from "$lib/types/enums";
 
 export const uppercaseFirst = (str: string) => {
 	return `${str[0].toUpperCase()}${str.substring(1)}`;
