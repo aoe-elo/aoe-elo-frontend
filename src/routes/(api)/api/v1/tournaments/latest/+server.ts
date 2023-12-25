@@ -1,6 +1,7 @@
 import { SiteOptions } from '$lib/configs/siteOptions';
-import { APP } from '$shooks';
+import API from '$lib/server/api';
 import type { RequestHandler } from './$types';
+import { json } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url }) => {
     const amount = url.searchParams.get('amount') ? Number(url.searchParams.get('amount')) : SiteOptions.entityHighlightDefaultLimit;
@@ -11,7 +12,5 @@ export const GET: RequestHandler = async ({ url }) => {
         });
     }
 
-    const response = await APP.repositories.tournaments.getLatestTournaments(amount);
-
-    return new Response(JSON.stringify(response));
+    return json(await API.getLatestTournaments(amount));
 };
