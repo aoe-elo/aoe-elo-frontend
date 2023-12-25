@@ -9,12 +9,7 @@ export default {
 		},
 		container: {
 			center: true,
-			padding: '1rem',
-			screens: {
-				lg: '1394px',
-				xl: '1394px',
-				'2xl': '1394px'
-			}
+			padding: '1rem'
 		},
 		extend: {
 			gridTemplateRows: {
@@ -22,7 +17,10 @@ export default {
 			},
 			gridTemplateColumns: {
 				layout: 'repeat(auto-fill, minmax(250px, 1fr))',
-				layout2: '1fr 2fr'
+				layout2: '1fr 2fr',
+				layout3: '1fr 50%',
+				layout4: '1fr 55%',
+				layout5: 'auto 1fr auto'
 			},
 			colors: {
 				current: 'currentColor',

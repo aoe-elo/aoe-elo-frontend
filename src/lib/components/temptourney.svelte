@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LatestTournament from '$lib/components/latest-tournament.svelte';
+	import LatestTournament from '$components/latest-tournament.svelte';
 	let tourney = getAllTournaments();
 
 	async function getAllTournaments() {
