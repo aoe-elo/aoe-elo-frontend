@@ -3,7 +3,7 @@
 	import TrophyGrid from './trophy_Grid.svelte';
 	import PlayerSeriesWins2 from './Player_Series_Wins2.svelte';
 
-	export let allPlayers: IPlayer[];
+	export let allPlayers: IPlayer[] | Partial<IPlayer>[] | null;
 	console.log(allPlayers);
 
 	function getWinPercentage(wins: number, total: number) {

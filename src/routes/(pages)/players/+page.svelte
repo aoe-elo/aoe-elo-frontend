@@ -2,12 +2,10 @@
 	import Hero from '$lib/components/Page_Hero.svelte';
 	import PlayerGrid from '$components/Player_Grid.svelte';
 	import PlayerList from '$components/Player_List.svelte';
-	import type { IPlayer } from '$repositories/entities/player';
+	import type { PageData } from './$types';
 
-	export let data: {
-		topPlayers: IPlayer[];
-		listPlayers: IPlayer[];
-	};
+	export let data: PageData;
+
 	console.log(data);
 </script>
 

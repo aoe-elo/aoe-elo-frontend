@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ITournament } from '$repositories/entities/tournament';
 
-	export let data: ITournament[];
+	export let data: ITournament[] | Partial<ITournament>[];
 
 	function getTourneyDates(dates: string, year: boolean) {
 		let date = new Date(dates);

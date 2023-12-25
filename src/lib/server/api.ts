@@ -20,7 +20,7 @@ export default {
 
 	/** Get the tournaments for the landing page
 	 *
-	 * @returns Partial<Tournament>[]
+	 * @returns Partial<ITournament>[]
 	 */
 	getLandingPageTournaments: () => {
 		return APP.repositories.tournaments.getAllPartiallyCached();

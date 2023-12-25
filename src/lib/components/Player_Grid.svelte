@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { IPlayer } from '$repositories/entities/player';
 
-	export let thesePlayers: IPlayer[];
+	export let thesePlayers: IPlayer[] | Partial<IPlayer>[] | null;
 </script>
 
 <div class="my-10 grid grid-cols-1 md:grid-cols-2 gap-6">
