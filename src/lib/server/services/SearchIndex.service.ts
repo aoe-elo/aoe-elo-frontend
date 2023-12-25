@@ -96,7 +96,7 @@ export class SearchIndexService {
 
 		// save base data to restore the index later
 		writeFile(
-			"src/lib/data/data_index.json",
+			"index-data/data_index.json",
 			JSON.stringify(searchIndexData),
 			(err) => {
 				if (err) throw err;
@@ -112,7 +112,7 @@ export class SearchIndexService {
 
 		// save index to restore the it later together with the base data
 		writeFile(
-			"src/lib/data/fuse_index.json",
+			"index-data/fuse_index.json",
 			JSON.stringify(fuseIndex.toJSON()),
 			(err) => {
 				if (err) throw err;
@@ -160,7 +160,7 @@ export class SearchIndexService {
 
 		// save base data to restore the index later
 		writeFile(
-			"src/lib/data/data_comparison_index.json",
+			"index-data/data_comparison_index.json",
 			JSON.stringify(playerIndexData),
 			(err) => {
 				if (err) throw err;
@@ -173,7 +173,7 @@ export class SearchIndexService {
 
 		// save index to restore the it later together with the base data
 		writeFile(
-			"src/lib/data/fuse_comparison_index.json",
+			"index-data/fuse_comparison_index.json",
 			JSON.stringify(fuseIndex.toJSON()),
 			(err) => {
 				if (err) throw err;

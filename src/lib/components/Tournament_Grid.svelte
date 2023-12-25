@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ITournament } from '$interfaces/entities/tournament';
 
-	export let theseTournaments: ITournament[];
+	export let data: ITournament[];
 
 	function getTourneyDates(dates: string, year: boolean) {
 		let date = new Date(dates);
@@ -20,7 +20,7 @@
 </script>
 
 <div class="my-10 grid grid-cols-layout gap-7">
-	{#each theseTournaments as tourney, id}
+	{#each data as tourney, id}
 		<div class="p-8 cardbg grid grid-rows-layout">
 			<img
 				class="mx-auto h-40 max-h-full mb-4"
