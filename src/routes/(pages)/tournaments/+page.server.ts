@@ -1,8 +1,14 @@
 import API from "$api";
 
 export async function load({ params, locals }) {
-	return await {
-		topTournaments: API.getLatestTournaments(),
-		allTournaments: API.getLandingPageTournaments(),
+
+	const [topTournaments, allTournaments] = await Promise.all([
+		API.getLatestTournaments(),
+		API.getLandingPageTournaments(),
+	]);
+
+	return {
+		topTournaments,
+		allTournaments,
 	};
 }
