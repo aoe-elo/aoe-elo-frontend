@@ -1,0 +1,25 @@
+generator client {
+    provider = "prisma-client-js"
+    // To be able to use two different Prisma clients in one project, you can specify a custom output directory for them.
+    // Check: https://github.com/prisma/prisma/issues/2443#issuecomment-630679118
+    // This one is used for the local SQLite database.
+    output   = "../node_modules/@prisma-app/local-client"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("AOE_ELO_LOCAL_DATABASE_URL")
+}
+
+model MetadataCache {
+    id            String   @id @default(uuid())
+    url           String   @unique
+    type          String
+    version       String // e.g. small, medium, large, thumbnail
+    hash          String?
+    thumbnail_url String?
+    description   String?
+    isPrivate     Boolean  @default(false)
+    createdAt     DateTime
+    updatedAt     DateTime @updatedAt
+}

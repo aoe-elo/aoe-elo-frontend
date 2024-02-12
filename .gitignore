@@ -17,5 +17,5 @@ vite.config.ts.timestamp-*
 database/*.sqlite*
 
 # Generated
-prisma/generated
+src/lib/generated
 database/backups/*

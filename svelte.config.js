@@ -1,5 +1,5 @@
 import adapter from "@sveltejs/adapter-auto";
-import { vitePreprocess } from "@sveltejs/kit/vite";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { config as DotEnv } from "dotenv";
 
 const model_dir = DotEnv().parsed?.AOE_ELO_DB_MODEL_DIR ?? "models";
@@ -15,14 +15,38 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		alias: {
-			$api: "src/routes/api",
+			$api: "src/lib/server/api",
 			$components: "src/lib/components",
 			$interfaces: "src/lib/interfaces",
 			$models: model_dir,
-			$repositories: "src/lib/repositories",
-			$services: "src/lib/services",
-			$types: "src/lib/types",
+			$repositories: "src/lib/server/repositories",
+			$shooks: "src/routes/hooks.server",
+			$services: "src/lib/server/services",
+			$prisma: "./prisma",
 		},
+		// TODO: SETUP CSP
+		// csp: {
+		// 	mode: 'auto',
+		// 	directives: {
+		// 		'script-src': ['self'],
+		// 		'default-src': ['self', 'https:'],
+		// 		'connect-src': ['self', 'https:'],
+		// 		'font-src': ['self', 'https://fonts.gstatic.com', 'data:'],
+		// 		'frame-src': ['self'],
+		// 		'child-src': ['none'],
+		// 		'img-src': ['self', 'data: https:'],
+		// 		'media-src': ['self'],
+		// 		'object-src': ['none'],
+		// 		'style-src': ['self', 'unsafe-inline', 'fonts.gstatic.com', 'fonts.googleapis.com'],
+		// 		'worker-src': ['self'],
+		// 		'form-action': ['self'],
+		// 		'base-uri': ['self'],
+		// 		'frame-ancestors': ['none'],
+		// 		'report-to': ['self'],
+		// 		'report-uri': ['self'],
+		// 		'upgrade-insecure-requests': true
+		// 	}
+		// },
 	},
 };
 
