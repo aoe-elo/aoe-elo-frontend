@@ -17,7 +17,7 @@
 		"postinstall": "npx prisma generate --schema prisma/aoe-elo-live.prisma"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.4.1",
+		"@biomejs/biome": "1.9.4",
 		"@playwright/test": "^1.40.1",
 		"@prisma/client": "^5.7.1",
 		"@sveltejs/adapter-auto": "^3.0.1",
