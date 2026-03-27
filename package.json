@@ -46,7 +46,7 @@
 		"ts-results": "^3.3.0",
 		"tslib": "^2.6.2",
 		"typescript": "^5.3.3",
-		"vite": "^5.0.10",
+		"vite": "^4.5.1",
 		"vitest": "^1.1.0"
 	},
 	"type": "module"
